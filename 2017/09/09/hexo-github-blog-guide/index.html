@@ -1,0 +1,442 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  
+  <title>MAC搭建个人博客hexo+github详细完整步骤 | hankliu小博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="自己也算是摸爬滚打搭建成功，然后自己再重新安装部署一遍，把完整步骤分享给大家，同时最后有一些连接，如果我的步骤不行，大家可以参考其他人的. 一、安装HomebrewHomebrew是基于Ruby的，所以安装过程也是很简单的，把下面的代码粘贴到Terminal中执行 /usr/bin/ruby -e &amp;quot;$(curl -fsSL https://raw.githubusercontent.c">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MAC搭建个人博客hexo+github详细完整步骤">
+<meta property="og:url" content="http://yoursite.com/2017/09/09/hexo-github-blog-guide/index.html">
+<meta property="og:site_name" content="hankliu小博客">
+<meta property="og:description" content="自己也算是摸爬滚打搭建成功，然后自己再重新安装部署一遍，把完整步骤分享给大家，同时最后有一些连接，如果我的步骤不行，大家可以参考其他人的. 一、安装HomebrewHomebrew是基于Ruby的，所以安装过程也是很简单的，把下面的代码粘贴到Terminal中执行 /usr/bin/ruby -e &amp;quot;$(curl -fsSL https://raw.githubusercontent.c">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://user-images.githubusercontent.com/8088864/30236069-ba7e712e-9544-11e7-910a-7ec04c1d5579.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/8088864/30236377-b5343392-954a-11e7-9566-927e43ec4983.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/8088864/30236355-4d1f8f18-954a-11e7-8da7-54d3f9ae1c91.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/8088864/30236442-e26003fe-954b-11e7-9313-89dca90d1984.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/8088864/30236472-81f5d998-954c-11e7-9512-4e9fa6aa14fe.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/8088864/30236636-63a2de56-9550-11e7-9ff4-3efba9c58b14.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/8088864/30236643-a79dff46-9550-11e7-888e-2dbfe2cf3773.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/8088864/30236675-5734e9ec-9551-11e7-8ecc-e38b4e0d98e8.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/8088864/30236715-7a372e04-9552-11e7-8bb7-48a5d8722059.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/8088864/30236720-9eed71d6-9552-11e7-9187-c3fac4052b28.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/8088864/30236724-aedbb9d6-9552-11e7-9a8c-2398388b9321.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/8088864/30236738-37332f94-9553-11e7-8714-e47de3fdecd6.png">
+<meta property="og:updated_time" content="2017-09-09T03:44:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MAC搭建个人博客hexo+github详细完整步骤">
+<meta name="twitter:description" content="自己也算是摸爬滚打搭建成功，然后自己再重新安装部署一遍，把完整步骤分享给大家，同时最后有一些连接，如果我的步骤不行，大家可以参考其他人的. 一、安装HomebrewHomebrew是基于Ruby的，所以安装过程也是很简单的，把下面的代码粘贴到Terminal中执行 /usr/bin/ruby -e &amp;quot;$(curl -fsSL https://raw.githubusercontent.c">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/8088864/30236069-ba7e712e-9544-11e7-910a-7ec04c1d5579.png">
+  
+    <link rel="alternative" href="/atom.xml" title="hankliu小博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="http://oiq00n80p.bkt.clouddn.com/favicons_2_16.png" sizes="16x16">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+  
+
+</head>
+
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <nav id="upper-nav" class="inner">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      <div class="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        
+          <a id="nav-github" class="nav-icon" href="https://github.com/biluo62"></a>
+        
+      </div>
+    </nav>
+    <div id="header-title">
+      
+        <h1 id="blog-title-wrap">
+          <a href="/" id="blog-title">hankliu</a>
+        </h1>
+      
+      
+        <h5 class="blog-subtitle-wrap">我们在梦里走过许多路，醒来后却发现自己还在床上。</h5>
+      
+    </div>
+    <div id="contenedor">
+      <ul class="cube">
+        <li class="cara"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="100" width="100" viewBox="-50 -50 200 200">
+          <circle cx="50" cy="50" r="45" stroke-width="5" stroke="black" stroke-opacity="0.5" fill-opacity="0"></circle>
+          <rect x="47.5" y="27.5" width="5" height="25" rx="2.5" ry="2.5" fill="black" fill-opacity="0.5" transform="rotate(330 50 50)"></rect>
+          <rect x="48.5" y="16.5" width="3" height="35" rx="1.5" ry="1.5" fill="black" fill-opacity="0.5"></rect>
+        </svg></li>
+        <li class="cara">L</li>
+        <li class="cara">X</li>
+        <li class="cara">P</li>
+        <li class="cara">C</li>
+        <li class="cara">Y</li>
+      </ul>
+    </div>
+    <nav id="main-nav">
+      
+        <a class="main-nav-link" href="/">Home</a>
+      
+        <a class="main-nav-link" href="/archives">Archives</a>
+      
+        <a class="main-nav-link" href="/about">About</a>
+      
+      <a class="main-nav-link st-search-show-outputs">Search</a>
+    </nav>
+  </div>
+</header>
+
+    <div class="outer">
+      <section id="main"><article id="post-hexo-github-blog-guide" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2017/09/09/hexo-github-blog-guide/" class="article-date">
+  <time datetime="2017-09-09T00:40:29.000Z" itemprop="datePublished">2017-09-09</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      MAC搭建个人博客hexo+github详细完整步骤
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <p>自己也算是摸爬滚打搭建成功，然后自己再重新安装部署一遍，把完整步骤分享给大家，同时最后有一些连接，如果我的步骤不行，大家可以参考其他人的.</p>
+<h2 id="一、安装Homebrew"><a href="#一、安装Homebrew" class="headerlink" title="一、安装Homebrew"></a>一、安装Homebrew</h2><p>Homebrew是基于Ruby的，所以安装过程也是很简单的，把下面的代码粘贴到Terminal中执行</p>
+<pre><code class="sh">/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
+</code></pre>
+<p>查看安装是否成功:</p>
+<pre><code class="sh">brew --version
+</code></pre>
+<p>如下图所示表示安装成功</p>
+<p><img src="https://user-images.githubusercontent.com/8088864/30236069-ba7e712e-9544-11e7-910a-7ec04c1d5579.png" alt="image"></p>
+<p>更多的brew命令</p>
+<pre><code class="sh">//查看brew的帮助
+brew –help
+
+//安装软件
+brew install git
+
+//卸载软件
+brew uninstall git
+
+//搜索软件
+brew search git
+
+//显示已经安装软件列表
+brew list
+
+//更新软件，把所有的Formula目录更新，并且会对本机已经安装并有更新的软件用*标明。
+brew update
+
+//更新某具体软件
+brew upgrade git
+
+//查看软件信息
+brew [info | home] [FORMULA...]
+
+//删除程序，和upgrade一样，单个软件删除和所有程序老版删除。
+brew cleanup git
+brew cleanup
+
+//查看那些已安装的程序需要更新
+brew outdated
+
+
+//其它Homebrew指令:
+brew list   //—列出已安装的软件
+
+brew update   //—更新Homebrew
+
+brew home *   //—用浏览器打开
+
+brew info *   //—显示软件内容信息
+
+brew deps *    //—显示包依赖
+
+brew server *  //—启动web服务器，可以通过浏览器访问
+                 //http://localhost:4567/ 来同网页来管理包
+
+brew -h brew   //—帮助
+</code></pre>
+<h2 id="二、安装Git"><a href="#二、安装Git" class="headerlink" title="二、安装Git"></a>二、安装Git</h2><h3 id="1、使用brew安装Git"><a href="#1、使用brew安装Git" class="headerlink" title="1、使用brew安装Git"></a>1、使用brew安装Git</h3><pre><code class="sh">brew install git
+</code></pre>
+<h3 id="2、完成安装"><a href="#2、完成安装" class="headerlink" title="2、完成安装"></a>2、完成安装</h3><p>查看是否安装成功</p>
+<pre><code class="sh">git --version
+</code></pre>
+<p><img src="https://user-images.githubusercontent.com/8088864/30236377-b5343392-954a-11e7-9566-927e43ec4983.png" alt="Git安装成功"></p>
+<h2 id="三、通过nvm安装指定版本的node"><a href="#三、通过nvm安装指定版本的node" class="headerlink" title="三、通过nvm安装指定版本的node"></a>三、通过nvm安装指定版本的node</h2><h3 id="1、安装nvm"><a href="#1、安装nvm" class="headerlink" title="1、安装nvm"></a>1、安装nvm</h3><pre><code class="sh">brew install nvm
+</code></pre>
+<h3 id="2、配置nvm"><a href="#2、配置nvm" class="headerlink" title="2、配置nvm"></a>2、配置nvm</h3><p>配置nvm在shell中可以使用nvm命令，修改<code>~/.bash_profile</code>文件，如果不存在，新建<code>.bash_profile</code>文件</p>
+<pre><code class="sh">cd ~
+vim .bash_profile
+</code></pre>
+<p>在文件中添加如下命令:</p>
+<pre><code class="bash_profile">export NVM_DIR=~/.nvm
+source $(brew --prefix nvm)/nvm.sh
+</code></pre>
+<p>重新source</p>
+<pre><code class="sh">source .bash_profile
+</code></pre>
+<h3 id="3、安装node"><a href="#3、安装node" class="headerlink" title="3、安装node"></a>3、安装node</h3><pre><code class="sh">nvm ls-remote 查看 所有的node可用版本
+
+nvm install xxx 下载你想要的版本
+
+nvm use xxx 使用指定版本的node
+
+nvm alias default xxx 每次启动终端都使用该版本的node
+</code></pre>
+<h3 id="4、完成安装"><a href="#4、完成安装" class="headerlink" title="4、完成安装"></a>4、完成安装</h3><p>查看是否安装成功</p>
+<pre><code class="sh">node -v
+npm -v
+</code></pre>
+<p><img src="https://user-images.githubusercontent.com/8088864/30236355-4d1f8f18-954a-11e7-8da7-54d3f9ae1c91.png" alt="Node安装成功"></p>
+<h2 id="四、安装hexo"><a href="#四、安装hexo" class="headerlink" title="四、安装hexo"></a>四、安装hexo</h2><h3 id="1、利用npm命令即可安装"><a href="#1、利用npm命令即可安装" class="headerlink" title="1、利用npm命令即可安装"></a>1、利用npm命令即可安装</h3><p>全局安装</p>
+<pre><code class="sh">npm install -g hexo
+</code></pre>
+<h2 id="五、初始化Hexo"><a href="#五、初始化Hexo" class="headerlink" title="五、初始化Hexo"></a>五、初始化Hexo</h2><h3 id="1、创建Blog所在的文件夹"><a href="#1、创建Blog所在的文件夹" class="headerlink" title="1、创建Blog所在的文件夹"></a>1、创建Blog所在的文件夹</h3><pre><code class="sh">cd /Users/**/Workspace/github
+mdkir hankliu62.github.com
+</code></pre>
+<h3 id="2、hexo初始化"><a href="#2、hexo初始化" class="headerlink" title="2、hexo初始化"></a>2、hexo初始化</h3><pre><code class="sh">hexo init
+</code></pre>
+<p>初始化成功后会生成如下文件</p>
+<p><img src="https://user-images.githubusercontent.com/8088864/30236442-e26003fe-954b-11e7-9313-89dca90d1984.png" alt="Hexo初始化成功"></p>
+<h3 id="3、在-config-yml进行基础配置"><a href="#3、在-config-yml进行基础配置" class="headerlink" title="3、在_config.yml进行基础配置"></a>3、在_config.yml进行基础配置</h3><p>配置<em>title</em>, <em>author</em>, <em>description</em>等基本信息</p>
+<p><img src="https://user-images.githubusercontent.com/8088864/30236472-81f5d998-954c-11e7-9512-4e9fa6aa14fe.png" alt="基础配置"></p>
+<h3 id="4、设置主题"><a href="#4、设置主题" class="headerlink" title="4、设置主题"></a>4、设置主题</h3><p>可以<a href="https://hexo.io/themes/" target="_blank" rel="external">Hexo主题</a>页面中选择与自己相匹配的主题，使用Git clone到themes目录下，配置成自己博客的主题, 这些主题都是安装作者的喜好来开发的，我们可以Fork这个project，根据自己的喜好来进行二次开发和设置</p>
+<pre><code class="sh">cd themes
+
+https://github.com/hankliu62/hexo-theme-paperbox.git
+</code></pre>
+<h3 id="5、添加博客文章"><a href="#5、添加博客文章" class="headerlink" title="5、添加博客文章"></a>5、添加博客文章</h3><p>源文件一般为markdown文件，所以在写博客之前我们需要先了解<a href="http://www.appinn.com/markdown/" target="_blank" rel="external">markdown的基本语法</a>, 将完成的文章放到<code>source/_posts</code>路径下。</p>
+<p><img src="https://user-images.githubusercontent.com/8088864/30236636-63a2de56-9550-11e7-9ff4-3efba9c58b14.png" alt="文章"></p>
+<h3 id="6、启动本地服务，浏览本地博客"><a href="#6、启动本地服务，浏览本地博客" class="headerlink" title="6、启动本地服务，浏览本地博客"></a>6、启动本地服务，浏览本地博客</h3><pre><code class="sh">hexo g
+
+hexo s
+</code></pre>
+<p>更多<a href="https://segmentfault.com/a/1190000002632530" target="_blank" rel="external">hexo命令</a></p>
+<pre><code class="sh"># 启动服务
+hexo server # Hexo 会监视文件变动并自动更新，您无须重启服务器。
+hexo s # 简写
+hexo server
+hexo server -s # 静态模式
+hexo server -p 5000 # 更改端口
+hexo server -i 192.168.1.1 # 自定义 IP
+# INFO Hexo is running at http://0.0.0.0:4000/. Press Ctrl+C to stop.
+
+#清除缓存
+hexo clean #网页正常情况下可以忽略此条命令
+# INFO  Deleted database.
+# INFO  Deleted public folder.
+
+# 新建文件夹（自动在文件夹下新建index.md）
+hexo new page &quot;file&quot;
+# INFO Created: D:...\blog\source\file\index.md
+
+# 新建文章
+hexo n fileName
+hexo new &quot;fileName&quot;
+hexo new post fileName
+hexo new post &quot;fileName&quot;
+# INFO Created: D:...\blog\source\_posts\fileName.md
+
+# 生成/编译/发布(生成静态网页)
+hexo generate
+hexo g
+hexo generate --watch # 监视文件变动
+# INFO Files loaded in 2.03 s
+# INFO Deleted: ......
+# INFO Generated: ......
+# INFO 108 files generatd in 8.44 s
+
+# 部署
+hexo deploy
+hexo d
+
+# 完成后部署(两个命令的作用是相同的)
+hexo generate --deploy
+hexo deploy --generate
+hexo deploy -g
+hexo server -g
+</code></pre>
+<h3 id="7、浏览器输入http-localhost-4000进行访问"><a href="#7、浏览器输入http-localhost-4000进行访问" class="headerlink" title="7、浏览器输入http://localhost:4000进行访问"></a>7、浏览器输入<code>http://localhost:4000</code>进行访问</h3><p><img src="https://user-images.githubusercontent.com/8088864/30236643-a79dff46-9550-11e7-888e-2dbfe2cf3773.png" alt="博客"></p>
+<h2 id="六、部署到Github"><a href="#六、部署到Github" class="headerlink" title="六、部署到Github"></a>六、部署到Github</h2><h3 id="1、申请Github账号"><a href="#1、申请Github账号" class="headerlink" title="1、申请Github账号"></a>1、申请Github账号</h3><h3 id="2、New-repository"><a href="#2、New-repository" class="headerlink" title="2、New repository"></a>2、New repository</h3><p><img src="https://user-images.githubusercontent.com/8088864/30236675-5734e9ec-9551-11e7-8ecc-e38b4e0d98e8.png" alt="New repository"></p>
+<p>注意: 输入<code>Repository name</code>时，最好与前面的<code>username</code>保持一致(上图不一致是因为我已经使用<code>hankliu62.github.com</code>创建了一个github仓库了)</p>
+<h3 id="3、选择hankliu62-hankliu62-github-com-gt-gt-Settings-gt-gt-GitHub-Pages-gt-gt-Choose-a-theme"><a href="#3、选择hankliu62-hankliu62-github-com-gt-gt-Settings-gt-gt-GitHub-Pages-gt-gt-Choose-a-theme" class="headerlink" title="3、选择hankliu62/hankliu62.github.com &gt;&gt; Settings &gt;&gt; GitHub Pages &gt;&gt; Choose a theme"></a>3、选择<code>hankliu62/hankliu62.github.com</code> &gt;&gt; <code>Settings</code> &gt;&gt; <code>GitHub Pages</code> &gt;&gt; <code>Choose a theme</code></h3><p><img src="https://user-images.githubusercontent.com/8088864/30236715-7a372e04-9552-11e7-8bb7-48a5d8722059.png" alt="选择主题"></p>
+<p><img src="https://user-images.githubusercontent.com/8088864/30236720-9eed71d6-9552-11e7-9187-c3fac4052b28.png" alt="选择主题"></p>
+<p><img src="https://user-images.githubusercontent.com/8088864/30236724-aedbb9d6-9552-11e7-9a8c-2398388b9321.png" alt="选择主题"></p>
+<p>随便选择一个主题，最终会使用hexo中选择的主题样式，这里就无所谓了</p>
+<h3 id="4、设置index-md-访问github博客"><a href="#4、设置index-md-访问github博客" class="headerlink" title="4、设置index.md, 访问github博客"></a>4、设置index.md, 访问github博客</h3><p><img src="https://user-images.githubusercontent.com/8088864/30236738-37332f94-9553-11e7-8714-e47de3fdecd6.png" alt="设置index.md"></p>
+<h3 id="5、结合hexo，发布到github"><a href="#5、结合hexo，发布到github" class="headerlink" title="5、结合hexo，发布到github"></a>5、结合hexo，发布到github</h3><p>进入第三步创建的<code>hankliu62.github.com</code>文件夹，在<code>_config.yml</code>配置对于的github仓库, 以及本次提交的信息</p>
+<pre><code class="sh">cd hankliu62.github.com
+
+vim _config.yml
+</code></pre>
+<p>配置信息和提交信息如下:</p>
+<pre><code class="_config.yml"># Deployment
+## Docs: https://hexo.io/docs/deployment.html
+deploy:
+  type: git
+  message: &quot;feat(blog): add hexo-github-blog-guide article&quot;
+  branch: master
+  repo: https://github.com/hankliu62/hankliu62.github.com.git
+</code></pre>
+<p>生成静态文件，再部署</p>
+<pre><code class="sh">hexo g
+hexo d
+</code></pre>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+        <a data-url="http://yoursite.com/2017/09/09/hexo-github-blog-guide/" data-id="cj7cqm6th000068cg3vpkwvhv" class="article-share-link">分享到</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/12/24/javascript-common-function/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">Javascript语法糖</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+      
+      <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">近期文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/09/09/hexo-github-blog-guide/">MAC搭建个人博客hexo+github详细完整步骤</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/24/javascript-common-function/">Javascript语法糖</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/24/ubuntu-netstat/">ubuntu查看和关闭端口</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/24/javascript-module/">菜鸟学习Javascript模块化</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Javascript/">Javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PID/">PID</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/模块化/">模块化</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 hankliu<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/sun11/hexo-theme-paperbox" target="_blank">Paperbox</a>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+  <a href="#search" class="mobile-nav-link st-search-show-outputs">Search</a>
+</nav>
+  
+
+<!-- totop start -->
+<div id="totop">
+	<a title="返回顶部"></a>
+</div>
+<!-- totop end -->
+
+<!-- swiftype search start -->
+
+<!-- swiftype search end -->
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/lrsjng.jquery-qrcode/0.12.0/jquery.qrcode.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+</div>
+</body>
+</html>
