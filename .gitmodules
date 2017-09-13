@@ -1,0 +1,3 @@
+[submodule "themes/hexo-theme-paperbox"]
+	path = themes/hexo-theme-paperbox
+	url = https://github.com/hankliu62/hexo-theme-paperbox.git
