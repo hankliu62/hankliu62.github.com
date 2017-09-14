@@ -1,3 +1,5 @@
 /node_modules/
 .deploy_git/
 themes/hexo-theme-laughing
+public/
+db.json
