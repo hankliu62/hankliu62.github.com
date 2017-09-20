@@ -1,3 +1,4 @@
+---
 title: 菜鸟学习Javascript模块化
 date: 2015-12-24 18:55:37
 tag: [Javascript, 模块化]

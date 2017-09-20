@@ -1,3 +1,4 @@
+---
 title: Javascript语法糖
 date: 2015-12-24 19:18:13
 tags: [javascript]
