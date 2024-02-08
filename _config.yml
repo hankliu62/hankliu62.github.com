@@ -3,16 +3,16 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: hankliu小博客
-subtitle: 汐.
-author: hankliu
-description: 我们在梦里走过许多路，醒来后却发现自己还在床上。
+title: HankLiu的博客小屋
+subtitle: 卡鲁秋
+author: HankLiu
+description: 努力去听风的声音，不必在意风的方向。
 language: zh-cn
 timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://yoursite.com
+url: https://hankliu62.github.io
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -74,11 +74,15 @@ pagination_dir: page
 ## Themes: https://hexo.io/themes/
 theme: hexo-theme-paperbox
 
+
+# Version 如果修改css的话一定要更新该值，否则会使用缓存中的css
+version: 1
+
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  message: "feat(article): add use weinre to debug mobile web page article"
+  message: "feat(blog): remove style cache"
   branch: master
   repo: https://github.com/hankliu62/hankliu62.github.com.git
 
