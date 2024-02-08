@@ -2,11 +2,11 @@
 
 ---
 
-## 1. git clone https://github.com/hankliu62/hankliu62-blog-resources.git hankliu62-blog-resources
+## 1. git clone -b main https://github.com/hankliu62/hankliu62.github.com.git hankliu62.github.com
 
 克隆项目
 
-## 2. cd hankliu62-blog-resources
+## 2. cd hankliu62.github.com
 
 进入项目根目录
 
