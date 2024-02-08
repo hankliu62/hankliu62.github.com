@@ -2,7 +2,7 @@
 
 ---
 
-## 1. git clone -b main https://github.com/hankliu62/hankliu62.github.com.git hankliu62.github.com
+## 1. git clone https://github.com/hankliu62/hankliu62.github.com.git hankliu62.github.com
 
 克隆项目
 
