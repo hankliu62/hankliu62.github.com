@@ -26,7 +26,7 @@
   
     <link rel="icon" href="/img/favicon.ico" sizes="16x16">
   
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/style.css?t=1">
   
     <link href="//fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
   
@@ -117,27 +117,27 @@
     <div class="article-entry" itemprop="articleBody">
       
         
-        <h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><p>今天在使用 git clone nextjs demo project 源代码的时， git clone <a href="https://github.com/Weibozzz/next-blog.git" target="_blank" rel="external">https://github.com/Weibozzz/next-blog.git</a> 下载速度很慢，然后下载一段时间后，总是提示下面的错误信息</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">nCloning into 'next-blog'...</div><div class="line">remote: Enumerating objects: 111, done.</div><div class="line">remote: Counting objects: 100% (111/111), done.</div><div class="line">remote: Compressing objects: 100% (83/83), done.</div><div class="line">error: RPC failed; curl 18 transfer closed with outstanding read data remaining</div><div class="line">fatal: The remote end hung up unexpectedly</div><div class="line">fatal: early EOF</div><div class="line">fatal: index-pack failed</div></pre></td></tr></table></figure>
+        <h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><p>今天在使用 git clone nextjs demo project 源代码的时， git clone <a href="https://github.com/Weibozzz/next-blog.git" target="_blank" rel="noopener">https://github.com/Weibozzz/next-blog.git</a> 下载速度很慢，然后下载一段时间后，总是提示下面的错误信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">nCloning into 'next-blog'...</span><br><span class="line">remote: Enumerating objects: 111, done.</span><br><span class="line">remote: Counting objects: 100% (111/111), done.</span><br><span class="line">remote: Compressing objects: 100% (83/83), done.</span><br><span class="line">error: RPC failed; curl 18 transfer closed with outstanding read data remaining</span><br><span class="line">fatal: The remote end hung up unexpectedly</span><br><span class="line">fatal: early EOF</span><br><span class="line">fatal: index-pack failed</span><br></pre></td></tr></table></figure>
 <h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>由于Http协议错误，当 pull 或者 clone 的时候，或者是 github 某个CDN被伟大的墙屏蔽所致。</p>
 <h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><h3 id="协议错误"><a href="#协议错误" class="headerlink" title="协议错误"></a>协议错误</h3><ol>
 <li><p>先执行下列命令</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git config --global http.postBuffer 524288000</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global http.postBuffer 524288000</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>再执行git pull 或者 git clone命令</p>
 </li>
 </ol>
 <h3 id="墙屏蔽"><a href="#墙屏蔽" class="headerlink" title="墙屏蔽"></a>墙屏蔽</h3><ol>
-<li><p>访问 <a href="http://github.global.ssl.fastly.net.ipaddress.com/#ipinfo" target="_blank" rel="external">http://github.global.ssl.fastly.net.ipaddress.com/#ipinfo</a><br>获取cdn域名以及IP地址</p>
+<li><p>访问 <a href="http://github.global.ssl.fastly.net.ipaddress.com/#ipinfo" target="_blank" rel="noopener">http://github.global.ssl.fastly.net.ipaddress.com/#ipinfo</a><br>获取cdn域名以及IP地址</p>
 </li>
-<li><p>访问 <a href="http://github.com.ipaddress.com/#ipinfo" target="_blank" rel="external">http://github.com.ipaddress.com/#ipinfo</a> 获取cdn域名以及IP地址        <img src="https://user-images.githubusercontent.com/8088864/48385665-42ca5880-e72a-11e8-9281-d825b6f66fe8.png" alt="cdn域名以及IP地址"></p>
+<li><p>访问 <a href="http://github.com.ipaddress.com/#ipinfo" target="_blank" rel="noopener">http://github.com.ipaddress.com/#ipinfo</a> 获取cdn域名以及IP地址        <img src="https://user-images.githubusercontent.com/8088864/48385665-42ca5880-e72a-11e8-9281-d825b6f66fe8.png" alt="cdn域名以及IP地址"></p>
 </li>
 <li><p>将上述获取的IP地址添加到<code>/etc/hosts</code>中</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo vim /etc/hosts</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/hosts</span><br></pre></td></tr></table></figure>
 <p><img src="https://user-images.githubusercontent.com/8088864/48385763-bcfadd00-e72a-11e8-96ff-4f14ed1ba521.png" alt="添加IP地址到hosts"></p>
 </li>
 <li><p>刷新dns缓存</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo killall -HUP mDNSResponder</div><div class="line">sudo dscacheutil -flushcache</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo killall -HUP mDNSResponder</span><br><span class="line">sudo dscacheutil -flushcache</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>再执行 git clone 操作的时候，速度飕飕飕的上去了，一下子达到几百Kb啦~</p>
@@ -149,7 +149,7 @@
         
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2018/11/09/git-clone-failure/" data-id="clsb4l0nb0000lplo703biaeg" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2018/11/09/git-clone-failure/" data-id="clscj4k7b0000tzlo3eirhk4d" class="article-share-link">Share</a>
         
       </div>
     </footer>
