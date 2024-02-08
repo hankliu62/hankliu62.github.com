@@ -152,6 +152,22 @@
     $('.fancybox').fancybox();
   }
 
+  // 帧开始前执行
+  var requestAnimFrame = function() {
+    return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function(a) {window.setTimeout(a, 1e3 / 60, (new Date).getTime())};
+  }();
+
+  function changeTimepiece() {
+    var data = new Date();
+    var hour = data.getHours();
+    var minute = data.getMinutes();
+    $('#clockwise').attr("transform", "rotate("+ (hour % 12) * 30 + Math.floor(30 * minute / 60) +" 50 50)");
+    $('#minute').attr("transform", "rotate("+ (minute % 60) * 6 +" 50 50)");
+    requestAnimFrame(changeTimepiece);
+  }
+
+  requestAnimFrame(changeTimepiece);
+
   // Mobile nav
   var $container = $('#container'),
     isMobileNavAnim = false,

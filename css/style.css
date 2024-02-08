@@ -376,11 +376,23 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: url("http://oiq00n80p.bkt.clouddn.com/hankliu62-blog-bg.jpg") center #888;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
+  background: url("/img/banner.jpg") center #888;
   background-size: cover;
   z-index: -1;
+}
+#banner-mask {
+  mix-blend-mode: multiply;
+  inset: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: -webkit-linear-gradient(left, #fafafa, #aaa);
+  background-image: -moz-linear-gradient(left, #fafafa, #aaa);
+  background-image: -o-linear-gradient(left, #fafafa, #aaa);
+  background-image: -ms-linear-gradient(left, #fafafa, #aaa);
+  background-image: linear-gradient(to right, #fafafa, #aaa);
 }
 #upper-nav {
   overflow: hidden;
@@ -702,8 +714,21 @@ body {
   background: -ms-linear-gradient(top, #f9f9f9 65%, #f7f7f7 100%);
   background: linear-gradient(to bottom, #f9f9f9 65%, #f7f7f7 100%);
   border-radius: 10px;
-  -webkit-box-shadow: 0 -6px 2px rgba(255,255,255,0), inset 0 4px 2px rgba(255,255,255,0.97), 0 0 6px -2px rgba(0,0,0,0.8);
-  box-shadow: 0 -6px 2px rgba(255,255,255,0), inset 0 4px 2px rgba(255,255,255,0.97), 0 0 6px -2px rgba(0,0,0,0.8);
+  -webkit-box-shadow: 0 -6px 2px rgba(255,255,255,0), inset 0 4px 2px rgba(255,255,255,0.97), 0 0 6px -2px rgba(0,0,0,0.9);
+  box-shadow: 0 -6px 2px rgba(255,255,255,0), inset 0 4px 2px rgba(255,255,255,0.97), 0 0 6px -2px rgba(0,0,0,0.9);
+  cursor: pointer;
+}
+.article-inner .fill-content-true {
+  max-height: 620px;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  -webkit-box-shadow: 0 -6px 2px rgba(255,255,255,0), inset 0 4px 2px rgba(255,255,255,0.77), 0 0 6px -2px rgba(0,0,0,0.6);
+  box-shadow: 0 -6px 2px rgba(255,255,255,0), inset 0 4px 2px rgba(255,255,255,0.77), 0 0 6px -2px rgba(0,0,0,0.6);
+}
+.article-inner .fill-content-true:hover {
+  -webkit-box-shadow: 0 -6px 2px rgba(255,255,255,0), inset 0 4px 2px rgba(255,255,255,0.97), 0 0 6px -2px rgba(0,0,0,0.9);
+  box-shadow: 0 -6px 2px rgba(255,255,255,0), inset 0 4px 2px rgba(255,255,255,0.97), 0 0 6px -2px rgba(0,0,0,0.9);
 }
 .article-meta {
   zoom: 1;
