@@ -2,6 +2,11 @@
   "name": "hexo-site",
   "version": "0.0.0",
   "private": true,
+  "scripts": {
+    "build": "rm -rf public && hexo g",
+    "dev": "rm -rf public && hexo s",
+    "deploy": "rm -rf public && hexo g && hexo d"
+  },
   "hexo": {
     "version": "3.9.0"
   },
@@ -16,5 +21,8 @@
     "hexo-renderer-marked": "^0.2.10",
     "hexo-renderer-stylus": "^0.3.1",
     "hexo-server": "^0.2.0"
+  },
+  "engines": {
+    "node": "8"
   }
 }

@@ -82,7 +82,7 @@ version: 1
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  message: "feat(blog): remove style cache"
-  branch: master
+  message: "feat(blog): change branch"
+  branch: gh-pages
   repo: https://github.com/hankliu62/hankliu62.github.com.git
 
