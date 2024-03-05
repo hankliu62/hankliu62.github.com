@@ -8,7 +8,7 @@
   <title>前端面试题汇总 | HankLiu的博客小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Event LoopEvent Loop即事件循环，是指浏览器或者Nodejs解决javascript单线程运行时异步逻辑不会阻塞的一种机制。 Event Loop是一个执行模型，不同的运行环境有不同的实现，浏览器和nodejs基于不同的技术实现自己的event loop。  浏览器的Event Loop是在HTML5规范中明确定义。 Nodejs的Event Loop是libuv实现的。 lib">
-<meta name="keywords" content="interview">
+<meta name="keywords" content="blog,interview">
 <meta property="og:type" content="article">
 <meta property="og:title" content="前端面试题汇总">
 <meta property="og:url" content="https://hankliu62.github.io/2024/02/08/interview-questions/index.html">
@@ -138,7 +138,7 @@
 <meta property="og:image" content="http://img.smyhvae.com/20180311_2057.png">
 <meta property="og:image" content="https://images2018.cnblogs.com/blog/715962/201805/715962-20180513012245079-391725349.png">
 <meta property="og:image" content="https://camo.githubusercontent.com/d1947e624a0444d1032a85800013df487adc5550/687474703a2f2f7777772e77337363686f6f6c2e636f6d2e636e2f692f63745f6a735f76616c75652e676966">
-<meta property="og:updated_time" content="2024-02-08T04:20:09.375Z">
+<meta property="og:updated_time" content="2024-03-04T14:41:52.355Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端面试题汇总">
 <meta name="twitter:description" content="Event LoopEvent Loop即事件循环，是指浏览器或者Nodejs解决javascript单线程运行时异步逻辑不会阻塞的一种机制。 Event Loop是一个执行模型，不同的运行环境有不同的实现，浏览器和nodejs基于不同的技术实现自己的event loop。  浏览器的Event Loop是在HTML5规范中明确定义。 Nodejs的Event Loop是libuv实现的。 lib">
@@ -378,6 +378,7 @@
 <li>process.nextTick(fn)的回调任务会插入到微队列Next Tick Queue中</li>
 <li>process.nextTick(fn)调用深度有限制，上限是1000，而setImmediate则没有</li>
 </ul>
+<a id="more"></a>
 <h2 id="Fetch-API使用的常见问题及其解决办法"><a href="#Fetch-API使用的常见问题及其解决办法" class="headerlink" title="Fetch API使用的常见问题及其解决办法"></a>Fetch API使用的常见问题及其解决办法</h2><p>XMLHttpRequest在发送web请求时需要开发者配置相关请求信息和成功后的回调，尽管开发者只关心请求成功后的业务处理，但是也要配置其他繁琐内容，导致配置和调用比较混乱，也不符合关注分离的原则；fetch的出现正是为了解决XHR存在的这些问题。</p>
 <p><strong>fetch是基于Promise设计的</strong>，让开发者只关注请求成功后的业务逻辑处理，其他的不用关心，相当简单，FetchAPI的优点如下:</p>
 <ul>
@@ -1811,7 +1812,7 @@
 <li>BFC是页面上的一个隔离的独立容器；</li>
 <li>属于同一个BFC的 两个相邻Box的 上下margin会发生重叠；</li>
 <li>计算BFC的高度时，浮动元素也参与计算；</li>
-<li>每个元素的左边，与包含的盒子的左边相接触，即使存在浮动也是如此；</li>
+<li>每个元素的左边，与包含的盒子的左边相接触，即使存在浮动也是如此；<strong>(存疑)</strong></li>
 <li>BFC的区域不会与float重叠。</li>
 </ol>
 <p>那么如何触发 BFC 呢？只要元素满足下面任一条件即可触发 BFC 特性：</p>
@@ -5156,7 +5157,7 @@
 <h2 id="什么是-Redux-Thunk"><a href="#什么是-Redux-Thunk" class="headerlink" title="什么是 Redux Thunk?"></a>什么是 Redux Thunk?</h2><p>Redux Thunk中间件允许您编写返回函数而不是 Action 的创建者。 thunk 可用于延迟 Action 的发送，或仅在满足某个条件时发送。内部函数接收 Store 的方法dispatch()和getState()作为参数。</p>
 <h2 id="什么是-redux-saga"><a href="#什么是-redux-saga" class="headerlink" title="什么是 redux-saga?"></a>什么是 redux-saga?</h2><p><code>redux-saga</code>是一个库，旨在使 React/Redux 项目中的副作用（数据获取等异步操作和访问浏览器缓存等可能产生副作用的动作）更容易，更好。</p>
 <p>这个包在 NPM 上有发布:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm install --save redux-saga</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> npm install --save redux-saga</span><br></pre></td></tr></table></figure>
 <h2 id="在-redux-saga-中-call-和-put-之间有什么区别"><a href="#在-redux-saga-中-call-和-put-之间有什么区别" class="headerlink" title="在 redux-saga 中 call() 和 put() 之间有什么区别?"></a>在 redux-saga 中 <code>call()</code> 和 <code>put()</code> 之间有什么区别?</h2><p>call()和put()都是 Effect 创建函数。 call()函数用于创建 Effect 描述，指示中间件调用 promise。put()函数创建一个 Effect，指示中间件将一个 Action 分派给 Store。</p>
 <p>让我们举例说明这些 Effect 如何用于获取特定用户数据。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">fetchUserSaga</span>(<span class="params">action</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// `call` function accepts rest arguments, which will be passed to `api.fetchUser` function.</span></span><br><span class="line">  <span class="comment">// Instructing middleware to call promise, it resolved value will be assigned to `userData` variable</span></span><br><span class="line">  <span class="keyword">const</span> userData = <span class="keyword">yield</span> call(api.fetchUser, action.userId)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Instructing middleware to dispatch corresponding action.</span></span><br><span class="line">  <span class="keyword">yield</span> put(&#123;</span><br><span class="line">    type: <span class="string">'FETCH_USER_SUCCESS'</span>,</span><br><span class="line">    userData</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -10850,9 +10851,9 @@
     <footer class="article-footer">
       <div class="article-footer-content">
         
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/interview/">interview</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/interview/">interview</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/02/08/interview-questions/" data-id="clscq8poo000yualo9t5footo" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/02/08/interview-questions/" data-id="cltd13bx20018celohue5qujd" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -10862,6 +10863,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2024/02/29/commomly-css/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          常用的CSS技巧
+        
+      </div>
+    </a>
   
   
     <a href="/2024/02/07/github-pages/" id="article-nav-older" class="article-nav-link-wrap">
@@ -10886,6 +10896,10 @@
       <ul>
         
           <li>
+            <a href="/2024/02/29/commomly-css/">常用的CSS技巧</a>
+          </li>
+        
+          <li>
             <a href="/2024/02/08/interview-questions/">前端面试题汇总</a>
           </li>
         
@@ -10901,10 +10915,6 @@
             <a href="/2017/09/19/web-mobile-tools-weinre/">使用Weinre调试移动端Web开发</a>
           </li>
         
-          <li>
-            <a href="/2017/09/14/commonly-shell-command/">常用的shell命令</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -10914,7 +10924,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Javascript/">Javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PID/">PID</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-pages/">github pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interview/">interview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/">mobile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/weinre/">weinre</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/模块化/">模块化</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-pages/">github pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interview/">interview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/">mobile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/weinre/">weinre</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -10923,7 +10933,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li></ul>
     </div>
   </div>
 
