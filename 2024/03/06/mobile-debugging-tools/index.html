@@ -1,0 +1,437 @@
+
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+  <title>H5 移动端调试工具汇总 | HankLiu的博客小屋</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="H5 移动端调试工具汇总一、概要因为移动端操作系统分为 iOS 和 Android 两派，所以本文的调试技巧也会按照不同的系统来区分。寻找最合适高效的方式，才能让你事半功倍。  文章会列举目前适合移动端调试的多种方案，快来选择你的最佳实践吧！  二、iOS 设备 Safari：iphone 调试利器，查错改样式首选，需要我们做如下设置：   浏览器设置：Safari - 偏好设置 - 高级 - 勾">
+<meta name="keywords" content="javascript,mobile,debugging">
+<meta property="og:type" content="article">
+<meta property="og:title" content="H5 移动端调试工具汇总">
+<meta property="og:url" content="https://hankliu62.github.io/2024/03/06/mobile-debugging-tools/index.html">
+<meta property="og:site_name" content="HankLiu的博客小屋">
+<meta property="og:description" content="H5 移动端调试工具汇总一、概要因为移动端操作系统分为 iOS 和 Android 两派，所以本文的调试技巧也会按照不同的系统来区分。寻找最合适高效的方式，才能让你事半功倍。  文章会列举目前适合移动端调试的多种方案，快来选择你的最佳实践吧！  二、iOS 设备 Safari：iphone 调试利器，查错改样式首选，需要我们做如下设置：   浏览器设置：Safari - 偏好设置 - 高级 - 勾">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://github.com/hankliu62/interview/assets/8088864/fc968e7f-db70-4ae0-b9f6-08d241afb43c">
+<meta property="og:image" content="https://github.com/hankliu62/interview/assets/8088864/c7bf4417-1ffc-404d-a19d-5b1b215d06bb">
+<meta property="og:image" content="https://github.com/hankliu62/interview/assets/8088864/e57086a0-fda1-48ac-bd06-d30acf417482">
+<meta property="og:image" content="https://github.com/hankliu62/interview/assets/8088864/817832df-51c4-4b9d-b36b-1500948cde21">
+<meta property="og:image" content="https://github.com/hankliu62/interview/assets/8088864/9cc226ce-2299-4c6f-856e-dc910bf576e1">
+<meta property="og:image" content="https://github.com/hankliu62/interview/assets/8088864/7f0664fb-b942-4b1a-a92c-c5e8f67d5301">
+<meta property="og:image" content="https://github.com/hankliu62/interview/assets/8088864/801dbac7-9f3e-4f11-9009-b9fd8d999b6a">
+<meta property="og:image" content="https://github.com/hankliu62/interview/assets/8088864/93f27afe-7e9b-4626-ab66-9544071a86ed">
+<meta property="og:image" content="https://github.com/hankliu62/interview/assets/8088864/348e9cff-1871-4ac7-b1f8-d47ad448512d">
+<meta property="og:image" content="https://github.com/hankliu62/interview/assets/8088864/f94d16d7-7d04-4c24-b921-063eb581c304">
+<meta property="og:image" content="https://github.com/hankliu62/interview/assets/8088864/ea545061-9599-46c2-88d1-7ada329dd4a4">
+<meta property="og:image" content="https://github.com/hankliu62/interview/assets/8088864/b5779c2d-d8bb-482e-9ea8-0c02d161168e">
+<meta property="og:image" content="https://github.com/hankliu62/interview/assets/8088864/1a483e94-68e6-4339-8e9e-7db202e53e84">
+<meta property="og:image" content="https://github.com/hankliu62/interview/assets/8088864/29c11f66-ea9e-4f73-905b-f23cf839db7f">
+<meta property="og:updated_time" content="2024-03-06T14:24:31.831Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="H5 移动端调试工具汇总">
+<meta name="twitter:description" content="H5 移动端调试工具汇总一、概要因为移动端操作系统分为 iOS 和 Android 两派，所以本文的调试技巧也会按照不同的系统来区分。寻找最合适高效的方式，才能让你事半功倍。  文章会列举目前适合移动端调试的多种方案，快来选择你的最佳实践吧！  二、iOS 设备 Safari：iphone 调试利器，查错改样式首选，需要我们做如下设置：   浏览器设置：Safari - 偏好设置 - 高级 - 勾">
+<meta name="twitter:image" content="https://github.com/hankliu62/interview/assets/8088864/fc968e7f-db70-4ae0-b9f6-08d241afb43c">
+  
+  
+    <link rel="icon" href="/img/favicon.ico" sizes="16x16">
+  
+  <link rel="stylesheet" href="/css/style.css?t=1">
+  
+    <link href="//fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+  
+
+</head>
+</html>
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner">
+    <div id="banner-mask"></div>
+  </div>
+  <div id="header-outer" class="outer">
+    <nav id="upper-nav" class="inner">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      <div class="sub-nav">
+        
+        
+          <a id="nav-github" class="nav-icon" href="https://github.com/hankliu62"></a>
+        
+      </div>
+    </nav>
+    <div id="header-title">
+      
+        <h1 id="blog-title-wrap">
+          <a href="/" id="blog-title">HankLiu的博客小屋</a>
+        </h1>
+      
+      
+        <h5 class="blog-subtitle-wrap">努力去听风的声音，不必在意风的方向。</h5>
+      
+    </div>
+    <div id="contenedor">
+      <ul class="cube">
+        <li class="cara"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="100" width="100" viewBox="-50 -50 200 200">
+          <circle cx="50" cy="50" r="45" stroke-width="5" stroke="black" stroke-opacity="0.5" fill-opacity="0"></circle>
+          <rect id="clockwise" x="47.5" y="27.5" width="5" height="25" rx="2.5" ry="2.5" fill="black" fill-opacity="0.5" transform="rotate(330 50 50)"></rect>
+          <rect id="minute" x="48.5" y="16.5" width="3" height="35" rx="1.5" ry="1.5" fill="black" fill-opacity="0.5"></rect>
+        </svg></li>
+        <li class="cara">P</li>
+        <li class="cara">X</li>
+        <li class="cara">L</li>
+        <li class="cara">C</li>
+        <li class="cara">Y</li>
+      </ul>
+    </div>
+    <nav id="main-nav">
+      
+        <a class="main-nav-link" href="/">主页</a>
+      
+        <a class="main-nav-link" href="/archives">文章</a>
+      
+        <a class="main-nav-link" href="/toolbox-frontend">小工具</a>
+      
+        <a class="main-nav-link" href="/resume">小简介</a>
+      
+    </nav>
+  </div>
+</header>
+
+    <div class="outer">
+      <section id="main"><article id="post-mobile-debugging-tools" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2024/03/06/mobile-debugging-tools/" class="article-date">
+  <time datetime="2024-03-06T13:48:32.000Z" itemprop="datePublished">2024-03-06</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-false">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      H5 移动端调试工具汇总
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="H5-移动端调试工具汇总"><a href="#H5-移动端调试工具汇总" class="headerlink" title="H5 移动端调试工具汇总"></a>H5 移动端调试工具汇总</h2><h3 id="一、概要"><a href="#一、概要" class="headerlink" title="一、概要"></a>一、概要</h3><p>因为移动端操作系统分为 <code>iOS</code> 和 <code>Android</code> 两派，所以本文的调试技巧也会按照不同的系统来区分。寻找最合适高效的方式，才能让你事半功倍。</p>
+<blockquote>
+<p>文章会列举目前适合移动端调试的多种方案，快来选择你的最佳实践吧！</p>
+</blockquote>
+<h3 id="二、iOS-设备"><a href="#二、iOS-设备" class="headerlink" title="二、iOS 设备"></a>二、iOS 设备</h3><blockquote>
+<p>Safari：iphone 调试利器，查错改样式首选，需要我们做如下设置：</p>
+</blockquote>
+<ul>
+<li>浏览器设置：Safari - 偏好设置 - 高级 - 勾选「在菜单栏中显示开发」菜单</li>
+<li>iphone 设置：设置 - Safari - 高级 - 打开 Web 检查器</li>
+</ul>
+<p>大功告成，这时候通过手机的 <code>Safari</code> 来打开 <code>H5</code> 页面，我们通过浏览器开发选项可以看到：</p>
+<p><img src="https://github.com/hankliu62/interview/assets/8088864/fc968e7f-db70-4ae0-b9f6-08d241afb43c" alt="image"></p>
+<blockquote>
+<p>iOS 模拟器：不需要真机，适合调试 Webview 和 H5 有频繁交互的功能页面。</p>
+</blockquote>
+<p>首先下载 Xcode ，运行项目，选择模拟器 iphonex，编译后就会打开模拟器，如下：</p>
+<p><img src="https://github.com/hankliu62/interview/assets/8088864/c7bf4417-1ffc-404d-a19d-5b1b215d06bb" alt="image"></p>
+<p>可以看到 H5 已经在「壳子」中运行起来了，下来就可以尝试调用 Webview 的方法，和「壳子」交互了。</p>
+<blockquote>
+<p>具体的调试功能还是依赖浏览器的开发选项，与上无异，就不赘述了。</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="三、抓包"><a href="#三、抓包" class="headerlink" title="三、抓包"></a>三、抓包</h3><blockquote>
+<p>Charles：Mac OS 系统首选的抓包工具，适合查看、控制网络请求，分析数据情况。</p>
+</blockquote>
+<p><code>Charles</code> 抓包首先需要配置手机代理，<code>Wifi</code> - 配置代理（IP 地址） - 手动，如下图：</p>
+<p><img src="https://github.com/hankliu62/interview/assets/8088864/e57086a0-fda1-48ac-bd06-d30acf417482" alt="image"><br><img src="https://github.com/hankliu62/interview/assets/8088864/817832df-51c4-4b9d-b36b-1500948cde21" alt="image"></p>
+<p>配置好手机代理，这时候打开 Charles ，就会收到确认提醒，选择允许。接下来就可以捕获手机的请求了，但是这些都是常规操作，我们来点高级的。</p>
+<blockquote>
+<p>有意思的是：我们可以用本地文件来替换线上文件，方便调试，远程定位线上问题。</p>
+</blockquote>
+<p>选择 <code>Structure</code>，找到需要替换的文件，右键菜单 - <code>Map Local</code>，如下图：</p>
+<p><img src="https://github.com/hankliu62/interview/assets/8088864/9cc226ce-2299-4c6f-856e-dc910bf576e1" alt="image"></p>
+<p>这时候就会打开一个弹窗，填写具体的配置：</p>
+<p><img src="https://github.com/hankliu62/interview/assets/8088864/7f0664fb-b942-4b1a-a92c-c5e8f67d5301" alt="image"></p>
+<p>OK，大功告成，快去改动本地文件吧，从此再也不怕线上调试了。需要注意的是如果抓取 <code>HTTPS</code> 请求，要安装信任证书，下文会详细说明。</p>
+<blockquote>
+<p>与之相应的是 Windows 平台的 Fiddler，功能大致相似，这里就不细说了。</p>
+</blockquote>
+<h3 id="四、Spy-Debugger"><a href="#四、Spy-Debugger" class="headerlink" title="四、Spy-Debugger"></a>四、Spy-Debugger</h3><blockquote>
+<p>spy-debugger：移动端调试的利器，便捷的远程调试手机页面、抓包工具。</p>
+</blockquote>
+<p>我们先来安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; sudo npm install spy-debugger -g</span><br></pre></td></tr></table></figure>
+<p>启动命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; spy-debugger</span><br></pre></td></tr></table></figure>
+<p>这时候，控制台会打印出如下信息，说明服务已经启动了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">正在启动代理</span><br><span class="line">本机在当前网络下的IP地址为：10.200.24.46</span><br><span class="line">node-mitmproxy启动端口: 9888</span><br><span class="line">浏览器打开 ---&gt; http://127.0.0.1:50389</span><br></pre></td></tr></table></figure>
+<p>最后一步，设置手机代理：<code>10.200.24.46</code>，端口号：<code>9888</code>。补充说明一下：</p>
+<ul>
+<li><code>Android</code> 设置代理步骤：设置 - <code>WLAN</code> - 长按选中网络 - 修改网络 - 高级 - 代理设置 - 手动</li>
+<li><code>iOS</code> 设置代理步骤：设置 - 无线局域网 - 选中网络 - <code>HTTP</code> 代理手动</li>
+</ul>
+<p>接下来，尝试一下抓包：</p>
+<p><img src="https://github.com/hankliu62/interview/assets/8088864/801dbac7-9f3e-4f11-9009-b9fd8d999b6a" alt="image"></p>
+<p>再打开调试页面：</p>
+<p><img src="https://github.com/hankliu62/interview/assets/8088864/93f27afe-7e9b-4626-ab66-9544071a86ed" alt="image"></p>
+<blockquote>
+<p>HTTPS 抓包，需要安装根证书，下文会详细说明。</p>
+</blockquote>
+<h3 id="五、Whistle"><a href="#五、Whistle" class="headerlink" title="五、Whistle"></a>五、Whistle</h3><p>上面推荐了一款操作简单的调试利器，升级一下，看看更加强大的调试工具 <code>whistle</code>。</p>
+<blockquote>
+<p>whistle：基于 Node 实现的跨平台 Web 调试代理工具。</p>
+</blockquote>
+<p><code>whistle</code>(读音[ˈwɪsəl]，拼音[wēisǒu])是基于 <code>Node</code> 实现的跨平台抓包调试代理工具，有以下基本功能：</p>
+<ol>
+<li>查看 <code>HTTP</code>、<code>HTTPS</code>请求响应内容</li>
+<li>查看 <code>WebSocket</code>、<code>Socket</code> 收发的帧数据</li>
+<li>设置请求 <code>hosts</code>、上游 <code>http/socks</code> 代理</li>
+<li>修改请求 <code>url</code> 、方法、头部、内容</li>
+<li>修改响应状态码、头部、内容，并支持本地替换</li>
+<li>修改 <code>WebSocket</code> 或 <code>Socket</code> 收发的帧数据</li>
+<li>内置调试移动端页面的 <code>weinre</code> 和 <code>log</code></li>
+<li>作为 <code>HTTP</code> 代理或反向代理</li>
+<li>支持用 <code>Node</code> 编写插件扩展功能</li>
+</ol>
+<p>大致了解后，我们来尝试安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install -g whistle</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>淘宝镜像：npm install whistle -g –registry=<a href="https://registry.npm.taobao.org" target="_blank" rel="noopener">https://registry.npm.taobao.org</a></p>
+</blockquote>
+<p><code>whistle</code> 安装完成后，执行命令 <code>whistle help</code> 或 <code>w2 help</code>，查看 <code>whistle</code> 的帮助信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">run       Start a front service</span><br><span class="line">start     Start a background service</span><br><span class="line">stop      Stop current background service</span><br><span class="line">restart   Restart current background service</span><br><span class="line">help      Display help information</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这里只列出部分命令，更多请 w2 help 查看。</p>
+</blockquote>
+<p>看到上面的操作，我们何不试试缩写 <code>w2 start</code> 来启动服务：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">w2 start</span><br></pre></td></tr></table></figure>
+<p>看到如下的输出，说明服务已经正常启动了：</p>
+<p><img src="https://github.com/hankliu62/interview/assets/8088864/348e9cff-1871-4ac7-b1f8-d47ad448512d" alt="image"></p>
+<p>这时候在浏览器打开链接，同时手机上配置代理（同 <code>Charles</code>），接下来就可以愉快的调试了。值得注意的是，<code>whistle</code> 的功能远非如此，更多的扩展请移步官网文档，贴张图先预览下：</p>
+<p><img src="https://github.com/hankliu62/interview/assets/8088864/f94d16d7-7d04-4c24-b921-063eb581c304" alt="image"></p>
+<blockquote>
+<p>记得开启拦截 HTTPS：勾选 <code>Capture HTTPS CONNECTS</code></p>
+</blockquote>
+<h3 id="六、安装-HTTPS-证书"><a href="#六、安装-HTTPS-证书" class="headerlink" title="六、安装 HTTPS 证书"></a>六、安装 HTTPS 证书</h3><p>对于 Charles，按照如下操作安装证书：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">help - SSL Proxying - install Charles root</span><br></pre></td></tr></table></figure>
+<p><img src="https://github.com/hankliu62/interview/assets/8088864/ea545061-9599-46c2-88d1-7ada329dd4a4" alt="image"></p>
+<p>弹出安装证书的提示框：</p>
+<p><img src="https://github.com/hankliu62/interview/assets/8088864/b5779c2d-d8bb-482e-9ea8-0c02d161168e" alt="image"></p>
+<blockquote>
+<p>按照提示去手机浏览器打开：<code>chls.pro/ssl</code>，安装信任证书即可。</p>
+</blockquote>
+<p>对于 <code>spy-debugger</code>，<code>HTTPS</code> 抓包，需要安装根证书，选择 <code>RootCA</code>，扫描二维码按照提示信任证书。安装证书的时候需要注意以下几件事情：</p>
+<ol>
+<li>手机必须先设置完代理后再通过(非微信)手机浏览器访问 <code>http://s.xxx</code> (地址二维码)安装证书；</li>
+<li>手机首次调试需要安装证书，已安装了证书的手机无需重复安装；</li>
+<li>手机和 <code>PC</code> 保持在同一网络下（比如同时连到一个 <code>WIFI</code> 下）；</li>
+</ol>
+<blockquote>
+<p>切记：移动设备和 PC 必须在一个 WIFI 下。</p>
+</blockquote>
+<h3 id="七、真机调试"><a href="#七、真机调试" class="headerlink" title="七、真机调试"></a>七、真机调试</h3><p>上面说了很多，但是实际开发过程中，我们不会等上线了才去验证兼容性，所以你可能需要提前「真机调试」。这里提供两种方式：</p>
+<blockquote>
+<p><code>Chrome Remote Devices</code>：依赖 <code>Chrome</code> 来进行远程调试，适合安卓手机。</p>
+</blockquote>
+<p>首先，开启 <code>Android</code> 手机的「开发者选项」，勾选 「USB 调试」。<br>然后，<code>Chrome</code> 中输入：<code>chrome://inspect</code>，进入调试页面。</p>
+<blockquote>
+<p><code>localhost</code> 转 <code>ip</code>，扫描二维码手机显示，这个比较简单。<br>可以在浏览器安装一个 <code>Chrome</code> 插件，用于将当前页面链接转换成二维码，这样就能边开发边真机预览，非常方便。</p>
+</blockquote>
+<h3 id="八、调试工具"><a href="#八、调试工具" class="headerlink" title="八、调试工具"></a>八、调试工具</h3><p>这里推荐一款调试工具：<code>vConsole</code>，一个轻量、可拓展、针对手机网页的前端开发者调试面板。安装很简单：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install vconsole</span><br></pre></td></tr></table></figure>
+<p>如果未使用 <code>AMD/CMD</code> 规范，可直接在 <code>HTML</code> 中引入 <code>vConsole</code> 模块。为了便于后续扩展，建议在 <code>&lt;head&gt;</code> 中引入：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"path/to/vconsole.min.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> vConsole = <span class="keyword">new</span> VConsole();</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如果使用了 <code>AMD/CMD</code> 规范，可在 <code>module</code> 内使用 <code>require()</code> 引入模块：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> VConsole = <span class="built_in">require</span>(<span class="string">'path/to/vconsole.min.js'</span>);</span><br><span class="line"><span class="keyword">var</span> vConsole = <span class="keyword">new</span> VConsole();</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>请注意，<code>VConsole</code> 只是 <code>vConsole</code> 的原型，而非一个已实例化的对象。</p>
+</blockquote>
+<p>所以在手动 <code>new</code> 实例化之前，<code>vConsole</code> 不会被插入到网页中。大概功能如下图：</p>
+<p><img src="https://github.com/hankliu62/interview/assets/8088864/1a483e94-68e6-4339-8e9e-7db202e53e84" alt="image"></p>
+<p><img src="https://github.com/hankliu62/interview/assets/8088864/29c11f66-ea9e-4f73-905b-f23cf839db7f" alt="image"></p>
+<p>看起来很完美，但是有个小缺点：网络请求，需要刷新页面，可是很多内嵌的 H5 页面是没有机会刷新页面的，所以需要客户端童鞋配合增加刷新的功能方便调试。</p>
+<h3 id="九、场景分析"><a href="#九、场景分析" class="headerlink" title="九、场景分析"></a>九、场景分析</h3><blockquote>
+<p>既然移动端调试有这么多种方案，那在实际操作中，我该如何取舍？</p>
+</blockquote>
+<p>说了这么多钟方案，这里总结一下各个方案的适用场景，根据不同的场景去选择最佳的调试方案，这样才能更快速的输出，Carry 全场：</p>
+<ol>
+<li><code>Safari</code>：<code>iPhone</code> 调试利器，查错改样式首选；</li>
+<li><code>iOS</code> 模拟器：不需要真机，适合调试 <code>Webview</code> 和 <code>H5</code> 有频繁交互的功能页面；</li>
+<li><code>Charles</code>：<code>Mac OS</code> 系统首选的抓包工具，适合查看、控制网络请求，分析数据情况；</li>
+<li><code>Fiddler</code>：适合 <code>Windows</code> 平台，与 <code>Charles</code> 类似，查看、控制网络请求，分析数据情况；</li>
+<li><code>Spy-Debugger</code>：移动端调试的利器，便捷的远程调试手机页面、抓包工具；</li>
+<li><code>Whistle</code>：基于 <code>Node</code> 实现的跨平台 <code>Web</code> 调试代理工具；</li>
+<li><code>Chrome Remote Devices</code>：依赖 <code>Chrome</code> 来进行远程调试，适合安卓手机远程调试静态页；</li>
+<li><code>localhost</code> 转 <code>ip</code>：真机调试，适合远程调试静态页面；</li>
+<li><code>vConsole</code>：内置于项目，打印移动端日志，查看网络请求以及查看 <code>Cookie</code> 和 <code>Storage</code>；</li>
+</ol>
+<h3 id="十、白屏处理"><a href="#十、白屏处理" class="headerlink" title="十、白屏处理"></a>十、白屏处理</h3><blockquote>
+<p>移动端的白屏是最头疼的问题，这里顺带提供几种分析问题的思路，以供参考。</p>
+</blockquote>
+<ol>
+<li><strong>方案分析 ☆</strong> 一般上线后出现问题，我们最容易想到的就是：是否是新代码引起的问题。所以有效解决手段就是「控制变量法」。</li>
+<li><strong>代码注释法 ☆</strong> 莫名奇妙的白屏，适合页面无异常日志，同时无请求发送，问题集中在单一页面的情况。这种问题比较直观，肯定是某一页面出现了代码异常或是无效的 <code>return</code>，导致页面渲染终止，但并不属于异常。这时候，「代码注释法」将是你的最佳选择，逐行去注释可以代码，直到定位问题。</li>
+<li><strong>类库异常，兼容问题 ☆</strong> 这种场景也会经常遇到，我们需要用可以调试页面异常的方式，如 <code>Safari</code>，<code>Spy-Debugger</code>，<code>Whistle</code>，<code>vConsole</code> 查看异常日志，从而迅速定位类库位置，从而找寻替换或是兼容方案。</li>
+<li><strong>try catch ☆☆</strong> 如果你的项目没有异常监控，那么在可疑的代码片段中去 <code>Try Catch</code> 吧。</li>
+<li><strong>Debug 包 ☆☆☆</strong> 在你的项目中装上 <a href="https://link.zhihu.com/?target=http%3A//jartto.wang/2018/11/01/mobile-debug/" target="_blank" rel="noopener">vConsole</a>，并配合客户端 <code>debug</code> 插件，360 度无死角监控异常，这才是最有效的方式。</li>
+<li><strong>ES6 语法兼容 ☆</strong> 一般我们都会通过 <code>Babel</code> 来编译 <code>ES6</code> ，但是额外的第三方类库如果有不兼容的语法，低版本的移动设备就会异常。所以，先用上文讲述的调试方法，确定异常，然后去增加 <a href="https://link.zhihu.com/?target=https%3A//polyfill.io/v2/docs/examples" target="_blank" rel="noopener">polyfill</a> 来兼容吧。</li>
+</ol>
+<p>来源: <a href="https://zhuanlan.zhihu.com/p/432379217" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/432379217</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/debugging/">debugging</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">mobile</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2024/03/06/mobile-debugging-tools/" data-id="cltp3bxwf000cgolo9jgfnaut" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2024/03/11/github-pages-env/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          NextJs 获取 Github Action 部署的环境变量
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/03/05/webpack-plugin-mechanism/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Webpack Plugin插件机制</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+      
+      <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/03/11/github-pages-env/">NextJs 获取 Github Action 部署的环境变量</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/06/mobile-debugging-tools/">H5 移动端调试工具汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/05/webpack-plugin-mechanism/">Webpack Plugin插件机制</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/29/commomly-css/">常用的CSS技巧</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/08/interview-questions/">前端面试题汇总</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debugging/">debugging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-pages/">github pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interview/">interview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/">mobile</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/weinre/">weinre</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2024 HankLiu, Inc. All rights reserved.<br>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">主页</a>
+  
+    <a href="/archives" class="mobile-nav-link">文章</a>
+  
+    <a href="/toolbox-frontend" class="mobile-nav-link">小工具</a>
+  
+    <a href="/resume" class="mobile-nav-link">小简介</a>
+  
+  <a href="#search" class="mobile-nav-link st-search-show-outputs">Search</a>
+</nav>
+  
+
+<!-- totop start -->
+<div id="totop">
+	<a title="To Top"></a>
+</div>
+<!-- totop end -->
+
+<!-- swiftype search start -->
+
+<!-- swiftype search end -->
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/lrsjng.jquery-qrcode/0.12.0/jquery.qrcode.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,374 @@
+
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+  <title>HankLiu的博客小屋</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="努力去听风的声音，不必在意风的方向。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="HankLiu的博客小屋">
+<meta property="og:url" content="https://hankliu62.github.io/page/2/index.html">
+<meta property="og:site_name" content="HankLiu的博客小屋">
+<meta property="og:description" content="努力去听风的声音，不必在意风的方向。">
+<meta property="og:locale" content="zh-cn">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HankLiu的博客小屋">
+<meta name="twitter:description" content="努力去听风的声音，不必在意风的方向。">
+  
+  
+    <link rel="icon" href="/img/favicon.ico" sizes="16x16">
+  
+  <link rel="stylesheet" href="/css/style.css?t=1">
+  
+    <link href="//fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+  
+
+</head>
+</html>
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner">
+    <div id="banner-mask"></div>
+  </div>
+  <div id="header-outer" class="outer">
+    <nav id="upper-nav" class="inner">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      <div class="sub-nav">
+        
+        
+          <a id="nav-github" class="nav-icon" href="https://github.com/hankliu62"></a>
+        
+      </div>
+    </nav>
+    <div id="header-title">
+      
+        <h1 id="blog-title-wrap">
+          <a href="/" id="blog-title">HankLiu的博客小屋</a>
+        </h1>
+      
+      
+        <h5 class="blog-subtitle-wrap">努力去听风的声音，不必在意风的方向。</h5>
+      
+    </div>
+    <div id="contenedor">
+      <ul class="cube">
+        <li class="cara"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="100" width="100" viewBox="-50 -50 200 200">
+          <circle cx="50" cy="50" r="45" stroke-width="5" stroke="black" stroke-opacity="0.5" fill-opacity="0"></circle>
+          <rect id="clockwise" x="47.5" y="27.5" width="5" height="25" rx="2.5" ry="2.5" fill="black" fill-opacity="0.5" transform="rotate(330 50 50)"></rect>
+          <rect id="minute" x="48.5" y="16.5" width="3" height="35" rx="1.5" ry="1.5" fill="black" fill-opacity="0.5"></rect>
+        </svg></li>
+        <li class="cara">P</li>
+        <li class="cara">X</li>
+        <li class="cara">L</li>
+        <li class="cara">C</li>
+        <li class="cara">Y</li>
+      </ul>
+    </div>
+    <nav id="main-nav">
+      
+        <a class="main-nav-link" href="/">主页</a>
+      
+        <a class="main-nav-link" href="/archives">文章</a>
+      
+        <a class="main-nav-link" href="/toolbox-frontend">小工具</a>
+      
+        <a class="main-nav-link" href="/resume">小简介</a>
+      
+    </nav>
+  </div>
+</header>
+
+    <div class="outer">
+      <section id="main">
+  
+    <article id="post-javascript-common-function" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2015/12/24/javascript-common-function/" class="article-date">
+  <time datetime="2015-12-24T11:18:13.000Z" itemprop="datePublished">2015-12-24</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-true">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/24/javascript-common-function/">Javascript语法糖</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-Array-prototype-slice"><a href="#1-Array-prototype-slice" class="headerlink" title="1.Array.prototype.slice"></a>1.Array.prototype.slice</h2><p>数组的slice()方法通常用来从一个数组中抽取片断。但很多开发者不了解的是，这个方法还可以用来将“类数组”元素（比如 arguments、参数列表、节点列表和属性列表）转换成真正的数组：（译注：DOM 元素的属性列表通过 attributes属性获取), Array.prototype.slice.call(arguments)能将具有length属性的对象转成数组.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a=&#123;<span class="attr">length</span>:<span class="number">2</span>,<span class="number">0</span>:<span class="string">'first'</span>,<span class="number">1</span>:<span class="string">'second'</span>&#125;;</span><br><span class="line"><span class="built_in">Array</span>.prototype.slice.call(a);<span class="comment">//  ["first", "second"]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a=&#123;<span class="attr">length</span>:<span class="number">2</span>&#125;;</span><br><span class="line"><span class="built_in">Array</span>.prototype.slice.call(a);<span class="comment">//  [undefined, undefined]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> argsArr = <span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">arguments</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="2-使用push来合并数组"><a href="#2-使用push来合并数组" class="headerlink" title="2.使用push来合并数组"></a>2.使用push来合并数组</h2><p>我们知道当我们想要合并两个数组时一般使用Array的concat()方法来试试，concat方法能够将两个及两个以上的数组合并成一个数组，同时我们也可以使用Array prototype 的push方法来实现两个数组的合并.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = [<span class="string">'hank'</span>, <span class="string">'mark'</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> b = [<span class="string">'hulk'</span>]</span><br><span class="line"></span><br><span class="line"><span class="built_in">Array</span>.prototype.push.apply(a, b)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a) <span class="comment">// ['hank', 'mark', 'hulk']</span></span><br></pre></td></tr></table></figure>
+<h2 id="3-Js数据去掉小数点后边的0"><a href="#3-Js数据去掉小数点后边的0" class="headerlink" title="3.Js数据去掉小数点后边的0"></a>3.Js数据去掉小数点后边的0</h2><p>在一起，我一般是使用正则表达式来替换，先判断小数点后面有无0和0的位置，然后在使用正则来替换这些0。今天突然发现一个很神奇的方法: parseFloat()</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1.0</span>;</span><br><span class="line">a = <span class="built_in">parseFloat</span>(a) <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<p>是不是特别简单?</p>
+<h2 id="4-JS浮点数运算精度"><a href="#4-JS浮点数运算精度" class="headerlink" title="4.JS浮点数运算精度"></a>4.JS浮点数运算精度</h2><p>在Javascript中两个浮点数进行运算是得到的结果可能不是我们想要的结果，比如:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a, b;</span><br><span class="line">a = <span class="number">0.2</span>;</span><br><span class="line">b = <span class="number">0.1</span>;</span><br><span class="line"></span><br><span class="line">c = a + b <span class="comment">// 0.30000000000000004, 不是我们想要的0.3</span></span><br></pre></td></tr></table></figure>
+<p>主要是因为计算机是二进制浮点运算，而我们输入的是十进制浮点数，十进制数转化为二进制运算过后再转化回来，在转化过程中可能会有损失.</p>
+<p>解决办法，先装换成整数，运算过后，再装换回来:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> T_NUMBER = <span class="string">'number'</span>;</span><br><span class="line"><span class="comment">// 两数相减，其他运算同理</span></span><br><span class="line">customSubtract = <span class="function"><span class="keyword">function</span>(<span class="params">minuend, subtrahend</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> maxDecimalDigits, minuendDecimalDigits, minuendStr, result, subtrahendDecimalDigits, subtrahendStr;</span><br><span class="line">    minuendStr = <span class="keyword">typeof</span> minuend === T_NUMBER ? minuend + <span class="string">''</span> : minuend;</span><br><span class="line">    subtrahendStr = <span class="keyword">typeof</span> subtrahend === T_NUMBER ? subtrahend + <span class="string">''</span> : subtrahend;</span><br><span class="line">    minuendDecimalDigits = minuendStr.indexOf(<span class="string">'.'</span>) === <span class="number">-1</span> ? <span class="number">0</span> : minuendStr.length - minuendStr.indexOf(<span class="string">'.'</span>) - <span class="number">1</span>;</span><br><span class="line">    subtrahendDecimalDigits = subtrahendStr.indexOf(<span class="string">'.'</span>) === <span class="number">-1</span> ? <span class="number">0</span> : subtrahendStr.length - subtrahendStr.indexOf(<span class="string">'.'</span>) - <span class="number">1</span>;</span><br><span class="line">    maxDecimalDigits = <span class="built_in">Math</span>.pow(<span class="number">10</span>, <span class="built_in">Math</span>.max(minuendDecimalDigits, subtrahendDecimalDigits));</span><br><span class="line">    result = (minuend * maxDecimalDigits - subtrahend * maxDecimalDigits) / maxDecimalDigits;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+        
+          <p class="article-more-link">
+            <a href="/2015/12/24/javascript-common-function/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2015/12/24/javascript-common-function/" data-id="cltp3bxw60005golo22rq662l" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-javascript-module" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2015/12/24/javascript-module/" class="article-date">
+  <time datetime="2015-12-24T10:55:37.000Z" itemprop="datePublished">2015-12-24</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-true">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/24/javascript-module/">菜鸟学习Javascript模块化</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一、模块化的定义"><a href="#一、模块化的定义" class="headerlink" title="一、模块化的定义"></a>一、模块化的定义</h2><p>模块化是一种处理复杂系统分解为更好的可管理模块的方式。它可以通过在不同组件设定不同的功能，把一个问题分解成多个小的独立、互相作用的组件，来处理复杂、大型的软件。简单点来讲就是以功能为单位，然后通过不同功能的组合来实现一个系统，模块化的主要的目的就是为了减少依赖，减少耦合，提交代码的复用性，最终提交开发的效率。为了这个目的，所以我们必须将耦合密度的功能定义在一个模块中，并且在每个模块中第一一些入口和出口，以方便模块的组合和交互。</p>
+<h2 id="二、Javascript的模块化"><a href="#二、Javascript的模块化" class="headerlink" title="二、Javascript的模块化"></a>二、Javascript的模块化</h2><p>随着网站逐渐变成”互联网应用程序”，嵌入网页的Javascript代码越来越庞大，越来越复杂。Javascript模块化编程，已经成为一个迫切的需求。理想情况下，开发者只需要实现核心的业务逻辑，其他都可以加载别人已经写好的模块。</p>
+<h2 id="三、Javascript模块化的发展"><a href="#三、Javascript模块化的发展" class="headerlink" title="三、Javascript模块化的发展"></a>三、Javascript模块化的发展</h2><h3 id="1、原始写法"><a href="#1、原始写法" class="headerlink" title="1、原始写法"></a>1、原始写法</h3><p>模块就是实现特定功能的一组方法。,不同的函数（以及记录状态的变量）简单地放在一起，就算是一个模块。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">m1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">　　<span class="comment">//...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">m2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">　　<span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>缺点：”污染”了全局变量，无法保证不与其他模块发生变量名冲突，而且模块成员之间看不出直接关系。</p>
+<h3 id="2、对象写法"><a href="#2、对象写法" class="headerlink" title="2、对象写法"></a>2、对象写法</h3><p>为了解决上面的缺点，可以把模块写成一个对象，所有的模块成员都放到这个对象里面。使用的时候，就是调用这个对象的属性。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> module1 = <span class="keyword">new</span> <span class="built_in">Object</span>(&#123;</span><br><span class="line">　　_count : <span class="number">0</span>,</span><br><span class="line">　　m1 : <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">　　　 <span class="comment">//...</span></span><br><span class="line">　　&#125;,</span><br><span class="line">　　m2 : <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">　　　　<span class="comment">//...</span></span><br><span class="line">　　&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>缺点：写法会暴露所有模块成员，内部状态可以被外部改写</p>
+<h3 id="3、立即执行函数写法"><a href="#3、立即执行函数写法" class="headerlink" title="3、立即执行函数写法"></a>3、立即执行函数写法</h3><p>使用”立即执行函数”，可以达到不暴露私有成员的目的。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> module1 = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">　　<span class="keyword">var</span> _count = <span class="number">0</span>;</span><br><span class="line">　　<span class="keyword">var</span> m1 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">　　　　<span class="comment">//...</span></span><br><span class="line">　　&#125;;</span><br><span class="line">　　<span class="keyword">var</span> m2 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">　　　　<span class="comment">//...</span></span><br><span class="line">　　&#125;;</span><br><span class="line">　　<span class="keyword">return</span> &#123;</span><br><span class="line">　　　　m1 : m1,</span><br><span class="line">　　　　m2 : m2</span><br><span class="line">　　&#125;;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure></p>
+<p>module1就是Javascript模块的基本写法。下面，再对这种写法进行加工。</p>
+<h3 id="4、放大模式"><a href="#4、放大模式" class="headerlink" title="4、放大模式"></a>4、放大模式</h3><p>如果一个模块很大，必须分成几个部分，或者一个模块需要继承另一个模块，这时就有必要采用”放大模式”。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> module1 = (<span class="function"><span class="keyword">function</span> (<span class="params">mod</span>)</span>&#123;</span><br><span class="line">　　mod.m3 = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">　　　　<span class="comment">//...</span></span><br><span class="line">　　&#125;;</span><br><span class="line">　　<span class="keyword">return</span> mod;</span><br><span class="line">&#125;)(module1);</span><br></pre></td></tr></table></figure></p>
+<p>上面的代码为module1模块添加了一个新方法m3()，然后返回新的module1模块。</p>
+<h3 id="5、宽放大模式"><a href="#5、宽放大模式" class="headerlink" title="5、宽放大模式"></a>5、宽放大模式</h3><p>在浏览器环境中，模块的各个部分通常都是从网上获取的，有时无法知道哪个部分会先加载。如果采用上一节的写法，第一个执行的部分有可能加载一个不存在空对象，这时就要采用”宽放大模式”。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> module1 = ( <span class="function"><span class="keyword">function</span> (<span class="params">mod</span>)</span>&#123;</span><br><span class="line">　　<span class="comment">//...</span></span><br><span class="line">　　<span class="keyword">return</span> mod;</span><br><span class="line">&#125;)(<span class="built_in">window</span>.module1 || &#123;&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>与”放大模式”相比，＂宽放大模式＂就是”立即执行函数”的参数可以是空对象。</p>
+<h3 id="6、输入全局变量"><a href="#6、输入全局变量" class="headerlink" title="6、输入全局变量"></a>6、输入全局变量</h3><p>独立性是模块的重要特点，模块内部最好不与程序的其他部分直接交互。<br>为了在模块内部调用全局变量，必须显式地将其他变量输入模块。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> module1 = (<span class="function"><span class="keyword">function</span> (<span class="params">$, YAHOO</span>) </span>&#123;</span><br><span class="line">　　<span class="comment">//...</span></span><br><span class="line">&#125;)(jQuery, YAHOO);</span><br></pre></td></tr></table></figure>
+<p>上面的module1模块需要使用jQuery库和YUI库，就把这两个库（其实是两个模块）当作参数输入module1。这样做除了保证模块的独立性，还使得模块之间的依赖关系变得明显。</p>
+        
+          <p class="article-more-link">
+            <a href="/2015/12/24/javascript-module/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2015/12/24/javascript-module/" data-id="cltp3bxwg000fgolo4u14gj0s" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-ubuntu-netstat" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2015/12/24/ubuntu-netstat/" class="article-date">
+  <time datetime="2015-12-24T10:55:37.000Z" itemprop="datePublished">2015-12-24</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-true">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/24/ubuntu-netstat/">ubuntu查看和关闭端口</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="一、查看端口"><a href="#一、查看端口" class="headerlink" title="一、查看端口"></a>一、查看端口</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">netstat -anp</span><br><span class="line"></span><br><span class="line">// result</span><br><span class="line">Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name</span><br><span class="line">tcp        0      0 127.0.0.1:631           0.0.0.0:*               LISTEN      -</span><br><span class="line">tcp        0      0 0.0.0.0:27017           0.0.0.0:*               LISTEN      -</span><br><span class="line">tcp        0      0 127.0.0.1:6379          0.0.0.0:*               LISTEN      -</span><br><span class="line">tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN      -</span><br><span class="line">tcp        0      0 0.0.0.0:8080            0.0.0.0:*               LISTEN      -</span><br><span class="line">tcp        0      0 0.0.0.0:81              0.0.0.0:*               LISTEN      -</span><br><span class="line">tcp        0      0 0.0.0.0:82              0.0.0.0:*               LISTEN      -</span><br><span class="line">tcp        0      0 192.168.222.198:50233   180.97.33.107:443       ESTABLISHED 2361/google-chrome-</span><br><span class="line">...</span><br><span class="line">Active UNIX domain sockets (servers and established)</span><br><span class="line">Proto RefCnt Flags       Type       State         I-Node   PID/Program name    Path</span><br><span class="line">unix  2      [ ACC ]     STREAM     LISTENING     1996     -                   /tmp/mongodb-27017.sock</span><br><span class="line">unix  2      [ ACC ]     STREAM     LISTENING     781      -                   /tmp/.X11-unix/X0</span><br><span class="line">unix  2      [ ACC ]     STREAM     LISTENING     12932    1799/xfce4-session  /tmp/.ICE-unix/1799</span><br><span class="line">unix  2      [ ACC ]     STREAM     LISTENING     12931    1799/xfce4-session  @/tmp/.ICE-unix/1799</span><br><span class="line">unix  2      [ ACC ]     STREAM     LISTENING     15489    1915/fcitx          /tmp/fcitx-socket-:0</span><br><span class="line">unix  2      [ ACC ]     STREAM     LISTENING     16412    2068/sogou-qimpanel /tmp/sogou-qimpaneluser</span><br><span class="line">unix  2      [ ACC ]     STREAM     LISTENING     15796    2361/google-chrome- /tmp/.com.google.Chrome.KwiQ8d/SingletonSocket</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">// 查看某个端口的进程</span><br><span class="line">netstat -anp | grep 8081</span><br><span class="line"></span><br><span class="line">// result</span><br><span class="line">tcp        0      0 127.0.0.1:56770         127.0.0.1:8081          ESTABLISHED 2361/google-chrome-</span><br><span class="line">tcp6       0      0 :::8081                 :::*                    LISTEN      5359/gulp</span><br><span class="line">tcp6       0      0 127.0.0.1:8081          127.0.0.1:56770         ESTABLISHED 5359/gulp</span><br></pre></td></tr></table></figure>
+<h2 id="二、关闭某个端口的进程"><a href="#二、关闭某个端口的进程" class="headerlink" title="二、关闭某个端口的进程"></a>二、关闭某个端口的进程</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kill -9 5359</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ubuntu/">ubuntu</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2015/12/24/ubuntu-netstat/" data-id="cltp3bxwc000agolos2yiy8ve" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+</article>
+
+
+
+  
+  
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    </nav>
+  
+</section>
+      
+      <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/03/11/github-pages-env/">NextJs 获取 Github Action 部署的环境变量</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/06/mobile-debugging-tools/">H5 移动端调试工具汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/05/webpack-plugin-mechanism/">Webpack Plugin插件机制</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/29/commomly-css/">常用的CSS技巧</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/08/interview-questions/">前端面试题汇总</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debugging/">debugging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-pages/">github pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interview/">interview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/">mobile</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/weinre/">weinre</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2024 HankLiu, Inc. All rights reserved.<br>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">主页</a>
+  
+    <a href="/archives" class="mobile-nav-link">文章</a>
+  
+    <a href="/toolbox-frontend" class="mobile-nav-link">小工具</a>
+  
+    <a href="/resume" class="mobile-nav-link">小简介</a>
+  
+  <a href="#search" class="mobile-nav-link st-search-show-outputs">Search</a>
+</nav>
+  
+
+<!-- totop start -->
+<div id="totop">
+	<a title="To Top"></a>
+</div>
+<!-- totop end -->
+
+<!-- swiftype search start -->
+
+<!-- swiftype search end -->
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/lrsjng.jquery-qrcode/0.12.0/jquery.qrcode.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+</div>
+</body>
+</html>
