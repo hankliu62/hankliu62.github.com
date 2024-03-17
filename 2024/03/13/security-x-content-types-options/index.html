@@ -5,20 +5,20 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   
-  <title>ubuntu查看和关闭端口 | HankLiu的博客小屋</title>
+  <title>Web安全之使用 X-Content-Type-Options 首部字段 | HankLiu的博客小屋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一、查看端口12345678910111213141516171819202122232425262728293031netstat -anp// resultProto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program nametcp        0      0 127.">
-<meta name="keywords" content="blog,shell,ubuntu">
+  <meta name="description" content="Web安全之使用 X-Content-Type-Options 首部字段简介X-Content-Type-Options 是一个 HTTP 响应头，用于防止浏览器对响应内容的 MIME 类型进行嗅探或猜测。当设置为 nosniff 时，它告诉浏览器应该严格按照响应头中 Content-Type 字段所指定的类型来处理资源，而不应该根据文件扩展名、文件内容或其他因素来尝试重新确定资源的类型。 作用使">
+<meta name="keywords" content="network,security">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ubuntu查看和关闭端口">
-<meta property="og:url" content="https://hankliu62.github.io/2015/12/24/ubuntu-netstat/index.html">
+<meta property="og:title" content="Web安全之使用 X-Content-Type-Options 首部字段">
+<meta property="og:url" content="https://hankliu62.github.io/2024/03/13/security-x-content-types-options/index.html">
 <meta property="og:site_name" content="HankLiu的博客小屋">
-<meta property="og:description" content="一、查看端口12345678910111213141516171819202122232425262728293031netstat -anp// resultProto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program nametcp        0      0 127.">
+<meta property="og:description" content="Web安全之使用 X-Content-Type-Options 首部字段简介X-Content-Type-Options 是一个 HTTP 响应头，用于防止浏览器对响应内容的 MIME 类型进行嗅探或猜测。当设置为 nosniff 时，它告诉浏览器应该严格按照响应头中 Content-Type 字段所指定的类型来处理资源，而不应该根据文件扩展名、文件内容或其他因素来尝试重新确定资源的类型。 作用使">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2024-02-13T10:47:41.948Z">
+<meta property="og:updated_time" content="2024-03-13T01:16:28.519Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ubuntu查看和关闭端口">
-<meta name="twitter:description" content="一、查看端口12345678910111213141516171819202122232425262728293031netstat -anp// resultProto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program nametcp        0      0 127.">
+<meta name="twitter:title" content="Web安全之使用 X-Content-Type-Options 首部字段">
+<meta name="twitter:description" content="Web安全之使用 X-Content-Type-Options 首部字段简介X-Content-Type-Options 是一个 HTTP 响应头，用于防止浏览器对响应内容的 MIME 类型进行嗅探或猜测。当设置为 nosniff 时，它告诉浏览器应该严格按照响应头中 Content-Type 字段所指定的类型来处理资源，而不应该根据文件扩展名、文件内容或其他因素来尝试重新确定资源的类型。 作用使">
   
   
     <link rel="icon" href="/img/favicon.ico" sizes="16x16">
@@ -89,10 +89,10 @@
 </header>
 
     <div class="outer">
-      <section id="main"><article id="post-ubuntu-netstat" class="article article-type-post" itemscope itemprop="blogPost">
+      <section id="main"><article id="post-security-x-content-types-options" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <h3 href="/2015/12/24/ubuntu-netstat/" class="article-date">
-  <time datetime="2015-12-24T10:55:37.000Z" itemprop="datePublished">2015-12-24</time>
+    <h3 href="/2024/03/13/security-x-content-types-options/" class="article-date">
+  <time datetime="2024-03-13T01:09:12.000Z" itemprop="datePublished">2024-03-13</time>
 </h3>
     
   </div>
@@ -105,7 +105,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      ubuntu查看和关闭端口
+      Web安全之使用 X-Content-Type-Options 首部字段
     </h1>
   
 
@@ -114,16 +114,27 @@
     <div class="article-entry" itemprop="articleBody">
       
         
-        <h2 id="一、查看端口"><a href="#一、查看端口" class="headerlink" title="一、查看端口"></a>一、查看端口</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">netstat -anp</span><br><span class="line"></span><br><span class="line">// result</span><br><span class="line">Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name</span><br><span class="line">tcp        0      0 127.0.0.1:631           0.0.0.0:*               LISTEN      -</span><br><span class="line">tcp        0      0 0.0.0.0:27017           0.0.0.0:*               LISTEN      -</span><br><span class="line">tcp        0      0 127.0.0.1:6379          0.0.0.0:*               LISTEN      -</span><br><span class="line">tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN      -</span><br><span class="line">tcp        0      0 0.0.0.0:8080            0.0.0.0:*               LISTEN      -</span><br><span class="line">tcp        0      0 0.0.0.0:81              0.0.0.0:*               LISTEN      -</span><br><span class="line">tcp        0      0 0.0.0.0:82              0.0.0.0:*               LISTEN      -</span><br><span class="line">tcp        0      0 192.168.222.198:50233   180.97.33.107:443       ESTABLISHED 2361/google-chrome-</span><br><span class="line">...</span><br><span class="line">Active UNIX domain sockets (servers and established)</span><br><span class="line">Proto RefCnt Flags       Type       State         I-Node   PID/Program name    Path</span><br><span class="line">unix  2      [ ACC ]     STREAM     LISTENING     1996     -                   /tmp/mongodb-27017.sock</span><br><span class="line">unix  2      [ ACC ]     STREAM     LISTENING     781      -                   /tmp/.X11-unix/X0</span><br><span class="line">unix  2      [ ACC ]     STREAM     LISTENING     12932    1799/xfce4-session  /tmp/.ICE-unix/1799</span><br><span class="line">unix  2      [ ACC ]     STREAM     LISTENING     12931    1799/xfce4-session  @/tmp/.ICE-unix/1799</span><br><span class="line">unix  2      [ ACC ]     STREAM     LISTENING     15489    1915/fcitx          /tmp/fcitx-socket-:0</span><br><span class="line">unix  2      [ ACC ]     STREAM     LISTENING     16412    2068/sogou-qimpanel /tmp/sogou-qimpaneluser</span><br><span class="line">unix  2      [ ACC ]     STREAM     LISTENING     15796    2361/google-chrome- /tmp/.com.google.Chrome.KwiQ8d/SingletonSocket</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">// 查看某个端口的进程</span><br><span class="line">netstat -anp | grep 8081</span><br><span class="line"></span><br><span class="line">// result</span><br><span class="line">tcp        0      0 127.0.0.1:56770         127.0.0.1:8081          ESTABLISHED 2361/google-chrome-</span><br><span class="line">tcp6       0      0 :::8081                 :::*                    LISTEN      5359/gulp</span><br><span class="line">tcp6       0      0 127.0.0.1:8081          127.0.0.1:56770         ESTABLISHED 5359/gulp</span><br></pre></td></tr></table></figure>
-<h2 id="二、关闭某个端口的进程"><a href="#二、关闭某个端口的进程" class="headerlink" title="二、关闭某个端口的进程"></a>二、关闭某个端口的进程</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kill -9 5359</span><br></pre></td></tr></table></figure>
+        <h2 id="Web安全之使用-X-Content-Type-Options-首部字段"><a href="#Web安全之使用-X-Content-Type-Options-首部字段" class="headerlink" title="Web安全之使用 X-Content-Type-Options 首部字段"></a>Web安全之使用 X-Content-Type-Options 首部字段</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p><code>X-Content-Type-Options</code> 是一个 <code>HTTP</code> 响应头，用于防止浏览器对响应内容的 <code>MIME</code> 类型进行嗅探或猜测。当设置为 <code>nosniff</code> 时，它告诉浏览器应该严格按照响应头中 <code>Content-Type</code> 字段所指定的类型来处理资源，而不应该根据文件扩展名、文件内容或其他因素来尝试重新确定资源的类型。</p>
+<h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><p>使用 <code>X-Content-Type-Options</code> 可以提高网站的安全性，因为它可以防止某些类型的攻击，例如 <code>MIME</code> 类型混淆攻击。这种攻击通常涉及将恶意内容伪装成合法的资源类型（如 <code>JavaScript</code> 文件），然后利用浏览器对 <code>MIME</code> 类型的错误处理来执行恶意代码，能够有效的预防 <code>XSS</code> 攻击。</p>
+<h3 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h3><p>要在你的 <code>web</code> 服务器上设置 <code>X-Content-Type-Options</code> 响应头，你需要根据你的服务器软件（如 <code>Apache、Nginx、IIS</code> 等）进行配置。下面是一些常见的服务器配置示例：</p>
+<h4 id="Apache"><a href="#Apache" class="headerlink" title="Apache"></a>Apache</h4><p>在 Apache 中，你可以使用 mod_headers 模块来设置响应头。在你的网站配置文件中添加以下行：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute"><span class="nomarkup">Header</span></span> set X-Content-Type-Options <span class="string">"nosniff"</span></span><br></pre></td></tr></table></figure>
+<h4 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h4><p>在 Nginx 中，你可以在 http、server 或 location 块中添加 add_header 指令来设置响应头：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">add_header</span> X-Content-Type-Options <span class="string">"nosniff"</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="IIS"><a href="#IIS" class="headerlink" title="IIS"></a>IIS</h4><p>在 IIS 中，你可以使用 web.config 文件来设置响应头。在 &lt;system.webServer&gt; 部分添加以下配置：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">httpProtocol</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">customHeaders</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">add</span> <span class="attr">name</span>=<span class="string">"X-Content-Type-Options"</span> <span class="attr">value</span>=<span class="string">"nosniff"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">customHeaders</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">httpProtocol</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="Node-js-使用-Express"><a href="#Node-js-使用-Express" class="headerlink" title="Node.js (使用 Express)"></a>Node.js (使用 Express)</h4><p>如果你使用 <code>Node.js</code> 和 <code>Express</code> 框架，你可以在应用程序中添加中间件来设置响应头：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">app.use(<span class="function">(<span class="params">req, res, next</span>) =&gt;</span> &#123;</span><br><span class="line">  res.setHeader(<span class="string">'X-Content-Type-Options'</span>, <span class="string">'nosniff'</span>);</span><br><span class="line">  next();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>请确保你的服务器配置正确，并且 <code>X-Content-Type-Options</code> 头部已正确设置。这样，浏览器在接收响应时就会遵守该头部的指示，从而提高应用程序的安全性。</p>
+
       
     </div>
     <footer class="article-footer">
       <div class="article-footer-content">
         
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ubuntu/">ubuntu</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/">network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/security/">security</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2015/12/24/ubuntu-netstat/" data-id="cltutpt6e000i5vlozj9vqknn" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/03/13/security-x-content-types-options/" data-id="cltutpt64000b5vlohcikwtc0" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -134,19 +145,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2015/12/24/javascript-common-function/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2024/03/14/security-xss/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          Javascript语法糖
+          Web安全之 XSS 攻击
         
       </div>
     </a>
   
   
-    <a href="/2015/12/24/javascript-module/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2024/03/11/github-pages-env/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">菜鸟学习Javascript模块化</div>
+      <div class="article-nav-title">NextJs 获取 Github Action 部署的环境变量</div>
     </a>
   
 </nav>

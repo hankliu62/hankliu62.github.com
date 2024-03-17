@@ -1,0 +1,334 @@
+
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+  <title>Web安全之 XSS 攻击 | HankLiu的博客小屋</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Web安全之 XSS 攻击简介XSS，全称跨站脚本攻击（Cross-Site Scripting），是一种网络安全漏洞攻击，指攻击者在网页中嵌入恶意脚本，当其他用户浏览该网页时，恶意脚本就会在其浏览器上执行，从而达到攻击者窃取用户信息、破坏数据、篡改网页内容、在用户浏览器上执行非法任务等目的。 分类XSS攻击分为三种类型：  反射型XSS（Reflected XSS）：攻击者将恶意脚本嵌入到URL">
+<meta name="keywords" content="network,security,xss">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Web安全之 XSS 攻击">
+<meta property="og:url" content="https://hankliu62.github.io/2024/03/14/security-xss/index.html">
+<meta property="og:site_name" content="HankLiu的博客小屋">
+<meta property="og:description" content="Web安全之 XSS 攻击简介XSS，全称跨站脚本攻击（Cross-Site Scripting），是一种网络安全漏洞攻击，指攻击者在网页中嵌入恶意脚本，当其他用户浏览该网页时，恶意脚本就会在其浏览器上执行，从而达到攻击者窃取用户信息、破坏数据、篡改网页内容、在用户浏览器上执行非法任务等目的。 分类XSS攻击分为三种类型：  反射型XSS（Reflected XSS）：攻击者将恶意脚本嵌入到URL">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2024-03-13T02:04:19.912Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Web安全之 XSS 攻击">
+<meta name="twitter:description" content="Web安全之 XSS 攻击简介XSS，全称跨站脚本攻击（Cross-Site Scripting），是一种网络安全漏洞攻击，指攻击者在网页中嵌入恶意脚本，当其他用户浏览该网页时，恶意脚本就会在其浏览器上执行，从而达到攻击者窃取用户信息、破坏数据、篡改网页内容、在用户浏览器上执行非法任务等目的。 分类XSS攻击分为三种类型：  反射型XSS（Reflected XSS）：攻击者将恶意脚本嵌入到URL">
+  
+  
+    <link rel="icon" href="/img/favicon.ico" sizes="16x16">
+  
+  <link rel="stylesheet" href="/css/style.css?t=1">
+  
+    <link href="//fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+  
+
+</head>
+</html>
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner">
+    <div id="banner-mask"></div>
+  </div>
+  <div id="header-outer" class="outer">
+    <nav id="upper-nav" class="inner">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      <div class="sub-nav">
+        
+        
+          <a id="nav-github" class="nav-icon" href="https://github.com/hankliu62"></a>
+        
+      </div>
+    </nav>
+    <div id="header-title">
+      
+        <h1 id="blog-title-wrap">
+          <a href="/" id="blog-title">HankLiu的博客小屋</a>
+        </h1>
+      
+      
+        <h5 class="blog-subtitle-wrap">努力去听风的声音，不必在意风的方向。</h5>
+      
+    </div>
+    <div id="contenedor">
+      <ul class="cube">
+        <li class="cara"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="100" width="100" viewBox="-50 -50 200 200">
+          <circle cx="50" cy="50" r="45" stroke-width="5" stroke="black" stroke-opacity="0.5" fill-opacity="0"></circle>
+          <rect id="clockwise" x="47.5" y="27.5" width="5" height="25" rx="2.5" ry="2.5" fill="black" fill-opacity="0.5" transform="rotate(330 50 50)"></rect>
+          <rect id="minute" x="48.5" y="16.5" width="3" height="35" rx="1.5" ry="1.5" fill="black" fill-opacity="0.5"></rect>
+        </svg></li>
+        <li class="cara">P</li>
+        <li class="cara">X</li>
+        <li class="cara">L</li>
+        <li class="cara">C</li>
+        <li class="cara">Y</li>
+      </ul>
+    </div>
+    <nav id="main-nav">
+      
+        <a class="main-nav-link" href="/">主页</a>
+      
+        <a class="main-nav-link" href="/archives">文章</a>
+      
+        <a class="main-nav-link" href="/toolbox-frontend">小工具</a>
+      
+        <a class="main-nav-link" href="/resume">小简介</a>
+      
+    </nav>
+  </div>
+</header>
+
+    <div class="outer">
+      <section id="main"><article id="post-security-xss" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2024/03/14/security-xss/" class="article-date">
+  <time datetime="2024-03-14T02:10:20.000Z" itemprop="datePublished">2024-03-14</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-false">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Web安全之 XSS 攻击
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="Web安全之-XSS-攻击"><a href="#Web安全之-XSS-攻击" class="headerlink" title="Web安全之 XSS 攻击"></a>Web安全之 XSS 攻击</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p><strong>XSS，全称跨站脚本攻击（Cross-Site Scripting）</strong>，是一种网络安全漏洞攻击，指攻击者在网页中嵌入恶意脚本，当其他用户浏览该网页时，恶意脚本就会在其浏览器上执行，从而达到攻击者窃取用户信息、破坏数据、篡改网页内容、在用户浏览器上执行非法任务等目的。</p>
+<h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><p><code>XSS</code>攻击分为三种类型：</p>
+<ul>
+<li><p><strong>反射型XSS（Reflected XSS）</strong>：攻击者将恶意脚本嵌入到URL地址中，当其他用户访问这个URL时，恶意脚本就会在其浏览器中执行。这种攻击方式需要用户主动点击含有恶意脚本的链接才会触发。</p>
+</li>
+<li><p><strong>存储型XSS（Stored XSS）</strong>：攻击者将恶意脚本存储到被攻击的网站数据库中，当其他用户访问网站时，恶意脚本会从数据库中取出并在用户浏览器中执行。这种攻击方式不需要用户主动点击链接，只要用户浏览被攻击的网站就可能被攻击。</p>
+</li>
+<li><p><strong>DOM型XSS（DOM-based XSS）</strong>：攻击者通过修改页面的DOM结构，注入恶意脚本，当其他用户浏览该页面时，恶意脚本会在用户浏览器中执行。这种攻击方式也不需要用户主动点击链接，只需要用户浏览被修改的页面就可能被攻击。</p>
+</li>
+</ul>
+<h3 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h3><h4 id="反射型XSS"><a href="#反射型XSS" class="headerlink" title="反射型XSS"></a>反射型XSS</h4><p>在<code>Node.js</code>中，一个反射型<code>XSS</code>攻击的案例可能涉及一个web应用，该应用没有正确地处理或转义用户输入的数据，并将其直接插入到HTML响应中。攻击者可以构造一个包含恶意脚本的URL，当其他用户访问这个URL时，恶意脚本会在用户的浏览器中执行。</p>
+<p>以下是一个简单的<code>Node.js</code>反射型<code>XSS</code>攻击的案例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="keyword">const</span> app = express();</span><br><span class="line">app.use(express.static(<span class="string">'public'</span>));</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/profile'</span>, (req, res) =&gt; &#123;</span><br><span class="line">  <span class="comment">// 假设用户可以通过URL参数传递他们的名字</span></span><br><span class="line">  <span class="keyword">const</span> username = req.query.username;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 没有对用户输入进行任何处理或转义</span></span><br><span class="line">  <span class="keyword">const</span> html = <span class="string">`&lt;html&gt;</span></span><br><span class="line"><span class="string">                &lt;body&gt;</span></span><br><span class="line"><span class="string">                  &lt;h1&gt;Welcome, <span class="subst">$&#123;username&#125;</span>!&lt;/h1&gt;</span></span><br><span class="line"><span class="string">                &lt;/body&gt;</span></span><br><span class="line"><span class="string">              &lt;/html&gt;`</span>;</span><br><span class="line"></span><br><span class="line">  res.send(html);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> PORT = process.env.PORT || <span class="number">3000</span>;</span><br><span class="line">app.listen(PORT, () =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`Server is running on port <span class="subst">$&#123;PORT&#125;</span>`</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，我们创建了一个简单的<code>Express</code>应用，其中有一个<code>/profile</code>路由，该路由从URL的查询参数中获取用户名（<code>username</code>）。然后，我们将这个用户名嵌入到一个<code>HTML</code>字符串中，并将其作为响应发送回客户端。</p>
+<p>攻击者可以构造一个包含恶意脚本的URL，如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://example.com/profile?username=&lt;script&gt;alert(&apos;XSS&apos;);&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>当用户访问这个<code>URL</code>时，浏览器会接收到包含恶意脚本的<code>HTML</code>响应，并执行该脚本，从而触发<code>XSS</code>攻击。</p>
+<p>为了防止反射型<code>XSS</code>攻击，开发者应该对用户输入进行适当的过滤和转义。在这个案例中，可以使用如<code>escape-html</code>这样的库来转义<code>HTML</code>特殊字符：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> escapeHtml = <span class="built_in">require</span>(<span class="string">'escape-html'</span>);</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/profile'</span>, (req, res) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> username = req.query.username;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 转义用户输入中的HTML特殊字符</span></span><br><span class="line">  <span class="keyword">const</span> escapedUsername = escapeHtml(username);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> html = <span class="string">`&lt;html&gt;</span></span><br><span class="line"><span class="string">                &lt;body&gt;</span></span><br><span class="line"><span class="string">                  &lt;h1&gt;Welcome, <span class="subst">$&#123;escapedUsername&#125;</span>!&lt;/h1&gt;</span></span><br><span class="line"><span class="string">                &lt;/body&gt;</span></span><br><span class="line"><span class="string">              &lt;/html&gt;`</span>;</span><br><span class="line"></span><br><span class="line">  res.send(html);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>通过转义用户输入，恶意脚本将不会被浏览器执行，从而防止了<code>XSS</code>攻击。此外，开发者还应该使用内容安全策略（<code>CSP</code>）等额外安全措施来增强应用的安全性。</p>
+<a id="more"></a>
+<h4 id="存储型XSS"><a href="#存储型XSS" class="headerlink" title="存储型XSS"></a>存储型XSS</h4><p>在<code>存储型XSS（Persistent XSS）</code>攻击中，恶意脚本被用户提交并存储到服务器端的数据库中。当其他用户访问包含这些恶意脚本的页面时，脚本会在用户的浏览器上执行。下面是一个简单的<code>Node.js</code>存储型XSS案例，我们将使用<code>Express</code>框架和<code>MongoDB</code>数据库。</p>
+<p>首先，确保你已经安装了以下依赖：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install express body-parser mongoose</span><br></pre></td></tr></table></figure>
+<p>然后，你可以创建一个简单的<code>Express</code>应用，并设置一个<code>MongoDB</code>数据库来存储评论。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="keyword">const</span> bodyParser = <span class="built_in">require</span>(<span class="string">'body-parser'</span>);</span><br><span class="line"><span class="keyword">const</span> mongoose = <span class="built_in">require</span>(<span class="string">'mongoose'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = express();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 连接到MongoDB数据库</span></span><br><span class="line">mongoose.connect(<span class="string">'mongodb://localhost/xss-example'</span>, &#123; <span class="attr">useNewUrlParser</span>: <span class="literal">true</span>, <span class="attr">useUnifiedTopology</span>: <span class="literal">true</span> &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义评论模型</span></span><br><span class="line"><span class="keyword">const</span> Comment = mongoose.model(<span class="string">'Comment'</span>, <span class="keyword">new</span> mongoose.Schema(&#123;</span><br><span class="line">  content: <span class="built_in">String</span></span><br><span class="line">&#125;));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用body-parser中间件来解析请求体</span></span><br><span class="line">app.use(bodyParser.urlencoded(&#123; <span class="attr">extended</span>: <span class="literal">true</span> &#125;));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 路由：添加评论</span></span><br><span class="line">app.post(<span class="string">'/comment'</span>, <span class="keyword">async</span> (req, res) =&gt; &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">// 创建新的评论并保存到数据库</span></span><br><span class="line">    <span class="keyword">const</span> newComment = <span class="keyword">new</span> Comment(&#123; <span class="attr">content</span>: req.body.content &#125;);</span><br><span class="line">    <span class="keyword">await</span> newComment.save();</span><br><span class="line">    res.send(<span class="string">'Comment added successfully!'</span>);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    <span class="built_in">console</span>.error(error);</span><br><span class="line">    res.status(<span class="number">500</span>).send(<span class="string">'An error occurred while saving the comment.'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 路由：显示所有评论</span></span><br><span class="line">app.get(<span class="string">'/comments'</span>, <span class="keyword">async</span> (req, res) =&gt; &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">// 从数据库中获取所有评论</span></span><br><span class="line">    <span class="keyword">const</span> comments = <span class="keyword">await</span> Comment.find(&#123;&#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 渲染评论列表的HTML</span></span><br><span class="line">    <span class="keyword">const</span> html = renderComments(comments);</span><br><span class="line">    res.send(html);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    <span class="built_in">console</span>.error(error);</span><br><span class="line">    res.status(<span class="number">500</span>).send(<span class="string">'An error occurred while fetching the comments.'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 渲染评论列表的HTML</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">renderComments</span>(<span class="params">comments</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> html = <span class="string">'&lt;html&gt;&lt;body&gt;'</span>;</span><br><span class="line">  comments.forEach(<span class="function"><span class="params">comment</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 这里没有对评论内容进行转义，这会导致存储型XSS漏洞</span></span><br><span class="line">    html += <span class="string">`&lt;div&gt;<span class="subst">$&#123;comment.content&#125;</span>&lt;/div&gt;`</span>;</span><br><span class="line">  &#125;);</span><br><span class="line">  html += <span class="string">'&lt;/body&gt;&lt;/html&gt;'</span>;</span><br><span class="line">  <span class="keyword">return</span> html;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 启动服务器</span></span><br><span class="line"><span class="keyword">const</span> PORT = process.env.PORT || <span class="number">3000</span>;</span><br><span class="line">app.listen(PORT, () =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`Server is running on port <span class="subst">$&#123;PORT&#125;</span>`</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>在这个案例中，我们定义了一个<code>Comment</code>模型，用于在<code>MongoDB</code>数据库中存储评论。<code>/comment</code>路由接受<code>POST</code>请求，将用户提交的评论保存到数据库中。<code>/comments</code>路由则负责从数据库中检索所有评论，并将它们渲染为HTML页面。</p>
+<p>重要提示：在这个案例的<code>renderComments</code>函数中，我们没有对评论内容进行任何形式的转义或过滤。这意味着如果用户在评论中输入了恶意脚本，它将被直接插入到<code>HTML</code>页面中，并在其他用户查看该页面时执行。这就是<code>存储型XSS</code>攻击的核心。</p>
+<p>为了防止<code>存储型XSS</code>攻击，你应该对所有的用户输入进行适当的转义或过滤。在<code>Express</code>应用中，你可以使用如<code>express-sanitized</code>和<code>helmet</code>这样的中间件来设置一些基本的<code>HTTP</code>头，以增加安全性。另外，使用模板引擎（如<code>ejs</code>、<code>pug</code>等）也可以帮助你更安全地渲染用户输入的数据，因为这些模板引擎通常会自动转义特殊字符。此外，对于<code>存储型XSS</code>，还需要确保在将用户数据插入到<code>HTML</code>之前进行适当的转义处理。</p>
+<h4 id="DOM型XSS"><a href="#DOM型XSS" class="headerlink" title="DOM型XSS"></a>DOM型XSS</h4><p>在<code>React</code>应用程序中，<code>DOM型XSS</code>（跨站脚本）攻击通常发生在直接将用户输入嵌入到<code>JSX</code>中而没有进行适当的转义或过滤时。<code>React</code>本身不会自动转义用户输入，因此开发者需要确保在渲染用户输入之前进行适当的处理。下面是一个简单的<code>React</code>应用案例，展示了如果不正确地处理用户输入，可能会导致的<code>DOM型XSS</code>攻击：</p>
+<p>首先，创建一个简单的<code>React</code>组件，它将接收一个名为<code>username</code>的属性，并将其直接渲染到页面上：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">UserProfile</span>(<span class="params">&#123; username &#125;</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;h1&gt;Welcome, &#123;username&#125;!&lt;<span class="regexp">/h1&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> UserProfile;</span><br></pre></td></tr></table></figure>
+<p>然后，在父组件中使用这个<code>UserProfile</code>组件，并假设从某个地方（例如URL参数、数据库或用户输入）获取<code>username</code>：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> UserProfile <span class="keyword">from</span> <span class="string">'./UserProfile'</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 假设这是从某个不安全的来源获取的用户名</span></span><br><span class="line">  <span class="keyword">const</span> username = <span class="string">"Alice &lt;img src='https://example.com/x.png' onerror='alert(\"XSS\")' /&gt;"</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div className=<span class="string">"App"</span>&gt;</span><br><span class="line">      &lt;UserProfile username=&#123;username&#125; /&gt;</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default App;</span></span><br></pre></td></tr></table></figure>
+<p>在这个案例中，如果<code>username</code>包含了恶意的<code>HTML</code>和<code>JavaScript</code>代码，那么这段代码将会被执行，导致<code>XSS</code>攻击。</p>
+<p>为了防止这种攻击，你应该在渲染用户输入之前使用某种方法对其进行转义，以确保它不会被浏览器解析为<code>HTML</code>或<code>JavaScript</code>代码。在<code>React</code>中，你可以使用内置的<code>dangerouslySetInnerHTML</code>属性配合适当的转义函数来安全地渲染<code>HTML</code>内容。然而，这通常不是推荐的做法，因为它可能会引入其他安全风险。</p>
+<p>更好的做法是使用库如<code>react-dom-purify</code>来清理用户输入中的潜在恶意代码。下面是如何使用<code>react-dom-purify</code>来防止<code>XSS</code>攻击的例子：</p>
+<p>首先，安装<code>react-dom-purify</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install react-dom-purify</span><br></pre></td></tr></table></figure>
+<p>然后，在你的<code>React</code>组件中使用它：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> DOMPurify <span class="keyword">from</span> <span class="string">'react-dom-purify'</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">UserProfile</span>(<span class="params">&#123; username &#125;</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 使用DOMPurify来清理用户输入中的潜在恶意代码</span></span><br><span class="line">  <span class="keyword">const</span> safeUsername = DOMPurify.sanitize(username);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;h1&gt;Welcome, &#123;safeUsername&#125;!&lt;<span class="regexp">/h1&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> UserProfile;</span><br></pre></td></tr></table></figure>
+<p>在这个修改后的例子中，即使<code>username</code>包含了恶意的<code>HTML</code>和<code>JavaScript</code>代码，<code>DOMPurify.sanitize</code>函数也会将其清理掉，确保它们不会被浏览器执行。</p>
+<p>总之，为了防止<code>DOM型XSS</code>攻击，你应该始终确保在将用户输入渲染到React组件之前对其进行适当的转义或清理。</p>
+<h4 id="ejs-模板引擎"><a href="#ejs-模板引擎" class="headerlink" title="ejs 模板引擎"></a>ejs 模板引擎</h4><p>例如，如果你使用<code>ejs</code>作为模板引擎，你可以这样渲染评论：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;% comments.forEach(function(comment) &#123; %&gt;</span><br><span class="line">    &lt;div&gt;&lt;%= comment.content %&gt;&lt;/div&gt;</span><br><span class="line">  &lt;% &#125;); %&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，<code>&lt;%= comment.content %&gt;</code>会自动转义<code>comment.content</code>中的特殊字符，从而防止<code>XSS</code>攻击。</p>
+<p>为了防止反射型和<code>存储型XSS</code>攻击，开发者应该对用户输入的数据进行适当的验证、过滤和转义。在<code>Node.js</code>中，可以使用诸如<code>express-sanitized</code>和<code>helmet</code>等中间件来增强应用的安全性。此外，对于<code>存储型XSS</code>，还需要确保在将用户数据插入到<code>HTML</code>之前进行适当的转义处理。</p>
+<h4 id="express-sanitized-中间件"><a href="#express-sanitized-中间件" class="headerlink" title="express-sanitized 中间件"></a>express-sanitized 中间件</h4><p><code>express-sanitized</code> 是一个 <code>Express.js</code> 的中间件，用于帮助防止跨站脚本（<code>XSS</code>）攻击。它通过提供一组函数来清理和转义用户输入的数据，从而减少潜在的安全风险。然而，需要注意的是，<code>express-sanitized</code> 本身并不提供全面的 <code>XSS</code> 保护。它应当与其他安全措施（如内容安全策略（<code>CSP</code>）、<code>HTTP</code> 头设置等）一起使用。</p>
+<p>下面是一个简单的 <code>Node.js</code> 案例，演示了如何使用 <code>express-sanitized</code> 中间件来防止反射型 <code>XSS</code> 攻击：</p>
+<p>首先，你需要安装 <code>express</code> 和 <code>express-sanitized</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install express express-sanitized</span><br></pre></td></tr></table></figure>
+<p>然后，你可以创建一个简单的 Express 应用，并使用 express-sanitized 来清理用户输入的数据：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="keyword">const</span> sanitized = <span class="built_in">require</span>(<span class="string">'express-sanitized'</span>);</span><br><span class="line"><span class="keyword">const</span> app = express();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用 express-sanitized 中间件</span></span><br><span class="line">app.use(sanitized());</span><br><span class="line"></span><br><span class="line"><span class="comment">// 一个简单的 GET 路由，接收用户输入并反射回去</span></span><br><span class="line">app.get(<span class="string">'/reflect'</span>, (req, res) =&gt; &#123;</span><br><span class="line">  <span class="comment">// 假设我们从 URL 参数中获取用户输入</span></span><br><span class="line">  <span class="keyword">const</span> userInput = req.query.message;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 使用 express-sanitized 的 sanitize 函数来清理用户输入</span></span><br><span class="line">  <span class="keyword">const</span> cleanedInput = sanitized.sanitize(userInput);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 将清理后的用户输入嵌入到 HTML 中</span></span><br><span class="line">  <span class="keyword">const</span> html = <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;html&gt;</span></span><br><span class="line"><span class="string">      &lt;body&gt;</span></span><br><span class="line"><span class="string">        &lt;h1&gt;Welcome, <span class="subst">$&#123;cleanedInput&#125;</span>!&lt;/h1&gt;</span></span><br><span class="line"><span class="string">      &lt;/body&gt;</span></span><br><span class="line"><span class="string">    &lt;/html&gt;</span></span><br><span class="line"><span class="string">  `</span>;</span><br><span class="line"></span><br><span class="line">  res.send(html);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> PORT = process.env.PORT || <span class="number">3000</span>;</span><br><span class="line">app.listen(PORT, () =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`Server is running on port <span class="subst">$&#123;PORT&#125;</span>`</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，我们定义了一个 <code>/reflect</code> 路由，该路由从 <code>URL</code> 参数 <code>message</code> 中获取用户输入。然后，我们使用 <code>express-sanitized</code> 的 sanit<code>ize 函数来清理用户输入，该函数会移除或转义潜在的恶意脚本标签。最后，我们将清理后的用户输入嵌入到</code>HTML` 响应中。</p>
+<p>然而，需要注意的是，仅仅依赖 <code>express-sanitized</code> 是不够的。你应该始终遵循最佳实践，如使用模板引擎（如 <code>Pug</code>、<code>EJS</code> 等）来自动处理 <code>HTML</code> 转义，设置适当的 <code>HTTP</code> 头（如 <code>X-XSS-Protection</code> 和 <code>Content-Security-Policy</code>），并且对用户输入进行严格的验证和过滤。</p>
+<p>另外，<code>express-sanitized</code> 可能不是最新的或最广泛使用的 <code>XSS</code> 防护中间件。对于更全面的 <code>XSS</code> 防护，你可以考虑使用 <code>helmet</code> 中间件，它提供了多种增强 <code>Express</code> 应用安全性的功能，包括 <code>XSS</code> 防护。</p>
+<h4 id="helmet-中间件"><a href="#helmet-中间件" class="headerlink" title="helmet 中间件"></a>helmet 中间件</h4><p><code>helmet</code> 是一个 <code>Express.js</code> 的中间件，用于设置各种 <code>HTTP</code> 头来帮助预防一些已知的 <code>web</code> 漏洞，包括跨站脚本攻击（XSS）和数据泄露等。尽管 <code>helmet</code> 本身并不能完全防止 <code>XSS</code> 攻击，但它可以通过设置某些 <code>HTTP</code> 头来减少攻击面。</p>
+<p>下面是一个使用 <code>helmet</code> 中间件来增强 <code>Express.js</code> 应用安全性的简单案例：</p>
+<p>首先，你需要安装 <code>express</code> 和 <code>helmet</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install express helmet</span><br></pre></td></tr></table></figure>
+<p>然后，创建一个 <code>Express</code> 应用并引入 <code>helmet</code> 中间件：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="keyword">const</span> helmet = <span class="built_in">require</span>(<span class="string">'helmet'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = express();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用 helmet 中间件</span></span><br><span class="line">app.use(helmet());</span><br><span class="line"></span><br><span class="line"><span class="comment">// 一个简单的 GET 路由</span></span><br><span class="line">app.get(<span class="string">'/'</span>, (req, res) =&gt; &#123;</span><br><span class="line">  res.send(<span class="string">'Hello, World!'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> PORT = process.env.PORT || <span class="number">3000</span>;</span><br><span class="line">app.listen(PORT, () =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`Server is running on port <span class="subst">$&#123;PORT&#125;</span>`</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>在上面的代码中，<code>helmet()</code> 函数是一个方便的快捷方式，用于启用多个安全头。这些头包括：</p>
+<ul>
+<li><code>content-security-policy</code>：帮助检测和缓解某些类型的攻击，包括跨站脚本和数据注入攻击。</li>
+<li><code>x-dns-prefetch-control</code>：控制浏览器是否应该执行 <code>DNS</code> 预取。</li>
+<li><code>x-frame-options</code>：指示浏览器是否应该允许页面被嵌入到 <code>&lt;iframe&gt;</code>、<code>&lt;frame&gt;</code>、<code>&lt;embed&gt;</code> 或 <code>&lt;object&gt;</code> 元素中。</li>
+<li><code>x-content-type-options</code>：防止浏览器猜测响应的 <code>MIME</code> 类型。</li>
+<li><code>x-xss-protection</code>：启用浏览器的反射型 <code>XSS</code> 保护。</li>
+<li><code>x-permitted-cross-domain-policies</code>：限制 <code>Adobe Flash Player</code> 的跨域策略文件的使用。</li>
+<li><code>referrer-policy</code>：控制浏览器在发送 <code>HTTP</code> 引用头时如何生成和发送引用信息。</li>
+</ul>
+<p>请注意，尽管 <code>helmet</code> 提供了这些保护措施，但它们并不是万无一失的。特别是 <code>content-security-policy</code> 头，它允许你明确指定哪些内容是安全的，是防止 <code>XSS</code> 攻击的重要工具。你需要根据你的应用程序的具体需求来配置它。</p>
+<p>此外，你还需要确保应用程序的其他部分（如模板引擎、用户输入验证等）也采取了适当的安全措施。<code>helmet</code> 只能作为安全策略的一部分，而不能单独依赖它来完全防止 <code>XSS</code> 攻击。</p>
+<h3 id="预防措施"><a href="#预防措施" class="headerlink" title="预防措施"></a>预防措施</h3><p>为了防范<code>XSS</code>攻击，可以采取以下措施：</p>
+<ol>
+<li>对用户输入的数据进行过滤和转义，防止恶意脚本的注入。</li>
+<li>使用<code>HTTPOnly</code>属性设置Cookie，防止攻击者通过<code>XSS</code>攻击窃取用户信息。</li>
+<li>使用 <code>CSP</code> 内容安全策略（<code>Content-Security-Policy</code>）限制网站中能够执行的脚本，防止恶意脚本的执行。</li>
+<li>使用最新的Web安全技术和框架，如<code>React</code>、<code>Vue</code>等，它们提供了内置的<code>XSS</code>防护措施。</li>
+<li>定期对网站进行安全漏洞扫描和测试，及时发现和修复<code>XSS</code>漏洞。</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/">network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/security/">security</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xss/">xss</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2024/03/14/security-xss/" data-id="cltutpt6c000f5vlolvur57c6" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2024/03/13/security-x-content-types-options/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Web安全之使用 X-Content-Type-Options 首部字段</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+      
+      <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/03/14/security-xss/">Web安全之 XSS 攻击</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/13/security-x-content-types-options/">Web安全之使用 X-Content-Type-Options 首部字段</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/11/github-pages-env/">NextJs 获取 Github Action 部署的环境变量</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/06/mobile-debugging-tools/">H5 移动端调试工具汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/05/webpack-plugin-mechanism/">Webpack Plugin插件机制</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debugging/">debugging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-pages/">github pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interview/">interview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/">mobile</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">network</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/">security</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/weinre/">weinre</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xss/">xss</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2024 HankLiu, Inc. All rights reserved.<br>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">主页</a>
+  
+    <a href="/archives" class="mobile-nav-link">文章</a>
+  
+    <a href="/toolbox-frontend" class="mobile-nav-link">小工具</a>
+  
+    <a href="/resume" class="mobile-nav-link">小简介</a>
+  
+  <a href="#search" class="mobile-nav-link st-search-show-outputs">Search</a>
+</nav>
+  
+
+<!-- totop start -->
+<div id="totop">
+	<a title="To Top"></a>
+</div>
+<!-- totop end -->
+
+<!-- swiftype search start -->
+
+<!-- swiftype search end -->
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/lrsjng.jquery-qrcode/0.12.0/jquery.qrcode.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+</div>
+</body>
+</html>
