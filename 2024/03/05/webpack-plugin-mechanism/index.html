@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://github.com/hankliu62/interview/assets/8088864/ae6043a5-e389-4c3c-beb7-d56e30bdf1f5">
 <meta property="og:image" content="https://github.com/hankliu62/interview/assets/8088864/8e03fb89-5b75-4100-aeb9-bd35fa261143">
 <meta property="og:image" content="https://github.com/hankliu62/interview/assets/8088864/c4944703-5add-4ca1-8cb8-34e867b1f2b7">
-<meta property="og:updated_time" content="2024-03-16T11:54:36.922Z">
+<meta property="og:updated_time" content="2024-03-25T02:40:45.902Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Webpack Plugin插件机制">
 <meta name="twitter:description" content="Webpack Plugin插件机制plugin机制出现原因前面我们已经知道了，loader机制让webpack拥有了处理除js类型文件以外的能力。 那如果我们需要在项目中实现打包前自动清理上次打包生成的文件、将一些文件复制到打包目录中、自动生成html文件、将打包产物自动上传至服务器、将打包后代码进行压缩、拆分等一系列定制化功能，此时就必须借助webpack的plugin机制去实现了。 没错，w">
@@ -147,17 +147,25 @@
 <p><strong>我们了解了<code>compiler</code>和<code>compilation</code>对象后，就可以来看一下到底有哪些钩子。</strong></p>
 <h3 id="compiler钩子"><a href="#compiler钩子" class="headerlink" title="compiler钩子"></a>compiler钩子</h3><p>compiler有很多钩子<a href="https://webpack.js.org/api/compiler-hooks/#root" target="_blank" rel="noopener">官方地址</a>、<a href="https://webpack.docschina.org/api/compiler-hooks/" target="_blank" rel="noopener">中文地址</a>，介绍几个常用的：</p>
 <ul>
-<li><code>beforeRun</code> AsyncSeriesHook类型，在开始执行一次构建之前调用，compiler.run 方法开始执行后立刻进行调用。</li>
+<li><code>environment</code> SyncHook类型，在编译器准备环境时调用，时机就在配置文件中初始化插件之后。</li>
+<li><code>afterEnvironment</code> SyncHook类型，当编译器环境设置完成后，在 <code>environment hook</code> 后直接调用。</li>
+<li><code>entryOption</code> SyncBailHook类型，在 <code>webpack</code> 选项中的 <code>entry</code> 被处理过之后调用。</li>
+<li><code>afterPlugins</code> SyncHook类型，在插件初始化之后。</li>
+<li><code>afterResolvers</code> SyncHook类型，<code>resolver</code> 设置完成之后触发。</li>
+<li><code>beforeRun</code> AsyncSeriesHook类型，在开始执行一次构建之前调用，<code>compiler.run</code> 方法开始执行后立刻进行调用。</li>
 <li><code>run</code> AsyncSeriesHook类型，开始编译后触发。</li>
-<li><code>watchRun</code> AsyncSeriesHook类型，在监听模式下，一个新的 compilation 触发之后，但在 compilation 实际开始之前触发。</li>
-<li><code>compile</code> SyncHook类型，一次新的编译 compilation 创建之前触发。</li>
-<li><code>compilation</code> SyncHook类型，一次新的编译 compilation 创建之后触发。</li>
-<li><code>afterCompile</code> AsyncSeriesHook类型，compilation 结束和封印之后执行。</li>
-<li><code>shouldEmit</code> SyncBailHook类型，在输出 asset 之前调用。返回一个布尔值，告知是否输出。</li>
-<li><code>emit</code> AsyncSeriesHook类型，生成资源到 output 目录之前触发。</li>
-<li><code>afterEmit</code> AsyncSeriesHook类型，输出 asset 到 output 目录之后执行。</li>
-<li><code>done</code> AsyncSeriesHook类型，compilation 编译完成后触发。</li>
-<li><code>failed</code> SyncHook类型，compilation 编译失败后触发。</li>
+<li><code>watchRun</code> AsyncSeriesHook类型，在监听模式下，一个新的 <code>compilation</code> 触发之后，但在 <code>compilation</code> 实际开始之前触发。</li>
+<li><code>beforeCompile</code> AsyncSeriesHook类型，在创建 <code>compilation</code> 参数之后执行。</li>
+<li><code>compile</code> SyncHook类型，<code>beforeCompile</code> 之后立即调用，但在一个新的 <code>compilation</code> 创建之前。</li>
+<li><code>thisCompilation</code> SyncHook类型，初始化 <code>compilation</code> 时调用，在触发 <code>compilation</code> 事件之前调用。</li>
+<li><code>compilation</code> SyncHook类型，一次新的编译 <code>compilation</code> 创建之后触发。</li>
+<li><code>make</code> AsyncParallelHook类型，<code>compilation</code> 结束之前执行，<code>seal</code> 之前执行。</li>
+<li><code>afterCompile</code> AsyncSeriesHook类型，<code>compilation</code> 结束和封印之后执行。</li>
+<li><code>shouldEmit</code> SyncBailHook类型，在输出 <code>asset</code> 之前调用。返回一个布尔值，告知是否输出。</li>
+<li><code>emit</code> AsyncSeriesHook类型，生成资源到 <code>output</code> 目录之前触发。</li>
+<li><code>afterEmit</code> AsyncSeriesHook类型，输出 <code>asset</code> 到 <code>output</code> 目录之后执行。</li>
+<li><code>done</code> AsyncSeriesHook类型，<code>compilation</code> 编译完成后触发。</li>
+<li><code>failed</code> SyncHook类型，<code>compilation</code> 编译失败后触发。</li>
 </ul>
 <h3 id="compilation钩子"><a href="#compilation钩子" class="headerlink" title="compilation钩子"></a>compilation钩子</h3><p>compilation对象也有很多钩子<a href="https://webpack.js.org/api/compilation-hooks/#root" target="_blank" rel="noopener">官方地址</a>、<a href="https://webpack.docschina.org/api/compilation-hooks/" target="_blank" rel="noopener">中文地址</a>，介绍几个常用的：</p>
 <ul>
@@ -286,7 +294,7 @@
         
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/">webpack</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/03/05/webpack-plugin-mechanism/" data-id="cltutpt6i000k5vlolsy965eh" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/03/05/webpack-plugin-mechanism/" data-id="clu6cdy4g000ii7lon3momjm1" class="article-share-link">Share</a>
         
       </div>
     </footer>
