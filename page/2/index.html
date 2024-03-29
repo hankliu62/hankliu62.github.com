@@ -167,7 +167,7 @@
         
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2017/09/14/commonly-shell-command/" data-id="clu6cdy420003i7lo688o3y1q" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2017/09/14/commonly-shell-command/" data-id="clubxuohh0000kkloa12u74m7" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -240,7 +240,7 @@
         
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2017/09/09/hexo-github-blog-guide/" data-id="clu6cdy450005i7lornj2iaib" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2017/09/09/hexo-github-blog-guide/" data-id="clubxuohv0007kklo3wdrz6eo" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -301,7 +301,54 @@
         
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2015/12/24/javascript-common-function/" data-id="clu6cdy4j000ki7loy1vlt24m" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2015/12/24/javascript-common-function/" data-id="clubxuohr0004kklo45wzhtwp" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-ubuntu-netstat" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2015/12/24/ubuntu-netstat/" class="article-date">
+  <time datetime="2015-12-24T10:55:37.000Z" itemprop="datePublished">2015-12-24</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-true">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/24/ubuntu-netstat/">ubuntu查看和关闭端口</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="一、查看端口"><a href="#一、查看端口" class="headerlink" title="一、查看端口"></a>一、查看端口</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">netstat -anp</span><br><span class="line"></span><br><span class="line">// result</span><br><span class="line">Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name</span><br><span class="line">tcp        0      0 127.0.0.1:631           0.0.0.0:*               LISTEN      -</span><br><span class="line">tcp        0      0 0.0.0.0:27017           0.0.0.0:*               LISTEN      -</span><br><span class="line">tcp        0      0 127.0.0.1:6379          0.0.0.0:*               LISTEN      -</span><br><span class="line">tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN      -</span><br><span class="line">tcp        0      0 0.0.0.0:8080            0.0.0.0:*               LISTEN      -</span><br><span class="line">tcp        0      0 0.0.0.0:81              0.0.0.0:*               LISTEN      -</span><br><span class="line">tcp        0      0 0.0.0.0:82              0.0.0.0:*               LISTEN      -</span><br><span class="line">tcp        0      0 192.168.222.198:50233   180.97.33.107:443       ESTABLISHED 2361/google-chrome-</span><br><span class="line">...</span><br><span class="line">Active UNIX domain sockets (servers and established)</span><br><span class="line">Proto RefCnt Flags       Type       State         I-Node   PID/Program name    Path</span><br><span class="line">unix  2      [ ACC ]     STREAM     LISTENING     1996     -                   /tmp/mongodb-27017.sock</span><br><span class="line">unix  2      [ ACC ]     STREAM     LISTENING     781      -                   /tmp/.X11-unix/X0</span><br><span class="line">unix  2      [ ACC ]     STREAM     LISTENING     12932    1799/xfce4-session  /tmp/.ICE-unix/1799</span><br><span class="line">unix  2      [ ACC ]     STREAM     LISTENING     12931    1799/xfce4-session  @/tmp/.ICE-unix/1799</span><br><span class="line">unix  2      [ ACC ]     STREAM     LISTENING     15489    1915/fcitx          /tmp/fcitx-socket-:0</span><br><span class="line">unix  2      [ ACC ]     STREAM     LISTENING     16412    2068/sogou-qimpanel /tmp/sogou-qimpaneluser</span><br><span class="line">unix  2      [ ACC ]     STREAM     LISTENING     15796    2361/google-chrome- /tmp/.com.google.Chrome.KwiQ8d/SingletonSocket</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">// 查看某个端口的进程</span><br><span class="line">netstat -anp | grep 8081</span><br><span class="line"></span><br><span class="line">// result</span><br><span class="line">tcp        0      0 127.0.0.1:56770         127.0.0.1:8081          ESTABLISHED 2361/google-chrome-</span><br><span class="line">tcp6       0      0 :::8081                 :::*                    LISTEN      5359/gulp</span><br><span class="line">tcp6       0      0 127.0.0.1:8081          127.0.0.1:56770         ESTABLISHED 5359/gulp</span><br></pre></td></tr></table></figure>
+<h2 id="二、关闭某个端口的进程"><a href="#二、关闭某个端口的进程" class="headerlink" title="二、关闭某个端口的进程"></a>二、关闭某个端口的进程</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kill -9 5359</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ubuntu/">ubuntu</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2015/12/24/ubuntu-netstat/" data-id="clubxuoi2000ckklo496wwgd6" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -366,54 +413,7 @@
         
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2015/12/24/javascript-module/" data-id="clu6cdy55001yi7lokiv4tjyj" class="article-share-link">Share</a>
-        
-      </div>
-    </footer>
-  </div>
-  </div>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-ubuntu-netstat" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <h3 href="/2015/12/24/ubuntu-netstat/" class="article-date">
-  <time datetime="2015-12-24T10:55:37.000Z" itemprop="datePublished">2015-12-24</time>
-</h3>
-    
-  </div>
-  <div class="article-inner">
-  <div class="curve-down">
-  <div class="fill-content fill-content-true">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/12/24/ubuntu-netstat/">ubuntu查看和关闭端口</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-        <h2 id="一、查看端口"><a href="#一、查看端口" class="headerlink" title="一、查看端口"></a>一、查看端口</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">netstat -anp</span><br><span class="line"></span><br><span class="line">// result</span><br><span class="line">Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name</span><br><span class="line">tcp        0      0 127.0.0.1:631           0.0.0.0:*               LISTEN      -</span><br><span class="line">tcp        0      0 0.0.0.0:27017           0.0.0.0:*               LISTEN      -</span><br><span class="line">tcp        0      0 127.0.0.1:6379          0.0.0.0:*               LISTEN      -</span><br><span class="line">tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN      -</span><br><span class="line">tcp        0      0 0.0.0.0:8080            0.0.0.0:*               LISTEN      -</span><br><span class="line">tcp        0      0 0.0.0.0:81              0.0.0.0:*               LISTEN      -</span><br><span class="line">tcp        0      0 0.0.0.0:82              0.0.0.0:*               LISTEN      -</span><br><span class="line">tcp        0      0 192.168.222.198:50233   180.97.33.107:443       ESTABLISHED 2361/google-chrome-</span><br><span class="line">...</span><br><span class="line">Active UNIX domain sockets (servers and established)</span><br><span class="line">Proto RefCnt Flags       Type       State         I-Node   PID/Program name    Path</span><br><span class="line">unix  2      [ ACC ]     STREAM     LISTENING     1996     -                   /tmp/mongodb-27017.sock</span><br><span class="line">unix  2      [ ACC ]     STREAM     LISTENING     781      -                   /tmp/.X11-unix/X0</span><br><span class="line">unix  2      [ ACC ]     STREAM     LISTENING     12932    1799/xfce4-session  /tmp/.ICE-unix/1799</span><br><span class="line">unix  2      [ ACC ]     STREAM     LISTENING     12931    1799/xfce4-session  @/tmp/.ICE-unix/1799</span><br><span class="line">unix  2      [ ACC ]     STREAM     LISTENING     15489    1915/fcitx          /tmp/fcitx-socket-:0</span><br><span class="line">unix  2      [ ACC ]     STREAM     LISTENING     16412    2068/sogou-qimpanel /tmp/sogou-qimpaneluser</span><br><span class="line">unix  2      [ ACC ]     STREAM     LISTENING     15796    2361/google-chrome- /tmp/.com.google.Chrome.KwiQ8d/SingletonSocket</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">// 查看某个端口的进程</span><br><span class="line">netstat -anp | grep 8081</span><br><span class="line"></span><br><span class="line">// result</span><br><span class="line">tcp        0      0 127.0.0.1:56770         127.0.0.1:8081          ESTABLISHED 2361/google-chrome-</span><br><span class="line">tcp6       0      0 :::8081                 :::*                    LISTEN      5359/gulp</span><br><span class="line">tcp6       0      0 127.0.0.1:8081          127.0.0.1:56770         ESTABLISHED 5359/gulp</span><br></pre></td></tr></table></figure>
-<h2 id="二、关闭某个端口的进程"><a href="#二、关闭某个端口的进程" class="headerlink" title="二、关闭某个端口的进程"></a>二、关闭某个端口的进程</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kill -9 5359</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <div class="article-footer-content">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ubuntu/">ubuntu</a></li></ul>
-
-        <a data-url="https://hankliu62.github.io/2015/12/24/ubuntu-netstat/" data-id="clu6cdy48000ai7lozactt2p4" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2015/12/24/javascript-module/" data-id="clubxuoht0005kkloerrdgk9x" class="article-share-link">Share</a>
         
       </div>
     </footer>
