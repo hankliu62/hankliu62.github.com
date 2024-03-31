@@ -89,6 +89,434 @@
     <div class="outer">
       <section id="main">
   
+    <article id="post-commomly-css" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2024/02/29/commomly-css/" class="article-date">
+  <time datetime="2024-02-29T10:20:12.000Z" itemprop="datePublished">2024-02-29</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-true">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/02/29/commomly-css/">常用的CSS技巧</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ol>
+<li>网站平滑滚动</li>
+</ol>
+<p>在<code>&lt;html&gt;</code>元素中添加scroll-behavior: smooth，以实现整个页面的平滑滚动。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">html</span> &#123;</span><br><span class="line">  <span class="attribute">scroll-behavior</span>: smooth;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>链接的属性选择器</li>
+</ol>
+<p>此选择器的目标是具有以“https”开头的 href 属性的链接。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">a</span><span class="selector-attr">[href^=<span class="string">"https"</span>]</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: blue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>〜合并兄弟姐妹</li>
+</ol>
+<p>选择 <code>&lt;h2&gt;</code> 后面的所有兄弟元素 <code>&lt;p&gt;</code> 元素。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">h2</span> ~ <span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: blue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>:not() 伪类</li>
+</ol>
+<p>该选择器将样式应用于不具有“特殊”类的列表项。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">li</span><span class="selector-pseudo">:not(.special)</span> &#123;</span><br><span class="line">  <span class="attribute">font-stlye</span>: italic;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>用于响应式排版的视口单位</li>
+</ol>
+<p>使用视口单位（vw、vh、vmin、vmax）可以使字体大小响应视口大小。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">h1</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">5vw</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="6">
+<li><code>:empty</code> 表示空元素</li>
+</ol>
+<p>此选择器定位空的 <code>&lt;p&gt;</code> 元素并隐藏它们。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span><span class="selector-pseudo">:empty</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="7">
+<li>自定义属性（变量）</li>
+</ol>
+<p>可以定义和使用自定义属性，以更轻松地设置主题和维护。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-pseudo">:root</span> &#123;</span><br><span class="line">  <span class="attribute">--main-color</span>: <span class="number">#3498db</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">h1</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="built_in">var</span>(--main-color);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="8">
+<li>图像控制的Object-fit属性</li>
+</ol>
+<p><strong>object-fit</strong> 控制如何调整替换元素（如 <code>&lt;img&gt;</code>）的内容大小。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">img</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">object-fit</span>: cover;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+          <p class="article-more-link">
+            <a href="/2024/02/29/commomly-css/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2024/02/29/commomly-css/" data-id="cluerskks0001uflol4ybi7b2" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-interview-questions" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2024/02/08/interview-questions/" class="article-date">
+  <time datetime="2024-02-08T04:12:26.000Z" itemprop="datePublished">2024-02-08</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-true">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/02/08/interview-questions/">前端面试题汇总</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Event-Loop"><a href="#Event-Loop" class="headerlink" title="Event Loop"></a>Event Loop</h2><p>Event Loop即事件循环，是指浏览器或者Nodejs解决javascript单线程运行时异步逻辑不会阻塞的一种机制。</p>
+<p>Event Loop是一个执行模型，不同的运行环境有不同的实现，浏览器和nodejs基于不同的技术实现自己的event loop。</p>
+<ul>
+<li>浏览器的Event Loop是在HTML5规范中明确定义。</li>
+<li>Nodejs的Event Loop是libuv实现的。</li>
+<li>libuv已经对Event Loop作出了实现，HTML5规范中只是定义的浏览器中Event Loop的模型，具体的实现交给了浏览器厂商。</li>
+</ul>
+<h3 id="宏队列和微队列"><a href="#宏队列和微队列" class="headerlink" title="宏队列和微队列"></a>宏队列和微队列</h3><p>在javascript中，任务被分为两种，一种为宏任务(macrotask)，也称为task，一种为微任务(microtask)，也称为jobs。</p>
+<p>宏任务主要包括:</p>
+<ul>
+<li>script全部代码</li>
+<li>setTimeout</li>
+<li>setInterval</li>
+<li>setImmediate (Nodejs独有，浏览器暂时不支持，只有IE10支持)</li>
+<li>requestAnimationFrame (浏览器独有)</li>
+<li>I/O</li>
+<li>UI rendering (浏览器独有)</li>
+</ul>
+<p>微任务主要包括:</p>
+<ul>
+<li>process.nextTick (Nodejs独有)</li>
+<li>Promise</li>
+<li>Object.observe (废弃)</li>
+<li>MutationObserver</li>
+</ul>
+<h3 id="浏览器中的Event-Loop"><a href="#浏览器中的Event-Loop" class="headerlink" title="浏览器中的Event Loop"></a>浏览器中的Event Loop</h3><p>Javascript 有一个主线程 main thread 和 一个调用栈(执行栈) call-stack，所有任务都会被放到调用栈等待主线程的执行。</p>
+<p>JS调用栈采用的是后进先出的规则，当函数执行时，会被添加到调用栈的顶部，当执行栈执行完后，就会从栈顶移除，直到栈内被清空。</p>
+<p>Javascript单线程任务可以分为同步任务和异步任务，同步任务会在调用栈内按照顺序依次被主线程执行，异步任务会在异步任务有了结果后，将注册的回调函数放入任务队列中等待主线程空闲的时候（调用栈被清空的时候），被读取到调用栈内等待主线程的执行</p>
+<p>任务队列 Task Queue, 是先进先出的数据结构。</p>
+<p><img src="https://user-images.githubusercontent.com/8088864/124855609-c2904a00-dfdb-11eb-9138-df80150fa3a3.jpg" alt="浏览器事件循环的进程模型"></p>
+<p>浏览器Event Loop的具体流程:</p>
+<ol>
+<li>执行全局Javascript的同步代码，可能包含一些同步语句，也可以是异步语句(setTimeout语句不执行回调函数里面的，Promise中.then之前的语句)</li>
+<li>全局Javascript执行完毕后，调用栈call-stack会被清空</li>
+<li>从微队列microtask queue中取出位于首部的回调函数，放入到调用栈call-stack中执行，执行完毕后从调用栈中删除，microtask queue的长度减1。</li>
+<li>继续从微队列microtask queue的队首取出任务，放到调用栈中执行，依次循环往复，直至微任务队列microtask queue中的任务都被调用栈执行完毕。<strong>特别注意，如果在执行微任务microtask过程中，又产生了微任务microtask，新产生的微任务也会追加到微任务队列microtask queue的尾部，新生成的微任务也会在当前周期中被执行完毕。</strong></li>
+<li>microtask queue中的任务都被执行完毕后，microtask queue为空队列，调用栈也处于空闲阶段</li>
+<li>执行UI rendering</li>
+<li>从宏队列macrotask queue的队首取出宏任务，放入调用栈中执行。</li>
+<li>执行完后，调用栈为空闲状态</li>
+<li>重复 3 - 8 的步骤，直至宏任务队列的任务都被执行完毕。<br>…</li>
+</ol>
+<p>浏览器Event Loop的3个重点:</p>
+<ol>
+<li>宏队列macrotask queue每次只从中取出一个任务放到调用栈中执行，执行完后去执行微任务队列中的所有任务</li>
+<li>微任务队列中的所有任务都会依次取出来执行，只是微任务队列中的任务清空</li>
+<li>UI rendering 的执行节点在微任务队列执行完毕后，宏任务队列中取出任务执行之前执行</li>
+</ol>
+<h3 id="NodeJs中的Event-Loop"><a href="#NodeJs中的Event-Loop" class="headerlink" title="NodeJs中的Event Loop"></a>NodeJs中的Event Loop</h3><p>libuv结构</p>
+<p><img src="https://user-images.githubusercontent.com/8088864/125010304-d64db600-e098-11eb-824f-de433a12a095.png" alt="libuv的事件循环模型"></p>
+<p>NodeJs中的宏任务队列和微任务队列</p>
+<p>NodeJs的Event Loop中，执行宏任务队列的回调有6个阶段</p>
+<p><img src="https://user-images.githubusercontent.com/8088864/125010342-e9608600-e098-11eb-84e0-70a5bd5f5867.png" alt="NodeJS中的宏队列执行回调的6个阶段"></p>
+<p>Node的Event Loop可以分为6个阶段，各个阶段执行的任务如下所示:</p>
+<ul>
+<li><code>timers</code>: 执行setTimeout和setInterval中到期的callback。</li>
+<li><code>I/O callbacks</code>: 执行几乎所有的回调，除了close callbacks以及timers调度的回调和setImmediate()调度的回调。</li>
+<li><code>idle, prepare</code>: 仅在内部使用。</li>
+<li><code>poll</code>: 最重要的阶段，检索新的I/O事件，在适当的情况下回阻塞在该阶段。</li>
+<li><code>check</code>: 执行setImmediate的callback(setImmediate()会将事件回调插入到事件队列的尾部，主线程和事件队列的任务执行完毕后会立即执行setImmediate中传入的回调函数)。</li>
+<li><code>close callbacks</code>: 执行<code>close</code>事件的callback，例如socket.on(‘close’, fn)或则http.server.on(‘close’, fn)等。</li>
+</ul>
+<p>NodeJs中的宏任务队列可以分为下列4个:</p>
+<ol>
+<li>Timers Queue</li>
+<li>I/O Callbacks Queue</li>
+<li>Check Queue</li>
+<li>Close Callbacks Queue</li>
+</ol>
+<p>在浏览器中只有一个宏任务队列，所有宏任务都会放入到宏任务队列中等待放入执行栈中被主线程执行，NodeJs中有4个宏任务队列，不同类型的宏任务会被放入到不同的宏任务队列中。</p>
+<p>NodeJs中的微任务队列可以分为下列2个:</p>
+<ol>
+<li><code>Next Tick Queue</code>: 放置process.nextTick(callback)的回调函数</li>
+<li><code>Other Micro Queue</code>: 其他microtask，例如Promise等</li>
+</ol>
+<p>在浏览器中只有一个微任务队列，所有微任务都会放入到微任务队列中等待放入执行栈中被主线程执行，NodeJs中有2个微任务队列，不同类型的微任务会被放入到不同的微任务队列中。</p>
+<p><img src="https://user-images.githubusercontent.com/8088864/125030923-71a55200-e0be-11eb-93be-95f1cbc456e3.png" alt="NodeJs事件循环"></p>
+<p>NodeJs的Event Loop的具体流程:</p>
+<ol>
+<li>执行全局Javascript的同步代码，可能包含一些同步语句，也可以是异步语句(setTimeout语句不执行回调函数里面的，Promise中.then之前的语句)。</li>
+<li>执行微任务队列中的微任务，先执行Next Tick Queue队列中的所有的所有任务，再执行Other Micro Queue队列中的所有任务。</li>
+<li>开始执行宏任务队列中的任务，共6个阶段，从第1个阶段开始执行每个阶段对应宏任务队列中的所有任务，<strong>注意，这里执行的是该阶段宏任务队列中的所有的任务，浏览器Event Loop每次只会中宏任务队列中取出队首的任务执行，执行完后开始执行微任务队列中的任务，NodeJs的Event Loop会执行完该阶段中宏任务队列中的所有任务后，才开始执行微任务队列中的任务，也就是步骤2</strong>。</li>
+<li>Timers Queue -&gt; 步骤2 -&gt; I/O Callbacks Queue -&gt; 步骤2 -&gt; Check Queue -&gt; 步骤2 -&gt; Close Callback Queue -&gt; 步骤2 -&gt; Timers Queue -&gt; ……</li>
+</ol>
+<p><strong>特别注意:</strong></p>
+<ul>
+<li>上述的第三步，当 NodeJs 版本小于11时，NodeJs的Event Loop会执行完该阶段中宏任务队列中的所有任务</li>
+<li>当 NodeJS 版本大于等于11时，<strong>在timer阶段的setTimeout,setInterval…和在check阶段的setImmediate都在node11里面都修改为一旦执行一个阶段里的一个任务就立刻执行微任务队列</strong>。为了和浏览器更加趋同。</li>
+</ul>
+<p>NodeJs的Event Loop的microtask queue和macrotask queue的执行顺序详情</p>
+<p><img src="https://user-images.githubusercontent.com/8088864/125032436-8aaf0280-e0c0-11eb-926a-30be5bf116f9.png" alt="NodeJS中的微任务队列执行顺序"></p>
+<p><img src="https://user-images.githubusercontent.com/8088864/125032451-8f73b680-e0c0-11eb-8349-d6c5f20bd11a.png" alt="NodeJS中的宏任务队列执行顺序"></p>
+<p>当setTimeout(fn, 0)和setImmediate(fn)放在同一同步代码中执行时，可能会出现下面两种情况：</p>
+<ol>
+<li><strong>第一种情况</strong>: 同步代码执行完后，timer还没到期，setImmediate中注册的回调函数先放入到Check Queue的宏任务队列中，先执行微任务队列，然后开始执行宏任务队列，先从Timers Queue开始，由于在Timer Queue中未发现任何的回调函数，往下阶段走，直到Check Queue中发现setImmediate中注册的回调函数，先执行，然后timer到期，setTimeout注册的回调函数会放入到Timers Queue的宏任务队列中，下一轮后再次执行到Timers Queue阶段时，才会再Timers Queue中发现了setTimeout注册的回调函数，于是执行该timer的回调，所以，<strong>setImmediate(fn)注册的回调函数会早于setTimeout(fn, 0)注册的回调函数执行</strong>。</li>
+<li><p><strong>第二种情况</strong>: 同步代码执行完之前，timer已经到期，setTimeout注册的回调函数会放入到Timers Queue的宏任务队列中，执行同步代码到setImmediate时，将其回调函数注册到Check Queue中，同步代码执行完后，先执行微任务队列，然后开始执行宏任务队列，先从Timers Queue开始，在Timers Queue发现了timer中注册的回调函数，取出执行，往下阶段走，到Check Queue中发现setImmediate中注册的回调函数，又执行，所以这种情况时，<strong>setTimeout(fn, 0)注册的回调函数会早于setImmediate(fn)注册的回调函数执行</strong>。</p>
+</li>
+<li><p>在同步代码中同时调setTimeout(fn, 0)和setImmediate执行顺序情况是不确定的，但是如果把他们放在一个IO的回调，比如readFile(‘xx’, function () {// ….})回调中，那么IO回调是在I/O Callbacks Queue中，setTimeout到期回调注册到Timers Queue，setImmediate回调注册到Check Queue，I/O Callbacks Queue执行完到Check Queue，Timers Queue得到下个循环周期，所以setImmediate回调这种情况下肯定比setTimeout(fn, 0)回调先执行。</p>
+</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">setImmediate(<span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line">  setImmediate(<span class="function"><span class="keyword">function</span> <span class="title">B</span>(<span class="params"></span>)</span>&#123;<span class="built_in">console</span>.log(<span class="number">2</span>);&#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span> <span class="title">timeout</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'TIMEOUT FIRED'</span>);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 执行结果: 会存在下面两种情况</span></span><br><span class="line"><span class="comment">// 第一种情况:</span></span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="comment">// TIMEOUT FIRED</span></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 第二种情况:</span></span><br><span class="line"><span class="comment">// TIMEOUT FIRED</span></span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+<p>注:</p>
+<ul>
+<li>setImmediate中如果又存在setImmediate语句，内部的setImmediate语句注册的回调函数会在下一个<code>check</code>阶段来执行，并不在当前的<code>check</code>阶段来执行。</li>
+</ul>
+<p>poll 阶段详解:</p>
+<p>poll 阶段主要又两个功能:</p>
+<ol>
+<li>当timers到达指定的时间后，执行指定的timer的回调(Executing scripts for timers whose threshold has elapsed, then)。</li>
+<li>处理poll队列的事件(Processing events in the poll queue)。</li>
+</ol>
+<p>当进入到poll阶段，并且没有timers被调用的时候，会出现下面的情况:</p>
+<ul>
+<li>如果poll队列不为空，Event Loop将同步执行poll queue中的任务，直到poll queue队列为空或者执行的callback达到上限。</li>
+<li>如果poll队列为空，会发生下面的情况:<ul>
+<li>如果脚本执行过setImmediate代码，Event Loop会结束poll阶段，直接进入check阶段，执行Check Queue中调用setImmediate注册的回调函数。</li>
+<li>如果脚本没有执行过setImmediate代码，poll阶段将等待callback被添加到队列中，然后立即执行。</li>
+</ul>
+</li>
+</ul>
+<p>当进入到poll阶段，并且调用了timers的话，会发生下面的情况:</p>
+<ul>
+<li>一旦poll queue为空，Event Loop会检测Timers Queue中是否存在任务，如果存在任务的话，Event Loop会回到timer阶段并执行Timers Queue中timers注册的回调函数。<strong>执行完后是进入check阶段，还是又重新进入I/O callbacks阶段?</strong></li>
+</ul>
+<p>setTimeout 对比 setImmediate</p>
+<ul>
+<li>setTimeout(fn, 0)在timers阶段执行，并且是在poll阶段进行判断是否达到指定的timer时间才会执行</li>
+<li>setImmediate(fn)在check阶段执行</li>
+</ul>
+<p>两者的执行顺序要根据当前的执行环境才能确定：</p>
+<ul>
+<li>如果两者都在主模块(main module)调用，那么执行先后取决于进程性能，顺序随机</li>
+<li>如果两者都不在主模块调用，即在一个I/O Circle中调用，那么setImmediate的回调永远先执行，因为会先到Check阶段</li>
+</ul>
+<p>setImmediate 对比 process.nextTick</p>
+<ul>
+<li>setImmediate(fn)的回调任务会插入到宏队列Check Queue中</li>
+<li>process.nextTick(fn)的回调任务会插入到微队列Next Tick Queue中</li>
+<li>process.nextTick(fn)调用深度有限制，上限是1000，而setImmediate则没有</li>
+</ul>
+        
+          <p class="article-more-link">
+            <a href="/2024/02/08/interview-questions/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/interview/">interview</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2024/02/08/interview-questions/" data-id="cluersknl002zufloruvgmg31" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-github-pages" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2024/02/07/github-pages/" class="article-date">
+  <time datetime="2024-02-07T04:20:26.000Z" itemprop="datePublished">2024-02-07</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-true">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/02/07/github-pages/">使用 Github Pages 和 Issues 搭建博客</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Github-Pages-简介"><a href="#Github-Pages-简介" class="headerlink" title="Github Pages 简介"></a>Github Pages 简介</h2><p>自己维护博客服务器，需要购买服务器，配置域名等一些列操作，比较繁琐，索性直接找个现成的稳定的博客平台，github pages成为首选，这里有几个思路</p>
+<ul>
+<li>使用github pages，编写静态网页</li>
+<li>使用github pages 与静态网页生成工具，需要本地电脑编写文章</li>
+<li>使用github pages 与自建后端服务器，需要另外维护一个后端服务器</li>
+<li>使用issues 写文章，issues页面就是一个博客网站</li>
+<li>使用github pages 与 github api，使用issues写文章</li>
+</ul>
+<h3 id="使用github-pages，编写静态网页"><a href="#使用github-pages，编写静态网页" class="headerlink" title="使用github pages，编写静态网页"></a>使用github pages，编写静态网页</h3><p>有很多文档网站是使用这种方式搭建，一般是作为demo页面或者单页文档页面，否则页面稍微一复杂，就变得非常难以维护</p>
+<h3 id="使用github-pages-与-静态网页生成工具"><a href="#使用github-pages-与-静态网页生成工具" class="headerlink" title="使用github pages 与 静态网页生成工具"></a>使用github pages 与 静态网页生成工具</h3><p>有很多博客网站与文档网站都是使用这种方式，这是一种最简单最方便的方式，现在流行的工具有 <code>hexo</code> 和 <code>Jekyll</code> 等，这种方式还要在本地维护一个仓库，生成静态页面后再上传，操作过于繁琐，而且每个页面之间切换都需要重新载入所有资源，网页数据传输量较大</p>
+<p>具体工具如下所示:</p>
+<ul>
+<li><a href="https://github.com/hexojs/hexo" target="_blank" rel="noopener">hexo</a></li>
+<li><a href="https://github.com/jekyll/jekyll" target="_blank" rel="noopener">Jekyll</a></li>
+</ul>
+<h3 id="使用github-pages-与-自建后端服务器"><a href="#使用github-pages-与-自建后端服务器" class="headerlink" title="使用github pages 与 自建后端服务器"></a>使用github pages 与 自建后端服务器</h3><p>在github pages编写一个单页面应用，数据通过跨域请求来自于自建的服务器，这种方式有三大难点：前端、后端、服务器</p>
+<p><strong>前端</strong></p>
+<p>需要编写一个单页面应用，这对技术需要一定的水平，基本很少有开源工具</p>
+<p><strong>后端</strong></p>
+<p>需要后端服务，这可以使用现成工具提供api，比如wordpress、drupal、ghost等</p>
+<h3 id="使用issues-写文章"><a href="#使用issues-写文章" class="headerlink" title="使用issues 写文章"></a>使用issues 写文章</h3><p>这种方式简单粗暴，直接在issues写文章，评论、标签、提醒神马的都有了，现在其实很流行这种方式，看看这几个博客，都几千个star了</p>
+<ul>
+<li><a href="https://github.com/tmallfe/tmallfe.github.io" target="_blank" rel="noopener">https://github.com/tmallfe/tmallfe.github.io</a></li>
+<li><a href="https://github.com/xufei/blog" target="_blank" rel="noopener">https://github.com/xufei/blog</a></li>
+<li><a href="https://github.com/fouber/blog" target="_blank" rel="noopener">https://github.com/fouber/blog</a></li>
+</ul>
+<p>要说它的缺点嘛，就是人人都可以往你博客提交文章，界面千篇一律，而且也不怎么好看</p>
+<p><strong>服务器</strong></p>
+<p>这个问题很严重，问题来了，你都有自建的服务器了，还要用github pages干嘛呢，哪天自建服务器挂了，博客照样挂。</p>
+<p>这种方式可以使用域名来提升逼格。</p>
+<h3 id="使用github-pages-与-github-api"><a href="#使用github-pages-与-github-api" class="headerlink" title="使用github pages 与 github api"></a>使用github pages 与 github api</h3><p>这种方案与上一种对比起来其实没多大区别，唯一的区别就是自建服务换成了github的另一个服务，就是说，github帮我们建好了。<br>github api：<a href="https://developer.github.com/v3/" target="_blank" rel="noopener">https://developer.github.com/v3/</a></p>
+        
+          <p class="article-more-link">
+            <a href="/2024/02/07/github-pages/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github-pages/">github pages</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2024/02/07/github-pages/" data-id="cluerskl20007uflok518otih" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-git-clone-failure" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2018/11/09/git-clone-failure/" class="article-date">
+  <time datetime="2018-11-09T02:00:20.000Z" itemprop="datePublished">2018-11-09</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-true">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/09/git-clone-failure/">使用 git 克隆 github 上的项目失败</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><p>今天在使用 git clone nextjs demo project 源代码的时， git clone <a href="https://github.com/Weibozzz/next-blog.git" target="_blank" rel="noopener">https://github.com/Weibozzz/next-blog.git</a> 下载速度很慢，然后下载一段时间后，总是提示下面的错误信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">nCloning into 'next-blog'...</span><br><span class="line">remote: Enumerating objects: 111, done.</span><br><span class="line">remote: Counting objects: 100% (111/111), done.</span><br><span class="line">remote: Compressing objects: 100% (83/83), done.</span><br><span class="line">error: RPC failed; curl 18 transfer closed with outstanding read data remaining</span><br><span class="line">fatal: The remote end hung up unexpectedly</span><br><span class="line">fatal: early EOF</span><br><span class="line">fatal: index-pack failed</span><br></pre></td></tr></table></figure>
+<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>由于Http协议错误，当 pull 或者 clone 的时候，或者是 github 某个CDN被伟大的墙屏蔽所致。</p>
+<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><h3 id="协议错误"><a href="#协议错误" class="headerlink" title="协议错误"></a>协议错误</h3><ol>
+<li><p>先执行下列命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global http.postBuffer 524288000</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>再执行git pull 或者 git clone命令</p>
+</li>
+</ol>
+<h3 id="墙屏蔽"><a href="#墙屏蔽" class="headerlink" title="墙屏蔽"></a>墙屏蔽</h3><ol>
+<li><p>访问 <a href="http://github.global.ssl.fastly.net.ipaddress.com/#ipinfo" target="_blank" rel="noopener">http://github.global.ssl.fastly.net.ipaddress.com/#ipinfo</a><br>获取cdn域名以及IP地址</p>
+</li>
+<li><p>访问 <a href="http://github.com.ipaddress.com/#ipinfo" target="_blank" rel="noopener">http://github.com.ipaddress.com/#ipinfo</a> 获取cdn域名以及IP地址        <img src="https://user-images.githubusercontent.com/8088864/48385665-42ca5880-e72a-11e8-9281-d825b6f66fe8.png" alt="cdn域名以及IP地址"></p>
+</li>
+<li><p>将上述获取的IP地址添加到<code>/etc/hosts</code>中</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/hosts</span><br></pre></td></tr></table></figure>
+<p><img src="https://user-images.githubusercontent.com/8088864/48385763-bcfadd00-e72a-11e8-96ff-4f14ed1ba521.png" alt="添加IP地址到hosts"></p>
+</li>
+<li><p>刷新dns缓存</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo killall -HUP mDNSResponder</span><br><span class="line">sudo dscacheutil -flushcache</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>再执行 git clone 操作的时候，速度飕飕飕的上去了，一下子达到几百Kb啦~</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2018/11/09/git-clone-failure/" data-id="cluerskko0000uflotwshzh75" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-web-mobile-tools-weinre" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <h3 href="/2017/09/19/web-mobile-tools-weinre/" class="article-date">
@@ -124,7 +552,7 @@
         
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">mobile</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/weinre/">weinre</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2017/09/19/web-mobile-tools-weinre/" data-id="clubygii4000f8jloqjhav3we" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2017/09/19/web-mobile-tools-weinre/" data-id="cluerskls000suflonpzl2ne8" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -163,8 +591,8 @@
       
         
         <h2 id="一、SSH到服务器上再执行shell命令"><a href="#一、SSH到服务器上再执行shell命令" class="headerlink" title="一、SSH到服务器上再执行shell命令"></a>一、SSH到服务器上再执行shell命令</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ssh -t root@192.168.111.111 \</span><br><span class="line">  "sudo cp -rf $&#123;REMOTE_DESTS[$key]#*:&#125;/$&#123;NGINX_CONF_FILENAME&#125; /etc/nginx/sites-available/ &amp;&amp;</span><br><span class="line">  sudo rm -rf $&#123;REMOTE_DESTS[$key]#*:&#125;/$&#123;NGINX_CONF_FILENAME&#125; &amp;&amp;</span><br><span class="line">  sudo ln -sf /etc/nginx/sites-available/$&#123;NGINX_CONF_FILENAME&#125; /etc/nginx/sites-enabled/$&#123;NGINX_CONF_FILENAME&#125; &amp;&amp;</span><br><span class="line">  sudo service nginx reload"</span><br></pre></td></tr></table></figure>
-<h2 id="二、查看或修改监控文件系统-Inotify-的watch数目"><a href="#二、查看或修改监控文件系统-Inotify-的watch数目" class="headerlink" title="二、查看或修改监控文件系统(Inotify)的watch数目"></a>二、查看或修改监控文件系统(Inotify)的watch数目</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 设置</span></span><br><span class="line">sudo sysctl fs.inotify.max_user_watches=524288</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看</span></span><br><span class="line">sysctl -a | grep inotify</span><br></pre></td></tr></table></figure>
-<h2 id="三、查看Ubuntu操作系统位数及版本"><a href="#三、查看Ubuntu操作系统位数及版本" class="headerlink" title="三、查看Ubuntu操作系统位数及版本"></a>三、查看Ubuntu操作系统位数及版本</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查看Ubuntu操作系统位数</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 方法一: getconf</span></span><br><span class="line">getconf LONG_BIT</span><br><span class="line"><span class="meta">#</span><span class="bash"> 64 or 32</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 方法二: uname -a</span></span><br><span class="line">uname -a</span><br><span class="line"><span class="meta">#</span><span class="bash"> Linux user-3020 3.13.0-48-generic <span class="comment">#80-Ubuntu SMP Thu Mar 12 11:16:15 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> i686表示32位, x86_64表示64位</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看Ubuntu操作系统版本</span></span><br><span class="line">lsb_release -a</span><br><span class="line"><span class="meta">#</span><span class="bash"> Distributor ID:	Ubuntu</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Description:	Ubuntu 14.04.2 LTS</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Release:	14.04</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Codename:	trusty</span></span><br></pre></td></tr></table></figure>
+<h2 id="二、查看或修改监控文件系统-Inotify-的watch数目"><a href="#二、查看或修改监控文件系统-Inotify-的watch数目" class="headerlink" title="二、查看或修改监控文件系统(Inotify)的watch数目"></a>二、查看或修改监控文件系统(Inotify)的watch数目</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 设置</span><br><span class="line">sudo sysctl fs.inotify.max_user_watches=524288</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 查看</span><br><span class="line">sysctl -a | grep inotify</span><br></pre></td></tr></table></figure>
+<h2 id="三、查看Ubuntu操作系统位数及版本"><a href="#三、查看Ubuntu操作系统位数及版本" class="headerlink" title="三、查看Ubuntu操作系统位数及版本"></a>三、查看Ubuntu操作系统位数及版本</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 查看Ubuntu操作系统位数</span><br><span class="line"><span class="meta">#</span> 方法一: getconf</span><br><span class="line">getconf LONG_BIT</span><br><span class="line"><span class="meta">#</span> 64 or 32</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 方法二: uname -a</span><br><span class="line">uname -a</span><br><span class="line"><span class="meta">#</span> Linux user-3020 3.13.0-48-generic #80-Ubuntu SMP Thu Mar 12 11:16:15 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux</span><br><span class="line"><span class="meta">#</span> i686表示32位, x86_64表示64位</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 查看Ubuntu操作系统版本</span><br><span class="line">lsb_release -a</span><br><span class="line"><span class="meta">#</span> Distributor ID:	Ubuntu</span><br><span class="line"><span class="meta">#</span> Description:	Ubuntu 14.04.2 LTS</span><br><span class="line"><span class="meta">#</span> Release:	14.04</span><br><span class="line"><span class="meta">#</span> Codename:	trusty</span><br></pre></td></tr></table></figure>
 <h2 id="四、动态查看一个文件"><a href="#四、动态查看一个文件" class="headerlink" title="四、动态查看一个文件"></a>四、动态查看一个文件</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tail -f filename</span><br></pre></td></tr></table></figure>
 <h2 id="五、sudo操作手动输入密码"><a href="#五、sudo操作手动输入密码" class="headerlink" title="五、sudo操作手动输入密码"></a>五、sudo操作手动输入密码</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo "abc123_" | sudo -S sh -c "cp /home/user/hosts /etc/hosts"</span><br></pre></td></tr></table></figure>
 <h2 id="六、替换变量中字符"><a href="#六、替换变量中字符" class="headerlink" title="六、替换变量中字符"></a>六、替换变量中字符</h2><h3 id="第一种方式"><a href="#第一种方式" class="headerlink" title="第一种方式"></a>第一种方式</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">COMMIT_MSG=$(COMMIT_MSG//feat/build) # 将COMMIT_MSG中所有的feat替换成build</span><br></pre></td></tr></table></figure>
@@ -185,16 +613,16 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo "HELLO WORLD" | tr 'A-Z' 'a-z'</span><br><span class="line">hello world</span><br></pre></td></tr></table></figure>
 <p>‘A-Z’ 和 ‘a-z’都是集合，集合是可以自己制定的，例如：’ABD-}’、’bB.,’、’a-de-h’、’a-c0-9’都属于集合，集合里可以使用’\n’、’\t’，可以可以使用其他ASCII字符。</p>
 <p>更详细的<a href="http://man.linuxde.net/tr" target="_blank" rel="noopener">tr实例</a></p>
-<h2 id="七、if指令详解-TODO"><a href="#七、if指令详解-TODO" class="headerlink" title="七、if指令详解(TODO)"></a>七、if指令详解(TODO)</h2><h3 id="判断文件夹是否存在"><a href="#判断文件夹是否存在" class="headerlink" title="判断文件夹是否存在"></a>判断文件夹是否存在</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 如果文件夹不存在，创建文件夹</span></span><br><span class="line">if [ ! -d "/myfolder" ]; then</span><br><span class="line">  mkdir /myfolder</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> shell判断文件,目录是否存在或者具有权限</span></span><br><span class="line"></span><br><span class="line">folder="/var/www/"</span><br><span class="line">file="/var/www/log"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> -x 参数判断 <span class="variable">$folder</span> 是否存在并且是否具有可执行权限</span></span><br><span class="line">if [ ! -x "$folder"]; then</span><br><span class="line">  mkdir "$folder"</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> -d 参数判断 <span class="variable">$folder</span> 是否存在</span></span><br><span class="line">if [ ! -d "$folder"]; then</span><br><span class="line">  mkdir "$folder"</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> -f 参数判断 <span class="variable">$file</span> 是否存在</span></span><br><span class="line">if [ ! -f "$file" ]; then</span><br><span class="line">  touch "$file"</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> -n 判断一个变量是否有值</span></span><br><span class="line">if [ ! -n "$var" ]; then</span><br><span class="line">  echo "$var is empty"</span><br><span class="line">  exit 0</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 判断两个变量是否相等</span></span><br><span class="line">if [ "$var1" = "$var2" ]; then</span><br><span class="line">  echo '$var1 eq $var2'</span><br><span class="line">else</span><br><span class="line">  echo '$var1 not eq $var2'</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
-<h2 id="八、开始行和结束行的内容"><a href="#八、开始行和结束行的内容" class="headerlink" title="八、开始行和结束行的内容"></a>八、开始行和结束行的内容</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 文件最后100行</span></span><br><span class="line">tail -n 100 file</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 文件开头100行</span></span><br><span class="line">head -n 100 file</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 文件指定开始行和结束行的内容(包头不包尾)</span></span><br><span class="line">sed '1,100p' file</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 文件有多少行</span></span><br><span class="line">wc -l file</span><br></pre></td></tr></table></figure>
-<h2 id="九、用来从文件或者变量中提取字段-awk"><a href="#九、用来从文件或者变量中提取字段-awk" class="headerlink" title="九、用来从文件或者变量中提取字段(awk)"></a>九、用来从文件或者变量中提取字段(awk)</h2><p>awk 用来从文本文件中提取字段。缺省地，字段分割符是空格，可以使用-F指定其他分割符。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo "Adam Bor, 34, IndiaKerry Miller, 22, USA" | awk -F, '&#123;print $1 "," $3 &#125;'</span><br><span class="line"><span class="meta">#</span><span class="bash"> Adam Bor, IndiaKerry Miller, USA</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="七、if指令详解-TODO"><a href="#七、if指令详解-TODO" class="headerlink" title="七、if指令详解(TODO)"></a>七、if指令详解(TODO)</h2><h3 id="判断文件夹是否存在"><a href="#判断文件夹是否存在" class="headerlink" title="判断文件夹是否存在"></a>判断文件夹是否存在</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 如果文件夹不存在，创建文件夹</span><br><span class="line">if [ ! -d "/myfolder" ]; then</span><br><span class="line">  mkdir /myfolder</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> shell判断文件,目录是否存在或者具有权限</span><br><span class="line"></span><br><span class="line">folder="/var/www/"</span><br><span class="line">file="/var/www/log"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> -x 参数判断 $folder 是否存在并且是否具有可执行权限</span><br><span class="line">if [ ! -x "$folder"]; then</span><br><span class="line">  mkdir "$folder"</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> -d 参数判断 $folder 是否存在</span><br><span class="line">if [ ! -d "$folder"]; then</span><br><span class="line">  mkdir "$folder"</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> -f 参数判断 $file 是否存在</span><br><span class="line">if [ ! -f "$file" ]; then</span><br><span class="line">  touch "$file"</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> -n 判断一个变量是否有值</span><br><span class="line">if [ ! -n "$var" ]; then</span><br><span class="line">  echo "$var is empty"</span><br><span class="line">  exit 0</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 判断两个变量是否相等</span><br><span class="line">if [ "$var1" = "$var2" ]; then</span><br><span class="line">  echo '$var1 eq $var2'</span><br><span class="line">else</span><br><span class="line">  echo '$var1 not eq $var2'</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+<h2 id="八、开始行和结束行的内容"><a href="#八、开始行和结束行的内容" class="headerlink" title="八、开始行和结束行的内容"></a>八、开始行和结束行的内容</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 文件最后100行</span><br><span class="line">tail -n 100 file</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 文件开头100行</span><br><span class="line">head -n 100 file</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 文件指定开始行和结束行的内容(包头不包尾)</span><br><span class="line">sed '1,100p' file</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 文件有多少行</span><br><span class="line">wc -l file</span><br></pre></td></tr></table></figure>
+<h2 id="九、用来从文件或者变量中提取字段-awk"><a href="#九、用来从文件或者变量中提取字段-awk" class="headerlink" title="九、用来从文件或者变量中提取字段(awk)"></a>九、用来从文件或者变量中提取字段(awk)</h2><p>awk 用来从文本文件中提取字段。缺省地，字段分割符是空格，可以使用-F指定其他分割符。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo "Adam Bor, 34, IndiaKerry Miller, 22, USA" | awk -F, '&#123;print $1 "," $3 &#125;'</span><br><span class="line"><span class="meta">#</span> Adam Bor, IndiaKerry Miller, USA</span><br></pre></td></tr></table></figure></p>
 <p>这里我们使用，作为字段分割符，同时打印第一个和第三个字段</p>
 <h2 id="十、输出不换行-echo"><a href="#十、输出不换行-echo" class="headerlink" title="十、输出不换行(echo)"></a>十、输出不换行(echo)</h2><p>echo的参数中, -e表示开启转义, /c表示不换行,脚本如下:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line">#filename: 1</span><br><span class="line">echo -e &quot;please input a value:\c&quot;</span><br><span class="line">read value</span><br><span class="line"># echo &quot;what you input is:&quot; $valuel</span><br></pre></td></tr></table></figure>
 <p>脚本2:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/sh</span></span><br><span class="line"><span class="meta">#</span><span class="bash">filename: 1</span></span><br><span class="line">echo -n "please input a value:"</span><br><span class="line">read value</span><br><span class="line">echo "what you input is:" $value</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>!/bin/sh</span><br><span class="line"><span class="meta">#</span>filename: 1</span><br><span class="line">echo -n "please input a value:"</span><br><span class="line">read value</span><br><span class="line">echo "what you input is:" $value</span><br></pre></td></tr></table></figure>
 <h2 id="十一、字符串大小写不敏感的比较"><a href="#十一、字符串大小写不敏感的比较" class="headerlink" title="十一、字符串大小写不敏感的比较"></a>十一、字符串大小写不敏感的比较</h2><p>通用的方法是将字符串先转换成小写后再比较</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">xxx="Temp"</span><br><span class="line">yyy="temp"</span><br><span class="line"></span><br><span class="line">x_tmp=$(echo $xxx | tr [A-Z] [a-z])</span><br><span class="line">y_tmp=$(echo $yyy | tr [A-Z] [a-z])</span><br><span class="line"></span><br><span class="line">if [ "$x_tmp " = "$y_tmp " ]; then</span><br><span class="line">  echo   "PASS"</span><br><span class="line">else</span><br><span class="line">  echo   "FAIL"</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>!/bin/bash</span><br><span class="line"></span><br><span class="line">xxx="Temp"</span><br><span class="line">yyy="temp"</span><br><span class="line"></span><br><span class="line">x_tmp=$(echo $xxx | tr [A-Z] [a-z])</span><br><span class="line">y_tmp=$(echo $yyy | tr [A-Z] [a-z])</span><br><span class="line"></span><br><span class="line">if [ "$x_tmp " = "$y_tmp " ]; then</span><br><span class="line">  echo   "PASS"</span><br><span class="line">else</span><br><span class="line">  echo   "FAIL"</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
 <h2 id="十二、-amp-amp-运算符"><a href="#十二、-amp-amp-运算符" class="headerlink" title="十二、&amp;&amp; 运算符"></a>十二、<strong>&amp;&amp;</strong> 运算符</h2><p>语法格式：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">command1 &amp;&amp; command2 [&amp;&amp; command3 ...]</span><br></pre></td></tr></table></figure></p>
 <p>&amp;&amp;左边的命令（命令1）返回真(即返回0，成功被执行）后，&amp;&amp;右边的命令（命令2）才能够被执行；换句话说，“如果这个命令执行成功&amp;&amp;那么执行这个命令”。</p>
 <p>1 命令之间使用 &amp;&amp; 连接，实现逻辑与的功能。<br>2 只有在 &amp;&amp; 左边的命令返回真（命令返回值 $? == 0），&amp;&amp; 右边的命令才会被执行。<br>3 只要有一个命令返回假（命令返回值 $? == 1），后面的命令就不会被执行。</p>
@@ -215,7 +643,7 @@
         
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2017/09/14/commonly-shell-command/" data-id="clubygihr00058jlodoxyanar" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2017/09/14/commonly-shell-command/" data-id="cluerskkw0003uflot0bba9me" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -288,7 +716,7 @@
         
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2017/09/09/hexo-github-blog-guide/" data-id="clubygiho00038jlo2w2hbpiv" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2017/09/09/hexo-github-blog-guide/" data-id="cluerskl00005ufloqlaulzgj" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -349,7 +777,7 @@
         
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2015/12/24/javascript-common-function/" data-id="clubygiib000m8jlo3gj5rzhc" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2015/12/24/javascript-common-function/" data-id="cluerskl30008uflovgrjxyxv" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -414,7 +842,7 @@
         
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2015/12/24/javascript-module/" data-id="clubygiht00078jloe05dcrm1" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2015/12/24/javascript-module/" data-id="cluerskl6000auflos6rhvlr4" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -461,7 +889,7 @@
         
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ubuntu/">ubuntu</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2015/12/24/ubuntu-netstat/" data-id="clubygii2000d8jlop1zqgsj0" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2015/12/24/ubuntu-netstat/" data-id="cluersklp000puflog9d1pazr" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -490,23 +918,23 @@
       <ul>
         
           <li>
+            <a href="/2024/04/02/security-anti-reptile/">Web安全之静态内容防爬虫</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/31/security-sql-injection/">Web安全之 SQL 注入</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/30/thread-loader/">thread-loader</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/29/vitepress-blog-guide/">使用VitePress搭建个人博客</a>
+          </li>
+        
+          <li>
             <a href="/2024/03/27/security-csrf/">Web安全之 CSRF 攻击</a>
-          </li>
-        
-          <li>
-            <a href="/2024/03/14/security-xss/">Web安全之 XSS 攻击</a>
-          </li>
-        
-          <li>
-            <a href="/2024/03/13/security-x-content-types-options/">Web安全之使用 X-Content-Type-Options 首部字段</a>
-          </li>
-        
-          <li>
-            <a href="/2024/03/11/github-pages-env/">NextJs 获取 Github Action 部署的环境变量</a>
-          </li>
-        
-          <li>
-            <a href="/2024/03/06/mobile-debugging-tools/">H5 移动端调试工具汇总</a>
           </li>
         
       </ul>
@@ -518,7 +946,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/csrf/">csrf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debugging/">debugging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-pages/">github pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interview/">interview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/">mobile</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">network</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/">security</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/weinre/">weinre</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xss/">xss</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/csrf/">csrf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debugging/">debugging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-pages/">github pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interview/">interview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/loader/">loader</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/">mobile</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">network</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reptile/">reptile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/">security</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/">sql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vitepress/">vitepress</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/weinre/">weinre</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xss/">xss</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -527,7 +955,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li></ul>
     </div>
   </div>
 
