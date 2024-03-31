@@ -89,10 +89,10 @@
     <div class="outer">
       <section id="main">
   
-    <article id="post-commomly-css" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-security-xss" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <h3 href="/2024/02/29/commomly-css/" class="article-date">
-  <time datetime="2024-02-29T10:20:12.000Z" itemprop="datePublished">2024-02-29</time>
+    <h3 href="/2020/06/12/security-xss/" class="article-date">
+  <time datetime="2020-06-12T02:10:20.000Z" itemprop="datePublished">2020-06-12</time>
 </h3>
     
   </div>
@@ -105,7 +105,76 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2024/02/29/commomly-css/">常用的CSS技巧</a>
+      <a class="article-title" href="/2020/06/12/security-xss/">Web安全之 XSS 攻击</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Web安全之-XSS-攻击"><a href="#Web安全之-XSS-攻击" class="headerlink" title="Web安全之 XSS 攻击"></a>Web安全之 XSS 攻击</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p><strong>XSS，全称跨站脚本攻击（Cross-Site Scripting）</strong>，是一种网络安全漏洞攻击，指攻击者在网页中嵌入恶意脚本，当其他用户浏览该网页时，恶意脚本就会在其浏览器上执行，从而达到攻击者窃取用户信息、破坏数据、篡改网页内容、在用户浏览器上执行非法任务等目的。</p>
+<h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><p><code>XSS</code>攻击分为三种类型：</p>
+<ul>
+<li><p><strong>反射型XSS（Reflected XSS）</strong>：攻击者将恶意脚本嵌入到URL地址中，当其他用户访问这个URL时，恶意脚本就会在其浏览器中执行。这种攻击方式需要用户主动点击含有恶意脚本的链接才会触发。</p>
+</li>
+<li><p><strong>存储型XSS（Stored XSS）</strong>：攻击者将恶意脚本存储到被攻击的网站数据库中，当其他用户访问网站时，恶意脚本会从数据库中取出并在用户浏览器中执行。这种攻击方式不需要用户主动点击链接，只要用户浏览被攻击的网站就可能被攻击。</p>
+</li>
+<li><p><strong>DOM型XSS（DOM-based XSS）</strong>：攻击者通过修改页面的DOM结构，注入恶意脚本，当其他用户浏览该页面时，恶意脚本会在用户浏览器中执行。这种攻击方式也不需要用户主动点击链接，只需要用户浏览被修改的页面就可能被攻击。</p>
+</li>
+</ul>
+<h3 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h3><h4 id="反射型XSS"><a href="#反射型XSS" class="headerlink" title="反射型XSS"></a>反射型XSS</h4><p>在<code>Node.js</code>中，一个反射型<code>XSS</code>攻击的案例可能涉及一个web应用，该应用没有正确地处理或转义用户输入的数据，并将其直接插入到HTML响应中。攻击者可以构造一个包含恶意脚本的URL，当其他用户访问这个URL时，恶意脚本会在用户的浏览器中执行。</p>
+<p>以下是一个简单的<code>Node.js</code>反射型<code>XSS</code>攻击的案例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="keyword">const</span> app = express();</span><br><span class="line">app.use(express.static(<span class="string">'public'</span>));</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/profile'</span>, (req, res) =&gt; &#123;</span><br><span class="line">  <span class="comment">// 假设用户可以通过URL参数传递他们的名字</span></span><br><span class="line">  <span class="keyword">const</span> username = req.query.username;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 没有对用户输入进行任何处理或转义</span></span><br><span class="line">  <span class="keyword">const</span> html = <span class="string">`&lt;html&gt;</span></span><br><span class="line"><span class="string">                &lt;body&gt;</span></span><br><span class="line"><span class="string">                  &lt;h1&gt;Welcome, <span class="subst">$&#123;username&#125;</span>!&lt;/h1&gt;</span></span><br><span class="line"><span class="string">                &lt;/body&gt;</span></span><br><span class="line"><span class="string">              &lt;/html&gt;`</span>;</span><br><span class="line"></span><br><span class="line">  res.send(html);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> PORT = process.env.PORT || <span class="number">3000</span>;</span><br><span class="line">app.listen(PORT, () =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`Server is running on port <span class="subst">$&#123;PORT&#125;</span>`</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，我们创建了一个简单的<code>Express</code>应用，其中有一个<code>/profile</code>路由，该路由从URL的查询参数中获取用户名（<code>username</code>）。然后，我们将这个用户名嵌入到一个<code>HTML</code>字符串中，并将其作为响应发送回客户端。</p>
+<p>攻击者可以构造一个包含恶意脚本的URL，如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://example.com/profile?username=&lt;script&gt;alert(&apos;XSS&apos;);&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>当用户访问这个<code>URL</code>时，浏览器会接收到包含恶意脚本的<code>HTML</code>响应，并执行该脚本，从而触发<code>XSS</code>攻击。</p>
+<p>为了防止反射型<code>XSS</code>攻击，开发者应该对用户输入进行适当的过滤和转义。在这个案例中，可以使用如<code>escape-html</code>这样的库来转义<code>HTML</code>特殊字符：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> escapeHtml = <span class="built_in">require</span>(<span class="string">'escape-html'</span>);</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/profile'</span>, (req, res) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> username = req.query.username;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 转义用户输入中的HTML特殊字符</span></span><br><span class="line">  <span class="keyword">const</span> escapedUsername = escapeHtml(username);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> html = <span class="string">`&lt;html&gt;</span></span><br><span class="line"><span class="string">                &lt;body&gt;</span></span><br><span class="line"><span class="string">                  &lt;h1&gt;Welcome, <span class="subst">$&#123;escapedUsername&#125;</span>!&lt;/h1&gt;</span></span><br><span class="line"><span class="string">                &lt;/body&gt;</span></span><br><span class="line"><span class="string">              &lt;/html&gt;`</span>;</span><br><span class="line"></span><br><span class="line">  res.send(html);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>通过转义用户输入，恶意脚本将不会被浏览器执行，从而防止了<code>XSS</code>攻击。此外，开发者还应该使用内容安全策略（<code>CSP</code>）等额外安全措施来增强应用的安全性。</p>
+        
+          <p class="article-more-link">
+            <a href="/2020/06/12/security-xss/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/">network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/security/">security</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xss/">xss</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2020/06/12/security-xss/" data-id="clues809n000mmyloeldupn95" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-commomly-css" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2019/10/12/commomly-css/" class="article-date">
+  <time datetime="2019-10-12T10:20:12.000Z" itemprop="datePublished">2019-10-12</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-true">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/12/commomly-css/">常用的CSS技巧</a>
     </h1>
   
 
@@ -155,7 +224,7 @@
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">img</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">object-fit</span>: cover;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
         
           <p class="article-more-link">
-            <a href="/2024/02/29/commomly-css/#more">Read More</a>
+            <a href="/2019/10/12/commomly-css/#more">Read More</a>
           </p>
         
       
@@ -165,7 +234,7 @@
         
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/02/29/commomly-css/" data-id="cluerskks0001uflol4ybi7b2" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2019/10/12/commomly-css/" data-id="clues808s0001mylo3vixemh7" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -178,10 +247,10 @@
 
 
   
-    <article id="post-interview-questions" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-mobile-debugging-tools" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <h3 href="/2024/02/08/interview-questions/" class="article-date">
-  <time datetime="2024-02-08T04:12:26.000Z" itemprop="datePublished">2024-02-08</time>
+    <h3 href="/2019/05/12/mobile-debugging-tools/" class="article-date">
+  <time datetime="2019-05-12T13:48:32.000Z" itemprop="datePublished">2019-05-12</time>
 </h3>
     
   </div>
@@ -194,7 +263,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2024/02/08/interview-questions/">前端面试题汇总</a>
+      <a class="article-title" href="/2019/05/12/mobile-debugging-tools/">H5 移动端调试工具汇总</a>
     </h1>
   
 
@@ -202,149 +271,31 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Event-Loop"><a href="#Event-Loop" class="headerlink" title="Event Loop"></a>Event Loop</h2><p>Event Loop即事件循环，是指浏览器或者Nodejs解决javascript单线程运行时异步逻辑不会阻塞的一种机制。</p>
-<p>Event Loop是一个执行模型，不同的运行环境有不同的实现，浏览器和nodejs基于不同的技术实现自己的event loop。</p>
+        <h2 id="H5-移动端调试工具汇总"><a href="#H5-移动端调试工具汇总" class="headerlink" title="H5 移动端调试工具汇总"></a>H5 移动端调试工具汇总</h2><h3 id="一、概要"><a href="#一、概要" class="headerlink" title="一、概要"></a>一、概要</h3><p>因为移动端操作系统分为 <code>iOS</code> 和 <code>Android</code> 两派，所以本文的调试技巧也会按照不同的系统来区分。寻找最合适高效的方式，才能让你事半功倍。</p>
+<blockquote>
+<p>文章会列举目前适合移动端调试的多种方案，快来选择你的最佳实践吧！</p>
+</blockquote>
+<h3 id="二、iOS-设备"><a href="#二、iOS-设备" class="headerlink" title="二、iOS 设备"></a>二、iOS 设备</h3><blockquote>
+<p>Safari：iphone 调试利器，查错改样式首选，需要我们做如下设置：</p>
+</blockquote>
 <ul>
-<li>浏览器的Event Loop是在HTML5规范中明确定义。</li>
-<li>Nodejs的Event Loop是libuv实现的。</li>
-<li>libuv已经对Event Loop作出了实现，HTML5规范中只是定义的浏览器中Event Loop的模型，具体的实现交给了浏览器厂商。</li>
+<li>浏览器设置：Safari - 偏好设置 - 高级 - 勾选「在菜单栏中显示开发」菜单</li>
+<li>iphone 设置：设置 - Safari - 高级 - 打开 Web 检查器</li>
 </ul>
-<h3 id="宏队列和微队列"><a href="#宏队列和微队列" class="headerlink" title="宏队列和微队列"></a>宏队列和微队列</h3><p>在javascript中，任务被分为两种，一种为宏任务(macrotask)，也称为task，一种为微任务(microtask)，也称为jobs。</p>
-<p>宏任务主要包括:</p>
-<ul>
-<li>script全部代码</li>
-<li>setTimeout</li>
-<li>setInterval</li>
-<li>setImmediate (Nodejs独有，浏览器暂时不支持，只有IE10支持)</li>
-<li>requestAnimationFrame (浏览器独有)</li>
-<li>I/O</li>
-<li>UI rendering (浏览器独有)</li>
-</ul>
-<p>微任务主要包括:</p>
-<ul>
-<li>process.nextTick (Nodejs独有)</li>
-<li>Promise</li>
-<li>Object.observe (废弃)</li>
-<li>MutationObserver</li>
-</ul>
-<h3 id="浏览器中的Event-Loop"><a href="#浏览器中的Event-Loop" class="headerlink" title="浏览器中的Event Loop"></a>浏览器中的Event Loop</h3><p>Javascript 有一个主线程 main thread 和 一个调用栈(执行栈) call-stack，所有任务都会被放到调用栈等待主线程的执行。</p>
-<p>JS调用栈采用的是后进先出的规则，当函数执行时，会被添加到调用栈的顶部，当执行栈执行完后，就会从栈顶移除，直到栈内被清空。</p>
-<p>Javascript单线程任务可以分为同步任务和异步任务，同步任务会在调用栈内按照顺序依次被主线程执行，异步任务会在异步任务有了结果后，将注册的回调函数放入任务队列中等待主线程空闲的时候（调用栈被清空的时候），被读取到调用栈内等待主线程的执行</p>
-<p>任务队列 Task Queue, 是先进先出的数据结构。</p>
-<p><img src="https://user-images.githubusercontent.com/8088864/124855609-c2904a00-dfdb-11eb-9138-df80150fa3a3.jpg" alt="浏览器事件循环的进程模型"></p>
-<p>浏览器Event Loop的具体流程:</p>
-<ol>
-<li>执行全局Javascript的同步代码，可能包含一些同步语句，也可以是异步语句(setTimeout语句不执行回调函数里面的，Promise中.then之前的语句)</li>
-<li>全局Javascript执行完毕后，调用栈call-stack会被清空</li>
-<li>从微队列microtask queue中取出位于首部的回调函数，放入到调用栈call-stack中执行，执行完毕后从调用栈中删除，microtask queue的长度减1。</li>
-<li>继续从微队列microtask queue的队首取出任务，放到调用栈中执行，依次循环往复，直至微任务队列microtask queue中的任务都被调用栈执行完毕。<strong>特别注意，如果在执行微任务microtask过程中，又产生了微任务microtask，新产生的微任务也会追加到微任务队列microtask queue的尾部，新生成的微任务也会在当前周期中被执行完毕。</strong></li>
-<li>microtask queue中的任务都被执行完毕后，microtask queue为空队列，调用栈也处于空闲阶段</li>
-<li>执行UI rendering</li>
-<li>从宏队列macrotask queue的队首取出宏任务，放入调用栈中执行。</li>
-<li>执行完后，调用栈为空闲状态</li>
-<li>重复 3 - 8 的步骤，直至宏任务队列的任务都被执行完毕。<br>…</li>
-</ol>
-<p>浏览器Event Loop的3个重点:</p>
-<ol>
-<li>宏队列macrotask queue每次只从中取出一个任务放到调用栈中执行，执行完后去执行微任务队列中的所有任务</li>
-<li>微任务队列中的所有任务都会依次取出来执行，只是微任务队列中的任务清空</li>
-<li>UI rendering 的执行节点在微任务队列执行完毕后，宏任务队列中取出任务执行之前执行</li>
-</ol>
-<h3 id="NodeJs中的Event-Loop"><a href="#NodeJs中的Event-Loop" class="headerlink" title="NodeJs中的Event Loop"></a>NodeJs中的Event Loop</h3><p>libuv结构</p>
-<p><img src="https://user-images.githubusercontent.com/8088864/125010304-d64db600-e098-11eb-824f-de433a12a095.png" alt="libuv的事件循环模型"></p>
-<p>NodeJs中的宏任务队列和微任务队列</p>
-<p>NodeJs的Event Loop中，执行宏任务队列的回调有6个阶段</p>
-<p><img src="https://user-images.githubusercontent.com/8088864/125010342-e9608600-e098-11eb-84e0-70a5bd5f5867.png" alt="NodeJS中的宏队列执行回调的6个阶段"></p>
-<p>Node的Event Loop可以分为6个阶段，各个阶段执行的任务如下所示:</p>
-<ul>
-<li><code>timers</code>: 执行setTimeout和setInterval中到期的callback。</li>
-<li><code>I/O callbacks</code>: 执行几乎所有的回调，除了close callbacks以及timers调度的回调和setImmediate()调度的回调。</li>
-<li><code>idle, prepare</code>: 仅在内部使用。</li>
-<li><code>poll</code>: 最重要的阶段，检索新的I/O事件，在适当的情况下回阻塞在该阶段。</li>
-<li><code>check</code>: 执行setImmediate的callback(setImmediate()会将事件回调插入到事件队列的尾部，主线程和事件队列的任务执行完毕后会立即执行setImmediate中传入的回调函数)。</li>
-<li><code>close callbacks</code>: 执行<code>close</code>事件的callback，例如socket.on(‘close’, fn)或则http.server.on(‘close’, fn)等。</li>
-</ul>
-<p>NodeJs中的宏任务队列可以分为下列4个:</p>
-<ol>
-<li>Timers Queue</li>
-<li>I/O Callbacks Queue</li>
-<li>Check Queue</li>
-<li>Close Callbacks Queue</li>
-</ol>
-<p>在浏览器中只有一个宏任务队列，所有宏任务都会放入到宏任务队列中等待放入执行栈中被主线程执行，NodeJs中有4个宏任务队列，不同类型的宏任务会被放入到不同的宏任务队列中。</p>
-<p>NodeJs中的微任务队列可以分为下列2个:</p>
-<ol>
-<li><code>Next Tick Queue</code>: 放置process.nextTick(callback)的回调函数</li>
-<li><code>Other Micro Queue</code>: 其他microtask，例如Promise等</li>
-</ol>
-<p>在浏览器中只有一个微任务队列，所有微任务都会放入到微任务队列中等待放入执行栈中被主线程执行，NodeJs中有2个微任务队列，不同类型的微任务会被放入到不同的微任务队列中。</p>
-<p><img src="https://user-images.githubusercontent.com/8088864/125030923-71a55200-e0be-11eb-93be-95f1cbc456e3.png" alt="NodeJs事件循环"></p>
-<p>NodeJs的Event Loop的具体流程:</p>
-<ol>
-<li>执行全局Javascript的同步代码，可能包含一些同步语句，也可以是异步语句(setTimeout语句不执行回调函数里面的，Promise中.then之前的语句)。</li>
-<li>执行微任务队列中的微任务，先执行Next Tick Queue队列中的所有的所有任务，再执行Other Micro Queue队列中的所有任务。</li>
-<li>开始执行宏任务队列中的任务，共6个阶段，从第1个阶段开始执行每个阶段对应宏任务队列中的所有任务，<strong>注意，这里执行的是该阶段宏任务队列中的所有的任务，浏览器Event Loop每次只会中宏任务队列中取出队首的任务执行，执行完后开始执行微任务队列中的任务，NodeJs的Event Loop会执行完该阶段中宏任务队列中的所有任务后，才开始执行微任务队列中的任务，也就是步骤2</strong>。</li>
-<li>Timers Queue -&gt; 步骤2 -&gt; I/O Callbacks Queue -&gt; 步骤2 -&gt; Check Queue -&gt; 步骤2 -&gt; Close Callback Queue -&gt; 步骤2 -&gt; Timers Queue -&gt; ……</li>
-</ol>
-<p><strong>特别注意:</strong></p>
-<ul>
-<li>上述的第三步，当 NodeJs 版本小于11时，NodeJs的Event Loop会执行完该阶段中宏任务队列中的所有任务</li>
-<li>当 NodeJS 版本大于等于11时，<strong>在timer阶段的setTimeout,setInterval…和在check阶段的setImmediate都在node11里面都修改为一旦执行一个阶段里的一个任务就立刻执行微任务队列</strong>。为了和浏览器更加趋同。</li>
-</ul>
-<p>NodeJs的Event Loop的microtask queue和macrotask queue的执行顺序详情</p>
-<p><img src="https://user-images.githubusercontent.com/8088864/125032436-8aaf0280-e0c0-11eb-926a-30be5bf116f9.png" alt="NodeJS中的微任务队列执行顺序"></p>
-<p><img src="https://user-images.githubusercontent.com/8088864/125032451-8f73b680-e0c0-11eb-8349-d6c5f20bd11a.png" alt="NodeJS中的宏任务队列执行顺序"></p>
-<p>当setTimeout(fn, 0)和setImmediate(fn)放在同一同步代码中执行时，可能会出现下面两种情况：</p>
-<ol>
-<li><strong>第一种情况</strong>: 同步代码执行完后，timer还没到期，setImmediate中注册的回调函数先放入到Check Queue的宏任务队列中，先执行微任务队列，然后开始执行宏任务队列，先从Timers Queue开始，由于在Timer Queue中未发现任何的回调函数，往下阶段走，直到Check Queue中发现setImmediate中注册的回调函数，先执行，然后timer到期，setTimeout注册的回调函数会放入到Timers Queue的宏任务队列中，下一轮后再次执行到Timers Queue阶段时，才会再Timers Queue中发现了setTimeout注册的回调函数，于是执行该timer的回调，所以，<strong>setImmediate(fn)注册的回调函数会早于setTimeout(fn, 0)注册的回调函数执行</strong>。</li>
-<li><p><strong>第二种情况</strong>: 同步代码执行完之前，timer已经到期，setTimeout注册的回调函数会放入到Timers Queue的宏任务队列中，执行同步代码到setImmediate时，将其回调函数注册到Check Queue中，同步代码执行完后，先执行微任务队列，然后开始执行宏任务队列，先从Timers Queue开始，在Timers Queue发现了timer中注册的回调函数，取出执行，往下阶段走，到Check Queue中发现setImmediate中注册的回调函数，又执行，所以这种情况时，<strong>setTimeout(fn, 0)注册的回调函数会早于setImmediate(fn)注册的回调函数执行</strong>。</p>
-</li>
-<li><p>在同步代码中同时调setTimeout(fn, 0)和setImmediate执行顺序情况是不确定的，但是如果把他们放在一个IO的回调，比如readFile(‘xx’, function () {// ….})回调中，那么IO回调是在I/O Callbacks Queue中，setTimeout到期回调注册到Timers Queue，setImmediate回调注册到Check Queue，I/O Callbacks Queue执行完到Check Queue，Timers Queue得到下个循环周期，所以setImmediate回调这种情况下肯定比setTimeout(fn, 0)回调先执行。</p>
-</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">setImmediate(<span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line">  setImmediate(<span class="function"><span class="keyword">function</span> <span class="title">B</span>(<span class="params"></span>)</span>&#123;<span class="built_in">console</span>.log(<span class="number">2</span>);&#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span> <span class="title">timeout</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'TIMEOUT FIRED'</span>);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 执行结果: 会存在下面两种情况</span></span><br><span class="line"><span class="comment">// 第一种情况:</span></span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="comment">// TIMEOUT FIRED</span></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 第二种情况:</span></span><br><span class="line"><span class="comment">// TIMEOUT FIRED</span></span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
-<p>注:</p>
-<ul>
-<li>setImmediate中如果又存在setImmediate语句，内部的setImmediate语句注册的回调函数会在下一个<code>check</code>阶段来执行，并不在当前的<code>check</code>阶段来执行。</li>
-</ul>
-<p>poll 阶段详解:</p>
-<p>poll 阶段主要又两个功能:</p>
-<ol>
-<li>当timers到达指定的时间后，执行指定的timer的回调(Executing scripts for timers whose threshold has elapsed, then)。</li>
-<li>处理poll队列的事件(Processing events in the poll queue)。</li>
-</ol>
-<p>当进入到poll阶段，并且没有timers被调用的时候，会出现下面的情况:</p>
-<ul>
-<li>如果poll队列不为空，Event Loop将同步执行poll queue中的任务，直到poll queue队列为空或者执行的callback达到上限。</li>
-<li>如果poll队列为空，会发生下面的情况:<ul>
-<li>如果脚本执行过setImmediate代码，Event Loop会结束poll阶段，直接进入check阶段，执行Check Queue中调用setImmediate注册的回调函数。</li>
-<li>如果脚本没有执行过setImmediate代码，poll阶段将等待callback被添加到队列中，然后立即执行。</li>
-</ul>
-</li>
-</ul>
-<p>当进入到poll阶段，并且调用了timers的话，会发生下面的情况:</p>
-<ul>
-<li>一旦poll queue为空，Event Loop会检测Timers Queue中是否存在任务，如果存在任务的话，Event Loop会回到timer阶段并执行Timers Queue中timers注册的回调函数。<strong>执行完后是进入check阶段，还是又重新进入I/O callbacks阶段?</strong></li>
-</ul>
-<p>setTimeout 对比 setImmediate</p>
-<ul>
-<li>setTimeout(fn, 0)在timers阶段执行，并且是在poll阶段进行判断是否达到指定的timer时间才会执行</li>
-<li>setImmediate(fn)在check阶段执行</li>
-</ul>
-<p>两者的执行顺序要根据当前的执行环境才能确定：</p>
-<ul>
-<li>如果两者都在主模块(main module)调用，那么执行先后取决于进程性能，顺序随机</li>
-<li>如果两者都不在主模块调用，即在一个I/O Circle中调用，那么setImmediate的回调永远先执行，因为会先到Check阶段</li>
-</ul>
-<p>setImmediate 对比 process.nextTick</p>
-<ul>
-<li>setImmediate(fn)的回调任务会插入到宏队列Check Queue中</li>
-<li>process.nextTick(fn)的回调任务会插入到微队列Next Tick Queue中</li>
-<li>process.nextTick(fn)调用深度有限制，上限是1000，而setImmediate则没有</li>
-</ul>
+<p>大功告成，这时候通过手机的 <code>Safari</code> 来打开 <code>H5</code> 页面，我们通过浏览器开发选项可以看到：</p>
+<p><img src="https://github.com/hankliu62/interview/assets/8088864/fc968e7f-db70-4ae0-b9f6-08d241afb43c" alt="image"></p>
+<blockquote>
+<p>iOS 模拟器：不需要真机，适合调试 Webview 和 H5 有频繁交互的功能页面。</p>
+</blockquote>
+<p>首先下载 Xcode ，运行项目，选择模拟器 iphonex，编译后就会打开模拟器，如下：</p>
+<p><img src="https://github.com/hankliu62/interview/assets/8088864/c7bf4417-1ffc-404d-a19d-5b1b215d06bb" alt="image"></p>
+<p>可以看到 H5 已经在「壳子」中运行起来了，下来就可以尝试调用 Webview 的方法，和「壳子」交互了。</p>
+<blockquote>
+<p>具体的调试功能还是依赖浏览器的开发选项，与上无异，就不赘述了。</p>
+</blockquote>
         
           <p class="article-more-link">
-            <a href="/2024/02/08/interview-questions/#more">Read More</a>
+            <a href="/2019/05/12/mobile-debugging-tools/#more">Read More</a>
           </p>
         
       
@@ -352,89 +303,9 @@
     <footer class="article-footer">
       <div class="article-footer-content">
         
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/interview/">interview</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/debugging/">debugging</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">mobile</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/02/08/interview-questions/" data-id="cluersknl002zufloruvgmg31" class="article-share-link">Share</a>
-        
-      </div>
-    </footer>
-  </div>
-  </div>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-github-pages" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <h3 href="/2024/02/07/github-pages/" class="article-date">
-  <time datetime="2024-02-07T04:20:26.000Z" itemprop="datePublished">2024-02-07</time>
-</h3>
-    
-  </div>
-  <div class="article-inner">
-  <div class="curve-down">
-  <div class="fill-content fill-content-true">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/02/07/github-pages/">使用 Github Pages 和 Issues 搭建博客</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Github-Pages-简介"><a href="#Github-Pages-简介" class="headerlink" title="Github Pages 简介"></a>Github Pages 简介</h2><p>自己维护博客服务器，需要购买服务器，配置域名等一些列操作，比较繁琐，索性直接找个现成的稳定的博客平台，github pages成为首选，这里有几个思路</p>
-<ul>
-<li>使用github pages，编写静态网页</li>
-<li>使用github pages 与静态网页生成工具，需要本地电脑编写文章</li>
-<li>使用github pages 与自建后端服务器，需要另外维护一个后端服务器</li>
-<li>使用issues 写文章，issues页面就是一个博客网站</li>
-<li>使用github pages 与 github api，使用issues写文章</li>
-</ul>
-<h3 id="使用github-pages，编写静态网页"><a href="#使用github-pages，编写静态网页" class="headerlink" title="使用github pages，编写静态网页"></a>使用github pages，编写静态网页</h3><p>有很多文档网站是使用这种方式搭建，一般是作为demo页面或者单页文档页面，否则页面稍微一复杂，就变得非常难以维护</p>
-<h3 id="使用github-pages-与-静态网页生成工具"><a href="#使用github-pages-与-静态网页生成工具" class="headerlink" title="使用github pages 与 静态网页生成工具"></a>使用github pages 与 静态网页生成工具</h3><p>有很多博客网站与文档网站都是使用这种方式，这是一种最简单最方便的方式，现在流行的工具有 <code>hexo</code> 和 <code>Jekyll</code> 等，这种方式还要在本地维护一个仓库，生成静态页面后再上传，操作过于繁琐，而且每个页面之间切换都需要重新载入所有资源，网页数据传输量较大</p>
-<p>具体工具如下所示:</p>
-<ul>
-<li><a href="https://github.com/hexojs/hexo" target="_blank" rel="noopener">hexo</a></li>
-<li><a href="https://github.com/jekyll/jekyll" target="_blank" rel="noopener">Jekyll</a></li>
-</ul>
-<h3 id="使用github-pages-与-自建后端服务器"><a href="#使用github-pages-与-自建后端服务器" class="headerlink" title="使用github pages 与 自建后端服务器"></a>使用github pages 与 自建后端服务器</h3><p>在github pages编写一个单页面应用，数据通过跨域请求来自于自建的服务器，这种方式有三大难点：前端、后端、服务器</p>
-<p><strong>前端</strong></p>
-<p>需要编写一个单页面应用，这对技术需要一定的水平，基本很少有开源工具</p>
-<p><strong>后端</strong></p>
-<p>需要后端服务，这可以使用现成工具提供api，比如wordpress、drupal、ghost等</p>
-<h3 id="使用issues-写文章"><a href="#使用issues-写文章" class="headerlink" title="使用issues 写文章"></a>使用issues 写文章</h3><p>这种方式简单粗暴，直接在issues写文章，评论、标签、提醒神马的都有了，现在其实很流行这种方式，看看这几个博客，都几千个star了</p>
-<ul>
-<li><a href="https://github.com/tmallfe/tmallfe.github.io" target="_blank" rel="noopener">https://github.com/tmallfe/tmallfe.github.io</a></li>
-<li><a href="https://github.com/xufei/blog" target="_blank" rel="noopener">https://github.com/xufei/blog</a></li>
-<li><a href="https://github.com/fouber/blog" target="_blank" rel="noopener">https://github.com/fouber/blog</a></li>
-</ul>
-<p>要说它的缺点嘛，就是人人都可以往你博客提交文章，界面千篇一律，而且也不怎么好看</p>
-<p><strong>服务器</strong></p>
-<p>这个问题很严重，问题来了，你都有自建的服务器了，还要用github pages干嘛呢，哪天自建服务器挂了，博客照样挂。</p>
-<p>这种方式可以使用域名来提升逼格。</p>
-<h3 id="使用github-pages-与-github-api"><a href="#使用github-pages-与-github-api" class="headerlink" title="使用github pages 与 github api"></a>使用github pages 与 github api</h3><p>这种方案与上一种对比起来其实没多大区别，唯一的区别就是自建服务换成了github的另一个服务，就是说，github帮我们建好了。<br>github api：<a href="https://developer.github.com/v3/" target="_blank" rel="noopener">https://developer.github.com/v3/</a></p>
-        
-          <p class="article-more-link">
-            <a href="/2024/02/07/github-pages/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <div class="article-footer-content">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github-pages/">github pages</a></li></ul>
-
-        <a data-url="https://hankliu62.github.io/2024/02/07/github-pages/" data-id="cluerskl20007uflok518otih" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2019/05/12/mobile-debugging-tools/" data-id="clues80960008myloh59epg35" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -504,7 +375,7 @@
         
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2018/11/09/git-clone-failure/" data-id="cluerskko0000uflotwshzh75" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2018/11/09/git-clone-failure/" data-id="clues808m0000mylo0fxxe880" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -552,7 +423,7 @@
         
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">mobile</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/weinre/">weinre</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2017/09/19/web-mobile-tools-weinre/" data-id="cluerskls000suflonpzl2ne8" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2017/09/19/web-mobile-tools-weinre/" data-id="clues809u000umylo3zk4fwba" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -643,7 +514,7 @@
         
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2017/09/14/commonly-shell-command/" data-id="cluerskkw0003uflot0bba9me" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2017/09/14/commonly-shell-command/" data-id="clues808x0003mylour2l7xaa" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -716,7 +587,7 @@
         
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2017/09/09/hexo-github-blog-guide/" data-id="cluerskl00005ufloqlaulzgj" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2017/09/09/hexo-github-blog-guide/" data-id="clues80940007mylognfm74tl" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -777,7 +648,7 @@
         
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2015/12/24/javascript-common-function/" data-id="cluerskl30008uflovgrjxyxv" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2015/12/24/javascript-common-function/" data-id="clues8097000amyloyegazn0j" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -842,7 +713,7 @@
         
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2015/12/24/javascript-module/" data-id="cluerskl6000auflos6rhvlr4" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2015/12/24/javascript-module/" data-id="clues8099000bmylolx3d4iok" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -889,7 +760,7 @@
         
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ubuntu/">ubuntu</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2015/12/24/ubuntu-netstat/" data-id="cluersklp000puflog9d1pazr" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2015/12/24/ubuntu-netstat/" data-id="clues809q000pmylox7iwwx49" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -918,23 +789,23 @@
       <ul>
         
           <li>
-            <a href="/2024/04/02/security-anti-reptile/">Web安全之静态内容防爬虫</a>
-          </li>
-        
-          <li>
-            <a href="/2024/03/31/security-sql-injection/">Web安全之 SQL 注入</a>
-          </li>
-        
-          <li>
-            <a href="/2024/03/30/thread-loader/">thread-loader</a>
-          </li>
-        
-          <li>
             <a href="/2024/03/29/vitepress-blog-guide/">使用VitePress搭建个人博客</a>
           </li>
         
           <li>
-            <a href="/2024/03/27/security-csrf/">Web安全之 CSRF 攻击</a>
+            <a href="/2024/03/05/webpack-plugin-mechanism/">Webpack Plugin插件机制</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/08/interview-questions/">前端面试题汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2024/01/12/github-pages-env/">NextJs 获取 Github Action 部署的环境变量</a>
+          </li>
+        
+          <li>
+            <a href="/2023/12/27/github-pages/">使用 Github Pages 和 Issues 搭建博客</a>
           </li>
         
       </ul>
@@ -955,7 +826,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li></ul>
     </div>
   </div>
 

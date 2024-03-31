@@ -89,254 +89,6 @@
     <div class="outer">
       <section id="main">
   
-    <article id="post-security-anti-reptile" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <h3 href="/2024/04/02/security-anti-reptile/" class="article-date">
-  <time datetime="2024-04-02T02:40:20.000Z" itemprop="datePublished">2024-04-02</time>
-</h3>
-    
-  </div>
-  <div class="article-inner">
-  <div class="curve-down">
-  <div class="fill-content fill-content-true">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/04/02/security-anti-reptile/">Web安全之静态内容防爬虫</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-        <h2 id="Web安全之静态内容防爬虫"><a href="#Web安全之静态内容防爬虫" class="headerlink" title="Web安全之静态内容防爬虫"></a>Web安全之静态内容防爬虫</h2><p>随着互联网的快速发展，网络安全问题日益突出。对于静态内容网站来说，防止恶意爬取网站内容成为了一项重要的任务。恶意爬取不仅会导致网站内容被盗用，还可能引发一系列安全问题，如数据泄露、恶意攻击等。因此，本文将探讨静态内容网站如何防范恶意爬取，提高网络安全。</p>
-<h3 id="静态内容网站的特点"><a href="#静态内容网站的特点" class="headerlink" title="静态内容网站的特点"></a>静态内容网站的特点</h3><p>静态内容网站主要是指那些网页内容固定不变或变化较少的网站。这类网站通常以 <code>HTML</code> 、 <code>CSS</code> 和 <code>JavaScript</code> 等静态文件形式存在，不依赖后端数据库或复杂的应用程序。由于其结构简单、加载速度快，静态网站在新闻发布、产品展示、个人博客等领域得到广泛应用。</p>
-<h3 id="恶意爬取的威胁"><a href="#恶意爬取的威胁" class="headerlink" title="恶意爬取的威胁"></a>恶意爬取的威胁</h3><p>恶意爬取是指未经授权，通过自动化手段（如爬虫程序）大规模抓取网站内容的行为。这种行为通常具有以下特点：</p>
-<ol>
-<li><strong>大规模：</strong>恶意爬取往往涉及大量的请求，给服务器带来沉重负担。</li>
-<li><strong>未经授权：</strong>爬取行为未经网站所有者许可，违反了版权和隐私政策。</li>
-<li><strong>恶意目的：</strong>恶意爬取可能导致内容被盗用、数据泄露、恶意攻击等后果。</li>
-</ol>
-<h3 id="防恶意爬取策略"><a href="#防恶意爬取策略" class="headerlink" title="防恶意爬取策略"></a>防恶意爬取策略</h3><p>为了防范恶意爬取，静态内容网站可以采取以下措施：</p>
-<h4 id="设置robots-txt文件"><a href="#设置robots-txt文件" class="headerlink" title="设置robots.txt文件"></a>设置robots.txt文件</h4><p><code>robots.txt</code> 文件是一个用于告知搜索引擎爬虫哪些页面可以爬取、哪些页面不能爬取的文本文件。通过设置 <code>robots.txt</code> 文件，可以限制恶意爬虫的访问。</p>
-<p>下面是一个 robots.txt 文件的例子，展示了如何设置一些基本的规则。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">User-agent: *</span><br><span class="line">Disallow: /</span><br><span class="line"></span><br><span class="line"># 禁止所有爬虫访问网站的所有页面</span><br><span class="line"></span><br><span class="line">User-agent: Googlebot</span><br><span class="line">Disallow:</span><br><span class="line"></span><br><span class="line"># 允许 Googlebot 访问网站的所有页面</span><br><span class="line"></span><br><span class="line">User-agent: Bingbot</span><br><span class="line">Disallow: /private/</span><br><span class="line"></span><br><span class="line"># 禁止 Bingbot 访问 /private/ 目录下的所有页面</span><br><span class="line"></span><br><span class="line">User-agent: Yahoo! Slurp</span><br><span class="line">Disallow: /admin/</span><br><span class="line"></span><br><span class="line"># 禁止 Yahoo! Slurp 访问 /admin/ 目录下的所有页面</span><br><span class="line"></span><br><span class="line">User-agent: *</span><br><span class="line">Disallow: /cgi-bin/</span><br><span class="line"></span><br><span class="line"># 禁止所有其他爬虫访问 /cgi-bin/ 目录下的所有页面</span><br><span class="line"></span><br><span class="line"># 允许特定爬虫访问特定页面</span><br><span class="line">User-agent: SpecificBot</span><br><span class="line">Allow: /special-page/</span><br><span class="line">Disallow: /</span><br><span class="line"></span><br><span class="line"># 对于名为 SpecificBot 的爬虫，只允许访问 /special-page/ 页面，其他页面都不允许访问</span><br></pre></td></tr></table></figure>
-<p>在上面的例子中：</p>
-<ul>
-<li><strong>User-agent: *</strong> 表示该规则适用于所有爬虫。</li>
-<li><strong>Disallow: /</strong> 表示禁止爬虫访问网站的根目录及其所有子目录和文件。</li>
-<li><strong>Allow: /special-page/</strong> 表示允许特定爬虫访问 <code>/special-page/</code> 页面。<code>Allow</code> 指令必须在 <code>Disallow</code> 指令之前，否则将无效。</li>
-<li><strong>User-agent: SpecificBot</strong> 表示该规则仅适用于名为 <code>SpecificBot</code> 的爬虫。</li>
-</ul>
-<p>请注意， <code>robots.txt</code> 文件必须放置在网站的根目录下（通常是 <code>http://www.example.com/robots.txt</code>），以便爬虫能够找到它。同时，虽然大多数负责任的爬虫都会遵守 <code>robots.txt</code> 的规则，但并非所有爬虫都会遵守，因此它不能作为一种安全机制来防止数据被爬取。</p>
-<h4 id="使用验证码技术"><a href="#使用验证码技术" class="headerlink" title="使用验证码技术"></a>使用验证码技术</h4><p>对于关键页面或敏感内容，可以引入验证码技术。用户在访问这些页面时需要输入正确的验证码才能继续浏览，从而有效阻止恶意爬虫的访问。</p>
-<p>验证码技术的案例有很多，以下列举几个常见的案例：</p>
-<ol>
-<li><strong>网站注册和登录验证码：</strong>这是最常见的验证码技术案例。用户在注册或登录网站时，系统会显示一组随机生成的字符或图片，并要求用户输入或选择正确的字符或图片来完成验证。这种技术可以有效防止自动化程序恶意攻击网站，如进行暴力破解密码、刷票等行为。</li>
-<li><strong>图片验证码：</strong>图片验证码是一种将随机生成的字符或数字嵌入到图片中，并要求用户识别并输入正确字符或数字的验证码技术。这种技术可以有效防止自动化程序识别并输入验证码，提高网站的安全性。</li>
-<li><strong>滑动验证码：</strong>滑动验证码是一种要求用户通过滑动解锁来完成验证的技术。用户需要按照指定的方向或轨迹滑动滑块，才能完成验证。这种技术可以有效防止自动化程序模拟用户操作，提高网站的安全性。</li>
-<li><strong>音频验证码：</strong>音频验证码是一种将随机生成的字符或数字转换为语音，并要求用户听取并输入正确字符或数字的验证码技术。这种技术适用于视觉障碍用户或无法通过图片验证码验证的情况。</li>
-<li><strong>逻辑验证码：</strong>逻辑验证码是一种要求用户解决一个简单数学问题或逻辑问题来完成验证的技术。例如，系统可能会显示一个加法或减法问题，并要求用户输入正确答案。这种技术可以有效防止自动化程序识别并输入验证码，提高网站的安全性。</li>
-</ol>
-<h4 id="限制访问频率"><a href="#限制访问频率" class="headerlink" title="限制访问频率"></a>限制访问频率</h4><p>通过设置合理的访问频率限制，可以防止恶意爬虫大量请求服务器资源。例如，可以设置每个IP地址在单位时间内的最大请求次数。</p>
-<p>限制访问频率的 <code>Node.js</code> 例子可以使用 <code>Redis</code> 来实现。下面是一个简单的示例代码：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Redis = <span class="built_in">require</span>(<span class="string">'ioredis'</span>);</span><br><span class="line"><span class="keyword">const</span> redis = <span class="keyword">new</span> Redis(&#123;</span><br><span class="line">  port: <span class="number">6379</span>, <span class="comment">// Redis 端口</span></span><br><span class="line">  host: <span class="string">'localhost'</span>, <span class="comment">// Redis 主机地址</span></span><br><span class="line">  password: <span class="string">'your_redis_password'</span>, <span class="comment">// Redis 密码</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ACCESS_FREQUENCY = <span class="number">5</span>; <span class="comment">// 设定访问频率限制，例如每分钟最多访问 5 次</span></span><br><span class="line"><span class="keyword">const</span> EXPIRE_TIME = <span class="number">60</span>; <span class="comment">// 设定过期时间，例如每分钟过期</span></span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/protected-route'</span>, <span class="keyword">async</span> (req, res) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> ip = req.ip; <span class="comment">// 获取请求 IP</span></span><br><span class="line">  <span class="keyword">const</span> key = <span class="string">`access-frequency:<span class="subst">$&#123;ip&#125;</span>`</span>; <span class="comment">// 构建 Redis 键名</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> count = <span class="keyword">await</span> redis.get(key); <span class="comment">// 获取当前 IP 的访问次数</span></span><br><span class="line">    <span class="keyword">if</span> (count &amp;&amp; <span class="built_in">parseInt</span>(count) &gt;= ACCESS_FREQUENCY) &#123;</span><br><span class="line">      <span class="keyword">return</span> res.status(<span class="number">429</span>).send(<span class="string">'Too Many Requests'</span>); <span class="comment">// 超过访问频率限制，返回 429 状态码</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> newCount = count ? <span class="built_in">parseInt</span>(count) + <span class="number">1</span> : <span class="number">1</span>; <span class="comment">// 更新访问次数</span></span><br><span class="line">    <span class="keyword">await</span> redis.set(key, newCount, <span class="string">'EX'</span>, EXPIRE_TIME); <span class="comment">// 设置新的访问次数，并设置过期时间</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 处理正常请求逻辑...</span></span><br><span class="line">    res.send(<span class="string">'Success'</span>);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    <span class="built_in">console</span>.error(<span class="string">'Error:'</span>, error);</span><br><span class="line">    res.status(<span class="number">500</span>).send(<span class="string">'Internal Server Error'</span>); <span class="comment">// 发生错误时返回 500 状态码</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>在这个例子中，我们使用 <code>Redis</code> 来存储每个 <code>IP</code> 的访问次数，并设定了一个访问频率限制（例如每分钟最多访问 <code>5</code> 次）。当一个请求到达时，我们首先获取当前 <code>IP</code> 的访问次数，如果超过了限制，则返回 <code>429</code> 状态码表示请求过多。否则，我们更新访问次数，并设置过期时间，以便在下一分钟内重置访问次数。最后，我们处理正常的请求逻辑并返回成功响应。</p>
-<p>请注意，这只是一个简单的示例代码，实际应用中可能需要更多的逻辑和安全性考虑，例如使用分布式锁来防止并发访问问题，以及使用更复杂的算法来计算访问频率等。</p>
-<h4 id="数据混淆"><a href="#数据混淆" class="headerlink" title="数据混淆"></a>数据混淆</h4><p>数据混淆是指通过改变数据的表示方式或结构，使得爬虫无法直接解析出真实数据的方法。</p>
-<p>假设你有一个包含敏感信息的API接口，返回的数据是JSON格式的。为了防止爬虫直接获取到这些数据，你可以对返回的数据进行混淆处理。</p>
-<p>原始数据:</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"name"</span>: <span class="string">"张三"</span>,</span><br><span class="line">    <span class="attr">"age"</span>: <span class="number">30</span>,</span><br><span class="line">    <span class="attr">"email"</span>: <span class="string">"zhangsan@example.com"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>混淆后的数据:</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"n1"</span>: <span class="string">"Z3Nj"</span>,</span><br><span class="line">    <span class="attr">"a2"</span>: <span class="string">"MzAi"</span>,</span><br><span class="line">    <span class="attr">"e3"</span>: <span class="string">"emFuc2FuQGV4YW1wbGUuY29t"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在这个例子中，你可以使用一种简单的混淆算法（如Base64编码）对原始数据进行编码，然后在前端使用相应的解码算法进行解码，以显示真实的数据。这样，爬虫获取到的只是混淆后的数据，无法直接解析出真实的信息。</p>
-<h4 id="加密传输"><a href="#加密传输" class="headerlink" title="加密传输"></a>加密传输</h4><p>使用HTTPS协议对网站内容进行加密传输，可以防止恶意爬虫在传输过程中窃取数据。此外，HTTPS协议还能提高网站的安全性，保护用户隐私。</p>
-<h4 id="使用反爬虫技术"><a href="#使用反爬虫技术" class="headerlink" title="使用反爬虫技术"></a>使用反爬虫技术</h4><p>反爬虫技术是一种主动防御手段，通过识别并阻止恶意爬虫的访问。例如，可以通过分析请求头、请求频率、用户代理等信息来判断是否为恶意爬虫，并采取相应的防御措施。</p>
-<p>下面是一个简单的 <code>express</code> 示例代码：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="keyword">const</span> app = express();</span><br><span class="line"><span class="keyword">const</span> rateLimit = <span class="built_in">require</span>(<span class="string">'express-rate-limit'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置访问频率限制</span></span><br><span class="line"><span class="keyword">const</span> limiter = rateLimit(&#123;</span><br><span class="line">    windowMs: <span class="number">15</span> * <span class="number">60</span> * <span class="number">1000</span>, <span class="comment">// 15分钟</span></span><br><span class="line">    max: <span class="number">100</span>, <span class="comment">// 在时间窗口内的最大请求数</span></span><br><span class="line">    message: <span class="string">'Too many requests from this IP, please try again later.'</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.use(<span class="string">'/protected-route'</span>, limiter);</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/protected-route'</span>, (req, res) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> userAgent = req.headers[<span class="string">'user-agent'</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 检查User-Agent是否像是浏览器的</span></span><br><span class="line">    <span class="keyword">if</span> (!userAgent || !userAgent.includes(<span class="string">'Mozilla'</span>)) &#123;</span><br><span class="line">        <span class="keyword">return</span> res.status(<span class="number">403</span>).send(<span class="string">'Forbidden'</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 假设这是从数据库或API获取敏感数据的函数</span></span><br><span class="line">    fetchSensitiveData().then(<span class="function"><span class="params">data</span> =&gt;</span> &#123;</span><br><span class="line">        res.send(data);</span><br><span class="line">    &#125;).catch(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.error(err);</span><br><span class="line">        res.status(<span class="number">500</span>).send(<span class="string">'Internal Server Error'</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">3000</span>, () =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'Server is running on port 3000'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fetchSensitiveData</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 这里模拟从数据库或API获取数据的过程</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            resolve(&#123; <span class="attr">sensitiveInformation</span>: <span class="string">'This is sensitive data'</span> &#125;);</span><br><span class="line">        &#125;, <span class="number">1000</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在这个例子中，我们使用了 <code>express-rate-limit</code> 中间件来限制来自同一 <code>IP</code> 的请求频率，并检查了 <code>User-Agent</code> 头来识别非浏览器请求。</p>
-<h4 id="定期更新内容"><a href="#定期更新内容" class="headerlink" title="定期更新内容"></a>定期更新内容</h4><p>定期更新网站内容可以降低恶意爬虫的兴趣。同时，通过不断更新网站结构和内容，可以增加恶意爬虫爬取的难度。</p>
-<h4 id="建立安全监测机制"><a href="#建立安全监测机制" class="headerlink" title="建立安全监测机制"></a>建立安全监测机制</h4><p>建立安全监测机制，及时发现并应对恶意爬取行为。通过监控网站访问日志、流量异常等信息，可以及时发现恶意爬虫并采取相应的措施。</p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>网络安全是互联网发展的基石，而静态内容网站的防爬虫工作是其中的重要一环。防范恶意爬取对于静态内容网站来说至关重要。通过了解恶意爬取的特点和采取相应的防范措施，可以有效提高网站的安全性，维护网站所有者的权益，同时提升用户体验。同时，网站所有者还应持续关注网络安全动态，不断更新和完善防范措施，确保网站内容的安全与稳定。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <div class="article-footer-content">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/">network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/reptile/">reptile</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/security/">security</a></li></ul>
-
-        <a data-url="https://hankliu62.github.io/2024/04/02/security-anti-reptile/" data-id="cluerskl8000buflopesipqxn" class="article-share-link">Share</a>
-        
-      </div>
-    </footer>
-  </div>
-  </div>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-security-sql-injection" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <h3 href="/2024/03/31/security-sql-injection/" class="article-date">
-  <time datetime="2024-03-31T10:20:26.000Z" itemprop="datePublished">2024-03-31</time>
-</h3>
-    
-  </div>
-  <div class="article-inner">
-  <div class="curve-down">
-  <div class="fill-content fill-content-true">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/03/31/security-sql-injection/">Web安全之 SQL 注入</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-        <h2 id="Web安全之-SQL-注入"><a href="#Web安全之-SQL-注入" class="headerlink" title="Web安全之 SQL 注入"></a>Web安全之 SQL 注入</h2><p>随着互联网的快速发展，网络安全问题日益受到人们的关注。 <code>SQL</code> 注入是一种常见的网络安全攻击方式，严重威胁着数据库的安全。本文将从 <code>SQL</code> 注入的概念、原理、危害以及防范措施等方面，对网络安全中的 <code>SQL</code> 注入进行深入探讨。</p>
-<h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p><code>SQL</code> 注入（<code>SQL Injection</code>）是指攻击者在用户输入的数据中注入恶意的 <code>SQL</code> 语句，从而在未经授权的情况下实现对数据库的非法操作。当应用程序没有对用户输入的数据进行有效的验证和过滤时，攻击者可以利用这一漏洞，篡改原始的 <code>SQL</code> 语句，进而窃取、篡改或删除数据库中的数据。</p>
-<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p><code>SQL</code> 注入的原理主要基于应用程序对用户输入数据的处理不当。攻击者通过在用户输入的数据中插入恶意的 <code>SQL</code> 语句，使得应用程序在构建 <code>SQL</code> 查询时，将恶意语句作为查询的一部分发送给数据库执行。这样，攻击者就可以绕过应用程序的验证，直接对数据库进行操作。</p>
-<h3 id="危害"><a href="#危害" class="headerlink" title="危害"></a>危害</h3><ol>
-<li><strong>数据泄露：</strong>攻击者可以通过 <code>SQL</code> 注入获取数据库中的敏感信息，如用户密码、身份信息、银行账户等，从而导致数据泄露和用户隐私泄露。</li>
-<li><strong>数据篡改：</strong>攻击者可以利用 <code>SQL</code> 注入修改数据库中的数据，破坏数据的完整性和准确性。</li>
-<li><strong>数据删除：</strong>攻击者可以通过 <code>SQL</code> 注入删除数据库中的数据，导致数据丢失和业务受损。</li>
-<li><strong>服务器被控制：</strong>攻击者还可以通过 <code>SQL</code> 注入获取数据库的完全控制权限，进一步对服务器进行攻击和控制。</li>
-</ol>
-<h3 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h3><p>下面是一个简单的 <code>Node.js</code> 和 <code>Express</code> 框架中的 <code>SQL</code> 注入案例：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="keyword">const</span> mysql = <span class="built_in">require</span>(<span class="string">'mysql'</span>);</span><br><span class="line"><span class="keyword">const</span> app = express();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建数据库连接</span></span><br><span class="line"><span class="keyword">const</span> connection = mysql.createConnection(&#123;</span><br><span class="line">  host: <span class="string">'localhost'</span>,</span><br><span class="line">  user: <span class="string">'root'</span>,</span><br><span class="line">  password: <span class="string">'password'</span>,</span><br><span class="line">  database: <span class="string">'test'</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">connection.connect();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义一个简单的路由处理函数，存在 SQL 注入漏洞</span></span><br><span class="line">app.get(<span class="string">'/users'</span>, (req, res) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> username = req.query.username; <span class="comment">// 从查询字符串获取用户名</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 直接将用户名插入 SQL 查询中，没有进行任何过滤或转义</span></span><br><span class="line">  <span class="keyword">const</span> query = <span class="string">`SELECT * FROM users WHERE username = '<span class="subst">$&#123;username&#125;</span>'`</span>;</span><br><span class="line"></span><br><span class="line">  connection.query(query, (error, results, fields) =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (error) <span class="keyword">throw</span> error;</span><br><span class="line">    res.send(results);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">3000</span>, () =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'App listening on port 3000'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>在上述代码中，我们定义了一个简单的 <code>Express</code> 应用，它监听 <code>/users</code> 路由，并从查询字符串中获取 <code>username</code> 参数。然后，我们直接将 <code>username</code> 插入 <code>SQL</code> 查询语句中。由于没有对 <code>username</code> 进行任何形式的过滤或转义，攻击者可以通过在查询字符串中插入恶意的 <code>SQL</code> 代码来操纵查询结果，甚至执行任意的 <code>SQL</code> 语句。</p>
-<p>例如，攻击者可以通过以下 <code>URL</code> 尝试注入攻击：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:3000/users?username=&apos;; DROP TABLE users; --</span><br></pre></td></tr></table></figure>
-<p>这个 <code>URL</code> 会导致 <code>SQL</code> 查询变成：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> <span class="keyword">users</span> <span class="keyword">WHERE</span> username = <span class="string">''</span>; <span class="keyword">DROP</span> <span class="keyword">TABLE</span> <span class="keyword">users</span>; <span class="comment">--'</span></span><br></pre></td></tr></table></figure>
-<p>如果应用执行了这条查询，它会删除 <code>users</code> 表中的所有数据。</p>
-<h3 id="防范措施"><a href="#防范措施" class="headerlink" title="防范措施"></a>防范措施</h3><p>为了防止 <code>SQL</code> 注入攻击，你应该：</p>
-<h4 id="使用参数化查询"><a href="#使用参数化查询" class="headerlink" title="使用参数化查询"></a>使用参数化查询</h4><p>参数化查询可以确保用户输入被当作数据而不是 <code>SQL</code> 代码来处理。在 <code>Node.js</code> 中，可以使用像 <code>mysql</code> 包中的 <code>query</code> 方法的参数化版本，或者使用 <code>ORM</code>（对象关系映射）库如 <code>Sequelize</code> 或者 <code>TypeORM</code>。</p>
-<p>在上述的 <code>Node.js</code> 例子中，你可以使用 <code>mysql</code> 包来执行参数化查询。以下是一个使用 <code>mysql</code> 包和参数化查询来预防 <code>SQL</code> 注入的示例：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/users'</span>, (req, res) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> username = req.query.username; <span class="comment">// 从查询字符串获取用户名</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 构建 SQL 语句</span></span><br><span class="line">  <span class="keyword">const</span> query = <span class="string">`SELECT * FROM users WHERE username = '?'`</span>;</span><br><span class="line"></span><br><span class="line">  connection.query(query, [username], (error, results, fields) =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (error) <span class="keyword">throw</span> error;</span><br><span class="line">    res.send(results);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<p>在这个例子中，<code>?</code>是一个参数占位符，代表我们要查询的 <code>username</code>。我们将 <code>username</code> 作为数组 <code>[username]</code> 的元素传递给 <code>query</code> 方法的第二个参数。这样，<code>MySQL</code> 驱动程序就会知道 <code>?</code> 应该被 <code>username</code> 的值替换。</p>
-<p>由于参数化查询确保了用户输入被当作数据处理，而不是作为 <code>SQL</code> 代码的一部分，因此即使 <code>username</code> 包含恶意的 <code>SQL</code> 代码，它也不会被执行。这是预防 <code>SQL</code> 注入攻击的一种有效方式。</p>
-<h4 id="使用预编译语句"><a href="#使用预编译语句" class="headerlink" title="使用预编译语句"></a>使用预编译语句</h4><p>预编译语句是一种将 <code>SQL</code> 语句和参数分开处理的方式，数据库管理系统会对 <code>SQL</code> 语句进行解析、优化和编译，然后存储起来。每次执行时，只需传递参数，避免了 <code>SQL</code> 注入的风险。</p>
-<p>在上述的 <code>Node.js</code> 例子中，你可以使用 <code>mysql</code> 包来执行预编译语句。以下是一个使用 <code>mysql</code> 包和预编译语句来预防 <code>SQL</code> 注入的示例：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/users'</span>, (req, res) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> username = req.query.username; <span class="comment">// 从查询字符串获取用户名</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 准备预编译语句</span></span><br><span class="line">  <span class="keyword">const</span> prepareQuery = <span class="string">`PREPARE stmt FROM "SELECT * FROM users WHERE username = '?'"`</span>;</span><br><span class="line">  connection.query(prepareQuery, (error, results, fields) =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (error) <span class="keyword">throw</span> error;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置参数并执行预编译语句</span></span><br><span class="line">    <span class="keyword">const</span> executeQuery = <span class="string">'EXECUTE stmt USING ?'</span>;</span><br><span class="line">    connection.query(executeQuery, [username], (error, results, fields) =&gt; &#123;</span><br><span class="line">      <span class="keyword">if</span> (error) <span class="keyword">throw</span> error;</span><br><span class="line">      <span class="built_in">console</span>.log(results);</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 释放预编译语句</span></span><br><span class="line">      connection.query(<span class="string">'DEALLOCATE PREPARE stmt'</span>, (error) =&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span> (error) <span class="keyword">throw</span> error;</span><br><span class="line">        connection.end();</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<p>在这个预编译语句的例子中，我们首先准备一个预编译语句，其中包含一个占位符 <code>?</code>。然后，我们使用 <code>PREPARE</code> 语句将其发送到数据库进行编译。之后，我们使用 <code>EXECUTE</code> 语句并传递参数 <code>[username]</code> 来执行预编译的语句。最后，我们使用 <code>DEALLOCATE PREPARE</code> 语句释放预编译语句的资源。</p>
-<p>使用预编译语句的好处是，即使参数中包含恶意的 <code>SQL</code> 代码，它也不会被数据库执行。这是因为预编译语句将参数和 <code>SQL</code> 语句分开处理，数据库只会执行预编译的 <code>SQL</code> 语句，并将参数作为数据来处理。</p>
-<h4 id="转义用户输入"><a href="#转义用户输入" class="headerlink" title="转义用户输入"></a>转义用户输入</h4><p>转义用户输入是另一种防止 <code>SQL</code> 注入攻击的方法。转义用户输入意味着将用户提供的值中的特殊字符（如单引号、双引号等）替换为它们的转义版本，这样在 <code>SQL</code> 语句中它们就会被当作普通文本处理，而不是 <code>SQL</code> 代码的一部分。</p>
-<p>虽然参数化查询是首选的方法，因为它提供了更高级别的安全性，但在某些情况下，你可能需要手动转义用户输入。在 <code>Node.js</code> 中，你可以使用 <code>MySQL</code> 驱动程序的 <code>escape</code> 方法来转义用户输入。</p>
-<p>以下是一个使用 <code>Node.js</code> 和 <code>mysql</code> 驱动程序手动转义用户输入的例子：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/users'</span>, (req, res) =&gt; &#123;</span><br><span class="line">  <span class="comment">// 从查询字符串获取用户名</span></span><br><span class="line">  <span class="keyword">const</span> username = req.query.username;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 使用 escape 方法转义用户输入</span></span><br><span class="line">  <span class="keyword">const</span> safeUsername = mysql.escape(username);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 构建 SQL 语句</span></span><br><span class="line">  <span class="keyword">const</span> query = <span class="string">`SELECT * FROM users WHERE username = '<span class="subst">$&#123;safeUsername&#125;</span>'`</span>;</span><br><span class="line"></span><br><span class="line">  connection.query(query, (error, results, fields) =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (error) <span class="keyword">throw</span> error;</span><br><span class="line">    res.send(results);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<p>在这个例子中，我们使用了 <code>mysql.escape</code> 方法来转义 <code>username</code> 中的特殊字符。这样，即使 <code>username</code> 包含特殊字符，它也不会被误解为 <code>SQL</code> 语句的一部分。</p>
-<p>然而，尽管手动转义用户输入可以提供一定程度的保护，但它仍然不是最安全的做法。原因之一是它可能会导致程序逻辑变得复杂且容易出错，尤其是在构建复杂的 <code>SQL</code> 语句时。因此，推荐使用参数化查询或预编译语句，因为它们提供了更强的安全性保证，并且更容易正确使用。</p>
-<h4 id="最小权限原则"><a href="#最小权限原则" class="headerlink" title="最小权限原则"></a>最小权限原则</h4><p>确保数据库账户只有执行必要操作的最小权限。例如，如果应用程序只需要从数据库中读取数据，那么就不应该赋予它写入权限。</p>
-<p>在 <code>MySQL</code> 中设置只读权限，你需要登录到MySQL数据库，然后为用户创建一个新的角色并授予只读权限。你可以使用GRANT语句来实现这一点。具体如下所示:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 登录到MySQL</span></span><br><span class="line">mysql -u root -p</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 创建新角色</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">ROLE</span> <span class="string">'readonlyuser'</span>@<span class="string">'localhost'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 授予只读权限</span></span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">SELECT</span> <span class="keyword">ON</span> your_database.* <span class="keyword">TO</span> <span class="string">'readonlyuser'</span>@<span class="string">'localhost'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 刷新权限</span></span><br><span class="line"><span class="keyword">FLUSH</span> <span class="keyword">PRIVILEGES</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 退出MySQL</span></span><br><span class="line">EXIT;</span><br></pre></td></tr></table></figure>
-<p>在上面的例子中，<code>your_database</code> 是你想要让用户具有只读权限的数据库名。<code>&#39;readonlyuser&#39;@&#39;localhost&#39;</code> 表示用户名为 <code>readonlyuser</code> ，并且该用户只能从本地主机连接到数据库。如果你希望用户可以从任何主机连接，你可以将 <code>localhost</code> 替换为 <code>&#39;%&#39;</code>。</p>
-<h4 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h4><p>不要将详细的数据库错误信息直接返回给用户。这可以防止攻击者利用这些信息进行更复杂的攻击。</p>
-<h4 id="安全审计和测试"><a href="#安全审计和测试" class="headerlink" title="安全审计和测试"></a>安全审计和测试</h4><p>使用工具如 <code>SQLMap</code>、<code>OWASP Zap</code> 等进行安全审计和测试，确保应用程序不会受到 <code>SQL</code> 注入攻击。</p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>总之， <code>SQL</code> 注入是一种常见的网络安全攻击方式，对数据库的安全构成严重威胁。为了防范 <code>SQL</code> 注入攻击，我们需要加强用户输入验证、使用参数化查询、存储过程等安全措施，并定期更新和修补数据库管理系统和应用程序。只有这样，我们才能确保数据库的安全，保护用户的数据隐私和业务安全。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <div class="article-footer-content">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/">network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/security/">security</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sql/">sql</a></li></ul>
-
-        <a data-url="https://hankliu62.github.io/2024/03/31/security-sql-injection/" data-id="cluersklh000muflohbuwzwdl" class="article-share-link">Share</a>
-        
-      </div>
-    </footer>
-  </div>
-  </div>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-thread-loader" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <h3 href="/2024/03/30/thread-loader/" class="article-date">
-  <time datetime="2024-03-30T02:10:20.000Z" itemprop="datePublished">2024-03-30</time>
-</h3>
-    
-  </div>
-  <div class="article-inner">
-  <div class="curve-down">
-  <div class="fill-content fill-content-true">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/03/30/thread-loader/">thread-loader</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-        <h2 id="thread-loader"><a href="#thread-loader" class="headerlink" title="thread-loader"></a>thread-loader</h2><p><code>thread-loader</code> 是一种在 <code>worker</code> 池中运行以下 <code>loader</code> 的工具。</p>
-<h3 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h3><p>通过 npm、yarn 或 pnpm 安装：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev thread-loader</span><br></pre></td></tr></table></figure>
-<p>或者</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add -D thread-loader</span><br></pre></td></tr></table></figure>
-<p>或者</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pnpm add -D thread-loader</span><br></pre></td></tr></table></figure>
-<p>将其放在其他 <code>loader</code> 的前面，以下 <code>loader</code> 将在 <code>worker</code> 池中运行。</p>
-<p>在 <code>worker</code> 池中运行的 <code>loader</code> 有一些限制。例如：</p>
-<ul>
-<li><code>loader</code> 不能发射文件。</li>
-<li><code>loader</code> 不能使用自定义 <code>loader API</code>（即插件）。</li>
-<li><code>loader</code> 不能访问 <code>webpack</code> 配置项。</li>
-</ul>
-<p>每个 <code>worker</code> 是一个单独的 <code>node.js</code> 进程，启动一个 <code>worker</code> 大约需要 600ms 的时间。此外，进程间通信也存在一定的开销。</p>
-<p>因此，仅将此 <code>loader</code> 用于计算密集型操作！</p>
-<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><h4 id="webpack-config-js"><a href="#webpack-config-js" class="headerlink" title="webpack.config.js"></a>webpack.config.js</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="built_in">module</span>: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">        include: path.resolve(<span class="string">'src'</span>),</span><br><span class="line">        use: [</span><br><span class="line">          <span class="string">'thread-loader'</span>,</span><br><span class="line">          <span class="comment">// 你的计算密集型 loader（例如 babel-loader）</span></span><br><span class="line">        ],</span><br><span class="line">      &#125;,</span><br><span class="line">    ],</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h4 id="带有选项"><a href="#带有选项" class="headerlink" title="带有选项"></a>带有选项</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">use: [</span><br><span class="line">  &#123;</span><br><span class="line">    loader: <span class="string">'thread-loader'</span>,</span><br><span class="line">    <span class="comment">// 选项相同的 loader 将共享 worker 池</span></span><br><span class="line">    options: &#123;</span><br><span class="line">      <span class="comment">// 生成的 worker 数量，默认为（CPU 核心数 - 1）或当 require('os').cpus() 未定义时回退到 1</span></span><br><span class="line">      workers: <span class="number">2</span>,</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 一个 worker 并行处理的 job 数量</span></span><br><span class="line">      <span class="comment">// 默认为 20</span></span><br><span class="line">      workerParallelJobs: <span class="number">50</span>,</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 额外的 node.js 参数</span></span><br><span class="line">      workerNodeArgs: [<span class="string">'--max-old-space-size=1024'</span>],</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 允许重新生成已死亡的 worker 池</span></span><br><span class="line">      <span class="comment">// 重新生成会减慢整个编译速度</span></span><br><span class="line">      <span class="comment">// 在开发环境中应将其设置为 false</span></span><br><span class="line">      poolRespawn: <span class="literal">false</span>,</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 当空闲时杀死 worker 进程的超时时间</span></span><br><span class="line">      <span class="comment">// 默认为 500 (ms)</span></span><br><span class="line">      <span class="comment">// 对于保持 worker 存活的监视构建，可以设置为 Infinity</span></span><br><span class="line">      poolTimeout: <span class="number">2000</span>,</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 池分配给 worker 的工作数量</span></span><br><span class="line">      <span class="comment">// 默认为 200</span></span><br><span class="line">      <span class="comment">// 降低这个数值会降低总体的效率，但是会提升工作分布更均一</span></span><br><span class="line">      poolParallelJobs: <span class="number">50</span>,</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 池的名称</span></span><br><span class="line">      <span class="comment">// 可以修改名称来创建其余选项都一样的池</span></span><br><span class="line">      name: <span class="string">"my-pool"</span></span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 耗时的 loader（例如 babel-loader）</span></span><br><span class="line">];</span><br></pre></td></tr></table></figure>
-<h3 id="预热"><a href="#预热" class="headerlink" title="预热"></a>预热</h3><p>为了防止在启动 <code>worker</code> 时出现高延迟，可以预热 <code>worker</code> 池。</p>
-<p>这将启动池中的最大 <code>worker</code> 数量，并将指定的模块加载到 <code>node.js</code> 模块缓存中。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> threadLoader = <span class="built_in">require</span>(<span class="string">'thread-loader'</span>);</span><br><span class="line"></span><br><span class="line">threadLoader.warmup(</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="comment">// 池选项，像传递给 loader 选项那样</span></span><br><span class="line">    <span class="comment">// 必须匹配 loader 选项以启动正确的池</span></span><br><span class="line">  &#125;,</span><br><span class="line">  [</span><br><span class="line">    <span class="comment">// 要加载的模块</span></span><br><span class="line">    <span class="comment">// 可以是任何模块，例如</span></span><br><span class="line">    <span class="string">'babel-loader'</span>,</span><br><span class="line">    <span class="string">'babel-preset-es2015'</span>,</span><br><span class="line">    <span class="string">'sass-loader'</span>,</span><br><span class="line">  ]</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <div class="article-footer-content">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/loader/">loader</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/">webpack</a></li></ul>
-
-        <a data-url="https://hankliu62.github.io/2024/03/30/thread-loader/" data-id="cluersklf000iufloi2whnog3" class="article-share-link">Share</a>
-        
-      </div>
-    </footer>
-  </div>
-  </div>
-  </div>
-  
-</article>
-
-
-
-  
     <article id="post-vitepress-blog-guide" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <h3 href="/2024/03/29/vitepress-blog-guide/" class="article-date">
@@ -439,7 +191,698 @@
         
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vitepress/">vitepress</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/03/29/vitepress-blog-guide/" data-id="cluersklu000uuflou0jdc0gy" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/03/29/vitepress-blog-guide/" data-id="clues809s000smylonanebv2x" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-webpack-plugin-mechanism" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2024/03/05/webpack-plugin-mechanism/" class="article-date">
+  <time datetime="2024-03-05T12:36:12.000Z" itemprop="datePublished">2024-03-05</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-true">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/03/05/webpack-plugin-mechanism/">Webpack Plugin插件机制</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Webpack-Plugin插件机制"><a href="#Webpack-Plugin插件机制" class="headerlink" title="Webpack Plugin插件机制"></a>Webpack Plugin插件机制</h2><h3 id="plugin机制出现原因"><a href="#plugin机制出现原因" class="headerlink" title="plugin机制出现原因"></a>plugin机制出现原因</h3><p>前面我们已经知道了，loader机制让webpack拥有了处理除js类型文件以外的能力。</p>
+<p>那如果我们需要在项目中实现<code>打包前自动清理上次打包生成的文件</code>、<code>将一些文件复制到打包目录中</code>、<code>自动生成html文件</code>、<code>将打包产物自动上传至服务器</code>、<code>将打包后代码进行压缩、拆分</code>等一系列定制化功能，此时就必须借助webpack的plugin机制去实现了。</p>
+<p>没错，webpack的plugin机制让webpack有了定制化的能力。</p>
+<h3 id="plugin原理"><a href="#plugin原理" class="headerlink" title="plugin原理"></a>plugin原理</h3><p>那具体如何通过plugin机制去实现这些定制化功能呢？</p>
+<p>其实是webpack在打包过程中的不同阶段（配置文件读取完成后、打包开始前、打包完成后等阶段）会触发不同的钩子，我们只需要明确要实现的功能应该在哪个阶段，然后将具体实现代码注册为对应钩子的事件即可。</p>
+<h3 id="webpack运行原理"><a href="#webpack运行原理" class="headerlink" title="webpack运行原理"></a>webpack运行原理</h3><p>我们在了解这些钩子之前，必须要知道webpack的运行原理。</p>
+<p>这是一个简化版的webpack打包过程，当我们执行 <code>webpack build</code> 命令后，webpack会先读取配置文件，然后根据配置文件中的配置项去初始化，创建一个 <code>compiler</code> 对象，然后调用 <code>compiler</code> 对象的 <code>run</code> 方法，初始化一个 <code>compilation</code> 对象，执行 <code>compilation</code> 中的 <code>build</code> 方法进行编译，编译完成后，触发 <code>compiler</code> 对象的 <code>done</code> 钩子，完成打包。</p>
+<p><img src="https://github.com/hankliu62/interview/assets/8088864/297c753f-6432-4ecc-90f3-474459b5fd82" alt="image"></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//第一步：搭建结构，读取配置参数，这里接受的是webpack.config.js中的参数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">webpack</span>(<span class="params">webpackOptions</span>) </span>&#123;</span><br><span class="line">  <span class="comment">//第二步：用配置参数对象初始化 `Compiler` 对象</span></span><br><span class="line">  <span class="keyword">const</span> compiler = <span class="keyword">new</span> Compiler(webpackOptions);</span><br><span class="line">  <span class="comment">//第三步：挂载配置文件中的插件</span></span><br><span class="line"> <span class="keyword">const</span> &#123; plugins &#125; = webpackOptions;</span><br><span class="line"> <span class="keyword">for</span> (<span class="keyword">let</span> plugin <span class="keyword">of</span> plugins) &#123;</span><br><span class="line">   plugin.apply(compiler);</span><br><span class="line"> &#125;</span><br><span class="line">  <span class="keyword">return</span> compiler;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Compiler其实是一个类，它是整个编译过程的大管家，而且是单例模式</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Compiler</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(webpackOptions) &#123;</span><br><span class="line">   <span class="comment">//省略</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 第五步：创建compilation对象</span></span><br><span class="line">  compile(callback)&#123;</span><br><span class="line">    <span class="comment">//虽然webpack只有一个Compiler，但是每次编译都会产出一个新的Compilation，</span></span><br><span class="line">    <span class="comment">//这里主要是为了考虑到watch模式，它会在启动时先编译一次，然后监听文件变化，如果发生变化会重新开始编译</span></span><br><span class="line">    <span class="comment">//每次编译都会产出一个新的Compilation，代表每次的编译结果</span></span><br><span class="line">    <span class="keyword">let</span> compilation = <span class="keyword">new</span> Compilation(<span class="keyword">this</span>.options);</span><br><span class="line">    compilation.build(callback); <span class="comment">//执行compilation的build方法进行编译，编译成功之后执行回调</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//第四步：执行`Compiler`对象的`run`方法开始执行编译</span></span><br><span class="line">  run(callback) &#123;</span><br><span class="line">    <span class="keyword">this</span>.hooks.run.call(); <span class="comment">//在编译前触发run钩子执行，表示开始启动编译了</span></span><br><span class="line">    <span class="keyword">const</span> onCompiled = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// 第七步：当编译成功后会触发done这个钩子执行</span></span><br><span class="line">      <span class="keyword">this</span>.hooks.done.call();</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">this</span>.compile(onCompiled); <span class="comment">//开始编译，成功之后调用onCompiled</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Compilation</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(webpackOptions) &#123;</span><br><span class="line">    <span class="keyword">this</span>.options = webpackOptions;</span><br><span class="line">    <span class="keyword">this</span>.modules = []; <span class="comment">//本次编译所有生成出来的模块</span></span><br><span class="line">    <span class="keyword">this</span>.chunks = []; <span class="comment">//本次编译产出的所有代码块，入口模块和依赖的模块打包在一起为代码块</span></span><br><span class="line">    <span class="keyword">this</span>.assets = &#123;&#125;; <span class="comment">//本次编译产出的资源文件</span></span><br><span class="line">    <span class="keyword">this</span>.fileDependencies = []; <span class="comment">//本次打包涉及到的文件，这里主要是为了实现watch模式下监听文件的变化，文件发生变化后会重新编译</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//第六步：执行compilation的build方法进行编译</span></span><br><span class="line">  build(callback) &#123;</span><br><span class="line">  <span class="comment">//这里开始做编译工作，编译成功执行callback</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// ... 编译过程代码省略</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 编译完成后，触发callback回调</span></span><br><span class="line">  callback()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+          <p class="article-more-link">
+            <a href="/2024/03/05/webpack-plugin-mechanism/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/">webpack</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2024/03/05/webpack-plugin-mechanism/" data-id="clues809x000wmylomkxc8ce0" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-interview-questions" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2024/02/08/interview-questions/" class="article-date">
+  <time datetime="2024-02-08T04:12:26.000Z" itemprop="datePublished">2024-02-08</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-true">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/02/08/interview-questions/">前端面试题汇总</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Event-Loop"><a href="#Event-Loop" class="headerlink" title="Event Loop"></a>Event Loop</h2><p>Event Loop即事件循环，是指浏览器或者Nodejs解决javascript单线程运行时异步逻辑不会阻塞的一种机制。</p>
+<p>Event Loop是一个执行模型，不同的运行环境有不同的实现，浏览器和nodejs基于不同的技术实现自己的event loop。</p>
+<ul>
+<li>浏览器的Event Loop是在HTML5规范中明确定义。</li>
+<li>Nodejs的Event Loop是libuv实现的。</li>
+<li>libuv已经对Event Loop作出了实现，HTML5规范中只是定义的浏览器中Event Loop的模型，具体的实现交给了浏览器厂商。</li>
+</ul>
+<h3 id="宏队列和微队列"><a href="#宏队列和微队列" class="headerlink" title="宏队列和微队列"></a>宏队列和微队列</h3><p>在javascript中，任务被分为两种，一种为宏任务(macrotask)，也称为task，一种为微任务(microtask)，也称为jobs。</p>
+<p>宏任务主要包括:</p>
+<ul>
+<li>script全部代码</li>
+<li>setTimeout</li>
+<li>setInterval</li>
+<li>setImmediate (Nodejs独有，浏览器暂时不支持，只有IE10支持)</li>
+<li>requestAnimationFrame (浏览器独有)</li>
+<li>I/O</li>
+<li>UI rendering (浏览器独有)</li>
+</ul>
+<p>微任务主要包括:</p>
+<ul>
+<li>process.nextTick (Nodejs独有)</li>
+<li>Promise</li>
+<li>Object.observe (废弃)</li>
+<li>MutationObserver</li>
+</ul>
+<h3 id="浏览器中的Event-Loop"><a href="#浏览器中的Event-Loop" class="headerlink" title="浏览器中的Event Loop"></a>浏览器中的Event Loop</h3><p>Javascript 有一个主线程 main thread 和 一个调用栈(执行栈) call-stack，所有任务都会被放到调用栈等待主线程的执行。</p>
+<p>JS调用栈采用的是后进先出的规则，当函数执行时，会被添加到调用栈的顶部，当执行栈执行完后，就会从栈顶移除，直到栈内被清空。</p>
+<p>Javascript单线程任务可以分为同步任务和异步任务，同步任务会在调用栈内按照顺序依次被主线程执行，异步任务会在异步任务有了结果后，将注册的回调函数放入任务队列中等待主线程空闲的时候（调用栈被清空的时候），被读取到调用栈内等待主线程的执行</p>
+<p>任务队列 Task Queue, 是先进先出的数据结构。</p>
+<p><img src="https://user-images.githubusercontent.com/8088864/124855609-c2904a00-dfdb-11eb-9138-df80150fa3a3.jpg" alt="浏览器事件循环的进程模型"></p>
+<p>浏览器Event Loop的具体流程:</p>
+<ol>
+<li>执行全局Javascript的同步代码，可能包含一些同步语句，也可以是异步语句(setTimeout语句不执行回调函数里面的，Promise中.then之前的语句)</li>
+<li>全局Javascript执行完毕后，调用栈call-stack会被清空</li>
+<li>从微队列microtask queue中取出位于首部的回调函数，放入到调用栈call-stack中执行，执行完毕后从调用栈中删除，microtask queue的长度减1。</li>
+<li>继续从微队列microtask queue的队首取出任务，放到调用栈中执行，依次循环往复，直至微任务队列microtask queue中的任务都被调用栈执行完毕。<strong>特别注意，如果在执行微任务microtask过程中，又产生了微任务microtask，新产生的微任务也会追加到微任务队列microtask queue的尾部，新生成的微任务也会在当前周期中被执行完毕。</strong></li>
+<li>microtask queue中的任务都被执行完毕后，microtask queue为空队列，调用栈也处于空闲阶段</li>
+<li>执行UI rendering</li>
+<li>从宏队列macrotask queue的队首取出宏任务，放入调用栈中执行。</li>
+<li>执行完后，调用栈为空闲状态</li>
+<li>重复 3 - 8 的步骤，直至宏任务队列的任务都被执行完毕。<br>…</li>
+</ol>
+<p>浏览器Event Loop的3个重点:</p>
+<ol>
+<li>宏队列macrotask queue每次只从中取出一个任务放到调用栈中执行，执行完后去执行微任务队列中的所有任务</li>
+<li>微任务队列中的所有任务都会依次取出来执行，只是微任务队列中的任务清空</li>
+<li>UI rendering 的执行节点在微任务队列执行完毕后，宏任务队列中取出任务执行之前执行</li>
+</ol>
+<h3 id="NodeJs中的Event-Loop"><a href="#NodeJs中的Event-Loop" class="headerlink" title="NodeJs中的Event Loop"></a>NodeJs中的Event Loop</h3><p>libuv结构</p>
+<p><img src="https://user-images.githubusercontent.com/8088864/125010304-d64db600-e098-11eb-824f-de433a12a095.png" alt="libuv的事件循环模型"></p>
+<p>NodeJs中的宏任务队列和微任务队列</p>
+<p>NodeJs的Event Loop中，执行宏任务队列的回调有6个阶段</p>
+<p><img src="https://user-images.githubusercontent.com/8088864/125010342-e9608600-e098-11eb-84e0-70a5bd5f5867.png" alt="NodeJS中的宏队列执行回调的6个阶段"></p>
+<p>Node的Event Loop可以分为6个阶段，各个阶段执行的任务如下所示:</p>
+<ul>
+<li><code>timers</code>: 执行setTimeout和setInterval中到期的callback。</li>
+<li><code>I/O callbacks</code>: 执行几乎所有的回调，除了close callbacks以及timers调度的回调和setImmediate()调度的回调。</li>
+<li><code>idle, prepare</code>: 仅在内部使用。</li>
+<li><code>poll</code>: 最重要的阶段，检索新的I/O事件，在适当的情况下回阻塞在该阶段。</li>
+<li><code>check</code>: 执行setImmediate的callback(setImmediate()会将事件回调插入到事件队列的尾部，主线程和事件队列的任务执行完毕后会立即执行setImmediate中传入的回调函数)。</li>
+<li><code>close callbacks</code>: 执行<code>close</code>事件的callback，例如socket.on(‘close’, fn)或则http.server.on(‘close’, fn)等。</li>
+</ul>
+<p>NodeJs中的宏任务队列可以分为下列4个:</p>
+<ol>
+<li>Timers Queue</li>
+<li>I/O Callbacks Queue</li>
+<li>Check Queue</li>
+<li>Close Callbacks Queue</li>
+</ol>
+<p>在浏览器中只有一个宏任务队列，所有宏任务都会放入到宏任务队列中等待放入执行栈中被主线程执行，NodeJs中有4个宏任务队列，不同类型的宏任务会被放入到不同的宏任务队列中。</p>
+<p>NodeJs中的微任务队列可以分为下列2个:</p>
+<ol>
+<li><code>Next Tick Queue</code>: 放置process.nextTick(callback)的回调函数</li>
+<li><code>Other Micro Queue</code>: 其他microtask，例如Promise等</li>
+</ol>
+<p>在浏览器中只有一个微任务队列，所有微任务都会放入到微任务队列中等待放入执行栈中被主线程执行，NodeJs中有2个微任务队列，不同类型的微任务会被放入到不同的微任务队列中。</p>
+<p><img src="https://user-images.githubusercontent.com/8088864/125030923-71a55200-e0be-11eb-93be-95f1cbc456e3.png" alt="NodeJs事件循环"></p>
+<p>NodeJs的Event Loop的具体流程:</p>
+<ol>
+<li>执行全局Javascript的同步代码，可能包含一些同步语句，也可以是异步语句(setTimeout语句不执行回调函数里面的，Promise中.then之前的语句)。</li>
+<li>执行微任务队列中的微任务，先执行Next Tick Queue队列中的所有的所有任务，再执行Other Micro Queue队列中的所有任务。</li>
+<li>开始执行宏任务队列中的任务，共6个阶段，从第1个阶段开始执行每个阶段对应宏任务队列中的所有任务，<strong>注意，这里执行的是该阶段宏任务队列中的所有的任务，浏览器Event Loop每次只会中宏任务队列中取出队首的任务执行，执行完后开始执行微任务队列中的任务，NodeJs的Event Loop会执行完该阶段中宏任务队列中的所有任务后，才开始执行微任务队列中的任务，也就是步骤2</strong>。</li>
+<li>Timers Queue -&gt; 步骤2 -&gt; I/O Callbacks Queue -&gt; 步骤2 -&gt; Check Queue -&gt; 步骤2 -&gt; Close Callback Queue -&gt; 步骤2 -&gt; Timers Queue -&gt; ……</li>
+</ol>
+<p><strong>特别注意:</strong></p>
+<ul>
+<li>上述的第三步，当 NodeJs 版本小于11时，NodeJs的Event Loop会执行完该阶段中宏任务队列中的所有任务</li>
+<li>当 NodeJS 版本大于等于11时，<strong>在timer阶段的setTimeout,setInterval…和在check阶段的setImmediate都在node11里面都修改为一旦执行一个阶段里的一个任务就立刻执行微任务队列</strong>。为了和浏览器更加趋同。</li>
+</ul>
+<p>NodeJs的Event Loop的microtask queue和macrotask queue的执行顺序详情</p>
+<p><img src="https://user-images.githubusercontent.com/8088864/125032436-8aaf0280-e0c0-11eb-926a-30be5bf116f9.png" alt="NodeJS中的微任务队列执行顺序"></p>
+<p><img src="https://user-images.githubusercontent.com/8088864/125032451-8f73b680-e0c0-11eb-8349-d6c5f20bd11a.png" alt="NodeJS中的宏任务队列执行顺序"></p>
+<p>当setTimeout(fn, 0)和setImmediate(fn)放在同一同步代码中执行时，可能会出现下面两种情况：</p>
+<ol>
+<li><strong>第一种情况</strong>: 同步代码执行完后，timer还没到期，setImmediate中注册的回调函数先放入到Check Queue的宏任务队列中，先执行微任务队列，然后开始执行宏任务队列，先从Timers Queue开始，由于在Timer Queue中未发现任何的回调函数，往下阶段走，直到Check Queue中发现setImmediate中注册的回调函数，先执行，然后timer到期，setTimeout注册的回调函数会放入到Timers Queue的宏任务队列中，下一轮后再次执行到Timers Queue阶段时，才会再Timers Queue中发现了setTimeout注册的回调函数，于是执行该timer的回调，所以，<strong>setImmediate(fn)注册的回调函数会早于setTimeout(fn, 0)注册的回调函数执行</strong>。</li>
+<li><p><strong>第二种情况</strong>: 同步代码执行完之前，timer已经到期，setTimeout注册的回调函数会放入到Timers Queue的宏任务队列中，执行同步代码到setImmediate时，将其回调函数注册到Check Queue中，同步代码执行完后，先执行微任务队列，然后开始执行宏任务队列，先从Timers Queue开始，在Timers Queue发现了timer中注册的回调函数，取出执行，往下阶段走，到Check Queue中发现setImmediate中注册的回调函数，又执行，所以这种情况时，<strong>setTimeout(fn, 0)注册的回调函数会早于setImmediate(fn)注册的回调函数执行</strong>。</p>
+</li>
+<li><p>在同步代码中同时调setTimeout(fn, 0)和setImmediate执行顺序情况是不确定的，但是如果把他们放在一个IO的回调，比如readFile(‘xx’, function () {// ….})回调中，那么IO回调是在I/O Callbacks Queue中，setTimeout到期回调注册到Timers Queue，setImmediate回调注册到Check Queue，I/O Callbacks Queue执行完到Check Queue，Timers Queue得到下个循环周期，所以setImmediate回调这种情况下肯定比setTimeout(fn, 0)回调先执行。</p>
+</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">setImmediate(<span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line">  setImmediate(<span class="function"><span class="keyword">function</span> <span class="title">B</span>(<span class="params"></span>)</span>&#123;<span class="built_in">console</span>.log(<span class="number">2</span>);&#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span> <span class="title">timeout</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'TIMEOUT FIRED'</span>);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 执行结果: 会存在下面两种情况</span></span><br><span class="line"><span class="comment">// 第一种情况:</span></span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="comment">// TIMEOUT FIRED</span></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 第二种情况:</span></span><br><span class="line"><span class="comment">// TIMEOUT FIRED</span></span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+<p>注:</p>
+<ul>
+<li>setImmediate中如果又存在setImmediate语句，内部的setImmediate语句注册的回调函数会在下一个<code>check</code>阶段来执行，并不在当前的<code>check</code>阶段来执行。</li>
+</ul>
+<p>poll 阶段详解:</p>
+<p>poll 阶段主要又两个功能:</p>
+<ol>
+<li>当timers到达指定的时间后，执行指定的timer的回调(Executing scripts for timers whose threshold has elapsed, then)。</li>
+<li>处理poll队列的事件(Processing events in the poll queue)。</li>
+</ol>
+<p>当进入到poll阶段，并且没有timers被调用的时候，会出现下面的情况:</p>
+<ul>
+<li>如果poll队列不为空，Event Loop将同步执行poll queue中的任务，直到poll queue队列为空或者执行的callback达到上限。</li>
+<li>如果poll队列为空，会发生下面的情况:<ul>
+<li>如果脚本执行过setImmediate代码，Event Loop会结束poll阶段，直接进入check阶段，执行Check Queue中调用setImmediate注册的回调函数。</li>
+<li>如果脚本没有执行过setImmediate代码，poll阶段将等待callback被添加到队列中，然后立即执行。</li>
+</ul>
+</li>
+</ul>
+<p>当进入到poll阶段，并且调用了timers的话，会发生下面的情况:</p>
+<ul>
+<li>一旦poll queue为空，Event Loop会检测Timers Queue中是否存在任务，如果存在任务的话，Event Loop会回到timer阶段并执行Timers Queue中timers注册的回调函数。<strong>执行完后是进入check阶段，还是又重新进入I/O callbacks阶段?</strong></li>
+</ul>
+<p>setTimeout 对比 setImmediate</p>
+<ul>
+<li>setTimeout(fn, 0)在timers阶段执行，并且是在poll阶段进行判断是否达到指定的timer时间才会执行</li>
+<li>setImmediate(fn)在check阶段执行</li>
+</ul>
+<p>两者的执行顺序要根据当前的执行环境才能确定：</p>
+<ul>
+<li>如果两者都在主模块(main module)调用，那么执行先后取决于进程性能，顺序随机</li>
+<li>如果两者都不在主模块调用，即在一个I/O Circle中调用，那么setImmediate的回调永远先执行，因为会先到Check阶段</li>
+</ul>
+<p>setImmediate 对比 process.nextTick</p>
+<ul>
+<li>setImmediate(fn)的回调任务会插入到宏队列Check Queue中</li>
+<li>process.nextTick(fn)的回调任务会插入到微队列Next Tick Queue中</li>
+<li>process.nextTick(fn)调用深度有限制，上限是1000，而setImmediate则没有</li>
+</ul>
+        
+          <p class="article-more-link">
+            <a href="/2024/02/08/interview-questions/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/interview/">interview</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2024/02/08/interview-questions/" data-id="clues80bg002ymylob3ccjcw5" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-github-pages-env" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2024/01/12/github-pages-env/" class="article-date">
+  <time datetime="2024-01-12T13:51:20.000Z" itemprop="datePublished">2024-01-12</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-true">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/01/12/github-pages-env/">NextJs 获取 Github Action 部署的环境变量</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="NextJs-获取-Github-Action-部署的环境变量"><a href="#NextJs-获取-Github-Action-部署的环境变量" class="headerlink" title="NextJs 获取 Github Action 部署的环境变量"></a>NextJs 获取 Github Action 部署的环境变量</h2><h3 id="设置变量"><a href="#设置变量" class="headerlink" title="设置变量"></a>设置变量</h3><p>项目中需要某些私有密钥，不能直接暴露在仓库中，在编译<code>Next.js</code>的时候，需要将该密钥通过环境变量的形式注入到<code>Next.js</code>项目中，所以第一步，我们需要将这个密钥储存到当前仓库的<code>Settings/Secrets</code>里面，具体操作如下图所示：</p>
+<p><img src="https://github.com/hankliu62/interview/assets/8088864/887a0ad5-6b4a-4977-a2cb-8c7adc5b63b6" alt="image"></p>
+<h3 id="配置变量"><a href="#配置变量" class="headerlink" title="配置变量"></a>配置变量</h3><p>在<code>Next.js</code>中获取<code>GitHub Actions</code>环境变量，你可以使用<code>process.env</code>对象来访问在<code>GitHub Actions</code>中设置的环境变量。以下是一个如何在<code>Next.js</code>中获取<code>GitHub Actions</code>环境变量的例子：</p>
+<p>首先，在GitHub Actions的工作流文件中设置环境变量，例如在 <code>.github/workflows/ci.yml</code>中：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">build:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Checkout</span> <span class="string">code</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/checkout@v2</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Setup</span> <span class="string">Node.js</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/setup-node@v2</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">node-version:</span> <span class="number">14</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">Dependencies</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">install</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Build</span> <span class="string">Next.js</span> <span class="string">App</span></span><br><span class="line">        <span class="attr">env:</span></span><br><span class="line">          <span class="attr">MY_ENV_VAR:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.MY_SECRET_ENV_VAR</span> <span class="string">&#125;&#125;</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">run</span> <span class="string">build</span></span><br></pre></td></tr></table></figure>
+<p>在这个例子中，<code>MY_ENV_VAR</code>是一个环境变量，它可以是一个秘密值，通过<code>GitHub Actions</code>的秘密（secrets）功能来安全地设置。</p>
+<p>然后，需要将环境变量添加到 <code>Next</code> 项目的配置文件中，在 <code>next.config.js</code> 中：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  env: &#123;</span><br><span class="line">    MY_ENV_VAR: process.env.MY_ENV_VAR,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="获取变量"><a href="#获取变量" class="headerlink" title="获取变量"></a>获取变量</h3><p>然后，在Next.js的应用代码中，你可以这样获取这个环境变量：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// pages/index.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">Home</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> myEnvVar = process.env.MY_ENV_VAR;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;p&gt;The environment variable is: &#123;myEnvVar || <span class="string">'undefined'</span>&#125;&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这段代码中，<code>process.env.MY_ENV_VAR</code> 将会获取在 <code>GitHub Actions</code> 中设置的环境变量<code>MY_ENV_VAR</code>的值。如果环境变量存在，它将被显示在页面上；如果不存在，则会显示<code>&#39;undefined&#39;</code>。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2024/01/12/github-pages-env/" data-id="clues80910004mylo44csxqzh" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-github-pages" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2023/12/27/github-pages/" class="article-date">
+  <time datetime="2023-12-27T04:20:26.000Z" itemprop="datePublished">2023-12-27</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-true">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2023/12/27/github-pages/">使用 Github Pages 和 Issues 搭建博客</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Github-Pages-简介"><a href="#Github-Pages-简介" class="headerlink" title="Github Pages 简介"></a>Github Pages 简介</h2><p>自己维护博客服务器，需要购买服务器，配置域名等一些列操作，比较繁琐，索性直接找个现成的稳定的博客平台，github pages成为首选，这里有几个思路</p>
+<ul>
+<li>使用github pages，编写静态网页</li>
+<li>使用github pages 与静态网页生成工具，需要本地电脑编写文章</li>
+<li>使用github pages 与自建后端服务器，需要另外维护一个后端服务器</li>
+<li>使用issues 写文章，issues页面就是一个博客网站</li>
+<li>使用github pages 与 github api，使用issues写文章</li>
+</ul>
+<h3 id="使用github-pages，编写静态网页"><a href="#使用github-pages，编写静态网页" class="headerlink" title="使用github pages，编写静态网页"></a>使用github pages，编写静态网页</h3><p>有很多文档网站是使用这种方式搭建，一般是作为demo页面或者单页文档页面，否则页面稍微一复杂，就变得非常难以维护</p>
+<h3 id="使用github-pages-与-静态网页生成工具"><a href="#使用github-pages-与-静态网页生成工具" class="headerlink" title="使用github pages 与 静态网页生成工具"></a>使用github pages 与 静态网页生成工具</h3><p>有很多博客网站与文档网站都是使用这种方式，这是一种最简单最方便的方式，现在流行的工具有 <code>hexo</code> 和 <code>Jekyll</code> 等，这种方式还要在本地维护一个仓库，生成静态页面后再上传，操作过于繁琐，而且每个页面之间切换都需要重新载入所有资源，网页数据传输量较大</p>
+<p>具体工具如下所示:</p>
+<ul>
+<li><a href="https://github.com/hexojs/hexo" target="_blank" rel="noopener">hexo</a></li>
+<li><a href="https://github.com/jekyll/jekyll" target="_blank" rel="noopener">Jekyll</a></li>
+</ul>
+<h3 id="使用github-pages-与-自建后端服务器"><a href="#使用github-pages-与-自建后端服务器" class="headerlink" title="使用github pages 与 自建后端服务器"></a>使用github pages 与 自建后端服务器</h3><p>在github pages编写一个单页面应用，数据通过跨域请求来自于自建的服务器，这种方式有三大难点：前端、后端、服务器</p>
+<p><strong>前端</strong></p>
+<p>需要编写一个单页面应用，这对技术需要一定的水平，基本很少有开源工具</p>
+<p><strong>后端</strong></p>
+<p>需要后端服务，这可以使用现成工具提供api，比如wordpress、drupal、ghost等</p>
+<h3 id="使用issues-写文章"><a href="#使用issues-写文章" class="headerlink" title="使用issues 写文章"></a>使用issues 写文章</h3><p>这种方式简单粗暴，直接在issues写文章，评论、标签、提醒神马的都有了，现在其实很流行这种方式，看看这几个博客，都几千个star了</p>
+<ul>
+<li><a href="https://github.com/tmallfe/tmallfe.github.io" target="_blank" rel="noopener">https://github.com/tmallfe/tmallfe.github.io</a></li>
+<li><a href="https://github.com/xufei/blog" target="_blank" rel="noopener">https://github.com/xufei/blog</a></li>
+<li><a href="https://github.com/fouber/blog" target="_blank" rel="noopener">https://github.com/fouber/blog</a></li>
+</ul>
+<p>要说它的缺点嘛，就是人人都可以往你博客提交文章，界面千篇一律，而且也不怎么好看</p>
+<p><strong>服务器</strong></p>
+<p>这个问题很严重，问题来了，你都有自建的服务器了，还要用github pages干嘛呢，哪天自建服务器挂了，博客照样挂。</p>
+<p>这种方式可以使用域名来提升逼格。</p>
+<h3 id="使用github-pages-与-github-api"><a href="#使用github-pages-与-github-api" class="headerlink" title="使用github pages 与 github api"></a>使用github pages 与 github api</h3><p>这种方案与上一种对比起来其实没多大区别，唯一的区别就是自建服务换成了github的另一个服务，就是说，github帮我们建好了。<br>github api：<a href="https://developer.github.com/v3/" target="_blank" rel="noopener">https://developer.github.com/v3/</a></p>
+        
+          <p class="article-more-link">
+            <a href="/2023/12/27/github-pages/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github-pages/">github pages</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2023/12/27/github-pages/" data-id="clues80930005mylop4x3awki" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-thread-loader" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2023/02/23/thread-loader/" class="article-date">
+  <time datetime="2023-02-23T02:10:20.000Z" itemprop="datePublished">2023-02-23</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-true">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2023/02/23/thread-loader/">thread-loader</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="thread-loader"><a href="#thread-loader" class="headerlink" title="thread-loader"></a>thread-loader</h2><p><code>thread-loader</code> 是一种在 <code>worker</code> 池中运行以下 <code>loader</code> 的工具。</p>
+<h3 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h3><p>通过 npm、yarn 或 pnpm 安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev thread-loader</span><br></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add -D thread-loader</span><br></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pnpm add -D thread-loader</span><br></pre></td></tr></table></figure>
+<p>将其放在其他 <code>loader</code> 的前面，以下 <code>loader</code> 将在 <code>worker</code> 池中运行。</p>
+<p>在 <code>worker</code> 池中运行的 <code>loader</code> 有一些限制。例如：</p>
+<ul>
+<li><code>loader</code> 不能发射文件。</li>
+<li><code>loader</code> 不能使用自定义 <code>loader API</code>（即插件）。</li>
+<li><code>loader</code> 不能访问 <code>webpack</code> 配置项。</li>
+</ul>
+<p>每个 <code>worker</code> 是一个单独的 <code>node.js</code> 进程，启动一个 <code>worker</code> 大约需要 600ms 的时间。此外，进程间通信也存在一定的开销。</p>
+<p>因此，仅将此 <code>loader</code> 用于计算密集型操作！</p>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><h4 id="webpack-config-js"><a href="#webpack-config-js" class="headerlink" title="webpack.config.js"></a>webpack.config.js</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="built_in">module</span>: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">        include: path.resolve(<span class="string">'src'</span>),</span><br><span class="line">        use: [</span><br><span class="line">          <span class="string">'thread-loader'</span>,</span><br><span class="line">          <span class="comment">// 你的计算密集型 loader（例如 babel-loader）</span></span><br><span class="line">        ],</span><br><span class="line">      &#125;,</span><br><span class="line">    ],</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="带有选项"><a href="#带有选项" class="headerlink" title="带有选项"></a>带有选项</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">use: [</span><br><span class="line">  &#123;</span><br><span class="line">    loader: <span class="string">'thread-loader'</span>,</span><br><span class="line">    <span class="comment">// 选项相同的 loader 将共享 worker 池</span></span><br><span class="line">    options: &#123;</span><br><span class="line">      <span class="comment">// 生成的 worker 数量，默认为（CPU 核心数 - 1）或当 require('os').cpus() 未定义时回退到 1</span></span><br><span class="line">      workers: <span class="number">2</span>,</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 一个 worker 并行处理的 job 数量</span></span><br><span class="line">      <span class="comment">// 默认为 20</span></span><br><span class="line">      workerParallelJobs: <span class="number">50</span>,</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 额外的 node.js 参数</span></span><br><span class="line">      workerNodeArgs: [<span class="string">'--max-old-space-size=1024'</span>],</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 允许重新生成已死亡的 worker 池</span></span><br><span class="line">      <span class="comment">// 重新生成会减慢整个编译速度</span></span><br><span class="line">      <span class="comment">// 在开发环境中应将其设置为 false</span></span><br><span class="line">      poolRespawn: <span class="literal">false</span>,</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 当空闲时杀死 worker 进程的超时时间</span></span><br><span class="line">      <span class="comment">// 默认为 500 (ms)</span></span><br><span class="line">      <span class="comment">// 对于保持 worker 存活的监视构建，可以设置为 Infinity</span></span><br><span class="line">      poolTimeout: <span class="number">2000</span>,</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 池分配给 worker 的工作数量</span></span><br><span class="line">      <span class="comment">// 默认为 200</span></span><br><span class="line">      <span class="comment">// 降低这个数值会降低总体的效率，但是会提升工作分布更均一</span></span><br><span class="line">      poolParallelJobs: <span class="number">50</span>,</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 池的名称</span></span><br><span class="line">      <span class="comment">// 可以修改名称来创建其余选项都一样的池</span></span><br><span class="line">      name: <span class="string">"my-pool"</span></span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 耗时的 loader（例如 babel-loader）</span></span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+<h3 id="预热"><a href="#预热" class="headerlink" title="预热"></a>预热</h3><p>为了防止在启动 <code>worker</code> 时出现高延迟，可以预热 <code>worker</code> 池。</p>
+<p>这将启动池中的最大 <code>worker</code> 数量，并将指定的模块加载到 <code>node.js</code> 模块缓存中。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> threadLoader = <span class="built_in">require</span>(<span class="string">'thread-loader'</span>);</span><br><span class="line"></span><br><span class="line">threadLoader.warmup(</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="comment">// 池选项，像传递给 loader 选项那样</span></span><br><span class="line">    <span class="comment">// 必须匹配 loader 选项以启动正确的池</span></span><br><span class="line">  &#125;,</span><br><span class="line">  [</span><br><span class="line">    <span class="comment">// 要加载的模块</span></span><br><span class="line">    <span class="comment">// 可以是任何模块，例如</span></span><br><span class="line">    <span class="string">'babel-loader'</span>,</span><br><span class="line">    <span class="string">'babel-preset-es2015'</span>,</span><br><span class="line">    <span class="string">'sass-loader'</span>,</span><br><span class="line">  ]</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/loader/">loader</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/">webpack</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2023/02/23/thread-loader/" data-id="clues809p000omyloffqki9lu" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-security-anti-reptile" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2022/04/20/security-anti-reptile/" class="article-date">
+  <time datetime="2022-04-20T02:40:20.000Z" itemprop="datePublished">2022-04-20</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-true">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/04/20/security-anti-reptile/">Web安全之静态内容防爬虫</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="Web安全之静态内容防爬虫"><a href="#Web安全之静态内容防爬虫" class="headerlink" title="Web安全之静态内容防爬虫"></a>Web安全之静态内容防爬虫</h2><p>随着互联网的快速发展，网络安全问题日益突出。对于静态内容网站来说，防止恶意爬取网站内容成为了一项重要的任务。恶意爬取不仅会导致网站内容被盗用，还可能引发一系列安全问题，如数据泄露、恶意攻击等。因此，本文将探讨静态内容网站如何防范恶意爬取，提高网络安全。</p>
+<h3 id="静态内容网站的特点"><a href="#静态内容网站的特点" class="headerlink" title="静态内容网站的特点"></a>静态内容网站的特点</h3><p>静态内容网站主要是指那些网页内容固定不变或变化较少的网站。这类网站通常以 <code>HTML</code> 、 <code>CSS</code> 和 <code>JavaScript</code> 等静态文件形式存在，不依赖后端数据库或复杂的应用程序。由于其结构简单、加载速度快，静态网站在新闻发布、产品展示、个人博客等领域得到广泛应用。</p>
+<h3 id="恶意爬取的威胁"><a href="#恶意爬取的威胁" class="headerlink" title="恶意爬取的威胁"></a>恶意爬取的威胁</h3><p>恶意爬取是指未经授权，通过自动化手段（如爬虫程序）大规模抓取网站内容的行为。这种行为通常具有以下特点：</p>
+<ol>
+<li><strong>大规模：</strong>恶意爬取往往涉及大量的请求，给服务器带来沉重负担。</li>
+<li><strong>未经授权：</strong>爬取行为未经网站所有者许可，违反了版权和隐私政策。</li>
+<li><strong>恶意目的：</strong>恶意爬取可能导致内容被盗用、数据泄露、恶意攻击等后果。</li>
+</ol>
+<h3 id="防恶意爬取策略"><a href="#防恶意爬取策略" class="headerlink" title="防恶意爬取策略"></a>防恶意爬取策略</h3><p>为了防范恶意爬取，静态内容网站可以采取以下措施：</p>
+<h4 id="设置robots-txt文件"><a href="#设置robots-txt文件" class="headerlink" title="设置robots.txt文件"></a>设置robots.txt文件</h4><p><code>robots.txt</code> 文件是一个用于告知搜索引擎爬虫哪些页面可以爬取、哪些页面不能爬取的文本文件。通过设置 <code>robots.txt</code> 文件，可以限制恶意爬虫的访问。</p>
+<p>下面是一个 robots.txt 文件的例子，展示了如何设置一些基本的规则。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">User-agent: *</span><br><span class="line">Disallow: /</span><br><span class="line"></span><br><span class="line"># 禁止所有爬虫访问网站的所有页面</span><br><span class="line"></span><br><span class="line">User-agent: Googlebot</span><br><span class="line">Disallow:</span><br><span class="line"></span><br><span class="line"># 允许 Googlebot 访问网站的所有页面</span><br><span class="line"></span><br><span class="line">User-agent: Bingbot</span><br><span class="line">Disallow: /private/</span><br><span class="line"></span><br><span class="line"># 禁止 Bingbot 访问 /private/ 目录下的所有页面</span><br><span class="line"></span><br><span class="line">User-agent: Yahoo! Slurp</span><br><span class="line">Disallow: /admin/</span><br><span class="line"></span><br><span class="line"># 禁止 Yahoo! Slurp 访问 /admin/ 目录下的所有页面</span><br><span class="line"></span><br><span class="line">User-agent: *</span><br><span class="line">Disallow: /cgi-bin/</span><br><span class="line"></span><br><span class="line"># 禁止所有其他爬虫访问 /cgi-bin/ 目录下的所有页面</span><br><span class="line"></span><br><span class="line"># 允许特定爬虫访问特定页面</span><br><span class="line">User-agent: SpecificBot</span><br><span class="line">Allow: /special-page/</span><br><span class="line">Disallow: /</span><br><span class="line"></span><br><span class="line"># 对于名为 SpecificBot 的爬虫，只允许访问 /special-page/ 页面，其他页面都不允许访问</span><br></pre></td></tr></table></figure>
+<p>在上面的例子中：</p>
+<ul>
+<li><strong>User-agent: *</strong> 表示该规则适用于所有爬虫。</li>
+<li><strong>Disallow: /</strong> 表示禁止爬虫访问网站的根目录及其所有子目录和文件。</li>
+<li><strong>Allow: /special-page/</strong> 表示允许特定爬虫访问 <code>/special-page/</code> 页面。<code>Allow</code> 指令必须在 <code>Disallow</code> 指令之前，否则将无效。</li>
+<li><strong>User-agent: SpecificBot</strong> 表示该规则仅适用于名为 <code>SpecificBot</code> 的爬虫。</li>
+</ul>
+<p>请注意， <code>robots.txt</code> 文件必须放置在网站的根目录下（通常是 <code>http://www.example.com/robots.txt</code>），以便爬虫能够找到它。同时，虽然大多数负责任的爬虫都会遵守 <code>robots.txt</code> 的规则，但并非所有爬虫都会遵守，因此它不能作为一种安全机制来防止数据被爬取。</p>
+<h4 id="使用验证码技术"><a href="#使用验证码技术" class="headerlink" title="使用验证码技术"></a>使用验证码技术</h4><p>对于关键页面或敏感内容，可以引入验证码技术。用户在访问这些页面时需要输入正确的验证码才能继续浏览，从而有效阻止恶意爬虫的访问。</p>
+<p>验证码技术的案例有很多，以下列举几个常见的案例：</p>
+<ol>
+<li><strong>网站注册和登录验证码：</strong>这是最常见的验证码技术案例。用户在注册或登录网站时，系统会显示一组随机生成的字符或图片，并要求用户输入或选择正确的字符或图片来完成验证。这种技术可以有效防止自动化程序恶意攻击网站，如进行暴力破解密码、刷票等行为。</li>
+<li><strong>图片验证码：</strong>图片验证码是一种将随机生成的字符或数字嵌入到图片中，并要求用户识别并输入正确字符或数字的验证码技术。这种技术可以有效防止自动化程序识别并输入验证码，提高网站的安全性。</li>
+<li><strong>滑动验证码：</strong>滑动验证码是一种要求用户通过滑动解锁来完成验证的技术。用户需要按照指定的方向或轨迹滑动滑块，才能完成验证。这种技术可以有效防止自动化程序模拟用户操作，提高网站的安全性。</li>
+<li><strong>音频验证码：</strong>音频验证码是一种将随机生成的字符或数字转换为语音，并要求用户听取并输入正确字符或数字的验证码技术。这种技术适用于视觉障碍用户或无法通过图片验证码验证的情况。</li>
+<li><strong>逻辑验证码：</strong>逻辑验证码是一种要求用户解决一个简单数学问题或逻辑问题来完成验证的技术。例如，系统可能会显示一个加法或减法问题，并要求用户输入正确答案。这种技术可以有效防止自动化程序识别并输入验证码，提高网站的安全性。</li>
+</ol>
+<h4 id="限制访问频率"><a href="#限制访问频率" class="headerlink" title="限制访问频率"></a>限制访问频率</h4><p>通过设置合理的访问频率限制，可以防止恶意爬虫大量请求服务器资源。例如，可以设置每个IP地址在单位时间内的最大请求次数。</p>
+<p>限制访问频率的 <code>Node.js</code> 例子可以使用 <code>Redis</code> 来实现。下面是一个简单的示例代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Redis = <span class="built_in">require</span>(<span class="string">'ioredis'</span>);</span><br><span class="line"><span class="keyword">const</span> redis = <span class="keyword">new</span> Redis(&#123;</span><br><span class="line">  port: <span class="number">6379</span>, <span class="comment">// Redis 端口</span></span><br><span class="line">  host: <span class="string">'localhost'</span>, <span class="comment">// Redis 主机地址</span></span><br><span class="line">  password: <span class="string">'your_redis_password'</span>, <span class="comment">// Redis 密码</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ACCESS_FREQUENCY = <span class="number">5</span>; <span class="comment">// 设定访问频率限制，例如每分钟最多访问 5 次</span></span><br><span class="line"><span class="keyword">const</span> EXPIRE_TIME = <span class="number">60</span>; <span class="comment">// 设定过期时间，例如每分钟过期</span></span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/protected-route'</span>, <span class="keyword">async</span> (req, res) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> ip = req.ip; <span class="comment">// 获取请求 IP</span></span><br><span class="line">  <span class="keyword">const</span> key = <span class="string">`access-frequency:<span class="subst">$&#123;ip&#125;</span>`</span>; <span class="comment">// 构建 Redis 键名</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> count = <span class="keyword">await</span> redis.get(key); <span class="comment">// 获取当前 IP 的访问次数</span></span><br><span class="line">    <span class="keyword">if</span> (count &amp;&amp; <span class="built_in">parseInt</span>(count) &gt;= ACCESS_FREQUENCY) &#123;</span><br><span class="line">      <span class="keyword">return</span> res.status(<span class="number">429</span>).send(<span class="string">'Too Many Requests'</span>); <span class="comment">// 超过访问频率限制，返回 429 状态码</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> newCount = count ? <span class="built_in">parseInt</span>(count) + <span class="number">1</span> : <span class="number">1</span>; <span class="comment">// 更新访问次数</span></span><br><span class="line">    <span class="keyword">await</span> redis.set(key, newCount, <span class="string">'EX'</span>, EXPIRE_TIME); <span class="comment">// 设置新的访问次数，并设置过期时间</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 处理正常请求逻辑...</span></span><br><span class="line">    res.send(<span class="string">'Success'</span>);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    <span class="built_in">console</span>.error(<span class="string">'Error:'</span>, error);</span><br><span class="line">    res.status(<span class="number">500</span>).send(<span class="string">'Internal Server Error'</span>); <span class="comment">// 发生错误时返回 500 状态码</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，我们使用 <code>Redis</code> 来存储每个 <code>IP</code> 的访问次数，并设定了一个访问频率限制（例如每分钟最多访问 <code>5</code> 次）。当一个请求到达时，我们首先获取当前 <code>IP</code> 的访问次数，如果超过了限制，则返回 <code>429</code> 状态码表示请求过多。否则，我们更新访问次数，并设置过期时间，以便在下一分钟内重置访问次数。最后，我们处理正常的请求逻辑并返回成功响应。</p>
+<p>请注意，这只是一个简单的示例代码，实际应用中可能需要更多的逻辑和安全性考虑，例如使用分布式锁来防止并发访问问题，以及使用更复杂的算法来计算访问频率等。</p>
+<h4 id="数据混淆"><a href="#数据混淆" class="headerlink" title="数据混淆"></a>数据混淆</h4><p>数据混淆是指通过改变数据的表示方式或结构，使得爬虫无法直接解析出真实数据的方法。</p>
+<p>假设你有一个包含敏感信息的API接口，返回的数据是JSON格式的。为了防止爬虫直接获取到这些数据，你可以对返回的数据进行混淆处理。</p>
+<p>原始数据:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"name"</span>: <span class="string">"张三"</span>,</span><br><span class="line">    <span class="attr">"age"</span>: <span class="number">30</span>,</span><br><span class="line">    <span class="attr">"email"</span>: <span class="string">"zhangsan@example.com"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>混淆后的数据:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"n1"</span>: <span class="string">"Z3Nj"</span>,</span><br><span class="line">    <span class="attr">"a2"</span>: <span class="string">"MzAi"</span>,</span><br><span class="line">    <span class="attr">"e3"</span>: <span class="string">"emFuc2FuQGV4YW1wbGUuY29t"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，你可以使用一种简单的混淆算法（如Base64编码）对原始数据进行编码，然后在前端使用相应的解码算法进行解码，以显示真实的数据。这样，爬虫获取到的只是混淆后的数据，无法直接解析出真实的信息。</p>
+<h4 id="加密传输"><a href="#加密传输" class="headerlink" title="加密传输"></a>加密传输</h4><p>使用HTTPS协议对网站内容进行加密传输，可以防止恶意爬虫在传输过程中窃取数据。此外，HTTPS协议还能提高网站的安全性，保护用户隐私。</p>
+<h4 id="使用反爬虫技术"><a href="#使用反爬虫技术" class="headerlink" title="使用反爬虫技术"></a>使用反爬虫技术</h4><p>反爬虫技术是一种主动防御手段，通过识别并阻止恶意爬虫的访问。例如，可以通过分析请求头、请求频率、用户代理等信息来判断是否为恶意爬虫，并采取相应的防御措施。</p>
+<p>下面是一个简单的 <code>express</code> 示例代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="keyword">const</span> app = express();</span><br><span class="line"><span class="keyword">const</span> rateLimit = <span class="built_in">require</span>(<span class="string">'express-rate-limit'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置访问频率限制</span></span><br><span class="line"><span class="keyword">const</span> limiter = rateLimit(&#123;</span><br><span class="line">    windowMs: <span class="number">15</span> * <span class="number">60</span> * <span class="number">1000</span>, <span class="comment">// 15分钟</span></span><br><span class="line">    max: <span class="number">100</span>, <span class="comment">// 在时间窗口内的最大请求数</span></span><br><span class="line">    message: <span class="string">'Too many requests from this IP, please try again later.'</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.use(<span class="string">'/protected-route'</span>, limiter);</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/protected-route'</span>, (req, res) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> userAgent = req.headers[<span class="string">'user-agent'</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 检查User-Agent是否像是浏览器的</span></span><br><span class="line">    <span class="keyword">if</span> (!userAgent || !userAgent.includes(<span class="string">'Mozilla'</span>)) &#123;</span><br><span class="line">        <span class="keyword">return</span> res.status(<span class="number">403</span>).send(<span class="string">'Forbidden'</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 假设这是从数据库或API获取敏感数据的函数</span></span><br><span class="line">    fetchSensitiveData().then(<span class="function"><span class="params">data</span> =&gt;</span> &#123;</span><br><span class="line">        res.send(data);</span><br><span class="line">    &#125;).catch(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.error(err);</span><br><span class="line">        res.status(<span class="number">500</span>).send(<span class="string">'Internal Server Error'</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">3000</span>, () =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'Server is running on port 3000'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fetchSensitiveData</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 这里模拟从数据库或API获取数据的过程</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            resolve(&#123; <span class="attr">sensitiveInformation</span>: <span class="string">'This is sensitive data'</span> &#125;);</span><br><span class="line">        &#125;, <span class="number">1000</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，我们使用了 <code>express-rate-limit</code> 中间件来限制来自同一 <code>IP</code> 的请求频率，并检查了 <code>User-Agent</code> 头来识别非浏览器请求。</p>
+<h4 id="定期更新内容"><a href="#定期更新内容" class="headerlink" title="定期更新内容"></a>定期更新内容</h4><p>定期更新网站内容可以降低恶意爬虫的兴趣。同时，通过不断更新网站结构和内容，可以增加恶意爬虫爬取的难度。</p>
+<h4 id="建立安全监测机制"><a href="#建立安全监测机制" class="headerlink" title="建立安全监测机制"></a>建立安全监测机制</h4><p>建立安全监测机制，及时发现并应对恶意爬取行为。通过监控网站访问日志、流量异常等信息，可以及时发现恶意爬虫并采取相应的措施。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>网络安全是互联网发展的基石，而静态内容网站的防爬虫工作是其中的重要一环。防范恶意爬取对于静态内容网站来说至关重要。通过了解恶意爬取的特点和采取相应的防范措施，可以有效提高网站的安全性，维护网站所有者的权益，同时提升用户体验。同时，网站所有者还应持续关注网络安全动态，不断更新和完善防范措施，确保网站内容的安全与稳定。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/">network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/reptile/">reptile</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/security/">security</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2022/04/20/security-anti-reptile/" data-id="clues809e000fmylo2cwks1ki" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-security-sql-injection" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2021/09/26/security-sql-injection/" class="article-date">
+  <time datetime="2021-09-26T10:20:26.000Z" itemprop="datePublished">2021-09-26</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-true">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/09/26/security-sql-injection/">Web安全之 SQL 注入</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="Web安全之-SQL-注入"><a href="#Web安全之-SQL-注入" class="headerlink" title="Web安全之 SQL 注入"></a>Web安全之 SQL 注入</h2><p>随着互联网的快速发展，网络安全问题日益受到人们的关注。 <code>SQL</code> 注入是一种常见的网络安全攻击方式，严重威胁着数据库的安全。本文将从 <code>SQL</code> 注入的概念、原理、危害以及防范措施等方面，对网络安全中的 <code>SQL</code> 注入进行深入探讨。</p>
+<h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p><code>SQL</code> 注入（<code>SQL Injection</code>）是指攻击者在用户输入的数据中注入恶意的 <code>SQL</code> 语句，从而在未经授权的情况下实现对数据库的非法操作。当应用程序没有对用户输入的数据进行有效的验证和过滤时，攻击者可以利用这一漏洞，篡改原始的 <code>SQL</code> 语句，进而窃取、篡改或删除数据库中的数据。</p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p><code>SQL</code> 注入的原理主要基于应用程序对用户输入数据的处理不当。攻击者通过在用户输入的数据中插入恶意的 <code>SQL</code> 语句，使得应用程序在构建 <code>SQL</code> 查询时，将恶意语句作为查询的一部分发送给数据库执行。这样，攻击者就可以绕过应用程序的验证，直接对数据库进行操作。</p>
+<h3 id="危害"><a href="#危害" class="headerlink" title="危害"></a>危害</h3><ol>
+<li><strong>数据泄露：</strong>攻击者可以通过 <code>SQL</code> 注入获取数据库中的敏感信息，如用户密码、身份信息、银行账户等，从而导致数据泄露和用户隐私泄露。</li>
+<li><strong>数据篡改：</strong>攻击者可以利用 <code>SQL</code> 注入修改数据库中的数据，破坏数据的完整性和准确性。</li>
+<li><strong>数据删除：</strong>攻击者可以通过 <code>SQL</code> 注入删除数据库中的数据，导致数据丢失和业务受损。</li>
+<li><strong>服务器被控制：</strong>攻击者还可以通过 <code>SQL</code> 注入获取数据库的完全控制权限，进一步对服务器进行攻击和控制。</li>
+</ol>
+<h3 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h3><p>下面是一个简单的 <code>Node.js</code> 和 <code>Express</code> 框架中的 <code>SQL</code> 注入案例：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="keyword">const</span> mysql = <span class="built_in">require</span>(<span class="string">'mysql'</span>);</span><br><span class="line"><span class="keyword">const</span> app = express();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建数据库连接</span></span><br><span class="line"><span class="keyword">const</span> connection = mysql.createConnection(&#123;</span><br><span class="line">  host: <span class="string">'localhost'</span>,</span><br><span class="line">  user: <span class="string">'root'</span>,</span><br><span class="line">  password: <span class="string">'password'</span>,</span><br><span class="line">  database: <span class="string">'test'</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">connection.connect();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义一个简单的路由处理函数，存在 SQL 注入漏洞</span></span><br><span class="line">app.get(<span class="string">'/users'</span>, (req, res) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> username = req.query.username; <span class="comment">// 从查询字符串获取用户名</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 直接将用户名插入 SQL 查询中，没有进行任何过滤或转义</span></span><br><span class="line">  <span class="keyword">const</span> query = <span class="string">`SELECT * FROM users WHERE username = '<span class="subst">$&#123;username&#125;</span>'`</span>;</span><br><span class="line"></span><br><span class="line">  connection.query(query, (error, results, fields) =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (error) <span class="keyword">throw</span> error;</span><br><span class="line">    res.send(results);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">3000</span>, () =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'App listening on port 3000'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>在上述代码中，我们定义了一个简单的 <code>Express</code> 应用，它监听 <code>/users</code> 路由，并从查询字符串中获取 <code>username</code> 参数。然后，我们直接将 <code>username</code> 插入 <code>SQL</code> 查询语句中。由于没有对 <code>username</code> 进行任何形式的过滤或转义，攻击者可以通过在查询字符串中插入恶意的 <code>SQL</code> 代码来操纵查询结果，甚至执行任意的 <code>SQL</code> 语句。</p>
+<p>例如，攻击者可以通过以下 <code>URL</code> 尝试注入攻击：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:3000/users?username=&apos;; DROP TABLE users; --</span><br></pre></td></tr></table></figure>
+<p>这个 <code>URL</code> 会导致 <code>SQL</code> 查询变成：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> <span class="keyword">users</span> <span class="keyword">WHERE</span> username = <span class="string">''</span>; <span class="keyword">DROP</span> <span class="keyword">TABLE</span> <span class="keyword">users</span>; <span class="comment">--'</span></span><br></pre></td></tr></table></figure>
+<p>如果应用执行了这条查询，它会删除 <code>users</code> 表中的所有数据。</p>
+<h3 id="防范措施"><a href="#防范措施" class="headerlink" title="防范措施"></a>防范措施</h3><p>为了防止 <code>SQL</code> 注入攻击，你应该：</p>
+<h4 id="使用参数化查询"><a href="#使用参数化查询" class="headerlink" title="使用参数化查询"></a>使用参数化查询</h4><p>参数化查询可以确保用户输入被当作数据而不是 <code>SQL</code> 代码来处理。在 <code>Node.js</code> 中，可以使用像 <code>mysql</code> 包中的 <code>query</code> 方法的参数化版本，或者使用 <code>ORM</code>（对象关系映射）库如 <code>Sequelize</code> 或者 <code>TypeORM</code>。</p>
+<p>在上述的 <code>Node.js</code> 例子中，你可以使用 <code>mysql</code> 包来执行参数化查询。以下是一个使用 <code>mysql</code> 包和参数化查询来预防 <code>SQL</code> 注入的示例：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/users'</span>, (req, res) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> username = req.query.username; <span class="comment">// 从查询字符串获取用户名</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 构建 SQL 语句</span></span><br><span class="line">  <span class="keyword">const</span> query = <span class="string">`SELECT * FROM users WHERE username = '?'`</span>;</span><br><span class="line"></span><br><span class="line">  connection.query(query, [username], (error, results, fields) =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (error) <span class="keyword">throw</span> error;</span><br><span class="line">    res.send(results);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，<code>?</code>是一个参数占位符，代表我们要查询的 <code>username</code>。我们将 <code>username</code> 作为数组 <code>[username]</code> 的元素传递给 <code>query</code> 方法的第二个参数。这样，<code>MySQL</code> 驱动程序就会知道 <code>?</code> 应该被 <code>username</code> 的值替换。</p>
+<p>由于参数化查询确保了用户输入被当作数据处理，而不是作为 <code>SQL</code> 代码的一部分，因此即使 <code>username</code> 包含恶意的 <code>SQL</code> 代码，它也不会被执行。这是预防 <code>SQL</code> 注入攻击的一种有效方式。</p>
+<h4 id="使用预编译语句"><a href="#使用预编译语句" class="headerlink" title="使用预编译语句"></a>使用预编译语句</h4><p>预编译语句是一种将 <code>SQL</code> 语句和参数分开处理的方式，数据库管理系统会对 <code>SQL</code> 语句进行解析、优化和编译，然后存储起来。每次执行时，只需传递参数，避免了 <code>SQL</code> 注入的风险。</p>
+<p>在上述的 <code>Node.js</code> 例子中，你可以使用 <code>mysql</code> 包来执行预编译语句。以下是一个使用 <code>mysql</code> 包和预编译语句来预防 <code>SQL</code> 注入的示例：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/users'</span>, (req, res) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> username = req.query.username; <span class="comment">// 从查询字符串获取用户名</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 准备预编译语句</span></span><br><span class="line">  <span class="keyword">const</span> prepareQuery = <span class="string">`PREPARE stmt FROM "SELECT * FROM users WHERE username = '?'"`</span>;</span><br><span class="line">  connection.query(prepareQuery, (error, results, fields) =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (error) <span class="keyword">throw</span> error;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置参数并执行预编译语句</span></span><br><span class="line">    <span class="keyword">const</span> executeQuery = <span class="string">'EXECUTE stmt USING ?'</span>;</span><br><span class="line">    connection.query(executeQuery, [username], (error, results, fields) =&gt; &#123;</span><br><span class="line">      <span class="keyword">if</span> (error) <span class="keyword">throw</span> error;</span><br><span class="line">      <span class="built_in">console</span>.log(results);</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 释放预编译语句</span></span><br><span class="line">      connection.query(<span class="string">'DEALLOCATE PREPARE stmt'</span>, (error) =&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span> (error) <span class="keyword">throw</span> error;</span><br><span class="line">        connection.end();</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>在这个预编译语句的例子中，我们首先准备一个预编译语句，其中包含一个占位符 <code>?</code>。然后，我们使用 <code>PREPARE</code> 语句将其发送到数据库进行编译。之后，我们使用 <code>EXECUTE</code> 语句并传递参数 <code>[username]</code> 来执行预编译的语句。最后，我们使用 <code>DEALLOCATE PREPARE</code> 语句释放预编译语句的资源。</p>
+<p>使用预编译语句的好处是，即使参数中包含恶意的 <code>SQL</code> 代码，它也不会被数据库执行。这是因为预编译语句将参数和 <code>SQL</code> 语句分开处理，数据库只会执行预编译的 <code>SQL</code> 语句，并将参数作为数据来处理。</p>
+<h4 id="转义用户输入"><a href="#转义用户输入" class="headerlink" title="转义用户输入"></a>转义用户输入</h4><p>转义用户输入是另一种防止 <code>SQL</code> 注入攻击的方法。转义用户输入意味着将用户提供的值中的特殊字符（如单引号、双引号等）替换为它们的转义版本，这样在 <code>SQL</code> 语句中它们就会被当作普通文本处理，而不是 <code>SQL</code> 代码的一部分。</p>
+<p>虽然参数化查询是首选的方法，因为它提供了更高级别的安全性，但在某些情况下，你可能需要手动转义用户输入。在 <code>Node.js</code> 中，你可以使用 <code>MySQL</code> 驱动程序的 <code>escape</code> 方法来转义用户输入。</p>
+<p>以下是一个使用 <code>Node.js</code> 和 <code>mysql</code> 驱动程序手动转义用户输入的例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/users'</span>, (req, res) =&gt; &#123;</span><br><span class="line">  <span class="comment">// 从查询字符串获取用户名</span></span><br><span class="line">  <span class="keyword">const</span> username = req.query.username;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 使用 escape 方法转义用户输入</span></span><br><span class="line">  <span class="keyword">const</span> safeUsername = mysql.escape(username);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 构建 SQL 语句</span></span><br><span class="line">  <span class="keyword">const</span> query = <span class="string">`SELECT * FROM users WHERE username = '<span class="subst">$&#123;safeUsername&#125;</span>'`</span>;</span><br><span class="line"></span><br><span class="line">  connection.query(query, (error, results, fields) =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (error) <span class="keyword">throw</span> error;</span><br><span class="line">    res.send(results);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，我们使用了 <code>mysql.escape</code> 方法来转义 <code>username</code> 中的特殊字符。这样，即使 <code>username</code> 包含特殊字符，它也不会被误解为 <code>SQL</code> 语句的一部分。</p>
+<p>然而，尽管手动转义用户输入可以提供一定程度的保护，但它仍然不是最安全的做法。原因之一是它可能会导致程序逻辑变得复杂且容易出错，尤其是在构建复杂的 <code>SQL</code> 语句时。因此，推荐使用参数化查询或预编译语句，因为它们提供了更强的安全性保证，并且更容易正确使用。</p>
+<h4 id="最小权限原则"><a href="#最小权限原则" class="headerlink" title="最小权限原则"></a>最小权限原则</h4><p>确保数据库账户只有执行必要操作的最小权限。例如，如果应用程序只需要从数据库中读取数据，那么就不应该赋予它写入权限。</p>
+<p>在 <code>MySQL</code> 中设置只读权限，你需要登录到MySQL数据库，然后为用户创建一个新的角色并授予只读权限。你可以使用GRANT语句来实现这一点。具体如下所示:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 登录到MySQL</span></span><br><span class="line">mysql -u root -p</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 创建新角色</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">ROLE</span> <span class="string">'readonlyuser'</span>@<span class="string">'localhost'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 授予只读权限</span></span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">SELECT</span> <span class="keyword">ON</span> your_database.* <span class="keyword">TO</span> <span class="string">'readonlyuser'</span>@<span class="string">'localhost'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 刷新权限</span></span><br><span class="line"><span class="keyword">FLUSH</span> <span class="keyword">PRIVILEGES</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 退出MySQL</span></span><br><span class="line">EXIT;</span><br></pre></td></tr></table></figure>
+<p>在上面的例子中，<code>your_database</code> 是你想要让用户具有只读权限的数据库名。<code>&#39;readonlyuser&#39;@&#39;localhost&#39;</code> 表示用户名为 <code>readonlyuser</code> ，并且该用户只能从本地主机连接到数据库。如果你希望用户可以从任何主机连接，你可以将 <code>localhost</code> 替换为 <code>&#39;%&#39;</code>。</p>
+<h4 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h4><p>不要将详细的数据库错误信息直接返回给用户。这可以防止攻击者利用这些信息进行更复杂的攻击。</p>
+<h4 id="安全审计和测试"><a href="#安全审计和测试" class="headerlink" title="安全审计和测试"></a>安全审计和测试</h4><p>使用工具如 <code>SQLMap</code>、<code>OWASP Zap</code> 等进行安全审计和测试，确保应用程序不会受到 <code>SQL</code> 注入攻击。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>总之， <code>SQL</code> 注入是一种常见的网络安全攻击方式，对数据库的安全构成严重威胁。为了防范 <code>SQL</code> 注入攻击，我们需要加强用户输入验证、使用参数化查询、存储过程等安全措施，并定期更新和修补数据库管理系统和应用程序。只有这样，我们才能确保数据库的安全，保护用户的数据隐私和业务安全。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/">network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/security/">security</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sql/">sql</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2021/09/26/security-sql-injection/" data-id="clues809k000imylovp0xrmeb" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-security-x-content-types-options" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2021/03/12/security-x-content-types-options/" class="article-date">
+  <time datetime="2021-03-12T01:09:12.000Z" itemprop="datePublished">2021-03-12</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-true">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/12/security-x-content-types-options/">Web安全之使用 X-Content-Type-Options 首部字段</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="Web安全之使用-X-Content-Type-Options-首部字段"><a href="#Web安全之使用-X-Content-Type-Options-首部字段" class="headerlink" title="Web安全之使用 X-Content-Type-Options 首部字段"></a>Web安全之使用 X-Content-Type-Options 首部字段</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p><code>X-Content-Type-Options</code> 是一个 <code>HTTP</code> 响应头，用于防止浏览器对响应内容的 <code>MIME</code> 类型进行嗅探或猜测。当设置为 <code>nosniff</code> 时，它告诉浏览器应该严格按照响应头中 <code>Content-Type</code> 字段所指定的类型来处理资源，而不应该根据文件扩展名、文件内容或其他因素来尝试重新确定资源的类型。</p>
+<h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><p>使用 <code>X-Content-Type-Options</code> 可以提高网站的安全性，因为它可以防止某些类型的攻击，例如 <code>MIME</code> 类型混淆攻击。这种攻击通常涉及将恶意内容伪装成合法的资源类型（如 <code>JavaScript</code> 文件），然后利用浏览器对 <code>MIME</code> 类型的错误处理来执行恶意代码，能够有效的预防 <code>XSS</code> 攻击。</p>
+<h3 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h3><p>要在你的 <code>web</code> 服务器上设置 <code>X-Content-Type-Options</code> 响应头，你需要根据你的服务器软件（如 <code>Apache、Nginx、IIS</code> 等）进行配置。下面是一些常见的服务器配置示例：</p>
+<h4 id="Apache"><a href="#Apache" class="headerlink" title="Apache"></a>Apache</h4><p>在 Apache 中，你可以使用 mod_headers 模块来设置响应头。在你的网站配置文件中添加以下行：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute"><span class="nomarkup">Header</span></span> set X-Content-Type-Options <span class="string">"nosniff"</span></span><br></pre></td></tr></table></figure>
+<h4 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h4><p>在 Nginx 中，你可以在 http、server 或 location 块中添加 add_header 指令来设置响应头：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">add_header</span> X-Content-Type-Options <span class="string">"nosniff"</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="IIS"><a href="#IIS" class="headerlink" title="IIS"></a>IIS</h4><p>在 IIS 中，你可以使用 web.config 文件来设置响应头。在 &lt;system.webServer&gt; 部分添加以下配置：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">httpProtocol</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">customHeaders</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">add</span> <span class="attr">name</span>=<span class="string">"X-Content-Type-Options"</span> <span class="attr">value</span>=<span class="string">"nosniff"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">customHeaders</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">httpProtocol</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="Node-js-使用-Express"><a href="#Node-js-使用-Express" class="headerlink" title="Node.js (使用 Express)"></a>Node.js (使用 Express)</h4><p>如果你使用 <code>Node.js</code> 和 <code>Express</code> 框架，你可以在应用程序中添加中间件来设置响应头：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">app.use(<span class="function">(<span class="params">req, res, next</span>) =&gt;</span> &#123;</span><br><span class="line">  res.setHeader(<span class="string">'X-Content-Type-Options'</span>, <span class="string">'nosniff'</span>);</span><br><span class="line">  next();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>请确保你的服务器配置正确，并且 <code>X-Content-Type-Options</code> 头部已正确设置。这样，浏览器在接收响应时就会遵守该头部的指示，从而提高应用程序的安全性。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/">network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/security/">security</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2021/03/12/security-x-content-types-options/" data-id="clues809l000kmylovhh73qa0" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -454,8 +897,8 @@
   
     <article id="post-security-csrf" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <h3 href="/2024/03/27/security-csrf/" class="article-date">
-  <time datetime="2024-03-27T02:40:20.000Z" itemprop="datePublished">2024-03-27</time>
+    <h3 href="/2020/12/27/security-csrf/" class="article-date">
+  <time datetime="2020-12-27T02:40:20.000Z" itemprop="datePublished">2020-12-27</time>
 </h3>
     
   </div>
@@ -468,7 +911,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2024/03/27/security-csrf/">Web安全之 CSRF 攻击</a>
+      <a class="article-title" href="/2020/12/27/security-csrf/">Web安全之 CSRF 攻击</a>
     </h1>
   
 
@@ -537,321 +980,7 @@
         
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/csrf/">csrf</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/">network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/security/">security</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/03/27/security-csrf/" data-id="cluersklc000fuflo78c0yb0u" class="article-share-link">Share</a>
-        
-      </div>
-    </footer>
-  </div>
-  </div>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-security-xss" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <h3 href="/2024/03/14/security-xss/" class="article-date">
-  <time datetime="2024-03-14T02:10:20.000Z" itemprop="datePublished">2024-03-14</time>
-</h3>
-    
-  </div>
-  <div class="article-inner">
-  <div class="curve-down">
-  <div class="fill-content fill-content-true">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/03/14/security-xss/">Web安全之 XSS 攻击</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Web安全之-XSS-攻击"><a href="#Web安全之-XSS-攻击" class="headerlink" title="Web安全之 XSS 攻击"></a>Web安全之 XSS 攻击</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p><strong>XSS，全称跨站脚本攻击（Cross-Site Scripting）</strong>，是一种网络安全漏洞攻击，指攻击者在网页中嵌入恶意脚本，当其他用户浏览该网页时，恶意脚本就会在其浏览器上执行，从而达到攻击者窃取用户信息、破坏数据、篡改网页内容、在用户浏览器上执行非法任务等目的。</p>
-<h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><p><code>XSS</code>攻击分为三种类型：</p>
-<ul>
-<li><p><strong>反射型XSS（Reflected XSS）</strong>：攻击者将恶意脚本嵌入到URL地址中，当其他用户访问这个URL时，恶意脚本就会在其浏览器中执行。这种攻击方式需要用户主动点击含有恶意脚本的链接才会触发。</p>
-</li>
-<li><p><strong>存储型XSS（Stored XSS）</strong>：攻击者将恶意脚本存储到被攻击的网站数据库中，当其他用户访问网站时，恶意脚本会从数据库中取出并在用户浏览器中执行。这种攻击方式不需要用户主动点击链接，只要用户浏览被攻击的网站就可能被攻击。</p>
-</li>
-<li><p><strong>DOM型XSS（DOM-based XSS）</strong>：攻击者通过修改页面的DOM结构，注入恶意脚本，当其他用户浏览该页面时，恶意脚本会在用户浏览器中执行。这种攻击方式也不需要用户主动点击链接，只需要用户浏览被修改的页面就可能被攻击。</p>
-</li>
-</ul>
-<h3 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h3><h4 id="反射型XSS"><a href="#反射型XSS" class="headerlink" title="反射型XSS"></a>反射型XSS</h4><p>在<code>Node.js</code>中，一个反射型<code>XSS</code>攻击的案例可能涉及一个web应用，该应用没有正确地处理或转义用户输入的数据，并将其直接插入到HTML响应中。攻击者可以构造一个包含恶意脚本的URL，当其他用户访问这个URL时，恶意脚本会在用户的浏览器中执行。</p>
-<p>以下是一个简单的<code>Node.js</code>反射型<code>XSS</code>攻击的案例：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="keyword">const</span> app = express();</span><br><span class="line">app.use(express.static(<span class="string">'public'</span>));</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/profile'</span>, (req, res) =&gt; &#123;</span><br><span class="line">  <span class="comment">// 假设用户可以通过URL参数传递他们的名字</span></span><br><span class="line">  <span class="keyword">const</span> username = req.query.username;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 没有对用户输入进行任何处理或转义</span></span><br><span class="line">  <span class="keyword">const</span> html = <span class="string">`&lt;html&gt;</span></span><br><span class="line"><span class="string">                &lt;body&gt;</span></span><br><span class="line"><span class="string">                  &lt;h1&gt;Welcome, <span class="subst">$&#123;username&#125;</span>!&lt;/h1&gt;</span></span><br><span class="line"><span class="string">                &lt;/body&gt;</span></span><br><span class="line"><span class="string">              &lt;/html&gt;`</span>;</span><br><span class="line"></span><br><span class="line">  res.send(html);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> PORT = process.env.PORT || <span class="number">3000</span>;</span><br><span class="line">app.listen(PORT, () =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`Server is running on port <span class="subst">$&#123;PORT&#125;</span>`</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>在这个例子中，我们创建了一个简单的<code>Express</code>应用，其中有一个<code>/profile</code>路由，该路由从URL的查询参数中获取用户名（<code>username</code>）。然后，我们将这个用户名嵌入到一个<code>HTML</code>字符串中，并将其作为响应发送回客户端。</p>
-<p>攻击者可以构造一个包含恶意脚本的URL，如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://example.com/profile?username=&lt;script&gt;alert(&apos;XSS&apos;);&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-<p>当用户访问这个<code>URL</code>时，浏览器会接收到包含恶意脚本的<code>HTML</code>响应，并执行该脚本，从而触发<code>XSS</code>攻击。</p>
-<p>为了防止反射型<code>XSS</code>攻击，开发者应该对用户输入进行适当的过滤和转义。在这个案例中，可以使用如<code>escape-html</code>这样的库来转义<code>HTML</code>特殊字符：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> escapeHtml = <span class="built_in">require</span>(<span class="string">'escape-html'</span>);</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/profile'</span>, (req, res) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> username = req.query.username;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 转义用户输入中的HTML特殊字符</span></span><br><span class="line">  <span class="keyword">const</span> escapedUsername = escapeHtml(username);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> html = <span class="string">`&lt;html&gt;</span></span><br><span class="line"><span class="string">                &lt;body&gt;</span></span><br><span class="line"><span class="string">                  &lt;h1&gt;Welcome, <span class="subst">$&#123;escapedUsername&#125;</span>!&lt;/h1&gt;</span></span><br><span class="line"><span class="string">                &lt;/body&gt;</span></span><br><span class="line"><span class="string">              &lt;/html&gt;`</span>;</span><br><span class="line"></span><br><span class="line">  res.send(html);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>通过转义用户输入，恶意脚本将不会被浏览器执行，从而防止了<code>XSS</code>攻击。此外，开发者还应该使用内容安全策略（<code>CSP</code>）等额外安全措施来增强应用的安全性。</p>
-        
-          <p class="article-more-link">
-            <a href="/2024/03/14/security-xss/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <div class="article-footer-content">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/">network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/security/">security</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xss/">xss</a></li></ul>
-
-        <a data-url="https://hankliu62.github.io/2024/03/14/security-xss/" data-id="cluersklm000ouflojjjtuhkr" class="article-share-link">Share</a>
-        
-      </div>
-    </footer>
-  </div>
-  </div>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-security-x-content-types-options" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <h3 href="/2024/03/13/security-x-content-types-options/" class="article-date">
-  <time datetime="2024-03-13T01:09:12.000Z" itemprop="datePublished">2024-03-13</time>
-</h3>
-    
-  </div>
-  <div class="article-inner">
-  <div class="curve-down">
-  <div class="fill-content fill-content-true">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/03/13/security-x-content-types-options/">Web安全之使用 X-Content-Type-Options 首部字段</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-        <h2 id="Web安全之使用-X-Content-Type-Options-首部字段"><a href="#Web安全之使用-X-Content-Type-Options-首部字段" class="headerlink" title="Web安全之使用 X-Content-Type-Options 首部字段"></a>Web安全之使用 X-Content-Type-Options 首部字段</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p><code>X-Content-Type-Options</code> 是一个 <code>HTTP</code> 响应头，用于防止浏览器对响应内容的 <code>MIME</code> 类型进行嗅探或猜测。当设置为 <code>nosniff</code> 时，它告诉浏览器应该严格按照响应头中 <code>Content-Type</code> 字段所指定的类型来处理资源，而不应该根据文件扩展名、文件内容或其他因素来尝试重新确定资源的类型。</p>
-<h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><p>使用 <code>X-Content-Type-Options</code> 可以提高网站的安全性，因为它可以防止某些类型的攻击，例如 <code>MIME</code> 类型混淆攻击。这种攻击通常涉及将恶意内容伪装成合法的资源类型（如 <code>JavaScript</code> 文件），然后利用浏览器对 <code>MIME</code> 类型的错误处理来执行恶意代码，能够有效的预防 <code>XSS</code> 攻击。</p>
-<h3 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h3><p>要在你的 <code>web</code> 服务器上设置 <code>X-Content-Type-Options</code> 响应头，你需要根据你的服务器软件（如 <code>Apache、Nginx、IIS</code> 等）进行配置。下面是一些常见的服务器配置示例：</p>
-<h4 id="Apache"><a href="#Apache" class="headerlink" title="Apache"></a>Apache</h4><p>在 Apache 中，你可以使用 mod_headers 模块来设置响应头。在你的网站配置文件中添加以下行：</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute"><span class="nomarkup">Header</span></span> set X-Content-Type-Options <span class="string">"nosniff"</span></span><br></pre></td></tr></table></figure>
-<h4 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h4><p>在 Nginx 中，你可以在 http、server 或 location 块中添加 add_header 指令来设置响应头：</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">add_header</span> X-Content-Type-Options <span class="string">"nosniff"</span>;</span><br></pre></td></tr></table></figure>
-<h4 id="IIS"><a href="#IIS" class="headerlink" title="IIS"></a>IIS</h4><p>在 IIS 中，你可以使用 web.config 文件来设置响应头。在 &lt;system.webServer&gt; 部分添加以下配置：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">httpProtocol</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">customHeaders</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">add</span> <span class="attr">name</span>=<span class="string">"X-Content-Type-Options"</span> <span class="attr">value</span>=<span class="string">"nosniff"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">customHeaders</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">httpProtocol</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h4 id="Node-js-使用-Express"><a href="#Node-js-使用-Express" class="headerlink" title="Node.js (使用 Express)"></a>Node.js (使用 Express)</h4><p>如果你使用 <code>Node.js</code> 和 <code>Express</code> 框架，你可以在应用程序中添加中间件来设置响应头：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">app.use(<span class="function">(<span class="params">req, res, next</span>) =&gt;</span> &#123;</span><br><span class="line">  res.setHeader(<span class="string">'X-Content-Type-Options'</span>, <span class="string">'nosniff'</span>);</span><br><span class="line">  next();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>请确保你的服务器配置正确，并且 <code>X-Content-Type-Options</code> 头部已正确设置。这样，浏览器在接收响应时就会遵守该头部的指示，从而提高应用程序的安全性。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <div class="article-footer-content">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/">network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/security/">security</a></li></ul>
-
-        <a data-url="https://hankliu62.github.io/2024/03/13/security-x-content-types-options/" data-id="cluersklg000kuflox6qewc61" class="article-share-link">Share</a>
-        
-      </div>
-    </footer>
-  </div>
-  </div>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-github-pages-env" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <h3 href="/2024/03/11/github-pages-env/" class="article-date">
-  <time datetime="2024-03-11T13:51:20.000Z" itemprop="datePublished">2024-03-11</time>
-</h3>
-    
-  </div>
-  <div class="article-inner">
-  <div class="curve-down">
-  <div class="fill-content fill-content-true">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/03/11/github-pages-env/">NextJs 获取 Github Action 部署的环境变量</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-        <h2 id="NextJs-获取-Github-Action-部署的环境变量"><a href="#NextJs-获取-Github-Action-部署的环境变量" class="headerlink" title="NextJs 获取 Github Action 部署的环境变量"></a>NextJs 获取 Github Action 部署的环境变量</h2><h3 id="设置变量"><a href="#设置变量" class="headerlink" title="设置变量"></a>设置变量</h3><p>项目中需要某些私有密钥，不能直接暴露在仓库中，在编译<code>Next.js</code>的时候，需要将该密钥通过环境变量的形式注入到<code>Next.js</code>项目中，所以第一步，我们需要将这个密钥储存到当前仓库的<code>Settings/Secrets</code>里面，具体操作如下图所示：</p>
-<p><img src="https://github.com/hankliu62/interview/assets/8088864/887a0ad5-6b4a-4977-a2cb-8c7adc5b63b6" alt="image"></p>
-<h3 id="配置变量"><a href="#配置变量" class="headerlink" title="配置变量"></a>配置变量</h3><p>在<code>Next.js</code>中获取<code>GitHub Actions</code>环境变量，你可以使用<code>process.env</code>对象来访问在<code>GitHub Actions</code>中设置的环境变量。以下是一个如何在<code>Next.js</code>中获取<code>GitHub Actions</code>环境变量的例子：</p>
-<p>首先，在GitHub Actions的工作流文件中设置环境变量，例如在 <code>.github/workflows/ci.yml</code>中：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">build:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Checkout</span> <span class="string">code</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/checkout@v2</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Setup</span> <span class="string">Node.js</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/setup-node@v2</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">node-version:</span> <span class="number">14</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">Dependencies</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">install</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Build</span> <span class="string">Next.js</span> <span class="string">App</span></span><br><span class="line">        <span class="attr">env:</span></span><br><span class="line">          <span class="attr">MY_ENV_VAR:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.MY_SECRET_ENV_VAR</span> <span class="string">&#125;&#125;</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">run</span> <span class="string">build</span></span><br></pre></td></tr></table></figure>
-<p>在这个例子中，<code>MY_ENV_VAR</code>是一个环境变量，它可以是一个秘密值，通过<code>GitHub Actions</code>的秘密（secrets）功能来安全地设置。</p>
-<p>然后，需要将环境变量添加到 <code>Next</code> 项目的配置文件中，在 <code>next.config.js</code> 中：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  env: &#123;</span><br><span class="line">    MY_ENV_VAR: process.env.MY_ENV_VAR,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="获取变量"><a href="#获取变量" class="headerlink" title="获取变量"></a>获取变量</h3><p>然后，在Next.js的应用代码中，你可以这样获取这个环境变量：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// pages/index.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">Home</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> myEnvVar = process.env.MY_ENV_VAR;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;p&gt;The environment variable is: &#123;myEnvVar || <span class="string">'undefined'</span>&#125;&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在这段代码中，<code>process.env.MY_ENV_VAR</code> 将会获取在 <code>GitHub Actions</code> 中设置的环境变量<code>MY_ENV_VAR</code>的值。如果环境变量存在，它将被显示在页面上；如果不存在，则会显示<code>&#39;undefined&#39;</code>。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <div class="article-footer-content">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li></ul>
-
-        <a data-url="https://hankliu62.github.io/2024/03/11/github-pages-env/" data-id="cluerskky0004uflo6l82fmvb" class="article-share-link">Share</a>
-        
-      </div>
-    </footer>
-  </div>
-  </div>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-mobile-debugging-tools" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <h3 href="/2024/03/06/mobile-debugging-tools/" class="article-date">
-  <time datetime="2024-03-06T13:48:32.000Z" itemprop="datePublished">2024-03-06</time>
-</h3>
-    
-  </div>
-  <div class="article-inner">
-  <div class="curve-down">
-  <div class="fill-content fill-content-true">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/03/06/mobile-debugging-tools/">H5 移动端调试工具汇总</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="H5-移动端调试工具汇总"><a href="#H5-移动端调试工具汇总" class="headerlink" title="H5 移动端调试工具汇总"></a>H5 移动端调试工具汇总</h2><h3 id="一、概要"><a href="#一、概要" class="headerlink" title="一、概要"></a>一、概要</h3><p>因为移动端操作系统分为 <code>iOS</code> 和 <code>Android</code> 两派，所以本文的调试技巧也会按照不同的系统来区分。寻找最合适高效的方式，才能让你事半功倍。</p>
-<blockquote>
-<p>文章会列举目前适合移动端调试的多种方案，快来选择你的最佳实践吧！</p>
-</blockquote>
-<h3 id="二、iOS-设备"><a href="#二、iOS-设备" class="headerlink" title="二、iOS 设备"></a>二、iOS 设备</h3><blockquote>
-<p>Safari：iphone 调试利器，查错改样式首选，需要我们做如下设置：</p>
-</blockquote>
-<ul>
-<li>浏览器设置：Safari - 偏好设置 - 高级 - 勾选「在菜单栏中显示开发」菜单</li>
-<li>iphone 设置：设置 - Safari - 高级 - 打开 Web 检查器</li>
-</ul>
-<p>大功告成，这时候通过手机的 <code>Safari</code> 来打开 <code>H5</code> 页面，我们通过浏览器开发选项可以看到：</p>
-<p><img src="https://github.com/hankliu62/interview/assets/8088864/fc968e7f-db70-4ae0-b9f6-08d241afb43c" alt="image"></p>
-<blockquote>
-<p>iOS 模拟器：不需要真机，适合调试 Webview 和 H5 有频繁交互的功能页面。</p>
-</blockquote>
-<p>首先下载 Xcode ，运行项目，选择模拟器 iphonex，编译后就会打开模拟器，如下：</p>
-<p><img src="https://github.com/hankliu62/interview/assets/8088864/c7bf4417-1ffc-404d-a19d-5b1b215d06bb" alt="image"></p>
-<p>可以看到 H5 已经在「壳子」中运行起来了，下来就可以尝试调用 Webview 的方法，和「壳子」交互了。</p>
-<blockquote>
-<p>具体的调试功能还是依赖浏览器的开发选项，与上无异，就不赘述了。</p>
-</blockquote>
-        
-          <p class="article-more-link">
-            <a href="/2024/03/06/mobile-debugging-tools/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <div class="article-footer-content">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/debugging/">debugging</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">mobile</a></li></ul>
-
-        <a data-url="https://hankliu62.github.io/2024/03/06/mobile-debugging-tools/" data-id="cluerskla000dufloxupsyr85" class="article-share-link">Share</a>
-        
-      </div>
-    </footer>
-  </div>
-  </div>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-webpack-plugin-mechanism" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <h3 href="/2024/03/05/webpack-plugin-mechanism/" class="article-date">
-  <time datetime="2024-03-05T12:36:12.000Z" itemprop="datePublished">2024-03-05</time>
-</h3>
-    
-  </div>
-  <div class="article-inner">
-  <div class="curve-down">
-  <div class="fill-content fill-content-true">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/03/05/webpack-plugin-mechanism/">Webpack Plugin插件机制</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Webpack-Plugin插件机制"><a href="#Webpack-Plugin插件机制" class="headerlink" title="Webpack Plugin插件机制"></a>Webpack Plugin插件机制</h2><h3 id="plugin机制出现原因"><a href="#plugin机制出现原因" class="headerlink" title="plugin机制出现原因"></a>plugin机制出现原因</h3><p>前面我们已经知道了，loader机制让webpack拥有了处理除js类型文件以外的能力。</p>
-<p>那如果我们需要在项目中实现<code>打包前自动清理上次打包生成的文件</code>、<code>将一些文件复制到打包目录中</code>、<code>自动生成html文件</code>、<code>将打包产物自动上传至服务器</code>、<code>将打包后代码进行压缩、拆分</code>等一系列定制化功能，此时就必须借助webpack的plugin机制去实现了。</p>
-<p>没错，webpack的plugin机制让webpack有了定制化的能力。</p>
-<h3 id="plugin原理"><a href="#plugin原理" class="headerlink" title="plugin原理"></a>plugin原理</h3><p>那具体如何通过plugin机制去实现这些定制化功能呢？</p>
-<p>其实是webpack在打包过程中的不同阶段（配置文件读取完成后、打包开始前、打包完成后等阶段）会触发不同的钩子，我们只需要明确要实现的功能应该在哪个阶段，然后将具体实现代码注册为对应钩子的事件即可。</p>
-<h3 id="webpack运行原理"><a href="#webpack运行原理" class="headerlink" title="webpack运行原理"></a>webpack运行原理</h3><p>我们在了解这些钩子之前，必须要知道webpack的运行原理。</p>
-<p>这是一个简化版的webpack打包过程，当我们执行 <code>webpack build</code> 命令后，webpack会先读取配置文件，然后根据配置文件中的配置项去初始化，创建一个 <code>compiler</code> 对象，然后调用 <code>compiler</code> 对象的 <code>run</code> 方法，初始化一个 <code>compilation</code> 对象，执行 <code>compilation</code> 中的 <code>build</code> 方法进行编译，编译完成后，触发 <code>compiler</code> 对象的 <code>done</code> 钩子，完成打包。</p>
-<p><img src="https://github.com/hankliu62/interview/assets/8088864/297c753f-6432-4ecc-90f3-474459b5fd82" alt="image"></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//第一步：搭建结构，读取配置参数，这里接受的是webpack.config.js中的参数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">webpack</span>(<span class="params">webpackOptions</span>) </span>&#123;</span><br><span class="line">  <span class="comment">//第二步：用配置参数对象初始化 `Compiler` 对象</span></span><br><span class="line">  <span class="keyword">const</span> compiler = <span class="keyword">new</span> Compiler(webpackOptions);</span><br><span class="line">  <span class="comment">//第三步：挂载配置文件中的插件</span></span><br><span class="line"> <span class="keyword">const</span> &#123; plugins &#125; = webpackOptions;</span><br><span class="line"> <span class="keyword">for</span> (<span class="keyword">let</span> plugin <span class="keyword">of</span> plugins) &#123;</span><br><span class="line">   plugin.apply(compiler);</span><br><span class="line"> &#125;</span><br><span class="line">  <span class="keyword">return</span> compiler;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Compiler其实是一个类，它是整个编译过程的大管家，而且是单例模式</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Compiler</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(webpackOptions) &#123;</span><br><span class="line">   <span class="comment">//省略</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 第五步：创建compilation对象</span></span><br><span class="line">  compile(callback)&#123;</span><br><span class="line">    <span class="comment">//虽然webpack只有一个Compiler，但是每次编译都会产出一个新的Compilation，</span></span><br><span class="line">    <span class="comment">//这里主要是为了考虑到watch模式，它会在启动时先编译一次，然后监听文件变化，如果发生变化会重新开始编译</span></span><br><span class="line">    <span class="comment">//每次编译都会产出一个新的Compilation，代表每次的编译结果</span></span><br><span class="line">    <span class="keyword">let</span> compilation = <span class="keyword">new</span> Compilation(<span class="keyword">this</span>.options);</span><br><span class="line">    compilation.build(callback); <span class="comment">//执行compilation的build方法进行编译，编译成功之后执行回调</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//第四步：执行`Compiler`对象的`run`方法开始执行编译</span></span><br><span class="line">  run(callback) &#123;</span><br><span class="line">    <span class="keyword">this</span>.hooks.run.call(); <span class="comment">//在编译前触发run钩子执行，表示开始启动编译了</span></span><br><span class="line">    <span class="keyword">const</span> onCompiled = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// 第七步：当编译成功后会触发done这个钩子执行</span></span><br><span class="line">      <span class="keyword">this</span>.hooks.done.call();</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">this</span>.compile(onCompiled); <span class="comment">//开始编译，成功之后调用onCompiled</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Compilation</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(webpackOptions) &#123;</span><br><span class="line">    <span class="keyword">this</span>.options = webpackOptions;</span><br><span class="line">    <span class="keyword">this</span>.modules = []; <span class="comment">//本次编译所有生成出来的模块</span></span><br><span class="line">    <span class="keyword">this</span>.chunks = []; <span class="comment">//本次编译产出的所有代码块，入口模块和依赖的模块打包在一起为代码块</span></span><br><span class="line">    <span class="keyword">this</span>.assets = &#123;&#125;; <span class="comment">//本次编译产出的资源文件</span></span><br><span class="line">    <span class="keyword">this</span>.fileDependencies = []; <span class="comment">//本次打包涉及到的文件，这里主要是为了实现watch模式下监听文件的变化，文件发生变化后会重新编译</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//第六步：执行compilation的build方法进行编译</span></span><br><span class="line">  build(callback) &#123;</span><br><span class="line">  <span class="comment">//这里开始做编译工作，编译成功执行callback</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// ... 编译过程代码省略</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 编译完成后，触发callback回调</span></span><br><span class="line">  callback()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-        
-          <p class="article-more-link">
-            <a href="/2024/03/05/webpack-plugin-mechanism/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <div class="article-footer-content">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/">webpack</a></li></ul>
-
-        <a data-url="https://hankliu62.github.io/2024/03/05/webpack-plugin-mechanism/" data-id="cluersklw000wuflootmitt4i" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2020/12/27/security-csrf/" data-id="clues809b000dmyloane2qt9r" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -880,23 +1009,23 @@
       <ul>
         
           <li>
-            <a href="/2024/04/02/security-anti-reptile/">Web安全之静态内容防爬虫</a>
-          </li>
-        
-          <li>
-            <a href="/2024/03/31/security-sql-injection/">Web安全之 SQL 注入</a>
-          </li>
-        
-          <li>
-            <a href="/2024/03/30/thread-loader/">thread-loader</a>
-          </li>
-        
-          <li>
             <a href="/2024/03/29/vitepress-blog-guide/">使用VitePress搭建个人博客</a>
           </li>
         
           <li>
-            <a href="/2024/03/27/security-csrf/">Web安全之 CSRF 攻击</a>
+            <a href="/2024/03/05/webpack-plugin-mechanism/">Webpack Plugin插件机制</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/08/interview-questions/">前端面试题汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2024/01/12/github-pages-env/">NextJs 获取 Github Action 部署的环境变量</a>
+          </li>
+        
+          <li>
+            <a href="/2023/12/27/github-pages/">使用 Github Pages 和 Issues 搭建博客</a>
           </li>
         
       </ul>
@@ -917,7 +1046,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li></ul>
     </div>
   </div>
 

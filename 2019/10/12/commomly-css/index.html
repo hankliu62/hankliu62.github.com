@@ -1,0 +1,766 @@
+
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+  <title>常用的CSS技巧 | HankLiu的博客小屋</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="网站平滑滚动  在&amp;lt;html&amp;gt;元素中添加scroll-behavior: smooth，以实现整个页面的平滑滚动。 123html &amp;#123;  scroll-behavior: smooth;&amp;#125;  链接的属性选择器  此选择器的目标是具有以“https”开头的 href 属性的链接。 123a[href^=&quot;https&quot;] &amp;#123;  color: blue;&amp;#1">
+<meta name="keywords" content="css">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常用的CSS技巧">
+<meta property="og:url" content="https://hankliu62.github.io/2019/10/12/commomly-css/index.html">
+<meta property="og:site_name" content="HankLiu的博客小屋">
+<meta property="og:description" content="网站平滑滚动  在&amp;lt;html&amp;gt;元素中添加scroll-behavior: smooth，以实现整个页面的平滑滚动。 123html &amp;#123;  scroll-behavior: smooth;&amp;#125;  链接的属性选择器  此选择器的目标是具有以“https”开头的 href 属性的链接。 123a[href^=&quot;https&quot;] &amp;#123;  color: blue;&amp;#1">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2024-03-31T00:22:50.407Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="常用的CSS技巧">
+<meta name="twitter:description" content="网站平滑滚动  在&amp;lt;html&amp;gt;元素中添加scroll-behavior: smooth，以实现整个页面的平滑滚动。 123html &amp;#123;  scroll-behavior: smooth;&amp;#125;  链接的属性选择器  此选择器的目标是具有以“https”开头的 href 属性的链接。 123a[href^=&quot;https&quot;] &amp;#123;  color: blue;&amp;#1">
+  
+  
+    <link rel="icon" href="/img/favicon.ico" sizes="16x16">
+  
+  <link rel="stylesheet" href="/css/style.css?t=1">
+  
+    <link href="//fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+  
+
+</head>
+</html>
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner">
+    <div id="banner-mask"></div>
+  </div>
+  <div id="header-outer" class="outer">
+    <nav id="upper-nav" class="inner">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      <div class="sub-nav">
+        
+        
+          <a id="nav-github" class="nav-icon" href="https://github.com/hankliu62"></a>
+        
+      </div>
+    </nav>
+    <div id="header-title">
+      
+        <h1 id="blog-title-wrap">
+          <a href="/" id="blog-title">HankLiu的博客小屋</a>
+        </h1>
+      
+      
+        <h5 class="blog-subtitle-wrap">努力去听风的声音，不必在意风的方向。</h5>
+      
+    </div>
+    <div id="contenedor">
+      <ul class="cube">
+        <li class="cara"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="100" width="100" viewBox="-50 -50 200 200">
+          <circle cx="50" cy="50" r="45" stroke-width="5" stroke="black" stroke-opacity="0.5" fill-opacity="0"></circle>
+          <rect id="clockwise" x="47.5" y="27.5" width="5" height="25" rx="2.5" ry="2.5" fill="black" fill-opacity="0.5" transform="rotate(330 50 50)"></rect>
+          <rect id="minute" x="48.5" y="16.5" width="3" height="35" rx="1.5" ry="1.5" fill="black" fill-opacity="0.5"></rect>
+        </svg></li>
+        <li class="cara">P</li>
+        <li class="cara">X</li>
+        <li class="cara">L</li>
+        <li class="cara">C</li>
+        <li class="cara">Y</li>
+      </ul>
+    </div>
+    <nav id="main-nav">
+      
+        <a class="main-nav-link" href="/">主页</a>
+      
+        <a class="main-nav-link" href="/archives">文章</a>
+      
+        <a class="main-nav-link" href="/toolbox-frontend">小工具</a>
+      
+        <a class="main-nav-link" href="/resume">小简介</a>
+      
+    </nav>
+  </div>
+</header>
+
+    <div class="outer">
+      <section id="main"><article id="post-commomly-css" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2019/10/12/commomly-css/" class="article-date">
+  <time datetime="2019-10-12T10:20:12.000Z" itemprop="datePublished">2019-10-12</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-false">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      常用的CSS技巧
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <ol>
+<li>网站平滑滚动</li>
+</ol>
+<p>在<code>&lt;html&gt;</code>元素中添加scroll-behavior: smooth，以实现整个页面的平滑滚动。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">html</span> &#123;</span><br><span class="line">  <span class="attribute">scroll-behavior</span>: smooth;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>链接的属性选择器</li>
+</ol>
+<p>此选择器的目标是具有以“https”开头的 href 属性的链接。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">a</span><span class="selector-attr">[href^=<span class="string">"https"</span>]</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: blue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>〜合并兄弟姐妹</li>
+</ol>
+<p>选择 <code>&lt;h2&gt;</code> 后面的所有兄弟元素 <code>&lt;p&gt;</code> 元素。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">h2</span> ~ <span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: blue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>:not() 伪类</li>
+</ol>
+<p>该选择器将样式应用于不具有“特殊”类的列表项。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">li</span><span class="selector-pseudo">:not(.special)</span> &#123;</span><br><span class="line">  <span class="attribute">font-stlye</span>: italic;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>用于响应式排版的视口单位</li>
+</ol>
+<p>使用视口单位（vw、vh、vmin、vmax）可以使字体大小响应视口大小。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">h1</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">5vw</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="6">
+<li><code>:empty</code> 表示空元素</li>
+</ol>
+<p>此选择器定位空的 <code>&lt;p&gt;</code> 元素并隐藏它们。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span><span class="selector-pseudo">:empty</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="7">
+<li>自定义属性（变量）</li>
+</ol>
+<p>可以定义和使用自定义属性，以更轻松地设置主题和维护。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-pseudo">:root</span> &#123;</span><br><span class="line">  <span class="attribute">--main-color</span>: <span class="number">#3498db</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">h1</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="built_in">var</span>(--main-color);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="8">
+<li>图像控制的Object-fit属性</li>
+</ol>
+<p><strong>object-fit</strong> 控制如何调整替换元素（如 <code>&lt;img&gt;</code>）的内容大小。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">img</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">object-fit</span>: cover;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<ol start="9">
+<li>简化布局的网格</li>
+</ol>
+<p>CSS 网格提供了一种以更简单的方式创建布局的强大方法。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: grid;</span><br><span class="line">  <span class="attribute">grid-template-columns</span>: <span class="number">1</span>fr <span class="number">2</span>fr <span class="number">1</span>fr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="10">
+<li><code>:focus-in</code> 伪类</li>
+</ol>
+<p>如果该元素包含任何具有 <code>:focus</code> 的子元素，则 <code>:focus-within</code> 会选择该元素。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">form</span><span class="selector-pseudo">:focus-within</span> &#123;</span><br><span class="line">  <span class="attribute">box-shadow</span>: <span class="number">0</span> <span class="number">0</span> <span class="number">5px</span> <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0.2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="11">
+<li>使用 Flexbox 垂直居中</li>
+</ol>
+<p>使用 Flexbox 轻松将内容在容器内水平和垂直居中。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">align-items</span>: center;</span><br><span class="line">  <span class="attribute">justify-content</span>: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="12">
+<li>自定义选择的突出显示颜色</li>
+</ol>
+<p>自定义在网页上选择文本时的突出显示颜色。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-pseudo">::selection</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="number">#ffcc00</span>;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#333</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="13">
+<li>占位符文本样式</li>
+</ol>
+<p>设置输入字段内占位符文本的样式。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-pseudo">::placeholder</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#999</span>;</span><br><span class="line">  <span class="attribute">font-style</span>: italic;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="14">
+<li>渐变边框</li>
+</ol>
+<p>使用<code>background-clip</code>属性创建渐变边框。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.element</span> &#123;</span><br><span class="line">   <span class="attribute">border</span>: <span class="number">2px</span> solid transparent;</span><br><span class="line">   <span class="attribute">background-clip</span>: padding-box;</span><br><span class="line">   <span class="attribute">background-image</span>: <span class="built_in">linear-gradient</span>(to right, red, blue);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="15">
+<li>vw 可变字体大小</li>
+</ol>
+<p>根据视口宽度调整字体大小，从而实现更具响应性的排版。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">   <span class="attribute">font-size</span>: <span class="built_in">calc</span>(<span class="number">16px</span> + <span class="number">1vw</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="16">
+<li>彩色元素的圆锥渐变</li>
+</ol>
+<p>使用圆锥渐变创建色彩缤纷的动态背景。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.element</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="built_in">conic-gradient</span>(#ff5733, #<span class="number">33</span>ff57, #<span class="number">5733</span>ff);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="17">
+<li>响应式文本的 <code>Clamp()</code> 函数</li>
+</ol>
+<p>使用<code>clamp()</code>函数设置字体大小的范围，确保在不同屏幕尺寸上的可读性。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.text</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="built_in">clamp</span>(<span class="number">16px</span>, <span class="number">4vw</span>, <span class="number">24px</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="18">
+<li>通过字体显示交换实现高效字体加载</li>
+</ol>
+<p>使用字体显示：交换； 属性可通过在加载自定义字体时显示后备字体来提高 Web 字体的性能。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@font-face</span> &#123;</span><br><span class="line">  <span class="attribute">font-family</span>: <span class="string">'YourFont'</span>;</span><br><span class="line">  <span class="attribute">src</span>: <span class="built_in">url</span>(<span class="string">'your-font.woff2'</span>) <span class="built_in">format</span>(<span class="string">'woff2'</span>);</span><br><span class="line">  <span class="attribute">font-display</span>: swap;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="19">
+<li>自定义滚动捕捉点</li>
+</ol>
+<p>实施自定义滚动捕捉点以获得更流畅的滚动体验，对于图像库或滑块尤其有用。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.scroll-container</span> &#123;</span><br><span class="line">  <span class="attribute">scroll-snap-type</span>: y mandatory;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.scroll-item</span> &#123;</span><br><span class="line">  <span class="attribute">scroll-snap-align</span>: start;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="20">
+<li>具有字体变化设置的可变字体样式</li>
+</ol>
+<p>利用可变字体和 <code>font-variation-settings</code> 属性对字体粗细、样式和其他变体进行微调控制。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.text</span> &#123;</span><br><span class="line">  <span class="attribute">font-family</span>: <span class="string">'YourVariableFont'</span>, sans-serif;</span><br><span class="line">  <span class="attribute">font-variation-settings</span>: <span class="string">'wght'</span> <span class="number">500</span>, <span class="string">'ital'</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="21">
+<li>自定义下划线</li>
+</ol>
+<p>使用 <code>border-bottom</code> 和 <code>text-decoration</code> 的组合自定义链接上下划线的样式。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">a</span> &#123;</span><br><span class="line">  <span class="attribute">text-decoration</span>: none;</span><br><span class="line">  <span class="attribute">border-bottom</span>: <span class="number">1px</span> solid <span class="number">#3498db</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="22">
+<li>隐藏的辅助文本</li>
+</ol>
+<p>使用类 <code>sr-only</code> 在视觉上隐藏元素，但让屏幕阅读器可以访问它们。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.sr-only</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">1px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">1px</span>;</span><br><span class="line">  <span class="attribute">margin</span>: -<span class="number">1px</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">overflow</span>: hidden;</span><br><span class="line">  <span class="attribute">clip</span>: <span class="built_in">rect</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="23">
+<li>纵横比框</li>
+</ol>
+<p>使用填充技巧来保持图像或视频等元素的宽高比。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.aspect-ratio-box</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">padding-bottom</span>: <span class="number">75%</span>; <span class="comment">/* Adjust as needed */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.aspect-ratio-box</span> &gt; <span class="selector-tag">iframe</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="24">
+<li>选择偶数和奇数元素</li>
+</ol>
+<p>使用 <code>:nth-child</code> 伪类设置替代元素的样式。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">li</span><span class="selector-pseudo">:nth-child(even)</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="number">#f2f2f2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">li</span><span class="selector-pseudo">:nth-child(odd)</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="number">#e6e6e6</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="25">
+<li>CSS计数器</li>
+</ol>
+<p>使用计数器重置和计数器增量属性在列表中创建自动编号。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">ol</span> &#123;</span><br><span class="line">  <span class="attribute">counter-reset</span>: item;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">li</span> &#123;</span><br><span class="line">  <span class="attribute">counter-increment</span>: item;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">li</span><span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="built_in">counter</span>(item) <span class="string">". "</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="26">
+<li>多个背景图像</li>
+</ol>
+<p>将多个背景图像应用于具有不同属性的元素。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.bg</span> &#123;</span><br><span class="line">  <span class="attribute">background-image</span>: <span class="built_in">url</span>(<span class="string">'image1.jpg'</span>), <span class="built_in">url</span>(<span class="string">'image2.jpg'</span>);</span><br><span class="line">  <span class="attribute">background-position</span>: top left, bottom right;</span><br><span class="line">  <span class="attribute">background-repeat</span>: no-repeat, repeat-x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="27">
+<li>连字符让文本更流畅</li>
+</ol>
+<p>通过允许使用 <code>hyphens</code> 属性自动连字符来提高文本可读性。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">hyphens</span>: auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="28">
+<li>动态样式的CSS变量</li>
+</ol>
+<p>利用 CSS 变量创建动态且可重用的样式。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-pseudo">:root</span> &#123;</span><br><span class="line">  <span class="attribute">--main-color</span>: <span class="number">#3498db</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.element</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="built_in">var</span>(--main-color);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="29">
+<li>键盘导航的焦点样式</li>
+</ol>
+<p>改进焦点样式以获得更好的键盘导航和可访问性。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-pseudo">:focus</span> &#123;</span><br><span class="line">  <span class="attribute">outline</span>: <span class="number">2px</span> solid <span class="number">#27ae60</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="30">
+<li>平滑渐变过渡</li>
+</ol>
+<p>对渐变背景应用平滑过渡以获得精美效果。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.gradient-box</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="built_in">linear-gradient</span>(<span class="number">45deg</span>, #<span class="number">3498</span>db, #<span class="number">2</span>ecc71);</span><br><span class="line">  <span class="attribute">transition</span>: background <span class="number">0.5s</span> ease;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.gradient-box</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="built_in">linear-gradient</span>(<span class="number">45deg</span>, #e74c3c, #f39c12);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="31">
+<li>文字描边效果</li>
+</ol>
+<p>为文本添加笔划（轮廓）以获得独特的视觉效果。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">h1</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#3498db</span>;</span><br><span class="line">  <span class="attribute">-webkit-text-stroke</span>: <span class="number">2px</span> <span class="number">#2c3e50</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="32">
+<li>纯CSS汉堡菜单</li>
+</ol>
+<p>无需 JavaScript 创建一个简单的汉堡菜单。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.menu-toggle</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: none;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.menu-toggle</span><span class="selector-pseudo">:checked</span> + <span class="selector-tag">nav</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* Add styles for the hamburger icon and menu here */</span></span><br></pre></td></tr></table></figure>
+<ol start="33">
+<li>CSS <code>:is()</code> 选择器</li>
+</ol>
+<p>使用 <code>:is()</code> 伪类简化复杂的选择器。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-pseudo">:is(h1</span>, <span class="selector-tag">h2</span>, <span class="selector-tag">h3</span>) &#123;</span><br><span class="line">  <span class="attribute">color</span>: blue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="34">
+<li>CSS变量的计算</li>
+</ol>
+<p>在动态样式的 CSS 变量中执行计算。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-pseudo">:root</span> &#123;</span><br><span class="line">  <span class="attribute">--base-size</span>: <span class="number">16px</span>;</span><br><span class="line">  <span class="attribute">--header-size</span>: <span class="built_in">calc</span>(var(--base-size) * <span class="number">2</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">h1</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="built_in">var</span>(--header-size);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="35">
+<li>内容的 <code>attr()</code> 函数</li>
+</ol>
+<p>使用 <code>attr()</code> 函数检索和显示属性值。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span><span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="built_in">attr</span>(data-custom-content);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="36">
+<li>CSS 屏蔽</li>
+</ol>
+<p>对图像应用遮罩以获得创意效果。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.masked-image</span> &#123;</span><br><span class="line">  <span class="attribute">mask</span>: <span class="built_in">url</span>(mask.svg);</span><br><span class="line">  <span class="attribute">mask-size</span>: cover;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="37">
+<li>混合模式</li>
+</ol>
+<p>尝试混合模式以获得有趣的色彩效果。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.blend-mode</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="built_in">url</span>(image.jpg);</span><br><span class="line">  <span class="attribute">mix-blend-mode</span>: screen;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="38">
+<li>纵横比属性</li>
+</ol>
+<p>使用宽高比属性简化宽高比框的创建。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.aspect-ratio-box</span> &#123;</span><br><span class="line">  <span class="attribute">aspect-ratio</span>: <span class="number">16</span>/<span class="number">9</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="39">
+<li>用于文本换行的 <code>shape-outside</code></li>
+</ol>
+<p>使用 <code>shape-outside</code> 属性使文本环绕指定形状，从而实现更动态的布局。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.shape-wrap</span> &#123;</span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">150px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">150px</span>;</span><br><span class="line">  <span class="attribute">shape-outside</span>: <span class="built_in">circle</span>(<span class="number">50%</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="40">
+<li>ch 单位用于一致的尺寸</li>
+</ol>
+<p>ch 单位表示所选字体中字符“0”的宽度。 它对于创建一致且响应式的布局很有用。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">h1</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">2ch</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="41">
+<li><code>::marker</code>伪元素</li>
+</ol>
+<p>使用 <code>::marker</code> 伪元素设置列表项标记的样式。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">li</span><span class="selector-pseudo">::marker</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: blue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="42">
+<li>背景的 <code>element()</code> 函数</li>
+</ol>
+<p>使用 <code>element()</code> 函数动态引用元素作为背景。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.background</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="built_in">element</span>(#targetElement);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="43">
+<li>使用 Flexbox 的粘性页脚</li>
+</ol>
+<p>使用 Flexbox 创建粘性页脚布局。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">flex-direction</span>: column;</span><br><span class="line">  <span class="attribute">min-height</span>: <span class="number">100vh</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">main</span> &#123;</span><br><span class="line">  <span class="attribute">flex</span>: <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="44">
+<li><code>scroll-padding</code>实现平滑滚动</li>
+</ol>
+<p>通过调整滚动填充来改进滚动行为。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">html</span> &#123;</span><br><span class="line">    <span class="attribute">scroll-padding</span>: <span class="number">20px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="45">
+<li>交互式高亮效果</li>
+</ol>
+<p>使用 CSS 变量创建交互式突出显示效果。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.highlight</span> &#123;</span><br><span class="line">  <span class="attribute">--highlight-color</span>: <span class="number">#e74c3c</span>;</span><br><span class="line">  <span class="attribute">background-image</span>: <span class="built_in">linear-gradient</span>(transparent <span class="number">0%</span>, var(--highlight-color) <span class="number">0%</span>);</span><br><span class="line">  <span class="attribute">background-size</span>: <span class="number">100%</span> <span class="number">200%</span>;</span><br><span class="line">  <span class="attribute">transition</span>: background-position <span class="number">0.3s</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.highlight</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">background-position</span>: <span class="number">0</span> <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="46">
+<li>自定义单选按钮和复选框</li>
+</ol>
+<p>设置不带图像的单选按钮和复选框的样式。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=<span class="string">"radio"</span>]</span> &#123;</span><br><span class="line">  <span class="attribute">appearance</span>: none;</span><br><span class="line">  <span class="attribute">-webkit-appearance</span>: none;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">50%</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">16px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">16px</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">2px</span> solid <span class="number">#3498db</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=<span class="string">"checkbox"</span>]</span> &#123;</span><br><span class="line">  <span class="attribute">appearance</span>: none;</span><br><span class="line">  <span class="attribute">-webkit-appearance</span>: none;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">16px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">16px</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">2px</span> solid <span class="number">#e74c3c</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="47">
+<li>调整文本区域的属性大小</li>
+</ol>
+<p>使用 <code>resize</code> 属性控制文本区域的大小调整行为。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">textarea</span> &#123;</span><br><span class="line">  <span class="attribute">resize</span>: vertical;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="48">
+<li>文字渐变</li>
+</ol>
+<p>使用 <code>background-clip</code> 和 <code>text-fill-color</code> 属性为文本创建渐变效果。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.gradient-text</span> &#123;</span><br><span class="line">  <span class="attribute">background-image</span>: <span class="built_in">linear-gradient</span>(<span class="number">45deg</span>, #<span class="number">3498</span>db, #<span class="number">2</span>ecc71);</span><br><span class="line">  <span class="attribute">background-clip</span>: text;</span><br><span class="line">  <span class="attribute">color</span>: transparent;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="49">
+<li>长单词的断字属性</li>
+</ol>
+<p>使用 <code>word-break</code> 属性可以控制不带空格的单词或字符串的长度。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.long-words</span> &#123;</span><br><span class="line">  <span class="attribute">word-break</span>: break-all;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="50">
+<li>可变字体的 <code>font-variation-settings</code></li>
+</ol>
+<p>使用 <code>font-variation-settings</code> 属性微调可变字体样式。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.custom-font</span> &#123;</span><br><span class="line">  <span class="attribute">font-family</span>: <span class="string">'MyVariableFont'</span>;</span><br><span class="line">  <span class="attribute">font-variation-settings</span>: <span class="string">'wght'</span> <span class="number">600</span>, <span class="string">'ital'</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="51">
+<li>用于创意叠加的混合混合模式</li>
+</ol>
+<p>使用 <code>mix-blend-mode</code> 将混合模式应用于元素，在叠加元素时创建有趣的视觉效果。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.overlay</span> &#123;</span><br><span class="line">  <span class="attribute">mix-blend-mode</span>: overlay;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="52">
+<li>设计破损图像的样式</li>
+</ol>
+<p>使用 <code>:broken</code> 伪类将样式应用于损坏的图像。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">img</span><span class="selector-pseudo">:broken</span> &#123;</span><br><span class="line">  <span class="attribute">filter</span>: <span class="built_in">grayscale</span>(<span class="number">100%</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="53">
+<li>CSS 形状</li>
+</ol>
+<p>使用 <code>shape-outside</code> 属性创建有趣的 CSS 形状设计。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.shape</span> &#123;</span><br><span class="line">  <span class="attribute">shape-outside</span>: <span class="built_in">circle</span>(<span class="number">50%</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="54">
+<li>子串匹配的属性选择器</li>
+</ol>
+<p>使用属性选择器和 *= 运算符进行子字符串匹配。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-attr">[data-attribute*=<span class="string">"value"</span>]</span> &#123;</span><br><span class="line">  <span class="comment">/* Styles */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="55">
+<li>模糊背景的背景滤镜</li>
+</ol>
+<p>使用背景滤镜对背景应用模糊效果，以获得磨砂玻璃效果。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.element</span> &#123;</span><br><span class="line">  <span class="attribute">backdrop-filter</span>: <span class="built_in">blur</span>(<span class="number">10px</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="56">
+<li>CSS环境变量</li>
+</ol>
+<p>使用 <code>env()</code> 函数访问 CSS 中的环境变量。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.element</span> &#123;</span><br><span class="line">  <span class="attribute">margin-top</span>: <span class="built_in">env</span>(safe-area-inset-top);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="57">
+<li>CSS属性计数器</li>
+</ol>
+<p>使用 <code>:nth-child</code> 选择器计算特定属性值的出现次数。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-attr">[data-category=<span class="string">"example"</span>]</span><span class="selector-pseudo">:nth-child(3)</span> &#123;</span><br><span class="line">  <span class="comment">/* Styles for the third occurrence */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="58">
+<li>用于文本换行的 CSS 形状</li>
+</ol>
+<p>将 <code>shape-outside</code> 与 <code>Polygon()</code> 函数结合使用，可实现围绕不规则形状的精确文本环绕。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.text-wrap</span> &#123;</span><br><span class="line">  <span class="attribute">shape-outside</span>: <span class="built_in">polygon</span>(<span class="number">0</span> <span class="number">0</span>, <span class="number">100%</span> <span class="number">0</span>, <span class="number">100%</span> <span class="number">100%</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="59">
+<li>自定义光标样式</li>
+</ol>
+<p>使用光标属性更改光标样式。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.custom-cursor</span> &#123;</span><br><span class="line">  <span class="attribute">cursor</span>: pointer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="60">
+<li>用于透明颜色的 HSLA</li>
+</ol>
+<p>使用透明颜色的 HSLA 值，提供对 Alpha 通道的更多控制。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.transparent-bg</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="built_in">hsla</span>(<span class="number">120</span>, <span class="number">100%</span>, <span class="number">50%</span>, <span class="number">0.5</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="61">
+<li>垂直文本的文本方向</li>
+</ol>
+<p>使用文本方向属性垂直旋转文本。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.vertical-text</span> &#123;</span><br><span class="line">  <span class="attribute">text-orientation</span>: upright;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="62">
+<li>小型大写字母的字体变体</li>
+</ol>
+<p>使用 <code>font-variant</code> 属性将小型大写字母应用于文本。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.small-caps</span> &#123;</span><br><span class="line">  <span class="attribute">font-variant</span>: small-caps;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="63">
+<li>背景分割的 <code>box-decoration-break</code></li>
+</ol>
+<p>使用 <code>box-decoration-break</code> 控制跨多行的元素的背景。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.split-background</span> &#123;</span><br><span class="line">  <span class="attribute">box-decoration-break</span>: clone;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="64">
+<li><code>:focus-visible</code> 用于特定焦点样式</li>
+</ol>
+<p>仅当元素处于焦点且焦点不是通过鼠标单击提供时才应用样式。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">input</span><span class="selector-pseudo">:focus-visible</span> &#123;</span><br><span class="line">  <span class="attribute">outline</span>: <span class="number">2px</span> solid blue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="65">
+<li>最佳字体渲染的文本渲染</li>
+</ol>
+<p>使用文本渲染属性改进文本渲染。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.optimized-text</span> &#123;</span><br><span class="line">  <span class="attribute">text-rendering</span>: optimizeLegibility;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="66">
+<li>首字母大写字母</li>
+</ol>
+<p>使用 <code>::first-letter</code> 设置块级元素的第一个字母的样式。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span><span class="selector-pseudo">::first-letter</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">2em</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="67">
+<li><code>overscroll-behavior</code> 滚动超调</li>
+</ol>
+<p>控制用户滚动超过滚动容器边界时的行为。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.scroll-container</span> &#123;</span><br><span class="line">  <span class="attribute">overscroll-behavior</span>: contain;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="68">
+<li>垂直布局的写作模式</li>
+</ol>
+<p>使用 <code>writing-mode</code> 属性创建垂直布局。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.vertical-layout</span> &#123;</span><br><span class="line">  <span class="attribute">writing-mode</span>: vertical-rl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="69">
+<li><code>::cue</code> 用于设置 HTML5 标题样式</li>
+</ol>
+<p>使用 <code>::cue</code> 伪元素设置 HTML5 标题文本的样式。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-pseudo">::cue</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: blue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="70">
+<li>用于截断多行文本的<code>line-clamp</code></li>
+</ol>
+<p>使用 <code>line-clamp</code> 属性限制元素内显示的行数。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.truncated-text</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: -webkit-box;</span><br><span class="line">  <span class="attribute">-webkit-line-clamp</span>: <span class="number">3</span>;</span><br><span class="line">  <span class="attribute">-webkit-box-orient</span>: vertical;</span><br><span class="line">  <span class="attribute">overflow</span>: hidden;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="71">
+<li><code>scroll-snap-align</code></li>
+</ol>
+<p><code>scroll-snap-align</code> 属性控制滚动容器内滚动捕捉点的对齐方式，确保精确控制滚动行为并增强用户体验。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">scroll-snap-type</span>: x mandatory;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.item</span> &#123;</span><br><span class="line">  <span class="attribute">scroll-snap-align</span>: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="72">
+<li><code>overscroll-behavior</code></li>
+</ol>
+<p><code>overscroll-behavior</code> 使您能够定义浏览器应如何处理滚动过度，防止不必要的滚动效果并改善整体滚动体验。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.scrollable</span> &#123;</span><br><span class="line">  <span class="attribute">overscroll-behavior</span>: contain;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="73">
+<li>字体字距调整</li>
+</ol>
+<p>字体字距调整允许微调字符间距，通过调整文本元素内字符之间的间距来确保最佳的可读性。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">font-kerning</span>: auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="74">
+<li>形状边缘</li>
+</ol>
+<p>当与 CSS 形状结合使用时，形状边距指定浮动元素形状周围的边距，从而可以精确控制文本换行和布局。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.shape</span> &#123;</span><br><span class="line">  <span class="attribute">shape-margin</span>: <span class="number">20px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="75">
+<li>滚动边距</li>
+</ol>
+<p>滚动边距设置滚动容器边缘和滚动内容开始之间的边距，通过提供滚动缓冲空间来增强用户体验。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">scroll-margin-top</span>: <span class="number">100px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="76">
+<li>选项卡大小</li>
+</ol>
+<p>滚动边距设置滚动容器边缘和滚动内容开始之间的边距，通过提供滚动缓冲空间来增强用户体验。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">pre</span> &#123;</span><br><span class="line">  <span class="attribute">tab-size</span>: <span class="number">4</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="77">
+<li>文本最后对齐</li>
+</ol>
+<p><code>text-align-last</code> 确定块元素中最后一行文本的对齐方式，从而提供对多行块中文本对齐的精确控制。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">text-align-last</span>: justify;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="78">
+<li>文本对齐</li>
+</ol>
+<p>此属性控制文本对齐行为，指定是否应使用字间或字符间间距进行文本对齐。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">text-align</span>: justify;</span><br><span class="line">  <span class="attribute">text-justify</span>: inter-word;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="79">
+<li>列填充</li>
+</ol>
+<p>列填充指示内容如何跨多列布局分布，允许跨列顺序或平衡分布内容。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">column-count</span>: <span class="number">3</span>;</span><br><span class="line">  <span class="attribute">column-fill</span>: auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="80">
+<li>轮廓偏移</li>
+</ol>
+<p>轮廓偏移调整轮廓和元素边缘之间的空间，从而可以更好地控制轮廓的外观而不影响布局。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">button</span> &#123;</span><br><span class="line">  <span class="attribute">outline</span>: <span class="number">2px</span> solid blue;</span><br><span class="line">  <span class="attribute">outline-offset</span>: <span class="number">4px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="81">
+<li>字体变体数字</li>
+</ol>
+<p>此属性允许对数字排版渲染进行细粒度控制，从而启用诸如衬里和旧式数字、分数和序数指示符等功能。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">font-variant-numeric</span>: lining-nums;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="82">
+<li>字体光学尺寸</li>
+</ol>
+<p>启用或禁用字体光学尺寸调整以调整字符的间距和比例，以改善各种字体大小的视觉和谐。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">font-optical-sizing</span>: auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="83">
+<li>文本装饰厚度</li>
+</ol>
+<p>控制文本装饰的粗细，例如下划线、上划线和穿线，以进行精确定制。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">text-decoration-thickness</span>: <span class="number">2px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="84">
+<li>文本下划线偏移</li>
+</ol>
+<p>调整下划线相对于文本基线的位置，以改进排版细化。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">text-underline-offset</span>: <span class="number">3px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="85">
+<li>滚动填充块</li>
+</ol>
+<p>定义在可滚动块容器周围添加的填充空间，以确保内容在滚动期间保持可见和可访问。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">scroll-padding-block</span>: <span class="number">20px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="86">
+<li>内联滚动填充</li>
+</ol>
+<p>设置在可滚动内联容器周围添加的填充空间，以增强滚动交互期间的用户体验。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">scroll-padding-inline</span>: <span class="number">10px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="87">
+<li>换行</li>
+</ol>
+<p>指定单词或字符内的换行方式，以控制换行行为，从而改进文本布局和可读性。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">line-break</span>: strict;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="88">
+<li>盒子装饰打破</li>
+</ol>
+<p>控制跨分段元素的边框和填充的渲染，以确保跨多行或多列分割的元素的样式一致。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.element</span> &#123;</span><br><span class="line">  <span class="attribute">box-decoration-break</span>: clone;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="89">
+<li>首字母</li>
+</ol>
+<p>将块元素的第一个字母或首字母字符设计为装饰性首字下沉或其他视觉上突出的首字母字符。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span><span class="selector-pseudo">::first-letter</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">2em</span>;</span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="90">
+<li>图像渲染</li>
+</ol>
+<p>调整图像的渲染质量和性能，优化各种场景的图像显示。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">img</span> &#123;</span><br><span class="line">  <span class="attribute">image-rendering</span>: pixelated;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="91">
+<li>字体功能设置</li>
+</ol>
+<p><code>font-feature-settings</code> 允许您启用或禁用字体中的 OpenType 功能，例如，连字、字距调整和样式替代。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">font-feature-settings</span>: <span class="string">"liga"</span> on;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="92">
+<li>文本导向</li>
+</ol>
+<p>此属性控制文本在其包含框中的方向，从而启用垂直或横向文本布局。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.vertical-text</span> &#123;</span><br><span class="line">  <span class="attribute">text-orientation</span>: sideways;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="93">
+<li>文本装饰-跳过墨迹</li>
+</ol>
+<p><code>text-decoration-skip-ink</code> 控制文本装饰是否应跳过上升部分和下降部分，从而改善下划线和穿线的外观。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">text-decoration-skip-ink</span>: auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="94">
+<li>文本下划线位置</li>
+</ol>
+<p><code>text-underline-position</code> 调整下划线相对于文本基线的位置，从而可以精确控制下划线的位置。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">text-underline-position</span>: under;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="95">
+<li>图像导向</li>
+</ol>
+<p><code>image-orientation</code> 控制图像的方向，允许您根据需要旋转或翻转它。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">img</span> &#123;</span><br><span class="line">  <span class="attribute">image-orientation</span>: from-image;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="96">
+<li><code>column-span</code></li>
+</ol>
+<p><code>column-span</code> 允许一个元素在多列布局中跨越多个列，从而实现更灵活和动态的设计。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.spanning-element</span> &#123;</span><br><span class="line">  <span class="attribute">column-span</span>: all;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="97">
+<li><code>contain</code></li>
+</ol>
+<p><code>contain</code> 指定元素的包含策略，通过限制布局计算和渲染的范围来实现优化，从而提高性能。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.optimized-element</span> &#123;</span><br><span class="line">  <span class="attribute">contain</span>: layout;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="98">
+<li>内容可见性</li>
+</ol>
+<p>内容可见性允许您控制屏幕外或隐藏内容的渲染行为，通过跳过隐藏元素的布局和绘制阶段来提高渲染性能。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.off-screen</span> &#123;</span><br><span class="line">  <span class="attribute">content-visibility</span>: auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="99">
+<li>文字装饰风格</li>
+</ol>
+<p><code>text-decoration-style</code> 指定用于文本装饰的线条样式，允许您选择不同的线条样式，例如实线、双线、点线或虚线。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">text-decoration</span>: underline;</span><br><span class="line">  <span class="attribute">text-decoration-style</span>: wavy;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="100">
+<li>字间距</li>
+</ol>
+<p>字间距调整文本元素中字之间的间距，使您可以微调版式布局并提高可读性。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">word-spacing</span>: <span class="number">2px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="101">
+<li>超出部分省略号</li>
+</ol>
+<p>超出部分内容不展示，使用省略号代替</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">white-space</span>: nowrap;</span><br><span class="line">  <span class="attribute">overflow</span>: hidden;</span><br><span class="line">  <span class="attribute">text-overflow</span>: ellipsis;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2019/10/12/commomly-css/" data-id="clues808s0001mylo3vixemh7" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/06/12/security-xss/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Web安全之 XSS 攻击
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/05/12/mobile-debugging-tools/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">H5 移动端调试工具汇总</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+      
+      <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/03/29/vitepress-blog-guide/">使用VitePress搭建个人博客</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/05/webpack-plugin-mechanism/">Webpack Plugin插件机制</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/08/interview-questions/">前端面试题汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2024/01/12/github-pages-env/">NextJs 获取 Github Action 部署的环境变量</a>
+          </li>
+        
+          <li>
+            <a href="/2023/12/27/github-pages/">使用 Github Pages 和 Issues 搭建博客</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/csrf/">csrf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debugging/">debugging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-pages/">github pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interview/">interview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/loader/">loader</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/">mobile</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">network</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reptile/">reptile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/">security</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/">sql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vitepress/">vitepress</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/weinre/">weinre</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xss/">xss</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2024 HankLiu, Inc. All rights reserved.<br>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">主页</a>
+  
+    <a href="/archives" class="mobile-nav-link">文章</a>
+  
+    <a href="/toolbox-frontend" class="mobile-nav-link">小工具</a>
+  
+    <a href="/resume" class="mobile-nav-link">小简介</a>
+  
+  <a href="#search" class="mobile-nav-link st-search-show-outputs">Search</a>
+</nav>
+  
+
+<!-- totop start -->
+<div id="totop">
+	<a title="To Top"></a>
+</div>
+<!-- totop end -->
+
+<!-- swiftype search start -->
+
+<!-- swiftype search end -->
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/lrsjng.jquery-qrcode/0.12.0/jquery.qrcode.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+</div>
+</body>
+</html>
