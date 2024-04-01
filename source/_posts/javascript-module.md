@@ -1,7 +1,7 @@
 ---
 title: 菜鸟学习Javascript模块化
 date: 2015-12-24 18:55:37
-tag: [Javascript, 模块化]
+tag: [javascript, blog]
 ---
 
 ## 一、模块化的定义
@@ -97,6 +97,8 @@ var module1 = (function ($, YAHOO) {
 ```
 
 上面的module1模块需要使用jQuery库和YUI库，就把这两个库（其实是两个模块）当作参数输入module1。这样做除了保证模块的独立性，还使得模块之间的依赖关系变得明显。
+
+<!-- more -->
 
 ## 四、模块的规范
 先想一想，为什么模块很重要？

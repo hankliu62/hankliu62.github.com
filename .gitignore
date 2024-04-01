@@ -3,3 +3,6 @@
 themes/hexo-theme-laughing
 public/
 db.json
+.env.local
+
+file_list_to_commit.txt

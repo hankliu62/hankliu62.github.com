@@ -1,7 +1,7 @@
 ---
 title: Javascript语法糖
 date: 2015-12-24 19:18:13
-tags: [javascript]
+tag: [javascript, blog]
 author: hank.liu
 ---
 
@@ -70,6 +70,8 @@ customSubtract = function(minuend, subtrahend) {
     return result;
 };
 ```
+
+<!-- more -->
 
 ## 5. Is object empty?
 

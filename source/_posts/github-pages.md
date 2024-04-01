@@ -1,5 +1,7 @@
 ---
 title: 使用 Github Pages 和 Issues 搭建博客
+date: 2023-12-27 12:20:26
+tag: [github pages, blog]
 ---
 
 ## Github Pages 简介
@@ -55,6 +57,8 @@ title: 使用 Github Pages 和 Issues 搭建博客
 
 这种方案与上一种对比起来其实没多大区别，唯一的区别就是自建服务换成了github的另一个服务，就是说，github帮我们建好了。
 github api：https://developer.github.com/v3/
+
+<!-- more -->
 
 #### github pages
 github Pages可以被认为是用户编写的、托管在github上的静态网页，如下方式可开启：

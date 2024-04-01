@@ -1,7 +1,7 @@
 ---
 title: 使用Weinre调试移动端Web开发
 date: 2017-09-19 18:55:37
-tag: [mobile, weinre]
+tag: [mobile, weinre, blog]
 ---
 
 ## 一、使用Npm全局安装weinre

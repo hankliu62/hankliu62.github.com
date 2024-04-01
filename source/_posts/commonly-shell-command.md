@@ -1,7 +1,7 @@
 ---
 title: 常用的shell命令
 date: 2017-09-14 13:10:16
-tag: [shell]
+tag: [shell, blog]
 ---
 ## 一、SSH到服务器上再执行shell命令
 
@@ -27,7 +27,7 @@ sysctl -a | grep inotify
 ``` shell
 # 查看Ubuntu操作系统位数
 # 方法一: getconf
-getconf LONG_BIT 
+getconf LONG_BIT
 # 64 or 32
 
 # 方法二: uname -a
@@ -76,22 +76,22 @@ tr(选项)(参数)
 ```
 
 #### 选项
-* -c或——complerment：取代所有不属于第一字符集的字符； 
-* -d或——delete：删除所有属于第一字符集的字符； 
-* -s或--squeeze-repeats：把连续重复的字符以单独一个字符表示； 
+* -c或——complerment：取代所有不属于第一字符集的字符；
+* -d或——delete：删除所有属于第一字符集的字符；
+* -s或--squeeze-repeats：把连续重复的字符以单独一个字符表示；
 * -t或--truncate-set1：先删除第一字符集较第二字符集多出的字符。
 
 #### 参数
-* 字符集1：指定要转换或删除的原字符集。当执行转换操作时，必须使用参数“字符集2”指定转换的目标字符集。但执行删除操作时，不需要参数“字符集2”； 
+* 字符集1：指定要转换或删除的原字符集。当执行转换操作时，必须使用参数“字符集2”指定转换的目标字符集。但执行删除操作时，不需要参数“字符集2”；
 
 *字符集2：指定要转换成的目标字符集。
 
 #### 实例
-将输入字符由大写转换为小写： 
+将输入字符由大写转换为小写：
 
 ``` shell
-echo "HELLO WORLD" | tr 'A-Z' 'a-z' 
-hello world 
+echo "HELLO WORLD" | tr 'A-Z' 'a-z'
+hello world
 ```
 
 'A-Z' 和 'a-z'都是集合，集合是可以自己制定的，例如：'ABD-}'、'bB.,'、'a-de-h'、'a-c0-9'都属于集合，集合里可以使用'\n'、'\t'，可以可以使用其他ASCII字符。
@@ -143,7 +143,7 @@ fi
 ## 八、开始行和结束行的内容
 ``` shell
 # 文件最后100行
-tail -n 100 file 
+tail -n 100 file
 
 # 文件开头100行
 head -n 100 file
@@ -191,10 +191,10 @@ echo "what you input is:" $value
 ``` shell
 #!/bin/bash
 
-xxx="Temp" 
+xxx="Temp"
 yyy="temp"
 
-x_tmp=$(echo $xxx | tr [A-Z] [a-z]) 
+x_tmp=$(echo $xxx | tr [A-Z] [a-z])
 y_tmp=$(echo $yyy | tr [A-Z] [a-z])
 
 if [ "$x_tmp " = "$y_tmp " ]; then
@@ -210,8 +210,8 @@ fi
 ``` sh
 command1 && command2 [&& command3 ...]
 ```
- 
-&&左边的命令（命令1）返回真(即返回0，成功被执行）后，&&右边的命令（命令2）才能够被执行；换句话说，“如果这个命令执行成功&&那么执行这个命令”。 
+
+&&左边的命令（命令1）返回真(即返回0，成功被执行）后，&&右边的命令（命令2）才能够被执行；换句话说，“如果这个命令执行成功&&那么执行这个命令”。
 
 1 命令之间使用 && 连接，实现逻辑与的功能。
 2 只有在 && 左边的命令返回真（命令返回值 $? == 0），&& 右边的命令才会被执行。
@@ -235,8 +235,8 @@ command1 || command2 [|| command3 ...]
 
 3 只要有一个命令返回真（命令返回值 $? == 0），后面的命令就不会被执行。
 ``` shell
-str="this is a string"  
-[[ $str =~ "this" ]] && echo "$str contains this"   
+str="this is a string"
+[[ $str =~ "this" ]] && echo "$str contains this"
 [[ $str =~ "that" ]] || echo "$str does NOT contain that"
 ```
 

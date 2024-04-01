@@ -3,6 +3,7 @@ title: MAC搭建个人博客hexo+github详细完整步骤
 date: 2017-09-09 12:20:26
 tag: [hexo, blog]
 ---
+
 自己也算是摸爬滚打搭建成功，然后自己再重新安装部署一遍，把完整步骤分享给大家，同时最后有一些连接，如果我的步骤不行，大家可以参考其他人的.
 
 ## 一、安装Homebrew
@@ -142,6 +143,8 @@ npm -v
 ```
 
 ![Node安装成功](https://user-images.githubusercontent.com/8088864/30236355-4d1f8f18-954a-11e7-8da7-54d3f9ae1c91.png)
+
+<!-- more -->
 
 ## 四、安装hexo
 

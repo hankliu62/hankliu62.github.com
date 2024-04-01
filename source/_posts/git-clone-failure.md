@@ -1,6 +1,7 @@
+---
 title: 使用 git 克隆 github 上的项目失败
 date: 2018-11-09 10:00:20
-tag: [git, github]
+tag: [git, github, blog]
 ---
 
 ## 现象
