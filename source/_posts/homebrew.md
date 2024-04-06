@@ -23,20 +23,21 @@ macOS（或 Linux）缺失的软件包的管理器
 1. 使用 `Homebrew` 安装 `Mac`（或您的 `Linux` 系统）没有预装但 [你需要的东西](https://formulae.brew.sh/formula/)。
 
 ``` bash
-$ brew install wget
+brew install wget
 ```
 
 2. `Homebrew` 会将软件包安装到独立目录，并将其文件软链接至 `/opt/homebrew` 。
 
 ``` bash
-$ cd /opt/homebrew
-$ find Cellar
-Cellar/wget/1.16.1
-Cellar/wget/1.16.1/bin/wget
-Cellar/wget/1.16.1/share/man/man1/wget.1
+cd /opt/homebrew
+find Cellar
 
-$ ls -l bin
-bin/wget -> ../Cellar/wget/1.16.1/bin/wget
+# Cellar/wget/1.16.1
+# Cellar/wget/1.16.1/bin/wget
+# Cellar/wget/1.16.1/share/man/man1/wget.1
+
+ls -l bin
+# bin/wget -> ../Cellar/wget/1.16.1/bin/wget
 ```
 
 3. `Homebrew` 不会将文件安装到它本身目录之外，所以您可将 `Homebrew` 安装到任意位置。
@@ -44,14 +45,14 @@ bin/wget -> ../Cellar/wget/1.16.1/bin/wget
 4. 轻松创建你自己的 `Homebrew` 包。
 
 ``` bash
-$ brew create https://foo.com/foo-1.0.tgz
-Created /opt/homebrew/Library/Taps/homebrew/homebrew-core/Formula/foo.rb
+brew create https://foo.com/foo-1.0.tgz
+# Created /opt/homebrew/Library/Taps/homebrew/homebrew-core/Formula/foo.rb
 ```
 
 5. 完全基于 `Git` 和 `Ruby`，所以自由修改的同时你仍可以轻松撤销你的变更或与上游更新合并。
 
 ``` bash
-$ brew edit wget # 使用 $EDITOR 编辑!
+brew edit wget # 使用 $EDITOR 编辑!
 ```
 
 6. `Homebrew` 的配方都是简单的 `Ruby` 脚本：
@@ -74,19 +75,19 @@ end
 8. “要安装，请拖动此图标……”不会再出现了。使用 `Homebrew Cask` 安装 `macOS` 应用程序、字体和插件以及其他非开源软件。
 
 ``` bash
-$ brew install --cask firefox
+brew install --cask firefox
 ```
 
 9. 制作一个 `cask` 就像创建一个配方一样简单。
 
 ``` bash
-$ brew create --cask https://foo.com/foo-1.0.dmg
-Editing /opt/homebrew/Library/Taps/homebrew/homebrew-cask/Casks/foo.rb
+brew create --cask https://foo.com/foo-1.0.dmg
+# Editing /opt/homebrew/Library/Taps/homebrew/homebrew-cask/Casks/foo.rb
 ```
 
 ### 国内源安装
 
-国内安装Homebrew 可能很慢，所以我们推荐使用国内的源来进行安装
+国内安装 `Homebrew` 可能很慢，所以我们推荐使用国内的源来进行安装
 
 #### macOS
 
@@ -107,7 +108,6 @@ Editing /opt/homebrew/Library/Taps/homebrew/homebrew-cask/Casks/foo.rb
 ``` base
 /bin/zsh -c "$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/HomebrewUninstall.sh)"
 ```
-
 
 ### Linux
 

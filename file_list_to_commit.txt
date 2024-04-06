@@ -1,2 +1,1 @@
 source/_posts/homebrew.md
-themes/hexo-theme-paperbox
