@@ -1,1 +1,1 @@
-source/_posts/homebrew.md
+.github/workflows/gh-page.yml

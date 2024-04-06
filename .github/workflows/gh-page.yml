@@ -13,6 +13,10 @@ jobs:
         uses: actions/checkout@v3
         with:
           lfs: true
+          submodules: true
+      # 如果需要递归检出子模块，可以添加以下步骤
+      - name: 获取子项目源码 🏆
+        run: git submodule update --init --recursive
       - name: Node环境版本 🗜️
         uses: actions/setup-node@v3
         with:
