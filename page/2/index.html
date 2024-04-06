@@ -1,0 +1,1172 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  
+  <title>HankLiu的博客小屋</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="努力去听风的声音，不必在意风的方向。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="HankLiu的博客小屋">
+<meta property="og:url" content="https://hankliu62.github.io/page/2/index.html">
+<meta property="og:site_name" content="HankLiu的博客小屋">
+<meta property="og:description" content="努力去听风的声音，不必在意风的方向。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="HankLiu">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/img/favicon.ico" sizes="16x16">
+  
+  <link rel="stylesheet" href="/css/style.css?t=1">
+  
+    <link href="//fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner">
+    <div id="banner-mask"></div>
+  </div>
+  <div id="header-outer" class="outer">
+    <nav id="upper-nav" class="inner">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      <div class="sub-nav">
+        
+        
+          <a id="nav-github" class="nav-icon" href="https://github.com/hankliu62"></a>
+        
+      </div>
+    </nav>
+    <div id="header-title">
+      
+        <h1 id="blog-title-wrap">
+          <a href="/" id="blog-title">HankLiu的博客小屋</a>
+        </h1>
+      
+      
+        <h5 class="blog-subtitle-wrap">努力去听风的声音，不必在意风的方向。</h5>
+      
+    </div>
+    <div id="contenedor">
+      <ul class="cube">
+        <li class="cara"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="100" width="100" viewBox="-50 -50 200 200">
+          <circle cx="50" cy="50" r="45" stroke-width="5" stroke="black" stroke-opacity="0.5" fill-opacity="0"></circle>
+          <rect id="clockwise" x="47.5" y="27.5" width="5" height="25" rx="2.5" ry="2.5" fill="black" fill-opacity="0.5" transform="rotate(330 50 50)"></rect>
+          <rect id="minute" x="48.5" y="16.5" width="3" height="35" rx="1.5" ry="1.5" fill="black" fill-opacity="0.5"></rect>
+        </svg></li>
+        <li class="cara">P</li>
+        <li class="cara">X</li>
+        <li class="cara">L</li>
+        <li class="cara">C</li>
+        <li class="cara">Y</li>
+      </ul>
+    </div>
+    <nav id="main-nav">
+      
+        <a class="main-nav-link" href="/">主页</a>
+      
+        <a class="main-nav-link" href="/archives">文章</a>
+      
+        <a class="main-nav-link" href="/toolbox-frontend">小工具</a>
+      
+        <a class="main-nav-link" href="/resume">小简介</a>
+      
+    </nav>
+  </div>
+</header>
+
+    <div class="outer">
+      <section id="main">
+  
+    <article id="post-webwork-postmessage" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2022/07/20/webwork-postmessage/" class="article-date">
+  <time datetime="2022-07-20T12:12:26.000Z" itemprop="datePublished">2022-07-20</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-true">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/07/20/webwork-postmessage/">WebWorker 和 postMessage 使用指南</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="WebWorker-和-postMessage-使用指南"><a href="#WebWorker-和-postMessage-使用指南" class="headerlink" title="WebWorker 和 postMessage 使用指南"></a>WebWorker 和 postMessage 使用指南</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>在网页开发中，我们通常使用 <code>JavaScript</code> 来处理和响应用户的各种操作。然而，随着网页变得越来越复杂，我们需要执行的任务也变得越来越繁重。这些任务可能包括大量的计算、数据处理、文件读取等。如果我们直接在主线程中执行这些任务，可能会导致页面卡顿、响应变慢，甚至阻塞用户的其他操作。为了解决这个问题，<code>Web Worker</code> 应运而生。</p>
+<p><code>JavaScript</code> 语言采用的是单线程模型，也就是说，所有任务只能在一个线程上完成，一次只能做一件事。前面的任务没做完，后面的任务只能等着。随着电脑计算能力的增强，尤其是多核 <code>CPU</code> 的出现，单线程带来很大的不便，无法充分发挥计算机的计算能力。</p>
+<p><code>Web Worker</code> 的作用，就是为 <code>JavaScript</code> 创造多线程环境，允许主线程创建 <code>Worker</code> 线程，将一些任务分配给后者运行。在主线程运行的同时，<code>Worker</code> 线程在后台运行，两者互不干扰。等到 <code>Worker</code> 线程完成计算任务，再把结果返回给主线程。这样的好处是，一些计算密集型或高延迟的任务，被 <code>Worker</code> 线程负担了，主线程（通常负责 <code>UI</code> 交互）就会很流畅，不会被阻塞或拖慢。</p>
+<p><code>Web Worker</code> 是一种在浏览器后台运行的 <code>JavaScript</code> 线程,<code>Worker</code> 线程一旦新建成功，就会始终运行，它独立于主线程运行，不会阻塞页面的渲染和用户交互，不会被主线程上的活动（比如用户点击按钮、提交表单）打断。这样有利于随时响应主线程的通信。但是，这也造成了 <code>Worker</code> 比较耗费资源，不应该过度使用，而且一旦使用完毕，就应该关闭。</p>
+<p><code>Web Worker</code> 有以下几个使用注意点。</p>
+<h4 id="（1）同源限制"><a href="#（1）同源限制" class="headerlink" title="（1）同源限制"></a>（1）同源限制</h4><p>分配给 <code>Worker</code> 线程运行的脚本文件，必须与主线程的脚本文件同源。</p>
+<h4 id="（2）DOM-限制"><a href="#（2）DOM-限制" class="headerlink" title="（2）DOM 限制"></a>（2）DOM 限制</h4><p><code>Worker</code> 线程所在的全局对象，与主线程不一样，无法读取主线程所在网页的 <code>DOM</code> 对象，也无法使用<code>document</code>、<code>window</code>、<code>parent</code>这些对象。但是，<code>Worker</code> 线程可以<code>navigator</code>对象和<code>location</code>对象。</p>
+<h4 id="（3）通信联系"><a href="#（3）通信联系" class="headerlink" title="（3）通信联系"></a>（3）通信联系</h4><p><code>Worker</code> 线程和主线程不在同一个上下文环境，它们不能直接通信，必须通过消息完成。<code>(postMessage)</code></p>
+<h4 id="（4）脚本限制"><a href="#（4）脚本限制" class="headerlink" title="（4）脚本限制"></a>（4）脚本限制</h4><p><code>Worker</code> 线程不能执行<code>alert()</code>方法和<code>confirm()</code>方法，但可以使用 <code>XMLHttpRequest</code> 对象发出 AJAX 请求。</p>
+<h4 id="（5）文件限制"><a href="#（5）文件限制" class="headerlink" title="（5）文件限制"></a>（5）文件限制</h4><p><code>Worker</code> 线程无法读取本地文件，即不能打开本机的文件系统<code>（file://）</code>，它所加载的脚本，必须来自网络。</p>
+<h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><h4 id="主线程"><a href="#主线程" class="headerlink" title="主线程"></a>主线程</h4><p>主线程采用<code>new</code>命令，调用<code>Worker()</code>构造函数，新建一个 <code>Worker</code> 线程。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> worker = <span class="keyword">new</span> <span class="title class_">Worker</span>(<span class="string">&#x27;work.js&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p><code>Worker()</code>构造函数的参数是一个脚本文件，该文件就是 <code>Worker</code> 线程所要执行的任务。由于 <code>Worker</code> 不能读取本地文件，所以这个脚本必须来自网络。如果下载没有成功（比如404错误），<code>Worker</code> 就会默默地失败。</p>
+<p>然后，主线程调用<code>worker.postMessage()</code>方法，向 <code>Worker</code> 发消息。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">worker.<span class="title function_">postMessage</span>(<span class="string">&#x27;Hello World&#x27;</span>);</span><br><span class="line">worker.<span class="title function_">postMessage</span>(&#123;<span class="attr">method</span>: <span class="string">&#x27;echo&#x27;</span>, <span class="attr">args</span>: [<span class="string">&#x27;Work&#x27;</span>]&#125;);</span><br><span class="line"><span class="comment">// worker.postMessage() 方法的参数，就是主线程传给 Worker 的数据。它可以是各种数据类型，包括二进制数据。</span></span><br></pre></td></tr></table></figure>
+
+<p>接着，主线程通过<code>worker.onmessage</code>指定监听函数，接收子线程发回来的消息。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">worker.<span class="property">onmessage</span> = <span class="keyword">function</span> (<span class="params">event</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Received message &#x27;</span> + event.<span class="property">data</span>);</span><br><span class="line">  <span class="title function_">doSomething</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">doSomething</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="comment">// 执行任务</span></span><br><span class="line">  worker.<span class="title function_">postMessage</span>(<span class="string">&#x27;Work done!&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面代码中，事件对象的data属性可以获取 <code>Worker</code> 发来的数据。</p>
+<p><code>Worker</code> 完成任务以后，主线程就可以把它关掉。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">worker.<span class="title function_">terminate</span>();</span><br></pre></td></tr></table></figure>
+
+<h4 id="Worker-线程"><a href="#Worker-线程" class="headerlink" title="Worker 线程"></a>Worker 线程</h4><p><code>Worker</code> 线程内部需要有一个监听函数，监听<code>message</code>事件。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">self.<span class="title function_">addEventListener</span>(<span class="string">&#x27;message&#x27;</span>, <span class="keyword">function</span> (<span class="params">e</span>) &#123;</span><br><span class="line">  self.<span class="title function_">postMessage</span>(<span class="string">&#x27;You said: &#x27;</span> + e.<span class="property">data</span>);</span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+
+<p>上面代码中，<code>self</code>代表子线程自身，即子线程的全局对象。因此，等同于下面两种写法。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 写法一</span></span><br><span class="line"><span class="variable language_">this</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;message&#x27;</span>, <span class="keyword">function</span> (<span class="params">e</span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="title function_">postMessage</span>(<span class="string">&#x27;You said: &#x27;</span> + e.<span class="property">data</span>);</span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 写法二</span></span><br><span class="line"><span class="title function_">addEventListener</span>(<span class="string">&#x27;message&#x27;</span>, <span class="keyword">function</span> (<span class="params">e</span>) &#123;</span><br><span class="line">  <span class="title function_">postMessage</span>(<span class="string">&#x27;You said: &#x27;</span> + e.<span class="property">data</span>);</span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+
+<p>除了使用<code>self.addEventListener()</code>指定监听函数，也可以使用<code>self.onmessage</code>指定。监听函数的参数是一个事件对象，它的data属性包含主线程发来的数据。<code>self.postMessage()</code>方法用来向主线程发送消息。</p>
+<p>根据主线程发来的数据，<code>Worker</code> 线程可以调用不同的方法，下面是一个例子。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">self.<span class="title function_">addEventListener</span>(<span class="string">&#x27;message&#x27;</span>, <span class="keyword">function</span> (<span class="params">e</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> data = e.<span class="property">data</span>;</span><br><span class="line">  <span class="keyword">switch</span> (data.<span class="property">cmd</span>) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&#x27;start&#x27;</span>:</span><br><span class="line">      self.<span class="title function_">postMessage</span>(<span class="string">&#x27;WORKER STARTED: &#x27;</span> + data.<span class="property">msg</span>);</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&#x27;stop&#x27;</span>:</span><br><span class="line">      self.<span class="title function_">postMessage</span>(<span class="string">&#x27;WORKER STOPPED: &#x27;</span> + data.<span class="property">msg</span>);</span><br><span class="line">      self.<span class="title function_">close</span>(); <span class="comment">// Terminates the worker.</span></span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="attr">default</span>:</span><br><span class="line">      self.<span class="title function_">postMessage</span>(<span class="string">&#x27;Unknown command: &#x27;</span> + data.<span class="property">msg</span>);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+
+<p>上面代码中，<code>self.close()</code>用于在 <code>Worker</code> 内部关闭自身。</p>
+<h4 id="Worker-加载脚本"><a href="#Worker-加载脚本" class="headerlink" title="Worker 加载脚本"></a>Worker 加载脚本</h4><p><code>Worker</code> 内部如果要加载其他脚本，有一个专门的方法<code>importScripts()</code>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">importScripts(<span class="string">&#x27;script1.js&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>该方法可以同时加载多个脚本。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">importScripts(<span class="string">&#x27;script1.js&#x27;</span>, <span class="string">&#x27;script2.js&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="Worker-错误处理"><a href="#Worker-错误处理" class="headerlink" title="Worker 错误处理"></a>Worker 错误处理</h4><p>主线程可以监听 <code>Worker</code> 是否发生错误。如果发生错误，<code>Worker</code> 会触发主线程的error事件。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">worker.<span class="title function_">onerror</span>(<span class="keyword">function</span> (<span class="params">event</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>([</span><br><span class="line">    <span class="string">&#x27;ERROR: Line &#x27;</span>, e.<span class="property">lineno</span>, <span class="string">&#x27; in &#x27;</span>, e.<span class="property">filename</span>, <span class="string">&#x27;: &#x27;</span>, e.<span class="property">message</span></span><br><span class="line">  ].<span class="title function_">join</span>(<span class="string">&#x27;&#x27;</span>));</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 或者</span></span><br><span class="line">worker.<span class="title function_">addEventListener</span>(<span class="string">&#x27;error&#x27;</span>, <span class="keyword">function</span> (<span class="params">event</span>) &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p><code>Worker</code> 内部也可以监听error事件。</p>
+<h4 id="关闭-Worker"><a href="#关闭-Worker" class="headerlink" title="关闭 Worker"></a>关闭 Worker</h4><p>使用完毕，为了节省系统资源，必须关闭 <code>Worker</code> 。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 主线程</span></span><br><span class="line">worker.<span class="title function_">terminate</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Worker 线程</span></span><br><span class="line">self.<span class="title function_">close</span>();</span><br></pre></td></tr></table></figure>
+
+<h3 id="数据通信"><a href="#数据通信" class="headerlink" title="数据通信"></a>数据通信</h3><p>前面说过，主线程与 <code>Worker</code> 之间的通信内容，可以是文本，也可以是对象。需要注意的是，这种通信是拷贝关系，即是传值而不是传址，<code>Worker</code> 对通信内容的修改，不会影响到主线程。事实上，浏览器内部的运行机制是，先将通信内容串行化，然后把串行化后的字符串发给 <code>Worker</code>，后者再将它还原。</p>
+<p>主线程与 <code>Worker</code> 之间也可以交换二进制数据，比如 <code>File</code>、<code>Blob</code>、<code>ArrayBuffer</code> 等类型，也可以在线程之间发送。下面是一个例子。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 主线程</span></span><br><span class="line"><span class="keyword">var</span> uInt8Array = <span class="keyword">new</span> <span class="title class_">Uint8Array</span>(<span class="keyword">new</span> <span class="title class_">ArrayBuffer</span>(<span class="number">10</span>));</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; uInt8Array.<span class="property">length</span>; ++i) &#123;</span><br><span class="line">  uInt8Array[i] = i * <span class="number">2</span>; <span class="comment">// [0, 2, 4, 6, 8,...]</span></span><br><span class="line">&#125;</span><br><span class="line">worker.<span class="title function_">postMessage</span>(uInt8Array);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Worker 线程</span></span><br><span class="line">self.<span class="property">onmessage</span> = <span class="keyword">function</span> (<span class="params">e</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> uInt8Array = e.<span class="property">data</span>;</span><br><span class="line">  <span class="title function_">postMessage</span>(<span class="string">&#x27;Inside worker.js: uInt8Array.toString() = &#x27;</span> + uInt8Array.<span class="title function_">toString</span>());</span><br><span class="line">  <span class="title function_">postMessage</span>(<span class="string">&#x27;Inside worker.js: uInt8Array.byteLength = &#x27;</span> + uInt8Array.<span class="property">byteLength</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>但是，拷贝方式发送二进制数据，会造成性能问题。比如，主线程向 <code>Worker</code> 发送一个 <code>500MB</code> 文件，默认情况下浏览器会生成一个原文件的拷贝。为了解决这个问题，<code>JavaScript</code> 允许主线程把二进制数据直接转移给子线程，但是一旦转移，主线程就无法再使用这些二进制数据了，这是为了防止出现多个线程同时修改数据的麻烦局面。这种转移数据的方法，叫做<code>Transferable Objects</code>。这使得主线程可以快速把数据交给 <code>Worker</code>，对于影像处理、声音处理、<code>3D</code> 运算等就非常方便了，不会产生性能负担。</p>
+<p>如果要直接转移数据的控制权，就要使用下面的写法。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Transferable Objects 格式</span></span><br><span class="line">worker.<span class="title function_">postMessage</span>(arrayBuffer, [arrayBuffer]);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 例子</span></span><br><span class="line"><span class="keyword">var</span> ab = <span class="keyword">new</span> <span class="title class_">ArrayBuffer</span>(<span class="number">1</span>);</span><br><span class="line">worker.<span class="title function_">postMessage</span>(ab, [ab]);</span><br></pre></td></tr></table></figure>
+
+<h3 id="同页面的-Web-Worker"><a href="#同页面的-Web-Worker" class="headerlink" title="同页面的 Web Worker"></a>同页面的 Web Worker</h3><p>通常情况下，<code>Worker</code> 载入的是一个单独的 <code>JavaScript</code> 脚本文件，但是也可以载入与主线程在同一个网页的代码。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">id</span>=<span class="string">&quot;worker&quot;</span> <span class="attr">type</span>=<span class="string">&quot;app/worker&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">      <span class="title function_">addEventListener</span>(<span class="string">&#x27;message&#x27;</span>, <span class="keyword">function</span> (<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">postMessage</span>(<span class="string">&#x27;some message&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">      &#125;, <span class="literal">false</span>);</span></span><br><span class="line"><span class="language-javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>上面是一段嵌入网页的脚本，注意必须指定<code>&lt;script&gt;</code>标签的type属性是一个浏览器不认识的值，上例是<code>app/worker</code>。</p>
+<p>然后，读取这一段嵌入页面的脚本，用 <code>Worker</code> 来处理。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> blob = <span class="keyword">new</span> <span class="title class_">Blob</span>([<span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;#worker&#x27;</span>).<span class="property">textContent</span>]);</span><br><span class="line"><span class="keyword">var</span> url = <span class="variable language_">window</span>.<span class="property">URL</span>.<span class="title function_">createObjectURL</span>(blob);</span><br><span class="line"><span class="keyword">var</span> worker = <span class="keyword">new</span> <span class="title class_">Worker</span>(url);</span><br><span class="line"></span><br><span class="line">worker.<span class="property">onmessage</span> = <span class="keyword">function</span> (<span class="params">e</span>) &#123;</span><br><span class="line">  <span class="comment">// e.data === &#x27;some message&#x27;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>上面代码中，先将嵌入网页的脚本代码，转成一个二进制对象，然后为这个二进制对象生成 <code>URL</code>，再让 <code>Worker</code> 加载这个 <code>URL</code>。这样就做到了，主线程和 <code>Worker</code> 的代码都在同一个网页上面。</p>
+<h3 id="Worker-线程完成轮询"><a href="#Worker-线程完成轮询" class="headerlink" title="Worker 线程完成轮询"></a>Worker 线程完成轮询</h3><p>有时，浏览器需要轮询服务器状态，以便第一时间得知状态改变。这个工作可以放在 <code>Worker</code> 里面。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">createWorker</span>(<span class="params">f</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> blob = <span class="keyword">new</span> <span class="title class_">Blob</span>([<span class="string">&#x27;(&#x27;</span> + f.<span class="title function_">toString</span>() +<span class="string">&#x27;)()&#x27;</span>]);</span><br><span class="line">  <span class="keyword">var</span> url = <span class="variable language_">window</span>.<span class="property">URL</span>.<span class="title function_">createObjectURL</span>(blob);</span><br><span class="line">  <span class="keyword">var</span> worker = <span class="keyword">new</span> <span class="title class_">Worker</span>(url);</span><br><span class="line">  <span class="keyword">return</span> worker;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> pollingWorker = <span class="title function_">createWorker</span>(<span class="keyword">function</span> (<span class="params">e</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> cache;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">compare</span>(<span class="params"><span class="keyword">new</span>, old</span>) &#123; ... &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">setInterval</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="title function_">fetch</span>(<span class="string">&#x27;/my-api-endpoint&#x27;</span>).<span class="title function_">then</span>(<span class="keyword">function</span> (<span class="params">res</span>) &#123;</span><br><span class="line">      <span class="keyword">var</span> data = res.<span class="title function_">json</span>();</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (!<span class="title function_">compare</span>(data, cache)) &#123;</span><br><span class="line">        cache = data;</span><br><span class="line">        self.<span class="title function_">postMessage</span>(data);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;, <span class="number">1000</span>)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">pollingWorker.<span class="property">onmessage</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="comment">// render data</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">pollingWorker.<span class="title function_">postMessage</span>(<span class="string">&#x27;init&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>上面代码中，<code>Worker</code> 每秒钟轮询一次数据，然后跟缓存做比较。如果不一致，就说明服务端有了新的变化，因此就要通知主线程。</p>
+<h3 id="Worker-新建-Worker"><a href="#Worker-新建-Worker" class="headerlink" title="Worker 新建 Worker"></a>Worker 新建 Worker</h3><p><code>Worker</code> 线程内部还能再新建 <code>Worker</code> 线程（目前只有 <code>Firefox</code> 浏览器支持）。下面的例子是将一个计算密集的任务，分配到10个 <code>Worker</code>。</p>
+<p>主线程代码如下。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> worker = <span class="keyword">new</span> <span class="title class_">Worker</span>(<span class="string">&#x27;worker.js&#x27;</span>);</span><br><span class="line">worker.<span class="property">onmessage</span> = <span class="keyword">function</span> (<span class="params">event</span>) &#123;</span><br><span class="line">  <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;result&#x27;</span>).<span class="property">textContent</span> = event.<span class="property">data</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><code>Worker</code> 线程代码如下:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// worker.js</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// settings</span></span><br><span class="line"><span class="keyword">var</span> num_workers = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">var</span> items_per_worker = <span class="number">1000000</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// start the workers</span></span><br><span class="line"><span class="keyword">var</span> result = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">var</span> pending_workers = num_workers;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; num_workers; i += <span class="number">1</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> worker = <span class="keyword">new</span> <span class="title class_">Worker</span>(<span class="string">&#x27;core.js&#x27;</span>);</span><br><span class="line">  worker.<span class="title function_">postMessage</span>(i * items_per_worker);</span><br><span class="line">  worker.<span class="title function_">postMessage</span>((i + <span class="number">1</span>) * items_per_worker);</span><br><span class="line">  worker.<span class="property">onmessage</span> = storeResult;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// handle the results</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">storeResult</span>(<span class="params">event</span>) &#123;</span><br><span class="line">  result += event.<span class="property">data</span>;</span><br><span class="line">  pending_workers -= <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">if</span> (pending_workers &lt;= <span class="number">0</span>)</span><br><span class="line">    <span class="title function_">postMessage</span>(result); <span class="comment">// finished!</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面代码中，<code>Worker</code> 线程内部新建了10个 <code>Worker</code> 线程，并且依次向这10个 <code>Worker</code> 发送消息，告知了计算的起点和终点。计算任务脚本的代码如下。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// core.js</span></span><br><span class="line"><span class="keyword">var</span> start;</span><br><span class="line">onmessage = getStart;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getStart</span>(<span class="params">event</span>) &#123;</span><br><span class="line">  start = event.<span class="property">data</span>;</span><br><span class="line">  onmessage = getEnd;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> end;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getEnd</span>(<span class="params">event</span>) &#123;</span><br><span class="line">  end = event.<span class="property">data</span>;</span><br><span class="line">  onmessage = <span class="literal">null</span>;</span><br><span class="line">  <span class="title function_">work</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">work</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> result = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = start; i &lt; end; i += <span class="number">1</span>) &#123;</span><br><span class="line">    <span class="comment">// perform some complex calculation here</span></span><br><span class="line">    result += <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="title function_">postMessage</span>(result);</span><br><span class="line">  <span class="title function_">close</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="API"><a href="#API" class="headerlink" title="API"></a>API</h3><h4 id="主线程-1"><a href="#主线程-1" class="headerlink" title="主线程"></a>主线程</h4><p>浏览器原生提供<code>Worker()</code>构造函数，用来供主线程生成 <code>Worker</code> 线程。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myWorker = <span class="keyword">new</span> <span class="title class_">Worker</span>(jsUrl, options);</span><br></pre></td></tr></table></figure>
+
+<p><code>Worker()</code>构造函数，可以接受两个参数。第一个参数是脚本的网址（必须遵守同源政策），该参数是必需的，且只能加载 <code>JS</code> 脚本，否则会报错。第二个参数是配置对象，该对象可选。它的一个作用就是指定 <code>Worker</code> 的名称，用来区分多个 <code>Worker</code> 线程。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 主线程</span></span><br><span class="line"><span class="keyword">var</span> myWorker = <span class="keyword">new</span> <span class="title class_">Worker</span>(<span class="string">&#x27;worker.js&#x27;</span>, &#123; name : <span class="string">&#x27;myWorker&#x27;</span> &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Worker 线程</span></span><br><span class="line">self.<span class="property">name</span> <span class="comment">// myWorker</span></span><br></pre></td></tr></table></figure>
+
+<p><code>Worker()</code>构造函数返回一个 <code>Worker</code> 线程对象，用来供主线程操作 <code>Worker</code>。<code>Worker</code> 线程对象的属性和方法如下。</p>
+<ul>
+<li><strong>Worker.onerror：</strong>指定 <code>error</code> 事件的监听函数。</li>
+<li><strong>Worker.onmessage：</strong>指定 <code>message</code> 事件的监听函数，发送过来的数据在<code>Event.data</code>属性中。</li>
+<li><strong>Worker.onmessageerror：</strong>指定 <code>messageerror</code> 事件的监听函数。发送的数据无法序列化成字符串时，会触发这个事件。</li>
+<li><strong>Worker.postMessage()：</strong>向 <code>Worker</code> 线程发送消息。</li>
+<li><strong>Worker.terminate()：</strong>立即终止 <code>Worker</code> 线程。</li>
+</ul>
+<h4 id="Worker-线程-1"><a href="#Worker-线程-1" class="headerlink" title="Worker 线程"></a>Worker 线程</h4><p><code>Web Worker</code> 有自己的全局对象，不是主线程的<code>window</code>，而是一个专门为 <code>Worker</code> 定制的全局对象。因此定义在<code>window</code>上面的对象和方法不是全部都可以使用。</p>
+<p><code>Worker</code> 线程有一些自己的全局属性和方法。</p>
+<ul>
+<li><strong>self.name：</strong><code>Worker</code> 的名字。该属性只读，由构造函数指定。</li>
+<li><strong>self.onmessage：</strong>指定 <code>message</code> 事件的监听函数。</li>
+<li><strong>self.onmessageerror：</strong>指定 <code>messageerror</code> 事件的监听函数。发送的数据无法序列化成字符串时，会触发这个事件。</li>
+<li><strong>self.close()：</strong>关闭 <code>Worker</code> 线程。</li>
+<li><strong>self.postMessage()：</strong>向产生这个 <code>Worker</code> 线程发送消息。</li>
+<li><strong>self.importScripts()：</strong>加载 <code>JS</code> 脚本。</li>
+</ul>
+<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><p>Web Workers适用于以下场景：</p>
+<ol>
+<li><strong>大量数据处理：</strong>如表格、图表等需要处理大量数据的场景，可以将数据处理任务放在 <code>Web Workers</code> 中执行，避免阻塞主线程。</li>
+<li><strong>复杂计算：</strong>如图像处理、机器学习等需要执行复杂计算的场景，可以利用 <code>Web Workers</code> 实现并行计算，提高性能。</li>
+<li><strong>文件读写：</strong>如读取大文件、处理文件数据等场景，可以使用 <code>Web Workers</code> 在后台进行文件读写操作，避免阻塞主线程。</li>
+</ol>
+<p>总之，<code>Web Workers</code> 为网页开发提供了一种有效的手段来优化性能和用户体验。通过合理利用 <code>Web Workers</code>，我们可以实现真正的并行处理，使网页更加流畅、响应更快。</p>
+<p>来源： <a href="https://www.ruanyifeng.com/blog/2018/07/web-worker.html">https://www.ruanyifeng.com/blog/2018/07/web-worker.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html/" rel="tag">html</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webworker/" rel="tag">webworker</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2022/07/20/webwork-postmessage/" data-id="clunsrifz003lphoq1th0gvdv" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-security-anti-reptile" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2022/04/20/security-anti-reptile/" class="article-date">
+  <time datetime="2022-04-20T10:40:20.000Z" itemprop="datePublished">2022-04-20</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-true">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/04/20/security-anti-reptile/">Web安全之静态内容防爬虫</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="Web安全之静态内容防爬虫"><a href="#Web安全之静态内容防爬虫" class="headerlink" title="Web安全之静态内容防爬虫"></a>Web安全之静态内容防爬虫</h2><p>随着互联网的快速发展，网络安全问题日益突出。对于静态内容网站来说，防止恶意爬取网站内容成为了一项重要的任务。恶意爬取不仅会导致网站内容被盗用，还可能引发一系列安全问题，如数据泄露、恶意攻击等。因此，本文将探讨静态内容网站如何防范恶意爬取，提高网络安全。</p>
+<h3 id="静态内容网站的特点"><a href="#静态内容网站的特点" class="headerlink" title="静态内容网站的特点"></a>静态内容网站的特点</h3><p>静态内容网站主要是指那些网页内容固定不变或变化较少的网站。这类网站通常以 <code>HTML</code> 、 <code>CSS</code> 和 <code>JavaScript</code> 等静态文件形式存在，不依赖后端数据库或复杂的应用程序。由于其结构简单、加载速度快，静态网站在新闻发布、产品展示、个人博客等领域得到广泛应用。</p>
+<h3 id="恶意爬取的威胁"><a href="#恶意爬取的威胁" class="headerlink" title="恶意爬取的威胁"></a>恶意爬取的威胁</h3><p>恶意爬取是指未经授权，通过自动化手段（如爬虫程序）大规模抓取网站内容的行为。这种行为通常具有以下特点：</p>
+<ol>
+<li><strong>大规模：</strong>恶意爬取往往涉及大量的请求，给服务器带来沉重负担。</li>
+<li><strong>未经授权：</strong>爬取行为未经网站所有者许可，违反了版权和隐私政策。</li>
+<li><strong>恶意目的：</strong>恶意爬取可能导致内容被盗用、数据泄露、恶意攻击等后果。</li>
+</ol>
+<h3 id="防恶意爬取策略"><a href="#防恶意爬取策略" class="headerlink" title="防恶意爬取策略"></a>防恶意爬取策略</h3><p>为了防范恶意爬取，静态内容网站可以采取以下措施：</p>
+<h4 id="设置robots-txt文件"><a href="#设置robots-txt文件" class="headerlink" title="设置robots.txt文件"></a>设置robots.txt文件</h4><p><code>robots.txt</code> 文件是一个用于告知搜索引擎爬虫哪些页面可以爬取、哪些页面不能爬取的文本文件。通过设置 <code>robots.txt</code> 文件，可以限制恶意爬虫的访问。</p>
+<p>下面是一个 robots.txt 文件的例子，展示了如何设置一些基本的规则。</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">User-agent: *</span><br><span class="line">Disallow: /</span><br><span class="line"></span><br><span class="line"># 禁止所有爬虫访问网站的所有页面</span><br><span class="line"></span><br><span class="line">User-agent: Googlebot</span><br><span class="line">Disallow:</span><br><span class="line"></span><br><span class="line"># 允许 Googlebot 访问网站的所有页面</span><br><span class="line"></span><br><span class="line">User-agent: Bingbot</span><br><span class="line">Disallow: /private/</span><br><span class="line"></span><br><span class="line"># 禁止 Bingbot 访问 /private/ 目录下的所有页面</span><br><span class="line"></span><br><span class="line">User-agent: Yahoo! Slurp</span><br><span class="line">Disallow: /admin/</span><br><span class="line"></span><br><span class="line"># 禁止 Yahoo! Slurp 访问 /admin/ 目录下的所有页面</span><br><span class="line"></span><br><span class="line">User-agent: *</span><br><span class="line">Disallow: /cgi-bin/</span><br><span class="line"></span><br><span class="line"># 禁止所有其他爬虫访问 /cgi-bin/ 目录下的所有页面</span><br><span class="line"></span><br><span class="line"># 允许特定爬虫访问特定页面</span><br><span class="line">User-agent: SpecificBot</span><br><span class="line">Allow: /special-page/</span><br><span class="line">Disallow: /</span><br><span class="line"></span><br><span class="line"># 对于名为 SpecificBot 的爬虫，只允许访问 /special-page/ 页面，其他页面都不允许访问</span><br></pre></td></tr></table></figure>
+
+<p>在上面的例子中：</p>
+<ul>
+<li><strong>User-agent: *</strong> 表示该规则适用于所有爬虫。</li>
+<li><strong>Disallow: &#x2F;</strong> 表示禁止爬虫访问网站的根目录及其所有子目录和文件。</li>
+<li><strong>Allow: &#x2F;special-page&#x2F;</strong> 表示允许特定爬虫访问 <code>/special-page/</code> 页面。<code>Allow</code> 指令必须在 <code>Disallow</code> 指令之前，否则将无效。</li>
+<li><strong>User-agent: SpecificBot</strong> 表示该规则仅适用于名为 <code>SpecificBot</code> 的爬虫。</li>
+</ul>
+<p>请注意， <code>robots.txt</code> 文件必须放置在网站的根目录下（通常是 <code>http://www.example.com/robots.txt</code>），以便爬虫能够找到它。同时，虽然大多数负责任的爬虫都会遵守 <code>robots.txt</code> 的规则，但并非所有爬虫都会遵守，因此它不能作为一种安全机制来防止数据被爬取。</p>
+<h4 id="使用验证码技术"><a href="#使用验证码技术" class="headerlink" title="使用验证码技术"></a>使用验证码技术</h4><p>对于关键页面或敏感内容，可以引入验证码技术。用户在访问这些页面时需要输入正确的验证码才能继续浏览，从而有效阻止恶意爬虫的访问。</p>
+<p>验证码技术的案例有很多，以下列举几个常见的案例：</p>
+<ol>
+<li><strong>网站注册和登录验证码：</strong>这是最常见的验证码技术案例。用户在注册或登录网站时，系统会显示一组随机生成的字符或图片，并要求用户输入或选择正确的字符或图片来完成验证。这种技术可以有效防止自动化程序恶意攻击网站，如进行暴力破解密码、刷票等行为。</li>
+<li><strong>图片验证码：</strong>图片验证码是一种将随机生成的字符或数字嵌入到图片中，并要求用户识别并输入正确字符或数字的验证码技术。这种技术可以有效防止自动化程序识别并输入验证码，提高网站的安全性。</li>
+<li><strong>滑动验证码：</strong>滑动验证码是一种要求用户通过滑动解锁来完成验证的技术。用户需要按照指定的方向或轨迹滑动滑块，才能完成验证。这种技术可以有效防止自动化程序模拟用户操作，提高网站的安全性。</li>
+<li><strong>音频验证码：</strong>音频验证码是一种将随机生成的字符或数字转换为语音，并要求用户听取并输入正确字符或数字的验证码技术。这种技术适用于视觉障碍用户或无法通过图片验证码验证的情况。</li>
+<li><strong>逻辑验证码：</strong>逻辑验证码是一种要求用户解决一个简单数学问题或逻辑问题来完成验证的技术。例如，系统可能会显示一个加法或减法问题，并要求用户输入正确答案。这种技术可以有效防止自动化程序识别并输入验证码，提高网站的安全性。</li>
+</ol>
+<h4 id="限制访问频率"><a href="#限制访问频率" class="headerlink" title="限制访问频率"></a>限制访问频率</h4><p>通过设置合理的访问频率限制，可以防止恶意爬虫大量请求服务器资源。例如，可以设置每个IP地址在单位时间内的最大请求次数。</p>
+<p>限制访问频率的 <code>Node.js</code> 例子可以使用 <code>Redis</code> 来实现。下面是一个简单的示例代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title class_">Redis</span> = <span class="built_in">require</span>(<span class="string">&#x27;ioredis&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> redis = <span class="keyword">new</span> <span class="title class_">Redis</span>(&#123;</span><br><span class="line">  <span class="attr">port</span>: <span class="number">6379</span>, <span class="comment">// Redis 端口</span></span><br><span class="line">  <span class="attr">host</span>: <span class="string">&#x27;localhost&#x27;</span>, <span class="comment">// Redis 主机地址</span></span><br><span class="line">  <span class="attr">password</span>: <span class="string">&#x27;your_redis_password&#x27;</span>, <span class="comment">// Redis 密码</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">ACCESS_FREQUENCY</span> = <span class="number">5</span>; <span class="comment">// 设定访问频率限制，例如每分钟最多访问 5 次</span></span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">EXPIRE_TIME</span> = <span class="number">60</span>; <span class="comment">// 设定过期时间，例如每分钟过期</span></span><br><span class="line"></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/protected-route&#x27;</span>, <span class="keyword">async</span> (req, res) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> ip = req.<span class="property">ip</span>; <span class="comment">// 获取请求 IP</span></span><br><span class="line">  <span class="keyword">const</span> key = <span class="string">`access-frequency:<span class="subst">$&#123;ip&#125;</span>`</span>; <span class="comment">// 构建 Redis 键名</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> count = <span class="keyword">await</span> redis.<span class="title function_">get</span>(key); <span class="comment">// 获取当前 IP 的访问次数</span></span><br><span class="line">    <span class="keyword">if</span> (count &amp;&amp; <span class="built_in">parseInt</span>(count) &gt;= <span class="variable constant_">ACCESS_FREQUENCY</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> res.<span class="title function_">status</span>(<span class="number">429</span>).<span class="title function_">send</span>(<span class="string">&#x27;Too Many Requests&#x27;</span>); <span class="comment">// 超过访问频率限制，返回 429 状态码</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> newCount = count ? <span class="built_in">parseInt</span>(count) + <span class="number">1</span> : <span class="number">1</span>; <span class="comment">// 更新访问次数</span></span><br><span class="line">    <span class="keyword">await</span> redis.<span class="title function_">set</span>(key, newCount, <span class="string">&#x27;EX&#x27;</span>, <span class="variable constant_">EXPIRE_TIME</span>); <span class="comment">// 设置新的访问次数，并设置过期时间</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 处理正常请求逻辑...</span></span><br><span class="line">    res.<span class="title function_">send</span>(<span class="string">&#x27;Success&#x27;</span>);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;Error:&#x27;</span>, error);</span><br><span class="line">    res.<span class="title function_">status</span>(<span class="number">500</span>).<span class="title function_">send</span>(<span class="string">&#x27;Internal Server Error&#x27;</span>); <span class="comment">// 发生错误时返回 500 状态码</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，我们使用 <code>Redis</code> 来存储每个 <code>IP</code> 的访问次数，并设定了一个访问频率限制（例如每分钟最多访问 <code>5</code> 次）。当一个请求到达时，我们首先获取当前 <code>IP</code> 的访问次数，如果超过了限制，则返回 <code>429</code> 状态码表示请求过多。否则，我们更新访问次数，并设置过期时间，以便在下一分钟内重置访问次数。最后，我们处理正常的请求逻辑并返回成功响应。</p>
+<p>请注意，这只是一个简单的示例代码，实际应用中可能需要更多的逻辑和安全性考虑，例如使用分布式锁来防止并发访问问题，以及使用更复杂的算法来计算访问频率等。</p>
+<h4 id="数据混淆"><a href="#数据混淆" class="headerlink" title="数据混淆"></a>数据混淆</h4><p>数据混淆是指通过改变数据的表示方式或结构，使得爬虫无法直接解析出真实数据的方法。</p>
+<p>假设你有一个包含敏感信息的API接口，返回的数据是JSON格式的。为了防止爬虫直接获取到这些数据，你可以对返回的数据进行混淆处理。</p>
+<p>原始数据:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;张三&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;age&quot;</span><span class="punctuation">:</span> <span class="number">30</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;email&quot;</span><span class="punctuation">:</span> <span class="string">&quot;zhangsan@example.com&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>混淆后的数据:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;n1&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Z3Nj&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;a2&quot;</span><span class="punctuation">:</span> <span class="string">&quot;MzAi&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;e3&quot;</span><span class="punctuation">:</span> <span class="string">&quot;emFuc2FuQGV4YW1wbGUuY29t&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，你可以使用一种简单的混淆算法（如Base64编码）对原始数据进行编码，然后在前端使用相应的解码算法进行解码，以显示真实的数据。这样，爬虫获取到的只是混淆后的数据，无法直接解析出真实的信息。</p>
+<h4 id="加密传输"><a href="#加密传输" class="headerlink" title="加密传输"></a>加密传输</h4><p>使用HTTPS协议对网站内容进行加密传输，可以防止恶意爬虫在传输过程中窃取数据。此外，HTTPS协议还能提高网站的安全性，保护用户隐私。</p>
+<h4 id="使用反爬虫技术"><a href="#使用反爬虫技术" class="headerlink" title="使用反爬虫技术"></a>使用反爬虫技术</h4><p>反爬虫技术是一种主动防御手段，通过识别并阻止恶意爬虫的访问。例如，可以通过分析请求头、请求频率、用户代理等信息来判断是否为恶意爬虫，并采取相应的防御措施。</p>
+<p>下面是一个简单的 <code>express</code> 示例代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">express</span>();</span><br><span class="line"><span class="keyword">const</span> rateLimit = <span class="built_in">require</span>(<span class="string">&#x27;express-rate-limit&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置访问频率限制</span></span><br><span class="line"><span class="keyword">const</span> limiter = <span class="title function_">rateLimit</span>(&#123;</span><br><span class="line">    <span class="attr">windowMs</span>: <span class="number">15</span> * <span class="number">60</span> * <span class="number">1000</span>, <span class="comment">// 15分钟</span></span><br><span class="line">    <span class="attr">max</span>: <span class="number">100</span>, <span class="comment">// 在时间窗口内的最大请求数</span></span><br><span class="line">    <span class="attr">message</span>: <span class="string">&#x27;Too many requests from this IP, please try again later.&#x27;</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">use</span>(<span class="string">&#x27;/protected-route&#x27;</span>, limiter);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/protected-route&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> userAgent = req.<span class="property">headers</span>[<span class="string">&#x27;user-agent&#x27;</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 检查User-Agent是否像是浏览器的</span></span><br><span class="line">    <span class="keyword">if</span> (!userAgent || !userAgent.<span class="title function_">includes</span>(<span class="string">&#x27;Mozilla&#x27;</span>)) &#123;</span><br><span class="line">        <span class="keyword">return</span> res.<span class="title function_">status</span>(<span class="number">403</span>).<span class="title function_">send</span>(<span class="string">&#x27;Forbidden&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 假设这是从数据库或API获取敏感数据的函数</span></span><br><span class="line">    <span class="title function_">fetchSensitiveData</span>().<span class="title function_">then</span>(<span class="function"><span class="params">data</span> =&gt;</span> &#123;</span><br><span class="line">        res.<span class="title function_">send</span>(data);</span><br><span class="line">    &#125;).<span class="title function_">catch</span>(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">error</span>(err);</span><br><span class="line">        res.<span class="title function_">status</span>(<span class="number">500</span>).<span class="title function_">send</span>(<span class="string">&#x27;Internal Server Error&#x27;</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">listen</span>(<span class="number">3000</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Server is running on port 3000&#x27;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">fetchSensitiveData</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 这里模拟从数据库或API获取数据的过程</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">            <span class="title function_">resolve</span>(&#123; <span class="attr">sensitiveInformation</span>: <span class="string">&#x27;This is sensitive data&#x27;</span> &#125;);</span><br><span class="line">        &#125;, <span class="number">1000</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，我们使用了 <code>express-rate-limit</code> 中间件来限制来自同一 <code>IP</code> 的请求频率，并检查了 <code>User-Agent</code> 头来识别非浏览器请求。</p>
+<h4 id="定期更新内容"><a href="#定期更新内容" class="headerlink" title="定期更新内容"></a>定期更新内容</h4><p>定期更新网站内容可以降低恶意爬虫的兴趣。同时，通过不断更新网站结构和内容，可以增加恶意爬虫爬取的难度。</p>
+<h4 id="建立安全监测机制"><a href="#建立安全监测机制" class="headerlink" title="建立安全监测机制"></a>建立安全监测机制</h4><p>建立安全监测机制，及时发现并应对恶意爬取行为。通过监控网站访问日志、流量异常等信息，可以及时发现恶意爬虫并采取相应的措施。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>网络安全是互联网发展的基石，而静态内容网站的防爬虫工作是其中的重要一环。防范恶意爬取对于静态内容网站来说至关重要。通过了解恶意爬取的特点和采取相应的防范措施，可以有效提高网站的安全性，维护网站所有者的权益，同时提升用户体验。同时，网站所有者还应持续关注网络安全动态，不断更新和完善防范措施，确保网站内容的安全与稳定。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/" rel="tag">network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/reptile/" rel="tag">reptile</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/security/" rel="tag">security</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2022/04/20/security-anti-reptile/" data-id="clunsrif7000mphoqaw9f32el" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-security-sql-injection" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2021/09/26/security-sql-injection/" class="article-date">
+  <time datetime="2021-09-26T18:20:26.000Z" itemprop="datePublished">2021-09-26</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-true">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/09/26/security-sql-injection/">Web安全之 SQL 注入</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="Web安全之-SQL-注入"><a href="#Web安全之-SQL-注入" class="headerlink" title="Web安全之 SQL 注入"></a>Web安全之 SQL 注入</h2><p>随着互联网的快速发展，网络安全问题日益受到人们的关注。 <code>SQL</code> 注入是一种常见的网络安全攻击方式，严重威胁着数据库的安全。本文将从 <code>SQL</code> 注入的概念、原理、危害以及防范措施等方面，对网络安全中的 <code>SQL</code> 注入进行深入探讨。</p>
+<h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p><code>SQL</code> 注入（<code>SQL Injection</code>）是指攻击者在用户输入的数据中注入恶意的 <code>SQL</code> 语句，从而在未经授权的情况下实现对数据库的非法操作。当应用程序没有对用户输入的数据进行有效的验证和过滤时，攻击者可以利用这一漏洞，篡改原始的 <code>SQL</code> 语句，进而窃取、篡改或删除数据库中的数据。</p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p><code>SQL</code> 注入的原理主要基于应用程序对用户输入数据的处理不当。攻击者通过在用户输入的数据中插入恶意的 <code>SQL</code> 语句，使得应用程序在构建 <code>SQL</code> 查询时，将恶意语句作为查询的一部分发送给数据库执行。这样，攻击者就可以绕过应用程序的验证，直接对数据库进行操作。</p>
+<h3 id="危害"><a href="#危害" class="headerlink" title="危害"></a>危害</h3><ol>
+<li><strong>数据泄露：</strong>攻击者可以通过 <code>SQL</code> 注入获取数据库中的敏感信息，如用户密码、身份信息、银行账户等，从而导致数据泄露和用户隐私泄露。</li>
+<li><strong>数据篡改：</strong>攻击者可以利用 <code>SQL</code> 注入修改数据库中的数据，破坏数据的完整性和准确性。</li>
+<li><strong>数据删除：</strong>攻击者可以通过 <code>SQL</code> 注入删除数据库中的数据，导致数据丢失和业务受损。</li>
+<li><strong>服务器被控制：</strong>攻击者还可以通过 <code>SQL</code> 注入获取数据库的完全控制权限，进一步对服务器进行攻击和控制。</li>
+</ol>
+<h3 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h3><p>下面是一个简单的 <code>Node.js</code> 和 <code>Express</code> 框架中的 <code>SQL</code> 注入案例：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> mysql = <span class="built_in">require</span>(<span class="string">&#x27;mysql&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">express</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建数据库连接</span></span><br><span class="line"><span class="keyword">const</span> connection = mysql.<span class="title function_">createConnection</span>(&#123;</span><br><span class="line">  <span class="attr">host</span>: <span class="string">&#x27;localhost&#x27;</span>,</span><br><span class="line">  <span class="attr">user</span>: <span class="string">&#x27;root&#x27;</span>,</span><br><span class="line">  <span class="attr">password</span>: <span class="string">&#x27;password&#x27;</span>,</span><br><span class="line">  <span class="attr">database</span>: <span class="string">&#x27;test&#x27;</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">connection.<span class="title function_">connect</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义一个简单的路由处理函数，存在 SQL 注入漏洞</span></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/users&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> username = req.<span class="property">query</span>.<span class="property">username</span>; <span class="comment">// 从查询字符串获取用户名</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 直接将用户名插入 SQL 查询中，没有进行任何过滤或转义</span></span><br><span class="line">  <span class="keyword">const</span> query = <span class="string">`SELECT * FROM users WHERE username = &#x27;<span class="subst">$&#123;username&#125;</span>&#x27;`</span>;</span><br><span class="line"></span><br><span class="line">  connection.<span class="title function_">query</span>(query, <span class="function">(<span class="params">error, results, fields</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (error) <span class="keyword">throw</span> error;</span><br><span class="line">    res.<span class="title function_">send</span>(results);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">listen</span>(<span class="number">3000</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;App listening on port 3000&#x27;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>在上述代码中，我们定义了一个简单的 <code>Express</code> 应用，它监听 <code>/users</code> 路由，并从查询字符串中获取 <code>username</code> 参数。然后，我们直接将 <code>username</code> 插入 <code>SQL</code> 查询语句中。由于没有对 <code>username</code> 进行任何形式的过滤或转义，攻击者可以通过在查询字符串中插入恶意的 <code>SQL</code> 代码来操纵查询结果，甚至执行任意的 <code>SQL</code> 语句。</p>
+<p>例如，攻击者可以通过以下 <code>URL</code> 尝试注入攻击：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:3000/users?username=&#x27;; DROP TABLE users; --</span><br></pre></td></tr></table></figure>
+
+<p>这个 <code>URL</code> 会导致 <code>SQL</code> 查询变成：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> users <span class="keyword">WHERE</span> username <span class="operator">=</span> <span class="string">&#x27;&#x27;</span>; <span class="keyword">DROP</span> <span class="keyword">TABLE</span> users; <span class="comment">--&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>如果应用执行了这条查询，它会删除 <code>users</code> 表中的所有数据。</p>
+<h3 id="防范措施"><a href="#防范措施" class="headerlink" title="防范措施"></a>防范措施</h3><p>为了防止 <code>SQL</code> 注入攻击，你应该：</p>
+<h4 id="使用参数化查询"><a href="#使用参数化查询" class="headerlink" title="使用参数化查询"></a>使用参数化查询</h4><p>参数化查询可以确保用户输入被当作数据而不是 <code>SQL</code> 代码来处理。在 <code>Node.js</code> 中，可以使用像 <code>mysql</code> 包中的 <code>query</code> 方法的参数化版本，或者使用 <code>ORM</code>（对象关系映射）库如 <code>Sequelize</code> 或者 <code>TypeORM</code>。</p>
+<p>在上述的 <code>Node.js</code> 例子中，你可以使用 <code>mysql</code> 包来执行参数化查询。以下是一个使用 <code>mysql</code> 包和参数化查询来预防 <code>SQL</code> 注入的示例：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/users&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> username = req.<span class="property">query</span>.<span class="property">username</span>; <span class="comment">// 从查询字符串获取用户名</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 构建 SQL 语句</span></span><br><span class="line">  <span class="keyword">const</span> query = <span class="string">`SELECT * FROM users WHERE username = &#x27;?&#x27;`</span>;</span><br><span class="line"></span><br><span class="line">  connection.<span class="title function_">query</span>(query, [username], <span class="function">(<span class="params">error, results, fields</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (error) <span class="keyword">throw</span> error;</span><br><span class="line">    res.<span class="title function_">send</span>(results);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，<code>? </code>是一个参数占位符，代表我们要查询的 <code>username</code>。我们将 <code>username</code> 作为数组 <code>[username]</code> 的元素传递给 <code>query</code> 方法的第二个参数。这样，<code>MySQL</code> 驱动程序就会知道 <code>?</code> 应该被 <code>username</code> 的值替换。</p>
+<p>由于参数化查询确保了用户输入被当作数据处理，而不是作为 <code>SQL</code> 代码的一部分，因此即使 <code>username</code> 包含恶意的 <code>SQL</code> 代码，它也不会被执行。这是预防 <code>SQL</code> 注入攻击的一种有效方式。</p>
+<h4 id="使用预编译语句"><a href="#使用预编译语句" class="headerlink" title="使用预编译语句"></a>使用预编译语句</h4><p>预编译语句是一种将 <code>SQL</code> 语句和参数分开处理的方式，数据库管理系统会对 <code>SQL</code> 语句进行解析、优化和编译，然后存储起来。每次执行时，只需传递参数，避免了 <code>SQL</code> 注入的风险。</p>
+<p>在上述的 <code>Node.js</code> 例子中，你可以使用 <code>mysql</code> 包来执行预编译语句。以下是一个使用 <code>mysql</code> 包和预编译语句来预防 <code>SQL</code> 注入的示例：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/users&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> username = req.<span class="property">query</span>.<span class="property">username</span>; <span class="comment">// 从查询字符串获取用户名</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 准备预编译语句</span></span><br><span class="line">  <span class="keyword">const</span> prepareQuery = <span class="string">`PREPARE stmt FROM &quot;SELECT * FROM users WHERE username = &#x27;?&#x27;&quot;`</span>;</span><br><span class="line">  connection.<span class="title function_">query</span>(prepareQuery, <span class="function">(<span class="params">error, results, fields</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (error) <span class="keyword">throw</span> error;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置参数并执行预编译语句</span></span><br><span class="line">    <span class="keyword">const</span> executeQuery = <span class="string">&#x27;EXECUTE stmt USING ?&#x27;</span>;</span><br><span class="line">    connection.<span class="title function_">query</span>(executeQuery, [username], <span class="function">(<span class="params">error, results, fields</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (error) <span class="keyword">throw</span> error;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(results);</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 释放预编译语句</span></span><br><span class="line">      connection.<span class="title function_">query</span>(<span class="string">&#x27;DEALLOCATE PREPARE stmt&#x27;</span>, <span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (error) <span class="keyword">throw</span> error;</span><br><span class="line">        connection.<span class="title function_">end</span>();</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在这个预编译语句的例子中，我们首先准备一个预编译语句，其中包含一个占位符 <code>?</code>。然后，我们使用 <code>PREPARE</code> 语句将其发送到数据库进行编译。之后，我们使用 <code>EXECUTE</code> 语句并传递参数 <code>[username]</code> 来执行预编译的语句。最后，我们使用 <code>DEALLOCATE PREPARE</code> 语句释放预编译语句的资源。</p>
+<p>使用预编译语句的好处是，即使参数中包含恶意的 <code>SQL</code> 代码，它也不会被数据库执行。这是因为预编译语句将参数和 <code>SQL</code> 语句分开处理，数据库只会执行预编译的 <code>SQL</code> 语句，并将参数作为数据来处理。</p>
+<h4 id="转义用户输入"><a href="#转义用户输入" class="headerlink" title="转义用户输入"></a>转义用户输入</h4><p>转义用户输入是另一种防止 <code>SQL</code> 注入攻击的方法。转义用户输入意味着将用户提供的值中的特殊字符（如单引号、双引号等）替换为它们的转义版本，这样在 <code>SQL</code> 语句中它们就会被当作普通文本处理，而不是 <code>SQL</code> 代码的一部分。</p>
+<p>虽然参数化查询是首选的方法，因为它提供了更高级别的安全性，但在某些情况下，你可能需要手动转义用户输入。在 <code>Node.js</code> 中，你可以使用 <code>MySQL</code> 驱动程序的 <code>escape</code> 方法来转义用户输入。</p>
+<p>以下是一个使用 <code>Node.js</code> 和 <code>mysql</code> 驱动程序手动转义用户输入的例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/users&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 从查询字符串获取用户名</span></span><br><span class="line">  <span class="keyword">const</span> username = req.<span class="property">query</span>.<span class="property">username</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 使用 escape 方法转义用户输入</span></span><br><span class="line">  <span class="keyword">const</span> safeUsername = mysql.<span class="built_in">escape</span>(username);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 构建 SQL 语句</span></span><br><span class="line">  <span class="keyword">const</span> query = <span class="string">`SELECT * FROM users WHERE username = &#x27;<span class="subst">$&#123;safeUsername&#125;</span>&#x27;`</span>;</span><br><span class="line"></span><br><span class="line">  connection.<span class="title function_">query</span>(query, <span class="function">(<span class="params">error, results, fields</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (error) <span class="keyword">throw</span> error;</span><br><span class="line">    res.<span class="title function_">send</span>(results);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，我们使用了 <code>mysql.escape</code> 方法来转义 <code>username</code> 中的特殊字符。这样，即使 <code>username</code> 包含特殊字符，它也不会被误解为 <code>SQL</code> 语句的一部分。</p>
+<p>然而，尽管手动转义用户输入可以提供一定程度的保护，但它仍然不是最安全的做法。原因之一是它可能会导致程序逻辑变得复杂且容易出错，尤其是在构建复杂的 <code>SQL</code> 语句时。因此，推荐使用参数化查询或预编译语句，因为它们提供了更强的安全性保证，并且更容易正确使用。</p>
+<h4 id="最小权限原则"><a href="#最小权限原则" class="headerlink" title="最小权限原则"></a>最小权限原则</h4><p>确保数据库账户只有执行必要操作的最小权限。例如，如果应用程序只需要从数据库中读取数据，那么就不应该赋予它写入权限。</p>
+<p>在 <code>MySQL</code> 中设置只读权限，你需要登录到MySQL数据库，然后为用户创建一个新的角色并授予只读权限。你可以使用GRANT语句来实现这一点。具体如下所示:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 登录到MySQL</span></span><br><span class="line">mysql <span class="operator">-</span>u root <span class="operator">-</span>p</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 创建新角色</span></span><br><span class="line"><span class="keyword">CREATE</span> ROLE <span class="string">&#x27;readonlyuser&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 授予只读权限</span></span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">SELECT</span> <span class="keyword">ON</span> your_database.<span class="operator">*</span> <span class="keyword">TO</span> <span class="string">&#x27;readonlyuser&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 刷新权限</span></span><br><span class="line">FLUSH PRIVILEGES;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 退出MySQL</span></span><br><span class="line">EXIT;</span><br></pre></td></tr></table></figure>
+
+<p>在上面的例子中，<code>your_database</code> 是你想要让用户具有只读权限的数据库名。<code>&#39;readonlyuser&#39;@&#39;localhost&#39;</code> 表示用户名为 <code>readonlyuser</code> ，并且该用户只能从本地主机连接到数据库。如果你希望用户可以从任何主机连接，你可以将 <code>localhost</code> 替换为 <code>&#39;%&#39;</code>。</p>
+<h4 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h4><p>不要将详细的数据库错误信息直接返回给用户。这可以防止攻击者利用这些信息进行更复杂的攻击。</p>
+<h4 id="安全审计和测试"><a href="#安全审计和测试" class="headerlink" title="安全审计和测试"></a>安全审计和测试</h4><p>使用工具如 <code>SQLMap</code>、<code>OWASP Zap</code> 等进行安全审计和测试，确保应用程序不会受到 <code>SQL</code> 注入攻击。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>总之， <code>SQL</code> 注入是一种常见的网络安全攻击方式，对数据库的安全构成严重威胁。为了防范 <code>SQL</code> 注入攻击，我们需要加强用户输入验证、使用参数化查询、存储过程等安全措施，并定期更新和修补数据库管理系统和应用程序。只有这样，我们才能确保数据库的安全，保护用户的数据隐私和业务安全。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/" rel="tag">network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/security/" rel="tag">security</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sql/" rel="tag">sql</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2021/09/26/security-sql-injection/" data-id="clunsrif8000pphoqgxa662ep" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-security-x-content-types-options" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2021/03/12/security-x-content-types-options/" class="article-date">
+  <time datetime="2021-03-12T09:09:12.000Z" itemprop="datePublished">2021-03-12</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-true">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/12/security-x-content-types-options/">Web安全之使用 X-Content-Type-Options 首部字段</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="Web安全之使用-X-Content-Type-Options-首部字段"><a href="#Web安全之使用-X-Content-Type-Options-首部字段" class="headerlink" title="Web安全之使用 X-Content-Type-Options 首部字段"></a>Web安全之使用 X-Content-Type-Options 首部字段</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p><code>X-Content-Type-Options</code> 是一个 <code>HTTP</code> 响应头，用于防止浏览器对响应内容的 <code>MIME</code> 类型进行嗅探或猜测。当设置为 <code>nosniff</code> 时，它告诉浏览器应该严格按照响应头中 <code>Content-Type</code> 字段所指定的类型来处理资源，而不应该根据文件扩展名、文件内容或其他因素来尝试重新确定资源的类型。</p>
+<h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><p>使用 <code>X-Content-Type-Options</code> 可以提高网站的安全性，因为它可以防止某些类型的攻击，例如 <code>MIME</code> 类型混淆攻击。这种攻击通常涉及将恶意内容伪装成合法的资源类型（如 <code>JavaScript</code> 文件），然后利用浏览器对 <code>MIME</code> 类型的错误处理来执行恶意代码，能够有效的预防 <code>XSS</code> 攻击。</p>
+<h3 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h3><p>要在你的 <code>web</code> 服务器上设置 <code>X-Content-Type-Options</code> 响应头，你需要根据你的服务器软件（如 <code>Apache、Nginx、IIS</code> 等）进行配置。下面是一些常见的服务器配置示例：</p>
+<h4 id="Apache"><a href="#Apache" class="headerlink" title="Apache"></a>Apache</h4><p>在 Apache 中，你可以使用 mod_headers 模块来设置响应头。在你的网站配置文件中添加以下行：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Header</span> set X-Content-Type-Options <span class="string">&quot;nosniff&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h4><p>在 Nginx 中，你可以在 http、server 或 location 块中添加 add_header 指令来设置响应头：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">add_header</span> X-Content-Type-Options <span class="string">&quot;nosniff&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="IIS"><a href="#IIS" class="headerlink" title="IIS"></a>IIS</h4><p>在 IIS 中，你可以使用 web.config 文件来设置响应头。在 &lt;system.webServer&gt; 部分添加以下配置：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">httpProtocol</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">customHeaders</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">add</span> <span class="attr">name</span>=<span class="string">&quot;X-Content-Type-Options&quot;</span> <span class="attr">value</span>=<span class="string">&quot;nosniff&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">customHeaders</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">httpProtocol</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Node-js-使用-Express"><a href="#Node-js-使用-Express" class="headerlink" title="Node.js (使用 Express)"></a>Node.js (使用 Express)</h4><p>如果你使用 <code>Node.js</code> 和 <code>Express</code> 框架，你可以在应用程序中添加中间件来设置响应头：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">use</span>(<span class="function">(<span class="params">req, res, next</span>) =&gt;</span> &#123;</span><br><span class="line">  res.<span class="title function_">setHeader</span>(<span class="string">&#x27;X-Content-Type-Options&#x27;</span>, <span class="string">&#x27;nosniff&#x27;</span>);</span><br><span class="line">  <span class="title function_">next</span>();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>请确保你的服务器配置正确，并且 <code>X-Content-Type-Options</code> 头部已正确设置。这样，浏览器在接收响应时就会遵守该头部的指示，从而提高应用程序的安全性。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/" rel="tag">network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/security/" rel="tag">security</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2021/03/12/security-x-content-types-options/" data-id="clunsrif9000rphoqeobydqs3" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-security-csrf" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2020/12/27/security-csrf/" class="article-date">
+  <time datetime="2020-12-27T10:40:20.000Z" itemprop="datePublished">2020-12-27</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-true">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/27/security-csrf/">Web安全之 CSRF 攻击</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="Web安全之-CSRF-攻击"><a href="#Web安全之-CSRF-攻击" class="headerlink" title="Web安全之 CSRF 攻击"></a>Web安全之 CSRF 攻击</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p><code>CSRF</code>是跨站请求伪造（<code>Cross-Site Request Forgery</code>）的缩写。跨站请求伪造是一种网络攻击方式，攻击者利用已登录的用户在浏览器中存储的合法会话信息，伪造用户发出的请求，以达到欺骗服务器的目的。这种攻击方式并不涉及窃取用户的会话信息，而是利用会话信息。攻击者通常会在用户毫不知情的情况下，在用户的浏览器上执行恶意操作，如更改密码、发布信息、购买商品等。</p>
+<h3 id="攻击原理"><a href="#攻击原理" class="headerlink" title="攻击原理"></a>攻击原理</h3><p><code>CSRF</code>的攻击原理基于Web的隐式身份验证机制。在用户访问Web应用时，浏览器会自动携带用户的会话凭证（如<code>Cookie</code>），以便服务器能够识别用户的身份。攻击者通过构造一个恶意网站或链接，诱使用户访问该网站或点击链接，从而触发一个针对目标网站的伪造请求。由于浏览器会自动携带用户的会话凭证，目标网站无法区分正常请求和伪造请求，因此会执行伪造请求中的操作。</p>
+<h3 id="攻击目标"><a href="#攻击目标" class="headerlink" title="攻击目标"></a>攻击目标</h3><p><code>CSRF</code>的攻击目标主要是需要用户身份认证的操作，如修改用户信息、更改密码、发表评论、进行转账等。攻击者希望利用用户的身份执行这些操作，以达到窃取数据、篡改内容、转移资金等目的。</p>
+<h3 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h3><ol>
+<li>受害者登录 a.com，并保留了登录凭证（Cookie）</li>
+<li>攻击者引诱受害者访问了b.com</li>
+<li>b.com 向 a.com 发送了一个请求：a.com&#x2F;act&#x3D;xx浏览器会默认携带a.com的Cookie</li>
+<li>a.com接收到请求后，对请求进行验证，并确认是受害者的凭证，误以为是受害者自己发送的请求</li>
+<li>a.com以受害者的名义执行了act&#x3D;xx</li>
+<li>攻击完成，攻击者在受害者不知情的情况下，冒充受害者，让a.com执行了自己定义的操作</li>
+</ol>
+<p>例如: 攻击者构造一个伪造的银行转账请求，诱导受害者点击后，该请求会携带受害者的cookie信息，并向正常站点发起请求，从而完成非法转账。或者攻击者设置了一个自动转发邮件的规则，使得受害者的所有邮件都被自动转发到攻击者的邮箱中。</p>
+<h3 id="预防方案"><a href="#预防方案" class="headerlink" title="预防方案"></a>预防方案</h3><p><code>CSRF</code>通常从第三方网站发起，被攻击的网站无法防止攻击发生，只能通过增强自己网站针对CSRF的防护能力来提升安全性。</p>
+<ol>
+<li><p><code>同源检测</code>：通过 <code>Header</code> 中的 <code>Origin Header</code> 、<code>Referrer Header</code> 确定，但不同浏览器可能会有不一样的实现，不能完全保证</p>
+</li>
+<li><p><code>CSRF Token 校验</code>：将 <code>CSRF Token</code>输出到页面中（通常保存在 <code>Session</code> 中），页面提交的请求携带这个 <code>Token</code> ，服务器验证 <code>Token</code> 是否正确</p>
+</li>
+<li><p><code>双重cookie验证</code>：</p>
+<ul>
+<li>流程：<ul>
+<li>步骤1：在用户访问网站页面时，向请求域名注入一个<code>Cookie</code>，内容为随机字符串（例如<code>csrfcookie=v8g9e4ksfhw</code>）</li>
+<li>步骤2：在前端向后端发起请求时，取出<code>Cookie</code>，并添加到<code>URL</code>的参数中（接上例POST <code>https://www.a.com/comment?csrfcookie=v8g9e4ksfhw</code>）</li>
+<li>步骤3：后端接口验证<code>Cookie</code>中的字段与<code>URL</code>参数中的字段是否一致，不一致则拒绝。</li>
+</ul>
+</li>
+<li>优点：<ul>
+<li>无需使用<code>Session</code>，适用面更广，易于实施。</li>
+<li><code>Token</code>储存于客户端中，不会给服务器带来压力。</li>
+<li>相对于<code>Token</code>，实施成本更低，可以在前后端统一拦截校验，而不需要一个个接口和页面添加。</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li><code>Cookie</code>中增加了额外的字段。</li>
+<li>如果有其他漏洞（例如<code>XSS</code>），攻击者可以注入<code>Cookie</code>，那么该防御方式失效。</li>
+<li>难以做到子域名的隔离。</li>
+<li>为了确保<code>Cookie</code>传输安全，采用这种防御方式的最好确保用整站HTTPS的方式，如果还没切HTTPS的使用这种方式也会有风险。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code>SameSite Cookie属性</code>：<code>Cookie</code>的<code>SameSite</code>属性是一种安全策略，用于限制第三方网站获取<code>Cookie</code>的能力，从而增强网站的安全性。<code>SameSite</code>属性可以设置三个值，分别是：</p>
+<ul>
+<li><code>Strict</code>：完全禁止第三方获取<code>Cookie</code>，只有在当前网页的<code>URL</code>与请求目标一致时，才会带上<code>Cookie</code>。这种设置可能会对用户体验造成一定的影响，例如，在跳转到其他网站时，可能会因为未携带<code>Cookie</code>而导致登录状态丢失。</li>
+<li><code>Lax</code>：比<code>Strict</code>宽松一些，允许在跨站使用<code>GET</code>请求时携带<code>Cookie</code>。例如，在通过链接进行页面跳转时，会带上<code>Cookie</code>，但在通过表单提交数据时，不会带上<code>Cookie</code>。</li>
+<li><code>None</code>：允许在任何情况下都携带<code>Cookie</code>。但是，为了安全起见，当设置为None时，必须同时设置<code>Secure</code>属性，即<code>Cookie</code>只能通过<code>HTTPS</code>协议发送，否则设置将无效。</li>
+</ul>
+</li>
+<li><p>验证码：在关键操作或敏感操作前，要求用户输入验证码。这样即使攻击者能够构造伪造请求，也无法自动执行操作，因为需要用户手动输入验证码。</p>
+</li>
+</ol>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>CSRF是一种严重的网络威胁，对于需要用户身份认证的操作尤其危险。为了保障用户数据的安全性和隐私保护，开发人员在设计和开发网络应用时，应该充分考虑CSRF攻击的防御措施，并采取多种手段提高系统的安全性。同时，用户也应该保持警惕，避免点击不明来源的链接或访问可疑网站，以防止CSRF攻击的发生。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/csrf/" rel="tag">csrf</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/" rel="tag">network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/security/" rel="tag">security</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2020/12/27/security-csrf/" data-id="clunsrif8000ophoqd7sk1pd8" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-security-xss" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2020/06/12/security-xss/" class="article-date">
+  <time datetime="2020-06-12T10:10:20.000Z" itemprop="datePublished">2020-06-12</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-true">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/12/security-xss/">Web安全之 XSS 攻击</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Web安全之-XSS-攻击"><a href="#Web安全之-XSS-攻击" class="headerlink" title="Web安全之 XSS 攻击"></a>Web安全之 XSS 攻击</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p><strong>XSS，全称跨站脚本攻击（Cross-Site Scripting）</strong>，是一种网络安全漏洞攻击，指攻击者在网页中嵌入恶意脚本，当其他用户浏览该网页时，恶意脚本就会在其浏览器上执行，从而达到攻击者窃取用户信息、破坏数据、篡改网页内容、在用户浏览器上执行非法任务等目的。</p>
+<h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><p><code>XSS</code>攻击分为三种类型：</p>
+<ul>
+<li><p><strong>反射型XSS（Reflected XSS）</strong>：攻击者将恶意脚本嵌入到URL地址中，当其他用户访问这个URL时，恶意脚本就会在其浏览器中执行。这种攻击方式需要用户主动点击含有恶意脚本的链接才会触发。</p>
+</li>
+<li><p><strong>存储型XSS（Stored XSS）</strong>：攻击者将恶意脚本存储到被攻击的网站数据库中，当其他用户访问网站时，恶意脚本会从数据库中取出并在用户浏览器中执行。这种攻击方式不需要用户主动点击链接，只要用户浏览被攻击的网站就可能被攻击。</p>
+</li>
+<li><p><strong>DOM型XSS（DOM-based XSS）</strong>：攻击者通过修改页面的DOM结构，注入恶意脚本，当其他用户浏览该页面时，恶意脚本会在用户浏览器中执行。这种攻击方式也不需要用户主动点击链接，只需要用户浏览被修改的页面就可能被攻击。</p>
+</li>
+</ul>
+<h3 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h3><h4 id="反射型XSS"><a href="#反射型XSS" class="headerlink" title="反射型XSS"></a>反射型XSS</h4><p>在<code>Node.js</code>中，一个反射型<code>XSS</code>攻击的案例可能涉及一个web应用，该应用没有正确地处理或转义用户输入的数据，并将其直接插入到HTML响应中。攻击者可以构造一个包含恶意脚本的URL，当其他用户访问这个URL时，恶意脚本会在用户的浏览器中执行。</p>
+<p>以下是一个简单的<code>Node.js</code>反射型<code>XSS</code>攻击的案例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">express</span>();</span><br><span class="line">app.<span class="title function_">use</span>(express.<span class="title function_">static</span>(<span class="string">&#x27;public&#x27;</span>));</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/profile&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 假设用户可以通过URL参数传递他们的名字</span></span><br><span class="line">  <span class="keyword">const</span> username = req.<span class="property">query</span>.<span class="property">username</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 没有对用户输入进行任何处理或转义</span></span><br><span class="line">  <span class="keyword">const</span> html = <span class="string">`&lt;html&gt;</span></span><br><span class="line"><span class="string">                &lt;body&gt;</span></span><br><span class="line"><span class="string">                  &lt;h1&gt;Welcome, <span class="subst">$&#123;username&#125;</span>!&lt;/h1&gt;</span></span><br><span class="line"><span class="string">                &lt;/body&gt;</span></span><br><span class="line"><span class="string">              &lt;/html&gt;`</span>;</span><br><span class="line"></span><br><span class="line">  res.<span class="title function_">send</span>(html);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">PORT</span> = process.<span class="property">env</span>.<span class="property">PORT</span> || <span class="number">3000</span>;</span><br><span class="line">app.<span class="title function_">listen</span>(<span class="variable constant_">PORT</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Server is running on port <span class="subst">$&#123;PORT&#125;</span>`</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，我们创建了一个简单的<code>Express</code>应用，其中有一个<code>/profile</code>路由，该路由从URL的查询参数中获取用户名（<code>username</code>）。然后，我们将这个用户名嵌入到一个<code>HTML</code>字符串中，并将其作为响应发送回客户端。</p>
+<p>攻击者可以构造一个包含恶意脚本的URL，如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://example.com/profile?username=&lt;script&gt;alert(&#x27;XSS&#x27;);&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>当用户访问这个<code>URL</code>时，浏览器会接收到包含恶意脚本的<code>HTML</code>响应，并执行该脚本，从而触发<code>XSS</code>攻击。</p>
+<p>为了防止反射型<code>XSS</code>攻击，开发者应该对用户输入进行适当的过滤和转义。在这个案例中，可以使用如<code>escape-html</code>这样的库来转义<code>HTML</code>特殊字符：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> escapeHtml = <span class="built_in">require</span>(<span class="string">&#x27;escape-html&#x27;</span>);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/profile&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> username = req.<span class="property">query</span>.<span class="property">username</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 转义用户输入中的HTML特殊字符</span></span><br><span class="line">  <span class="keyword">const</span> escapedUsername = escapeHtml(username);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> html = <span class="string">`&lt;html&gt;</span></span><br><span class="line"><span class="string">                &lt;body&gt;</span></span><br><span class="line"><span class="string">                  &lt;h1&gt;Welcome, <span class="subst">$&#123;escapedUsername&#125;</span>!&lt;/h1&gt;</span></span><br><span class="line"><span class="string">                &lt;/body&gt;</span></span><br><span class="line"><span class="string">              &lt;/html&gt;`</span>;</span><br><span class="line"></span><br><span class="line">  res.<span class="title function_">send</span>(html);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>通过转义用户输入，恶意脚本将不会被浏览器执行，从而防止了<code>XSS</code>攻击。此外，开发者还应该使用内容安全策略（<code>CSP</code>）等额外安全措施来增强应用的安全性。</p>
+        
+          <p class="article-more-link">
+            <a href="/2020/06/12/security-xss/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/" rel="tag">network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/security/" rel="tag">security</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xss/" rel="tag">xss</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2020/06/12/security-xss/" data-id="clunsrifa000tphoq65e46jm6" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-commomly-css" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2019/10/12/commomly-css/" class="article-date">
+  <time datetime="2019-10-12T18:20:12.000Z" itemprop="datePublished">2019-10-12</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-true">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/12/commomly-css/">常用的CSS技巧</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ol>
+<li>网站平滑滚动</li>
+</ol>
+<p>在<code>&lt;html&gt;</code>元素中添加scroll-behavior: smooth，以实现整个页面的平滑滚动。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">html</span> &#123;</span><br><span class="line">  scroll-behavior: smooth;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>链接的属性选择器</li>
+</ol>
+<p>此选择器的目标是具有以“https”开头的 href 属性的链接。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">a</span><span class="selector-attr">[href^=<span class="string">&quot;https&quot;</span>]</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: blue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>〜合并兄弟姐妹</li>
+</ol>
+<p>选择 <code>&lt;h2&gt;</code> 后面的所有兄弟元素 <code>&lt;p&gt;</code> 元素。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">h2</span> ~ <span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: blue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>:not() 伪类</li>
+</ol>
+<p>该选择器将样式应用于不具有“特殊”类的列表项。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">li</span><span class="selector-pseudo">:not</span>(<span class="selector-class">.special</span>) &#123;</span><br><span class="line">  <span class="attribute">font</span>-stlye: italic;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>用于响应式排版的视口单位</li>
+</ol>
+<p>使用视口单位（vw、vh、vmin、vmax）可以使字体大小响应视口大小。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">h1</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">5vw</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li><code>:empty</code> 表示空元素</li>
+</ol>
+<p>此选择器定位空的 <code>&lt;p&gt;</code> 元素并隐藏它们。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span><span class="selector-pseudo">:empty</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>自定义属性（变量）</li>
+</ol>
+<p>可以定义和使用自定义属性，以更轻松地设置主题和维护。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-pseudo">:root</span> &#123;</span><br><span class="line">  <span class="attr">--main-color</span>: <span class="number">#3498db</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">h1</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="built_in">var</span>(--main-color);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="8">
+<li>图像控制的Object-fit属性</li>
+</ol>
+<p><strong>object-fit</strong> 控制如何调整替换元素（如 <code>&lt;img&gt;</code>）的内容大小。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">img</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">object-fit</span>: cover;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+          <p class="article-more-link">
+            <a href="/2019/10/12/commomly-css/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/" rel="tag">css</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2019/10/12/commomly-css/" data-id="clunsriev0001phoq1qui8ofg" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-service-worker" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2019/10/12/service-worker/" class="article-date">
+  <time datetime="2019-10-12T18:20:12.000Z" itemprop="datePublished">2019-10-12</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-true">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/12/service-worker/">Service Worker：提升网页性能与用户体验的关键技术</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="Service-Worker：提升网页性能与用户体验的关键技术"><a href="#Service-Worker：提升网页性能与用户体验的关键技术" class="headerlink" title="Service Worker：提升网页性能与用户体验的关键技术"></a>Service Worker：提升网页性能与用户体验的关键技术</h2><p>随着互联网的快速发展，网页应用的复杂性不断提高，对性能和用户体验的要求也日益增强。为了应对这些挑战，浏览器技术也在不断进步，其中 <code>Service Worker</code> 作为一种在浏览器后台独立运行的脚本，成为了优化网页性能、提升用户体验的关键技术。</p>
+<h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p><code>Service Worker</code> 是一种运行在浏览器后台的脚本，它独立于网页内容，不会阻塞页面的渲染。它允许开发人员在浏览器和网络之间设置一个代理服务器，拦截和处理网络请求，实现缓存、推送通知、消息传递等功能。<code>Service Worker</code> 使得网页能够在离线状态下运行，提高页面加载速度，优化用户体验。</p>
+<p><img src="https://github.com/hankliu62/interview/assets/8088864/38008e09-c6ed-4931-9647-dd6a44ffa651" alt="caniuse_service_worker"></p>
+<h3 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h3><p><code>Service Worker</code> 的生命周期完全独立于网页。</p>
+<p>当 <code>Service Worker</code> 被注册成功后，它将开始它的生命周期，我们对 <code>Service Worker</code> 的操作一般都是在其生命周期里面进行的。<code>Service Worker</code> 的生命周期分为下面几个状态：<code>installing</code> -&gt; <code>installed</code> -&gt; <code>activating</code> -&gt; <code>activated</code> -&gt; <code>redundant。</code></p>
+<p><img src="https://github.com/hankliu62/interview/assets/8088864/74471829-ccdc-49fe-b0ec-babd87488e44" alt="f54bdb55c775be0498c6efcd55a73020"></p>
+<ol>
+<li><p><strong>installing(安装)：</strong>这个状态发生在 <code>Service Worker</code> 注册之后，表示开始安装，这个状态会触发 <code>install</code> 事件，一般会在 <code>install</code> 事件的回调里面进行静态资源的离线缓存， 如果这些静态资源缓存失败了，那 <code>Service Worker</code> 安装就会失败，生命周期终止。</p>
+</li>
+<li><p><strong>installed(安装后)：</strong>当成功捕获缓存到的资源时，<code>Service Worker</code> 会变为这个状态，当此时没有其他的 <code>Service Worker</code> 线程在工作时，会立即进入激活状态，如果此时有正在工作的 <code>Service Worker</code> 工作线程，则会等待其他的 <code>Service Worker</code> 线程被关闭后才会被激活。可以使用 <code>self.skipWaiting()</code> 方法强制正在等待的 <code>Service Worker</code> 工作线程进入激活状态。</p>
+</li>
+<li><p><strong>activating(激活)：</strong>在这个状态下会触发 <code>activate</code> 事件，在 <code>activate</code> 事件的回调中去清理旧版缓存。</p>
+</li>
+<li><p><strong>activated(激活后)：</strong>在这个状态下，<code>Service Worker</code> 会取得对整个页面的控制</p>
+</li>
+<li><p><strong>redundant(废弃状态)：</strong>这个状态表示一个 <code>Service Worker</code> 的生命周期结束。新版本的 <code>Service Worker</code> 替换了旧版本的 <code>Service Worker</code> 会出现这个状态</p>
+</li>
+</ol>
+<h3 id="常用接口"><a href="#常用接口" class="headerlink" title="常用接口"></a>常用接口</h3><ul>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Cache">Cache</a><br>表示用于 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Request">Request</a> &#x2F; <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Response">Response</a> 对象对的存储，作为 <code>Service Worker</code> 生命周期的一部分被缓存。</p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/CacheStorage">CacheStorage</a><br>表示 <code>Cache</code> 对象的存储。提供一个所有命名缓存的主目录，<code>Service Worker</code> 可以访问并维护名字字符串到 <code>Cache</code> 对象的映射。</p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Client">Client</a><br>表示 <code>service worker client</code> 的作用域。一个 <code>service worker client</code> 可以是浏览器上下文的一个文档，也可以是一个由 <code>active worker</code> 控制的 <code>Shared Worker</code>。</p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Clients">Clients</a><br>表示一个 <code>Client</code> 对象容器；是访问当前源的活动的 <code>service worker client</code> 的主要途径。</p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/ExtendableEvent">ExtendableEvent</a><br>扩展被分发到 <code>ServiceWorkerGlobalScope</code> 的 <code>install</code> 和 <code>activate</code> 事件时序，作为<code> service worker</code> 生命周期的一部分。这会确保任何功能型事件（如 <code>FetchEvent</code>）不被分发到 <code>Service Worker</code>，直到它更新了数据库架构、删除过期缓存项等等以后。</p>
+</li>
+<li><p><a href="https://developer.mozilla.org/en-US/docs/Web/API/ExtendableMessageEvent">ExtendableMessageEvent</a><br>向 <code>Service Worker</code> 触发的 <code>message</code>  事件的时间对象（当 <code>ServiceWorkerGlobalScope</code> 从另一个上下文收到通道消息），延长了此类事件的生命周期。</p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/FetchEvent">FetchEvent</a><br>传递给 <code>ServiceWorkerGlobalScope.onfetch</code> 处理函数的参数，<code>FetchEvent</code> 代表一个在 <code>Service Worker</code> 的 <code>ServiceWorkerGlobalScope</code> 中分发的请求动作。它包含关于请求和响应的结果信息，并且提供 <code>FetchEvent.respondWith()</code> 方法，这个方法允许我们提供任意的响应返回到控制页面。</p>
+</li>
+<li><p><a href="https://developer.mozilla.org/en-US/docs/Web/API/NavigationPreloadManager">NavigationPreloadManager</a><br>提供与 <code>Service Worker</code> 一起管理资源预加载的方法。</p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Navigator/serviceWorker">Navigator.serviceWorker</a><br>返回一个 <code>ServiceWorkerContainer</code> 对象，该对象提供对相关 <code>document</code> 的注册、删除、更新以及与 <code>Service Worker</code> 对象通信的访问。</p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/NotificationEvent">NotificationEvent</a><br>传递给 <code>onnotificationclick</code> 处理函数的参数，<code>NotificationEvent</code> 接口代表在 <code>Service Worker</code> 的 <code>ServiceWorkerGlobalScope</code> 中分发的单击事件通知。</p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/ServiceWorker">ServiceWorker</a><br>表示一个 <code>Service Worker</code>。多个浏览的上下文 (例如 <code>page</code>、<code>worker</code> 等等) 都能通过相同的 <code>Service Worker</code> 对象相关联。</p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/ServiceWorkerContainer">ServiceWorkerContainer</a><br>提供一个在网络生态中把 <code>service worker</code> 作为一个整体的对象，包括辅助注册，反注册以及更新 <code>service worker</code>，并且访问 <code>service worker</code> 的状态以及他们的注册信息。</p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/ServiceWorkerGlobalScope">ServiceWorkerGlobalScope</a><br>表示 <code>service worker</code> 的全局执行上下文。</p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/MessageEvent">MessageEvent</a><br>表示发送到 <code>ServiceWorkerGlobalScope</code> 的信息。</p>
+</li>
+<li><p><a href="https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration">ServiceWorkerRegistration</a><br>表示 <code>service worker</code> 的注册。</p>
+</li>
+<li><p><a href="https://developer.mozilla.org/en-US/docs/Web/API/WindowClient">WindowClient</a><br>表示在浏览器上下文中记录的 <code>service worker</code> 客户端的作用域，被活动的工作者控制。是 <code>Client</code> 对象的特殊类型，包含一些附加的方法和可用的属性。</p>
+</li>
+</ul>
+<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><h4 id="缓存管理"><a href="#缓存管理" class="headerlink" title="缓存管理"></a>缓存管理</h4><p><code>Service Worker</code> 可以拦截和处理网络请求，将资源缓存在本地，实现离线访问和快速加载。开发人员可以根据需求自定义缓存策略，提高网页的加载速度和性能。</p>
+<p>下面是一个简单的 Service Worker 缓存管理的例子，用于缓存和提供静态资源。</p>
+<p>首先，你需要注册一个 Service Worker：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在你的主 JavaScript 文件中，例如 main.js</span></span><br><span class="line"><span class="keyword">if</span> (<span class="string">&#x27;serviceWorker&#x27;</span> <span class="keyword">in</span> navigator) &#123;</span><br><span class="line">  navigator.<span class="property">serviceWorker</span>.<span class="title function_">register</span>(<span class="string">&#x27;/service-worker.js&#x27;</span>)</span><br><span class="line">    .<span class="title function_">then</span>(<span class="function">() =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Service Worker 已注册&#x27;</span>))</span><br><span class="line">    .<span class="title function_">catch</span>(<span class="function"><span class="params">err</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;Service Worker 注册失败:&#x27;</span>, err));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后，创建一个 service-worker.js 文件，用于定义缓存策略：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// service-worker.js</span></span><br><span class="line"></span><br><span class="line">self.<span class="title function_">addEventListener</span>(<span class="string">&#x27;install&#x27;</span>, <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// Perform install steps</span></span><br><span class="line">  event.<span class="title function_">waitUntil</span>(</span><br><span class="line">    caches.<span class="title function_">open</span>(<span class="string">&#x27;my-cache&#x27;</span>).<span class="title function_">then</span>(<span class="function">(<span class="params">cache</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// 打开一个名为 &#x27;my-cache&#x27; 的缓存</span></span><br><span class="line">      <span class="keyword">return</span> cache.<span class="title function_">addAll</span>([</span><br><span class="line">        <span class="string">&#x27;/&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;/styles/main.css&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;/script/main.js&#x27;</span></span><br><span class="line">        <span class="comment">// 你可以添加更多需要缓存的资源</span></span><br><span class="line">      ]);</span><br><span class="line">    &#125;)</span><br><span class="line">  );</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">self.<span class="title function_">addEventListener</span>(<span class="string">&#x27;fetch&#x27;</span>, <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">  event.<span class="title function_">respondWith</span>(</span><br><span class="line">    caches.<span class="title function_">match</span>(event.<span class="property">request</span>)</span><br><span class="line">      .<span class="title function_">then</span>(<span class="function">(<span class="params">response</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// Cache hit - return response</span></span><br><span class="line">        <span class="keyword">if</span> (response) &#123;</span><br><span class="line">          <span class="keyword">return</span> response;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="title function_">fetch</span>(event.<span class="property">request</span>).<span class="title function_">then</span>(</span><br><span class="line">          <span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="comment">// Check if we received a valid response</span></span><br><span class="line">            <span class="keyword">if</span> (!res || res.<span class="property">status</span> !== <span class="number">200</span> || res.<span class="property">type</span> !== <span class="string">&#x27;basic&#x27;</span>) &#123;</span><br><span class="line">              <span class="keyword">return</span> response;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// Important: Clone the response. A response is a stream and</span></span><br><span class="line">            <span class="comment">// can only be consumed once.</span></span><br><span class="line">            <span class="keyword">const</span> responseToCache = res.<span class="title function_">clone</span>();</span><br><span class="line">            caches.<span class="title function_">open</span>(<span class="string">&#x27;my-cache&#x27;</span>).<span class="title function_">then</span>(<span class="function">(<span class="params">cache</span>) =&gt;</span> &#123;</span><br><span class="line">              <span class="comment">// Take the response from the network,</span></span><br><span class="line">              <span class="comment">// and put a copy in the cache.</span></span><br><span class="line">              cache.<span class="title function_">put</span>(event.<span class="property">request</span>, responseToCache);</span><br><span class="line">            &#125;);</span><br><span class="line">            <span class="keyword">return</span> res;</span><br><span class="line">          &#125;</span><br><span class="line">        );</span><br><span class="line">      &#125;)</span><br><span class="line">  );</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>这个例子中，当 <code>Service Worker</code> 安装时，它会打开一个名为 <code>&#39;my-cache&#39;</code> 的缓存，并添加一些资源到缓存中。当浏览器请求这些资源时，<code>Service Worker</code> 会首先检查缓存中是否有这些资源。如果有，它会直接从缓存中提供这些资源，而不是从网络上获取。如果缓存中没有这些资源，<code>Service Worker</code> 会从网络上获取它们，然后将它们添加到缓存中，以便下次可以直接从缓存中提供。</p>
+<blockquote>
+<p>注意，为了简化示例，这里并没有处理所有可能的错误情况，也没有考虑缓存的更新和失效策略。在实际应用中，你可能需要根据你的具体需求来定制你的缓存策略。</p>
+</blockquote>
+<h4 id="推送通知"><a href="#推送通知" class="headerlink" title="推送通知"></a>推送通知</h4><p><code>Service Worker</code> 可以接收来自服务器的推送消息，即使网页未打开或处于休眠状态，也能向用户发送通知。这一功能使得开发者能够及时向用户传达重要信息，提高应用的活跃度和用户粘性。</p>
+<p>下面是一个使用 <code>Service Worker</code> 和 <code>Push API</code> 发送推送通知的基本例子。</p>
+<p>首先，你需要注册 <code>Service Worker</code> 并订阅推送消息：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// main.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="string">&#x27;serviceWorker&#x27;</span> <span class="keyword">in</span> navigator) &#123;</span><br><span class="line">  navigator.<span class="property">serviceWorker</span>.<span class="title function_">register</span>(<span class="string">&#x27;/service-worker.js&#x27;</span>)</span><br><span class="line">    .<span class="title function_">then</span>(<span class="keyword">function</span>(<span class="params">registration</span>) &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Service Worker 注册成功:&#x27;</span>, registration.<span class="property">scope</span>);</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 检查浏览器是否支持显示通知</span></span><br><span class="line">      <span class="keyword">if</span> (!(<span class="string">&#x27;Notification&#x27;</span> <span class="keyword">in</span> <span class="variable language_">window</span>)) &#123;</span><br><span class="line">        <span class="title function_">alert</span>(<span class="string">&#x27;此浏览器不支持桌面通知&#x27;</span>);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 检查是否已授予权限</span></span><br><span class="line">      <span class="keyword">else</span> <span class="keyword">if</span> (<span class="title class_">Notification</span>.<span class="property">permission</span> === <span class="string">&#x27;granted&#x27;</span>) &#123;</span><br><span class="line">        <span class="comment">// 如果用户已授予权限，我们可以立即注册推送</span></span><br><span class="line">        <span class="title function_">subscribeUser</span>();</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 否则，我们需要询问用户</span></span><br><span class="line">      <span class="keyword">else</span> <span class="keyword">if</span> (<span class="title class_">Notification</span>.<span class="property">permission</span> !== <span class="string">&#x27;denied&#x27;</span>) &#123;</span><br><span class="line">        <span class="title class_">Notification</span>.<span class="title function_">requestPermission</span>().<span class="title function_">then</span>(<span class="keyword">function</span> (<span class="params">permission</span>) &#123;</span><br><span class="line">          <span class="keyword">if</span> (permission === <span class="string">&#x27;granted&#x27;</span>) &#123;</span><br><span class="line">            <span class="title function_">subscribeUser</span>();</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 订阅推送通知</span></span><br><span class="line">      <span class="keyword">function</span> <span class="title function_">subscribeUser</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> registration.<span class="property">pushManager</span>.<span class="title function_">subscribe</span>(&#123;</span><br><span class="line">          <span class="attr">userVisibleOnly</span>: <span class="literal">true</span></span><br><span class="line">        &#125;)</span><br><span class="line">        .<span class="title function_">then</span>(<span class="keyword">function</span>(<span class="params">subscription</span>) &#123;</span><br><span class="line">          <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;用户已订阅推送通知:&#x27;</span>, subscription);</span><br><span class="line"></span><br><span class="line">          <span class="comment">// 将订阅信息发送到服务器</span></span><br><span class="line">          <span class="title function_">sendSubscriptionToServer</span>(subscription);</span><br><span class="line">        &#125;)</span><br><span class="line">        .<span class="title function_">catch</span>(<span class="keyword">function</span>(<span class="params">err</span>) &#123;</span><br><span class="line">          <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;无法订阅推送通知:&#x27;</span>, err);</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 将订阅信息发送到服务器</span></span><br><span class="line">      <span class="keyword">function</span> <span class="title function_">sendSubscriptionToServer</span>(<span class="params">subscription</span>) &#123;</span><br><span class="line">        <span class="comment">// <span class="doctag">TODO:</span> 将 subscription 发送到你的服务器</span></span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;将订阅信息发送到服务器:&#x27;</span>, subscription);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    .<span class="title function_">catch</span>(<span class="keyword">function</span>(<span class="params">err</span>) &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;Service Worker 注册失败:&#x27;</span>, err);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后，你需要一个 <code>Service Worker</code> 脚本 (<code>service-worker.js</code>) 来接收和显示推送通知：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// service-worker.js</span></span><br><span class="line"></span><br><span class="line">self.<span class="title function_">addEventListener</span>(<span class="string">&#x27;push&#x27;</span>, <span class="keyword">function</span>(<span class="params">event</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;收到推送消息:&#x27;</span>, event);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 你可能需要从服务器获取一些数据来显示通知</span></span><br><span class="line">  <span class="comment">// 这里只是一个简单的示例</span></span><br><span class="line">  <span class="keyword">var</span> title = <span class="string">&#x27;推送通知&#x27;</span>;</span><br><span class="line">  <span class="keyword">var</span> body = <span class="string">&#x27;你收到了一条新消息！&#x27;</span>;</span><br><span class="line">  <span class="keyword">var</span> icon = <span class="string">&#x27;/images/icon.png&#x27;</span>;</span><br><span class="line"></span><br><span class="line">  event.<span class="title function_">waitUntil</span>(</span><br><span class="line">    self.<span class="property">registration</span>.<span class="title function_">showNotification</span>(title, &#123;</span><br><span class="line">      <span class="attr">body</span>: body,</span><br><span class="line">      <span class="attr">icon</span>: icon</span><br><span class="line">    &#125;)</span><br><span class="line">  );</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">self.<span class="title function_">addEventListener</span>(<span class="string">&#x27;notificationclick&#x27;</span>, <span class="keyword">function</span>(<span class="params">event</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;用户点击了通知:&#x27;</span>, event);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 用户点击通知后，你可以执行一些操作，例如打开一个新的页面</span></span><br><span class="line">  event.<span class="property">notification</span>.<span class="title function_">close</span>();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 例如，打开一个特定的 URL</span></span><br><span class="line">  event.<span class="title function_">waitUntil</span>(</span><br><span class="line">    clients.<span class="title function_">openWindow</span>(<span class="string">&#x27;https://example.com/notification-clicked&#x27;</span>)</span><br><span class="line">  );</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>请注意，为了实际使用推送通知，你还需要一个服务器端的组件来发送推送消息。这通常涉及到使用 <code>Web Push Protocol (Web Push)</code> 与用户的浏览器进行通信。此外，你可能需要配置你的服务器以接收订阅信息，并在需要时发送推送消息。</p>
+</blockquote>
+<blockquote>
+<p>此外，由于推送通知和 <code>Service Worker</code> 的复杂性，这里提供的代码只是一个起点。在生产环境中，你可能需要处理更多细节，如错误处理、用户权限管理、通知内容的动态生成等。</p>
+</blockquote>
+<h4 id="消息传递"><a href="#消息传递" class="headerlink" title="消息传递"></a>消息传递</h4><p><code>Service Worker</code> 可以与其他浏览器环境（如页面、扩展程序等）进行双向通信，实现消息传递和共享数据。这使得开发者能够在不同环境之间传递信息，实现更复杂的功能和更好的用户体验。</p>
+<p>下面是一个简单的 <code>Service Worker</code> 消息传递的例子。</p>
+<p>首先，注册并启动 <code>Service Worker</code>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// main.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="string">&#x27;serviceWorker&#x27;</span> <span class="keyword">in</span> navigator) &#123;</span><br><span class="line">  navigator.<span class="property">serviceWorker</span>.<span class="title function_">register</span>(<span class="string">&#x27;/service-worker.js&#x27;</span>)</span><br><span class="line">    .<span class="title function_">then</span>(<span class="function"><span class="params">registration</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Service Worker 注册成功:&#x27;</span>, registration.<span class="property">scope</span>);</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 向 Service Worker 发送消息</span></span><br><span class="line">      registration.<span class="property">active</span>.<span class="title function_">postMessage</span>(&#123; <span class="attr">action</span>: <span class="string">&#x27;hello&#x27;</span> &#125;);</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 监听来自 Service Worker 的消息</span></span><br><span class="line">      navigator.<span class="property">serviceWorker</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;message&#x27;</span>, <span class="function"><span class="params">event</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;收到来自 Service Worker 的消息:&#x27;</span>, event.<span class="property">data</span>);</span><br><span class="line">        <span class="keyword">if</span> (event.<span class="property">data</span>.<span class="property">action</span> === <span class="string">&#x27;response&#x27;</span>) &#123;</span><br><span class="line">          <span class="title function_">alert</span>(<span class="string">&#x27;Service Worker 回应了: &#x27;</span> + event.<span class="property">data</span>.<span class="property">message</span>);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;)</span><br><span class="line">    .<span class="title function_">catch</span>(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;Service Worker 注册失败:&#x27;</span>, err);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后，在 <code>service-worker.js</code> 中处理接收到的消息，并发送响应：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// service-worker.js</span></span><br><span class="line"></span><br><span class="line">self.<span class="title function_">addEventListener</span>(<span class="string">&#x27;install&#x27;</span>, <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">  event.<span class="title function_">waitUntil</span>(</span><br><span class="line">    caches.<span class="title function_">open</span>(<span class="string">&#x27;my-cache&#x27;</span>).<span class="title function_">then</span>(<span class="function">(<span class="params">cache</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// 缓存逻辑</span></span><br><span class="line">    &#125;)</span><br><span class="line">  );</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">self.<span class="title function_">addEventListener</span>(<span class="string">&#x27;activate&#x27;</span>, <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 激活逻辑</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">self.<span class="title function_">addEventListener</span>(<span class="string">&#x27;fetch&#x27;</span>, <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 拦截请求和响应的逻辑</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">self.<span class="title function_">addEventListener</span>(<span class="string">&#x27;message&#x27;</span>, <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;收到来自页面的消息:&#x27;</span>, event.<span class="property">data</span>);</span><br><span class="line">  <span class="keyword">if</span> (event.<span class="property">data</span>.<span class="property">action</span> === <span class="string">&#x27;hello&#x27;</span>) &#123;</span><br><span class="line">    <span class="comment">// 向页面发送回应</span></span><br><span class="line">    event.<span class="property">ports</span>[<span class="number">0</span>].<span class="title function_">postMessage</span>(&#123; <span class="attr">action</span>: <span class="string">&#x27;response&#x27;</span>, <span class="attr">message</span>: <span class="string">&#x27;你好，页面！&#x27;</span> &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，当页面加载并成功注册 <code>Service Worker</code> 后，它会向 <code>Service Worker</code> 发送一个包含 <code>action: &#39;hello&#39;</code> 的消息。<code>Service Worker</code> 监听到这个消息后，会打印出收到的消息内容，并通过 <code>event.ports[0].postMessage</code> 向页面发送一个回应消息，其中包含了 <code>action: &#39;response&#39;</code> 和一条消息字符串。</p>
+<p>页面通过监听 <code>message</code> 事件来接收来自 <code>Service Worker</code> 的回应，并在控制台中打印出消息内容。如果回应消息中的 <code>action</code> 是 <code>&#39;response&#39;</code>，页面会弹出一个警告框显示收到的消息。</p>
+<blockquote>
+<p>请注意，<code>postMessage API</code> 允许在 <code>Service Worker</code> 和页面之间传递结构化数据，如对象、数组、字符串等。但是，出于安全考虑，不能直接传递函数、DOM 对象或其他某些类型的数据。此外，<code>event.ports</code> 提供了一个双向通信的通道，允许 <code>Service Worker</code> 和页面之间进行更复杂的交互。</p>
+</blockquote>
+<h3 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h3><h4 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h4><ol>
+<li><strong>提高网页性能：</strong>通过缓存管理，<code>Service Worker</code> 可以减少网络请求，降低带宽消耗，提高网页加载速度。</li>
+<li><strong>提升用户体验：</strong><code>Service Worker</code> 可以实现离线访问、推送通知等功能，提高用户的满意度和粘性。</li>
+<li><strong>拓展性强：</strong><code>Service Worker</code> 可以与其他浏览器环境进行通信，为开发者提供更多可能性。</li>
+</ol>
+<h4 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h4><ol>
+<li><strong>兼容性问题：</strong>虽然主流浏览器都支持 <code>Service Worker</code> ，但在一些旧版本或非主流浏览器中可能无法使用。</li>
+<li><strong>学习成本高：</strong>使用 <code>Service Worker</code> 需要一定的技术储备和学习成本，对于初学者来说可能有一定的难度。</li>
+</ol>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p><code>Service Worker</code> 作为一种在浏览器后台运行的脚本技术，为优化网页性能和提升用户体验提供了有力支持。通过缓存管理、推送通知和消息传递等功能，<code>Service Worker</code> 使得网页能够在离线状态下运行，提高加载速度，及时向用户传达重要信息，实现更复杂的功能和更好的用户体验。虽然存在一些兼容性和学习成本的问题，但随着技术的不断发展和普及，相信 <code>Service Worker</code> 将在未来的网页开发中发挥越来越重要的作用。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/service-worker/" rel="tag">service worker</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2019/10/12/service-worker/" data-id="clunsrifa000wphoq7msh4s77" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-mobile-debugging-tools" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2019/05/12/mobile-debugging-tools/" class="article-date">
+  <time datetime="2019-05-12T21:48:32.000Z" itemprop="datePublished">2019-05-12</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-true">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/12/mobile-debugging-tools/">H5 移动端调试工具汇总</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="H5-移动端调试工具汇总"><a href="#H5-移动端调试工具汇总" class="headerlink" title="H5 移动端调试工具汇总"></a>H5 移动端调试工具汇总</h2><h3 id="一、概要"><a href="#一、概要" class="headerlink" title="一、概要"></a>一、概要</h3><p>因为移动端操作系统分为 <code>iOS</code> 和 <code>Android</code> 两派，所以本文的调试技巧也会按照不同的系统来区分。寻找最合适高效的方式，才能让你事半功倍。</p>
+<blockquote>
+<p>文章会列举目前适合移动端调试的多种方案，快来选择你的最佳实践吧！</p>
+</blockquote>
+<h3 id="二、iOS-设备"><a href="#二、iOS-设备" class="headerlink" title="二、iOS 设备"></a>二、iOS 设备</h3><blockquote>
+<p>Safari：iphone 调试利器，查错改样式首选，需要我们做如下设置：</p>
+</blockquote>
+<ul>
+<li>浏览器设置：Safari - 偏好设置 - 高级 - 勾选「在菜单栏中显示开发」菜单</li>
+<li>iphone 设置：设置 - Safari - 高级 - 打开 Web 检查器</li>
+</ul>
+<p>大功告成，这时候通过手机的 <code>Safari</code> 来打开 <code>H5</code> 页面，我们通过浏览器开发选项可以看到：</p>
+<p><img src="https://github.com/hankliu62/interview/assets/8088864/fc968e7f-db70-4ae0-b9f6-08d241afb43c" alt="image"></p>
+<blockquote>
+<p>iOS 模拟器：不需要真机，适合调试 Webview 和 H5 有频繁交互的功能页面。</p>
+</blockquote>
+<p>首先下载 Xcode ，运行项目，选择模拟器 iphonex，编译后就会打开模拟器，如下：</p>
+<p><img src="https://github.com/hankliu62/interview/assets/8088864/c7bf4417-1ffc-404d-a19d-5b1b215d06bb" alt="image"></p>
+<p>可以看到 H5 已经在「壳子」中运行起来了，下来就可以尝试调用 Webview 的方法，和「壳子」交互了。</p>
+<blockquote>
+<p>具体的调试功能还是依赖浏览器的开发选项，与上无异，就不赘述了。</p>
+</blockquote>
+        
+          <p class="article-more-link">
+            <a href="/2019/05/12/mobile-debugging-tools/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/debugging/" rel="tag">debugging</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/" rel="tag">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/" rel="tag">mobile</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2019/05/12/mobile-debugging-tools/" data-id="clunsrif6000iphoq1w2t8j7l" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-git-clone-failure" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2018/11/09/git-clone-failure/" class="article-date">
+  <time datetime="2018-11-09T10:00:20.000Z" itemprop="datePublished">2018-11-09</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-true">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/09/git-clone-failure/">使用 git 克隆 github 上的项目失败</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><p>今天在使用 git clone nextjs demo project 源代码的时， git clone <a href="https://github.com/Weibozzz/next-blog.git">https://github.com/Weibozzz/next-blog.git</a> 下载速度很慢，然后下载一段时间后，总是提示下面的错误信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">nCloning into &#x27;next-blog&#x27;...</span><br><span class="line">remote: Enumerating objects: 111, done.</span><br><span class="line">remote: Counting objects: 100% (111/111), done.</span><br><span class="line">remote: Compressing objects: 100% (83/83), done.</span><br><span class="line">error: RPC failed; curl 18 transfer closed with outstanding read data remaining</span><br><span class="line">fatal: The remote end hung up unexpectedly</span><br><span class="line">fatal: early EOF</span><br><span class="line">fatal: index-pack failed</span><br></pre></td></tr></table></figure>
+
+<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>由于Http协议错误，当 pull 或者 clone 的时候，或者是 github 某个CDN被伟大的墙屏蔽所致。</p>
+<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><h3 id="协议错误"><a href="#协议错误" class="headerlink" title="协议错误"></a>协议错误</h3><ol>
+<li><p>先执行下列命令</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global http.postBuffer 524288000</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>再执行git pull 或者 git clone命令</p>
+</li>
+</ol>
+<h3 id="墙屏蔽"><a href="#墙屏蔽" class="headerlink" title="墙屏蔽"></a>墙屏蔽</h3><ol>
+<li><p>访问 <a href="http://github.global.ssl.fastly.net.ipaddress.com/#ipinfo">http://github.global.ssl.fastly.net.ipaddress.com/#ipinfo</a><br>获取cdn域名以及IP地址</p>
+</li>
+<li><p>访问 <a href="http://github.com.ipaddress.com/#ipinfo">http://github.com.ipaddress.com/#ipinfo</a> 获取cdn域名以及IP地址        <img src="https://user-images.githubusercontent.com/8088864/48385665-42ca5880-e72a-11e8-9281-d825b6f66fe8.png" alt="cdn域名以及IP地址"></p>
+</li>
+<li><p>将上述获取的IP地址添加到<code>/etc/hosts</code>中</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/hosts</span><br></pre></td></tr></table></figure>
+<p>  <img src="https://user-images.githubusercontent.com/8088864/48385763-bcfadd00-e72a-11e8-96ff-4f14ed1ba521.png" alt="添加IP地址到hosts"></p>
+</li>
+<li><p>刷新dns缓存</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo killall -HUP mDNSResponder</span><br><span class="line">sudo dscacheutil -flushcache</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>再执行 git clone 操作的时候，速度飕飕飕的上去了，一下子达到几百Kb啦~</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/" rel="tag">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2018/11/09/git-clone-failure/" data-id="clunsriez0004phoq87u243vc" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+</article>
+
+
+
+  
+  
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+    </nav>
+  
+</section>
+      
+      <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/04/04/homebrew/">MacOS 和 Linux 的 Homebrew 安装与卸载</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/01/github-emoji/">Emoji 大全</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/29/vitepress-blog-guide/">使用VitePress搭建个人博客</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/05/webpack-plugin-mechanism/">Webpack Plugin插件机制</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/08/interview-questions/">前端面试题汇总</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/" rel="tag">blog</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/canvas/" rel="tag">canvas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/csrf/" rel="tag">csrf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debugging/" rel="tag">debugging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-pages/" rel="tag">github pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/homebrew/" rel="tag">homebrew</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/" rel="tag">html</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interview/" rel="tag">interview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/loader/" rel="tag">loader</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/" rel="tag">mobile</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reptile/" rel="tag">reptile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/" rel="tag">security</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/service-worker/" rel="tag">service worker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/translate/" rel="tag">translate</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vitepress/" rel="tag">vitepress</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webworker/" rel="tag">webworker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/weinre/" rel="tag">weinre</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xss/" rel="tag">xss</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yuv/" rel="tag">yuv</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">八月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">七月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2024 HankLiu, Inc. All rights reserved.<br>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">主页</a>
+  
+    <a href="/archives" class="mobile-nav-link">文章</a>
+  
+    <a href="/toolbox-frontend" class="mobile-nav-link">小工具</a>
+  
+    <a href="/resume" class="mobile-nav-link">小简介</a>
+  
+  <a href="#search" class="mobile-nav-link st-search-show-outputs">Search</a>
+</nav>
+  
+
+<!-- totop start -->
+<div id="totop">
+	<a title="To Top"></a>
+</div>
+<!-- totop end -->
+
+<!-- swiftype search start -->
+
+<!-- swiftype search end -->
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/lrsjng.jquery-qrcode/0.12.0/jquery.qrcode.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+</div>
+</body>
+</html>
