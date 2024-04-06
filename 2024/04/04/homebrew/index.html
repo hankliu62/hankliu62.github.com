@@ -1,0 +1,380 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  
+  <title>MacOS 和 Linux 的 Homebrew 安装与卸载 | HankLiu的博客小屋</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="MacOS 和 Linux 的 Homebrew 安装与卸载HomebrewmacOS（或 Linux）缺失的软件包的管理器 安装 Homebrew1&#x2F;bin&#x2F;bash -c &quot;$(curl -fsSL https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;Homebrew&#x2F;install&#x2F;HEAD&#x2F;install.sh)&quot;  脚本会在执行前暂停，并说明它将做什么">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MacOS 和 Linux 的 Homebrew 安装与卸载">
+<meta property="og:url" content="https://hankliu62.github.io/2024/04/04/homebrew/index.html">
+<meta property="og:site_name" content="HankLiu的博客小屋">
+<meta property="og:description" content="MacOS 和 Linux 的 Homebrew 安装与卸载HomebrewmacOS（或 Linux）缺失的软件包的管理器 安装 Homebrew1&#x2F;bin&#x2F;bash -c &quot;$(curl -fsSL https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;Homebrew&#x2F;install&#x2F;HEAD&#x2F;install.sh)&quot;  脚本会在执行前暂停，并说明它将做什么">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-04-04T05:56:26.000Z">
+<meta property="article:modified_time" content="2024-04-04T06:11:09.899Z">
+<meta property="article:author" content="HankLiu">
+<meta property="article:tag" content="homebrew">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/img/favicon.ico" sizes="16x16">
+  
+  <link rel="stylesheet" href="/css/style.css?t=1">
+  
+    <link href="//fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner">
+    <div id="banner-mask"></div>
+  </div>
+  <div id="header-outer" class="outer">
+    <nav id="upper-nav" class="inner">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      <div class="sub-nav">
+        
+        
+          <a id="nav-github" class="nav-icon" href="https://github.com/hankliu62"></a>
+        
+      </div>
+    </nav>
+    <div id="header-title">
+      
+        <h1 id="blog-title-wrap">
+          <a href="/" id="blog-title">HankLiu的博客小屋</a>
+        </h1>
+      
+      
+        <h5 class="blog-subtitle-wrap">努力去听风的声音，不必在意风的方向。</h5>
+      
+    </div>
+    <div id="contenedor">
+      <ul class="cube">
+        <li class="cara"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="100" width="100" viewBox="-50 -50 200 200">
+          <circle cx="50" cy="50" r="45" stroke-width="5" stroke="black" stroke-opacity="0.5" fill-opacity="0"></circle>
+          <rect id="clockwise" x="47.5" y="27.5" width="5" height="25" rx="2.5" ry="2.5" fill="black" fill-opacity="0.5" transform="rotate(330 50 50)"></rect>
+          <rect id="minute" x="48.5" y="16.5" width="3" height="35" rx="1.5" ry="1.5" fill="black" fill-opacity="0.5"></rect>
+        </svg></li>
+        <li class="cara">P</li>
+        <li class="cara">X</li>
+        <li class="cara">L</li>
+        <li class="cara">C</li>
+        <li class="cara">Y</li>
+      </ul>
+    </div>
+    <nav id="main-nav">
+      
+        <a class="main-nav-link" href="/">主页</a>
+      
+        <a class="main-nav-link" href="/archives">文章</a>
+      
+        <a class="main-nav-link" href="/toolbox-frontend">小工具</a>
+      
+        <a class="main-nav-link" href="/resume">小简介</a>
+      
+    </nav>
+  </div>
+</header>
+
+    <div class="outer">
+      <section id="main"><article id="post-homebrew" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2024/04/04/homebrew/" class="article-date">
+  <time datetime="2024-04-04T05:56:26.000Z" itemprop="datePublished">2024-04-04</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-false">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      MacOS 和 Linux 的 Homebrew 安装与卸载
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="MacOS-和-Linux-的-Homebrew-安装与卸载"><a href="#MacOS-和-Linux-的-Homebrew-安装与卸载" class="headerlink" title="MacOS 和 Linux 的 Homebrew 安装与卸载"></a>MacOS 和 Linux 的 Homebrew 安装与卸载</h2><h3 id="Homebrew"><a href="#Homebrew" class="headerlink" title="Homebrew"></a>Homebrew</h3><p>macOS（或 Linux）缺失的软件包的管理器</p>
+<h4 id="安装-Homebrew"><a href="#安装-Homebrew" class="headerlink" title="安装 Homebrew"></a>安装 Homebrew</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/bin/bash -c <span class="string">&quot;<span class="subst">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)</span>&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>脚本会在执行前暂停，并说明它将做什么。高级安装选项在 <a href="https://docs.brew.sh/Installation">这里</a>。</p>
+<h4 id="Homebrew-能干什么"><a href="#Homebrew-能干什么" class="headerlink" title="Homebrew 能干什么?"></a>Homebrew 能干什么?</h4><ol>
+<li>使用 <code>Homebrew</code> 安装 <code>Mac</code>（或您的 <code>Linux</code> 系统）没有预装但 <a href="https://formulae.brew.sh/formula/">你需要的东西</a>。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ brew install wget</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><code>Homebrew</code> 会将软件包安装到独立目录，并将其文件软链接至 <code>/opt/homebrew</code> 。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> /opt/homebrew</span><br><span class="line">$ find Cellar</span><br><span class="line">Cellar/wget/1.16.1</span><br><span class="line">Cellar/wget/1.16.1/bin/wget</span><br><span class="line">Cellar/wget/1.16.1/share/man/man1/wget.1</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">ls</span> -l bin</span><br><span class="line">bin/wget -&gt; ../Cellar/wget/1.16.1/bin/wget</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><p><code>Homebrew</code> 不会将文件安装到它本身目录之外，所以您可将 <code>Homebrew</code> 安装到任意位置。</p>
+</li>
+<li><p>轻松创建你自己的 <code>Homebrew</code> 包。</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ brew create https://foo.com/foo-1.0.tgz</span><br><span class="line">Created /opt/homebrew/Library/Taps/homebrew/homebrew-core/Formula/foo.rb</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>完全基于 <code>Git</code> 和 <code>Ruby</code>，所以自由修改的同时你仍可以轻松撤销你的变更或与上游更新合并。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ brew edit wget <span class="comment"># 使用 $EDITOR 编辑!</span></span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li><code>Homebrew</code> 的配方都是简单的 <code>Ruby</code> 脚本：</li>
+</ol>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Wget</span> &lt; <span class="title class_ inherited__">Formula</span></span><br><span class="line">  homepage <span class="string">&quot;https://www.gnu.org/software/wget/&quot;</span></span><br><span class="line">  url <span class="string">&quot;https://ftp.gnu.org/gnu/wget/wget-1.15.tar.gz&quot;</span></span><br><span class="line">  sha256 <span class="string">&quot;52126be8cf1bddd7536886e74c053ad7d0ed2aa89b4b630f76785bac21695fcd&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">def</span> <span class="title function_">install</span></span><br><span class="line">    system <span class="string">&quot;./configure&quot;</span>, <span class="string">&quot;--prefix=<span class="subst">#&#123;prefix&#125;</span>&quot;</span></span><br><span class="line">    system <span class="string">&quot;make&quot;</span>, <span class="string">&quot;install&quot;</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li><p><code>Homebrew</code> 使 <code>macOS</code>（或您的 <code>Linux</code> 系统）更完整。使用 <code>gem</code> 来安装 <code>RubyGems</code>、用 <code>brew</code> 来安装那些依赖包。</p>
+</li>
+<li><p>“要安装，请拖动此图标……”不会再出现了。使用 <code>Homebrew Cask</code> 安装 <code>macOS</code> 应用程序、字体和插件以及其他非开源软件。</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ brew install --cask firefox</span><br></pre></td></tr></table></figure>
+
+<ol start="9">
+<li>制作一个 <code>cask</code> 就像创建一个配方一样简单。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ brew create --cask https://foo.com/foo-1.0.dmg</span><br><span class="line">Editing /opt/homebrew/Library/Taps/homebrew/homebrew-cask/Casks/foo.rb</span><br></pre></td></tr></table></figure>
+
+<h3 id="国内源安装"><a href="#国内源安装" class="headerlink" title="国内源安装"></a>国内源安装</h3><p>国内安装Homebrew 可能很慢，所以我们推荐使用国内的源来进行安装</p>
+<h4 id="macOS"><a href="#macOS" class="headerlink" title="macOS"></a>macOS</h4><ul>
+<li>常规安装（推荐）：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/bin/zsh -c &quot;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)&quot;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>极速安装（精简版）：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/bin/zsh -c &quot;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)&quot; speed</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>卸载</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/bin/zsh -c &quot;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/HomebrewUninstall.sh)&quot;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><ul>
+<li><p>安装</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm Homebrew.sh; wget https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh; bash Homebrew.sh</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>卸载</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm HomebrewUninstall.sh; wget https://gitee.com/cunkai/HomebrewCN/raw/master/HomebrewUninstall.sh; bash HomebrewUninstall.sh</span><br></pre></td></tr></table></figure>
+
+<h3 id="macOS-常见错误说明"><a href="#macOS-常见错误说明" class="headerlink" title="macOS 常见错误说明"></a>macOS 常见错误说明</h3><blockquote>
+<p><a href="https://brew.sh/blog/">官方表示只支持最新的三个Mac os版本</a>,老的Mac系统可以试试MacPorts。</p>
+</blockquote>
+<blockquote>
+<p>首先确保运行的<code>/bin/zsh -c &quot;$(curl -fsSL https://gitee.com/ **cunkai** /HomebrewCN/raw/master/Homebrew.sh)&quot;</code> 中间那个 <strong>cunkai</strong> 不是别的。</p>
+</blockquote>
+<p><strong>1.</strong> 如果遇到安装软件报错 <strong>404</strong> ，切换网络如果还不行：</p>
+<p>查看下官方更新记录<code>https://brew.sh/blog/</code> 如果近期有更新，可以发我邮箱<a href="mailto:&#x63;&#117;&#110;&#107;&#x61;&#x69;&#x2e;&#119;&#97;&#x6e;&#103;&#x40;&#102;&#111;&#120;&#x6d;&#97;&#x69;&#108;&#46;&#99;&#x6f;&#109;">&#x63;&#117;&#110;&#107;&#x61;&#x69;&#x2e;&#119;&#97;&#x6e;&#103;&#x40;&#102;&#111;&#120;&#x6d;&#97;&#x69;&#108;&#46;&#99;&#x6f;&#109;</a>。我看看是否官方修改了某些代码。</p>
+<p><strong>2.</strong> 不小心改动了brew文件夹里面的内容，如何重置，运行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew update-reset</span><br></pre></td></tr></table></figure>
+
+<p><strong>3.</strong> 报错提示中如果有  <strong>git -c xxxxxxx xxx xxx</strong>  等类似语句。</p>
+<p>  如果有这种提示，把报错中提供的解决语句（git -C ….）逐句运行一般就可以解决。</p>
+<p><strong>4.</strong> 如果遇到报错中含有errno  <strong>54</strong>  &#x2F;  <strong>443</strong>  &#x2F; 的问题：</p>
+<p>  这种一般切换源以后没有问题，因为都是公益服务器，不稳定性很大。</p>
+<p><strong>5.</strong> 检测到你不是最新系统，需要自动升级 Ruby 后失败的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles</span><br><span class="line"></span><br><span class="line">rm -rf /Users/$(whoami)/Library/Caches/Homebrew/</span><br><span class="line"></span><br><span class="line">brew update</span><br></pre></td></tr></table></figure>
+
+<p><strong>6.</strong> 如果报错  <strong>command not found : brew</strong></p>
+<p>先运行此命令<code>/usr/local/Homebrew/bin/brew -v</code> ，如果是ARM架构的芯片运行<code>/opt/homebrew/bin/brew -v</code> 看是否能出来Homebrew的版本号。</p>
+<p>如果能用就是电脑PATH配置问题，重启终端运行 <code>echo $PATH</code> 打印出来自己分析一下。</p>
+<p><strong>7.</strong> Error: Running Homebrew as root is extremely dangerous and no longer supported.<br>As Homebrew does not drop privileges on installation you would be giving all<br> <strong>build scripts full access to your system.</strong></p>
+<p>此报错原因是执行过su命令，把账户切换到了root权限，退出root权限即可。一般关闭终端重新打开即可，或者输入命令exit回车 或者su - 用户名</p>
+<p><strong>8.</strong> &#x2F;usr&#x2F;local&#x2F;bin&#x2F;brew:  <strong>bad interpreter: &#x2F;bin&#x2F;bash^M: no such file or directory</strong></p>
+<p><code>git config --global core.autocrlf</code></p>
+<p>如果显示true那就运行下面这句话可以解决：</p>
+<p><code>git config --global core.autocrlf input</code></p>
+<p>运行完成后，需要重新运行安装脚本。</p>
+<p><strong>9.</strong> from &#x2F;usr&#x2F;local&#x2F;Homebrew&#x2F;Library&#x2F;Homebrew&#x2F; <strong>brew.rb:23:in &#96;<main>‘</strong></p>
+<p><code>brew update-reset</code></p>
+<p><strong>10.</strong> M1芯片电脑运行which brew如果显示&#x2F;usr&#x2F;local&#x2F;Homebrew&#x2F;bin&#x2F;brew</p>
+<p>解决方法，手动删除&#x2F;usr&#x2F;local目录，重新安装：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/bin/zsh -c &quot;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>11.</strong> The x86_64 architecture is required<br>这句话意思是，这个软件不支持M1芯片，只支持x86_64架构的CPU。</p>
+<p><strong>12.</strong> Warning: No remote ‘origin’ in &#x2F;usr&#x2F;local&#x2F;Homebrew&#x2F;Library&#x2F;Taps&#x2F;homebrew&#x2F;homebrew-cask, skipping update!</p>
+<p>看评论区说解决方法（我未测试）：<a href="https://gitee.com/cunkai/HomebrewCN/issues/I5A7RV">https://gitee.com/cunkai/HomebrewCN/issues/I5A7RV</a></p>
+<p><strong>13.</strong> fatal: not in a git directory   Error: Command failed with exit 128: git</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global http.sslVerify false</span><br></pre></td></tr></table></figure>
+
+<p><strong>14.</strong> &#x2F;usr&#x2F;local&#x2F;Homebrew&#x2F;Library&#x2F;Homebrew&#x2F;cmd&#x2F;vendor-install.sh:1ine245:.&#x2F;3.1.4&#x2F;bin&#x2F;ruby:BadCPUtype inexecutable</p>
+<p>如果你是苹果的M芯片有这种报错，说明你电脑有两个brew，简单粗暴的方法是删除<code>/usr/local/Homebrew</code>目录，保留<code>/opt/homebrew</code>即可。<br>（提示：如何去指定访达，屏幕左上角找到前往-&gt;前往文件夹然后输入<code>/usr/local</code>回车把Homebrew删除即可。反之如果你是英特尔处理器就保留<code>/usr/local</code>下的去opt目录删除）<br>温和的方法是分别运行下面三句话，看看是否包含<code>/usr/local/Homebrew</code>的字符串，删掉整行保存。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">open $&#123;HOME&#125;/.zprofile</span><br><span class="line">open $HOME/.bash_profile</span><br><span class="line">open $&#123;HOME&#125;/.profile</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/homebrew/" rel="tag">homebrew</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2024/04/04/homebrew/" data-id="clunrzyxj0003j8lodj750wwr" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2024/04/06/github-action-publish-package/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          使用 GitHub Action 实现自动化发布 npm 包
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/04/01/github-emoji/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Emoji 大全</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+      
+      <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/04/08/github-action-docker/">使用 GitHub Actions 自动化部署 Nuxt3 应用到 Docker 容器中</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/06/github-action-publish-package/">使用 GitHub Action 实现自动化发布 npm 包</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/04/homebrew/">MacOS 和 Linux 的 Homebrew 安装与卸载</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/01/github-emoji/">Emoji 大全</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/29/vitepress-blog-guide/">使用VitePress搭建个人博客</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/" rel="tag">blog</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/canvas/" rel="tag">canvas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/csrf/" rel="tag">csrf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debugging/" rel="tag">debugging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-pages/" rel="tag">github pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/homebrew/" rel="tag">homebrew</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/" rel="tag">html</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interview/" rel="tag">interview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/loader/" rel="tag">loader</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/" rel="tag">mobile</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reptile/" rel="tag">reptile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/" rel="tag">security</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/service-worker/" rel="tag">service worker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/translate/" rel="tag">translate</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vitepress/" rel="tag">vitepress</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webworker/" rel="tag">webworker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/weinre/" rel="tag">weinre</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xss/" rel="tag">xss</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yuv/" rel="tag">yuv</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">八月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">七月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2024 HankLiu, Inc. All rights reserved.<br>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">主页</a>
+  
+    <a href="/archives" class="mobile-nav-link">文章</a>
+  
+    <a href="/toolbox-frontend" class="mobile-nav-link">小工具</a>
+  
+    <a href="/resume" class="mobile-nav-link">小简介</a>
+  
+  <a href="#search" class="mobile-nav-link st-search-show-outputs">Search</a>
+</nav>
+  
+
+<!-- totop start -->
+<div id="totop">
+	<a title="To Top"></a>
+</div>
+<!-- totop end -->
+
+<!-- swiftype search start -->
+
+<!-- swiftype search end -->
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/lrsjng.jquery-qrcode/0.12.0/jquery.qrcode.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+</div>
+</body>
+</html>
