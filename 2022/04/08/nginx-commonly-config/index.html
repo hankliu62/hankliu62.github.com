@@ -1,0 +1,372 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  
+  <title>Nginx常用基础配置详解 | HankLiu的博客小屋</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Nginx常用基础配置详解介绍Nginx 是一个高性能的开源 Web 服务器，它不仅可以作为 HTTP 服务器使用，还可以用作反向代理服务器、负载均衡器、缓存服务器等。在实际应用中，正确配置 Nginx 是确保网站稳定性和性能的重要步骤。本文将详细介绍一些常用的 Nginx 基础配置，包括虚拟主机配置、HTTP 重定向、反向代理等内容，并提供详细的示例说明。 虚拟主机配置虚拟主机是 Nginx 中">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nginx常用基础配置详解">
+<meta property="og:url" content="https://hankliu62.github.io/2022/04/08/nginx-commonly-config/index.html">
+<meta property="og:site_name" content="HankLiu的博客小屋">
+<meta property="og:description" content="Nginx常用基础配置详解介绍Nginx 是一个高性能的开源 Web 服务器，它不仅可以作为 HTTP 服务器使用，还可以用作反向代理服务器、负载均衡器、缓存服务器等。在实际应用中，正确配置 Nginx 是确保网站稳定性和性能的重要步骤。本文将详细介绍一些常用的 Nginx 基础配置，包括虚拟主机配置、HTTP 重定向、反向代理等内容，并提供详细的示例说明。 虚拟主机配置虚拟主机是 Nginx 中">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-04-08T12:15:26.000Z">
+<meta property="article:modified_time" content="2024-04-08T05:02:26.681Z">
+<meta property="article:author" content="HankLiu">
+<meta property="article:tag" content="nginx">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/img/favicon.ico" sizes="16x16">
+  
+  <link rel="stylesheet" href="/css/style.css?t=1">
+  
+    <link href="//fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner">
+    <div id="banner-mask"></div>
+  </div>
+  <div id="header-outer" class="outer">
+    <nav id="upper-nav" class="inner">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      <div class="sub-nav">
+        
+        
+          <a id="nav-github" class="nav-icon" href="https://github.com/hankliu62"></a>
+        
+      </div>
+    </nav>
+    <div id="header-title">
+      
+        <h1 id="blog-title-wrap">
+          <a href="/" id="blog-title">HankLiu的博客小屋</a>
+        </h1>
+      
+      
+        <h5 class="blog-subtitle-wrap">努力去听风的声音，不必在意风的方向。</h5>
+      
+    </div>
+    <div id="contenedor">
+      <ul class="cube">
+        <li class="cara"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="100" width="100" viewBox="-50 -50 200 200">
+          <circle cx="50" cy="50" r="45" stroke-width="5" stroke="black" stroke-opacity="0.5" fill-opacity="0"></circle>
+          <rect id="clockwise" x="47.5" y="27.5" width="5" height="25" rx="2.5" ry="2.5" fill="black" fill-opacity="0.5" transform="rotate(330 50 50)"></rect>
+          <rect id="minute" x="48.5" y="16.5" width="3" height="35" rx="1.5" ry="1.5" fill="black" fill-opacity="0.5"></rect>
+        </svg></li>
+        <li class="cara">P</li>
+        <li class="cara">X</li>
+        <li class="cara">L</li>
+        <li class="cara">C</li>
+        <li class="cara">Y</li>
+      </ul>
+    </div>
+    <nav id="main-nav">
+      
+        <a class="main-nav-link" href="/">主页</a>
+      
+        <a class="main-nav-link" href="/archives">文章</a>
+      
+        <a class="main-nav-link" href="/toolbox-frontend">小工具</a>
+      
+        <a class="main-nav-link" href="/resume">小简介</a>
+      
+    </nav>
+  </div>
+</header>
+
+    <div class="outer">
+      <section id="main"><article id="post-nginx-commonly-config" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2022/04/08/nginx-commonly-config/" class="article-date">
+  <time datetime="2022-04-08T12:15:26.000Z" itemprop="datePublished">2022-04-08</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-false">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Nginx常用基础配置详解
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="Nginx常用基础配置详解"><a href="#Nginx常用基础配置详解" class="headerlink" title="Nginx常用基础配置详解"></a>Nginx常用基础配置详解</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>Nginx 是一个高性能的开源 Web 服务器，它不仅可以作为 HTTP 服务器使用，还可以用作反向代理服务器、负载均衡器、缓存服务器等。在实际应用中，正确配置 Nginx 是确保网站稳定性和性能的重要步骤。本文将详细介绍一些常用的 Nginx 基础配置，包括虚拟主机配置、HTTP 重定向、反向代理等内容，并提供详细的示例说明。</p>
+<h3 id="虚拟主机配置"><a href="#虚拟主机配置" class="headerlink" title="虚拟主机配置"></a>虚拟主机配置</h3><p>虚拟主机是 Nginx 中非常重要的概念，它允许您在一台服务器上托管多个网站。下面是一个简单的虚拟主机配置示例：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span> example.com www.example.com;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">root</span> /var/www/example;</span><br><span class="line">    <span class="attribute">index</span> index.html index.htm;</span><br><span class="line"></span><br><span class="line">    <span class="section">location</span> / &#123;</span><br><span class="line">        <span class="attribute">try_files</span> <span class="variable">$uri</span> <span class="variable">$uri</span>/ /index.html;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>**<code>listen 80;</code>**：指定 <code>Nginx</code> 监听的端口号。</li>
+<li>**<code>server_name example.com www.example.com;</code>**：指定虚拟主机的域名。</li>
+<li>**<code>root /var/www/example;</code>**：指定网站的根目录。</li>
+<li>**<code>index index.html index.htm;</code>**：指定默认的索引文件。</li>
+<li>**<code>location /</code>**：配置请求的 <code>URL</code> 路径。</li>
+<li>**<code>try_files $uri $uri/ /index.html;</code>**：尝试寻找与请求 <code>URI</code> 匹配的文件，如果找不到则返回 <code>index.html</code>。</li>
+</ul>
+<h3 id="HTTP-重定向"><a href="#HTTP-重定向" class="headerlink" title="HTTP 重定向"></a>HTTP 重定向</h3><p>HTTP 重定向是将一个 URL 请求重定向到另一个 URL 的过程。下面是一个简单的 HTTP 重定向配置示例：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span> www.example.com;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">return</span> <span class="number">301</span> http://example.com<span class="variable">$request_uri</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个配置会将所有访问 <code>www.example.com</code> 的请求重定向到 <code>example.com</code>，保证网站的访问统一性。</p>
+<h3 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h3><p><code>Nginx</code> 反向代理是将客户端的请求转发给后端服务器的过程，常用于负载均衡和隐藏后端服务器。下面是一个简单的反向代理配置示例：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">  <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">  <span class="attribute">server_name</span> www.example.com;</span><br><span class="line"></span><br><span class="line">  <span class="section">location</span> / &#123;</span><br><span class="line">    <span class="attribute">proxy_pass</span> http://backend_server;</span><br><span class="line">    <span class="attribute">proxy_set_header</span> Host <span class="variable">$host</span>;</span><br><span class="line">    <span class="attribute">proxy_set_header</span> X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">    <span class="attribute">proxy_set_header</span> X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">    <span class="attribute">proxy_set_header</span> X-Forwarded-Proto <span class="variable">$scheme</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>**<code>proxy_pass http://backend_server;</code>**：指定后端服务器的地址。</li>
+<li>**<code>proxy_set_header</code>**：设置代理请求的头部信息，如 <code>Host</code>、<code>X-Real-IP</code>、<code>X-Forwarded-For</code> 等。</li>
+</ul>
+<h3 id="SSL-TLS-配置"><a href="#SSL-TLS-配置" class="headerlink" title="SSL&#x2F;TLS 配置"></a>SSL&#x2F;TLS 配置</h3><p><code>SSL/TLS</code> 是保护网站安全的重要手段，<code>Nginx</code> 提供了丰富的 <code>SSL/TLS</code> 配置选项。下面是一个简单的 <code>SSL/TLS</code> 配置示例：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">  <span class="attribute">listen</span>                      <span class="number">80</span>;</span><br><span class="line">  <span class="attribute">server_name</span>                 www.example.com;</span><br><span class="line">  <span class="comment"># 将 http 重定向转移到 https</span></span><br><span class="line">  <span class="attribute">return</span> <span class="number">301</span> https://<span class="variable">$server_name</span><span class="variable">$request_uri</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">  <span class="attribute">listen</span>                      <span class="number">443</span> ssl;</span><br><span class="line">  <span class="attribute">server_name</span>                 www.example.com;</span><br><span class="line">  <span class="attribute">ssl_certificate</span>             /etc/nginx/ssl/www.example.com.pem;</span><br><span class="line">  <span class="attribute">ssl_certificate_key</span>         /etc/nginx/ssl/www.example.com.key;</span><br><span class="line">  <span class="attribute">ssl_session_timeout</span>         <span class="number">10m</span>;</span><br><span class="line">  <span class="attribute">ssl_ciphers</span>                 ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;</span><br><span class="line">  <span class="attribute">ssl_protocols</span>               TLSv1 TLSv1.<span class="number">1</span> TLSv1.<span class="number">2</span>;</span><br><span class="line">  <span class="attribute">ssl_prefer_server_ciphers</span>   <span class="literal">on</span>;</span><br><span class="line"></span><br><span class="line">  <span class="section">location</span> / &#123;</span><br><span class="line">    <span class="attribute">root</span>                    /var/nginx/html;</span><br><span class="line">    <span class="attribute">index</span>                   index.html index.htm index.md;</span><br><span class="line">    <span class="attribute">try_files</span>               <span class="variable">$uri</span> <span class="variable">$uri</span>/ /index.html;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>**<code>listen 443 ssl;</code>**：指定监听的端口号，并开启 SSL。</li>
+<li>**<code>ssl_certificate 和 ssl_certificate_key</code>**：指定 SSL 证书和私钥的路径。</li>
+<li>**<code>ssl_protocols</code>**：指定允许的 SSL&#x2F;TLS 协议版本。</li>
+<li>**<code>ssl_prefer_server_ciphers on;</code>**：优先使用服务器端的加密算法。</li>
+<li>**<code>ssl_ciphers</code>**：指定允许的加密算法。</li>
+</ul>
+<h3 id="隐藏-Nginx-版本信息"><a href="#隐藏-Nginx-版本信息" class="headerlink" title="隐藏 Nginx 版本信息"></a>隐藏 Nginx 版本信息</h3><p>要隐藏 <code>Nginx</code> 版本信息，您可以通过在配置文件中进行相应的设置来实现。具体来说，您需要修改 <code>nginx.conf</code> 文件，使用 <code>server_tokens off;</code> 指令来关闭 <code>Nginx</code> 的版本号显示。以下是如何进行配置的示例：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">  <span class="attribute">server_tokens</span> <span class="literal">off</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>将上述配置添加到 <code>nginx.conf</code> 文件的 <code>http</code> 块中即可禁用 <code>Nginx</code> 版本号显示。</p>
+<h3 id="禁止-ip-直接访问-80-端口"><a href="#禁止-ip-直接访问-80-端口" class="headerlink" title="禁止 ip 直接访问 80 端口"></a>禁止 ip 直接访问 80 端口</h3><p>要禁止直接通过 <code>IP</code> 地址访问 <code>80</code> 端口，您可以通过 <code>Nginx</code> 配置文件进行相应的设置。具体来说，您可以配置一个默认的 <code>server</code> 块，用于捕获所有请求，并返回一个错误页面或者重定向到其他地址。以下是一个示例配置：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">  <span class="attribute">listen</span> <span class="number">80</span> default_server;</span><br><span class="line">  <span class="attribute">server_name</span> _;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">return</span> <span class="number">444</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个配置中：</p>
+<ul>
+<li>**<code>listen 80 default_server;</code>**：指定 <code>Nginx</code> 监听默认的 <code>HTTP</code> 端口，并将此 <code>server</code> 块标记为默认服务器。</li>
+<li>**<code>server_name _;</code>**： 表示该 <code>server</code> 块将匹配所有请求。</li>
+<li>**<code>return 444;</code>**： 是一个特殊的 <code>Nginx</code> 返回指令，它会立即关闭客户端连接，相当于不做任何响应。</li>
+</ul>
+<p>通过这样的配置，当有请求通过 <code>IP</code> 地址直接访问 <code>80</code> 端口时，<code>Nginx</code> 将返回一个 <code>444</code> 错误，不会提供任何内容，从而实现了禁止直接访问 <code>80</code> 端口的目的。</p>
+<h3 id="启动-web-服务-react-项目为例"><a href="#启动-web-服务-react-项目为例" class="headerlink" title="启动 web 服务 (react 项目为例)"></a>启动 web 服务 (react 项目为例)</h3><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">  <span class="comment"># 项目启动端口</span></span><br><span class="line">  <span class="attribute">listen</span>            <span class="number">80</span>;</span><br><span class="line">  <span class="comment"># 域名（localhost）</span></span><br><span class="line">  <span class="attribute">server_name</span>       _;</span><br><span class="line">  <span class="comment"># 禁止 iframe 嵌套</span></span><br><span class="line">  <span class="attribute">add_header</span>        X-Frame-Options SAMEORIGIN;</span><br><span class="line"></span><br><span class="line">  <span class="comment"># 访问地址 根路径配置</span></span><br><span class="line">  <span class="section">location</span> / &#123;</span><br><span class="line">    <span class="comment"># 项目目录</span></span><br><span class="line">    <span class="attribute">root</span>            /var/nginx/html;</span><br><span class="line">    <span class="comment"># 默认读取文件</span></span><br><span class="line">    <span class="attribute">index</span>           index.html;</span><br><span class="line">    <span class="comment"># 配置 history 模式的刷新空白</span></span><br><span class="line">    <span class="attribute">try_files</span>       <span class="variable">$uri</span> <span class="variable">$uri</span>/ /index.html;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment"># 后缀匹配，解决静态资源找不到问题</span></span><br><span class="line">  <span class="section">location</span> <span class="regexp">~* \.(gif|jpg|jpeg|png|css|js|ico)$</span> &#123;</span><br><span class="line">    <span class="attribute">root</span>            /var/nginx/html/static/;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment"># 图片防盗链</span></span><br><span class="line">  <span class="section">location</span> ~/static/.*\.(jpg|jpeg|png|gif|webp)$ &#123;</span><br><span class="line">    <span class="attribute">root</span>              /var/nginx/html;</span><br><span class="line">    <span class="attribute">valid_referers</span>    <span class="regexp">*.example.com</span>;</span><br><span class="line">    <span class="attribute">if</span> (<span class="variable">$invalid_referer</span>) &#123;</span><br><span class="line">      <span class="attribute">return</span>          <span class="number">403</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment"># 访问限制</span></span><br><span class="line">  <span class="section">location</span> /static &#123;</span><br><span class="line">    <span class="attribute">root</span>               /var/nginx/html;</span><br><span class="line">    <span class="comment"># allow 允许</span></span><br><span class="line">    <span class="attribute">allow</span>              <span class="number">39</span>.xxx.xxx.xxx;</span><br><span class="line">    <span class="comment"># deny  拒绝</span></span><br><span class="line">    <span class="attribute">deny</span>               all;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个配置中：</p>
+<ul>
+<li>**<code>listen 80;</code>**： 指定 Nginx 监听的端口号。</li>
+<li>**<code>server_name _;</code>**： 表示该 <code>server</code> 块将匹配所有请求。</li>
+<li>**<code>location /</code>**： 配置请求的 · 路径，尝试寻找与请求 <code>URI</code> 匹配的文件，如果找不到则返回 <code>index.html</code>。</li>
+<li>**<code>add_header X-Frame-Options SAMEORIGIN;</code>**：设置响应的头部信息 <code>X-Frame-Options</code>，不允许我们的页面嵌套到第三方网页里面。</li>
+<li>**<code>root /var/nginx/html;</code>**： 指定网站的根目录，这里是 <code>React</code> 项目构建后的静态文件目录。</li>
+<li>**<code>index index.html;</code>**： 指定默认的索引文件。</li>
+<li>**<code>try_files $uri $uri/ /index.html;</code>**：尝试寻找与请求 <code>URI</code> 匹配的文件，如果找不到则返回 <code>index.html</code>。</li>
+</ul>
+<h3 id="一个web服务，配置多个项目-location-匹配路由区别"><a href="#一个web服务，配置多个项目-location-匹配路由区别" class="headerlink" title="一个web服务，配置多个项目 (location 匹配路由区别)"></a>一个web服务，配置多个项目 (location 匹配路由区别)</h3><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">  <span class="attribute">listen</span>                <span class="number">80</span>;</span><br><span class="line">  <span class="attribute">server_name</span>           _;</span><br><span class="line"></span><br><span class="line">  <span class="comment"># 主应用</span></span><br><span class="line">  <span class="section">location</span> / &#123;</span><br><span class="line">    <span class="attribute">root</span>                /var/nginx/html/main;</span><br><span class="line">    <span class="attribute">index</span>               index.html;</span><br><span class="line">    <span class="attribute">try_files</span>           <span class="variable">$uri</span> <span class="variable">$uri</span>/ /index.html;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment"># 子应用一</span></span><br><span class="line">  <span class="section">location</span><span class="regexp"> ^~</span> /user/ &#123;</span><br><span class="line">    <span class="attribute">proxy_pass</span>          http://localhost:8001;</span><br><span class="line">    <span class="attribute">proxy_redirect</span>      <span class="literal">off</span>;</span><br><span class="line">    <span class="attribute">proxy_set_header</span>    Host <span class="variable">$host</span>;</span><br><span class="line">    <span class="attribute">proxy_set_header</span>    X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">    <span class="attribute">proxy_set_header</span>    X-Forwarded-For</span><br><span class="line">    proxy_set_header    X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment"># 子应用二</span></span><br><span class="line">  <span class="section">location</span><span class="regexp"> ^~</span> /product/ &#123;</span><br><span class="line">    <span class="attribute">proxy_pass</span>          http://localhost:8002;</span><br><span class="line">    <span class="attribute">proxy_redirect</span>      <span class="literal">off</span>;</span><br><span class="line">    <span class="attribute">proxy_set_header</span>    Host <span class="variable">$host</span>;</span><br><span class="line">    <span class="attribute">proxy_set_header</span>    X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">    <span class="attribute">proxy_set_header</span>    X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment"># 静态资源读取不到问题处理</span></span><br><span class="line">  <span class="attribute">rewrite</span><span class="regexp"> ^/api/profile/(.*)$</span> /(替换成正确路径的文件的上一层目录)/<span class="variable">$1</span> <span class="literal">last</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 子应用一服务</span></span><br><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">  <span class="attribute">listen</span>                <span class="number">8001</span>;</span><br><span class="line">  <span class="attribute">server_name</span>           _;</span><br><span class="line">  <span class="section">location</span> / &#123;</span><br><span class="line">    <span class="attribute">root</span>                /var/nginx/html/user;</span><br><span class="line">    <span class="attribute">index</span>               index.html;</span><br><span class="line">    <span class="attribute">try_files</span>           <span class="variable">$uri</span> <span class="variable">$uri</span>/ /index.html;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="section">location</span><span class="regexp"> ^~</span> /user/ &#123;</span><br><span class="line">    <span class="attribute">alias</span>               /var/nginx/html/user/;</span><br><span class="line">    <span class="attribute">index</span>               index.html index.htm;</span><br><span class="line">    <span class="attribute">try_files</span>           <span class="variable">$uri</span> /user/index.html;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment"># 接口代理</span></span><br><span class="line">  <span class="section">location</span>  /api &#123;</span><br><span class="line">    <span class="attribute">proxy_pass</span>          http://localhost:3001;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 子应用二服务</span></span><br><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">  <span class="attribute">listen</span>                <span class="number">8002</span>;</span><br><span class="line">  <span class="attribute">server_name</span>           _;</span><br><span class="line"></span><br><span class="line">  <span class="section">location</span> / &#123;</span><br><span class="line">    <span class="attribute">root</span>                /var/nginx/html/product;</span><br><span class="line">    <span class="attribute">index</span>               index.html;</span><br><span class="line">    <span class="attribute">try_files</span>           <span class="variable">$uri</span> <span class="variable">$uri</span>/ /index.html;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="section">location</span><span class="regexp"> ^~</span> /product/ &#123;</span><br><span class="line">    <span class="attribute">alias</span>               /var/nginx/html/product/;</span><br><span class="line">    <span class="attribute">index</span>               index.html index.htm;</span><br><span class="line">    <span class="attribute">try_files</span>           <span class="variable">$uri</span> /product/index.html;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment"># 接口代理</span></span><br><span class="line">  <span class="section">location</span>  /api &#123;</span><br><span class="line">    <span class="attribute">proxy_pass</span>          http://localhost:3002;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在上述配置中</p>
+<ul>
+<li>**<code>location ^~ /user/</code>**：使用 <code>^~</code> 修饰的 <code>location</code> 块，匹配以 <code>/user/</code> 开头的 <code>URI</code>。如果请求的 <code>URI</code> 以 <code>/user/</code> 开头，则 <code>Nginx</code> 将立即停止搜索其他 <code>location</code> 块，而是使用这个 <code>location</code> 块进行处理，<code>location</code> 块里面使用反向代理，指向服务器 <code>http://localhost:8001</code> 的地址。</li>
+<li>**<code>location ^~ /product/</code>**：同上，匹配以 <code>/product/</code> 开头的 <code>URI</code>。</li>
+</ul>
+<h3 id="PC端和移动端使用不同的项目文件映射"><a href="#PC端和移动端使用不同的项目文件映射" class="headerlink" title="PC端和移动端使用不同的项目文件映射"></a>PC端和移动端使用不同的项目文件映射</h3><p>要在 <code>Nginx</code> 中根据用户设备类型（例如PC端和移动端）使用不同的项目文件映射，您可以使用 <code>map</code> 指令创建一个变量，根据用户的 <code>User-Agent</code> 头部信息来判断设备类型，并使用if语句根据变量的值来选择不同的文件映射。以下是一个示例配置：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">map</span> <span class="variable">$http_user_agent</span> <span class="variable">$is_mobile</span> &#123;</span><br><span class="line">  <span class="attribute">default</span> <span class="number">0</span>;</span><br><span class="line">  ~*<span class="attribute">iphone</span> <span class="number">1</span>;</span><br><span class="line">  ~*<span class="attribute">android</span> <span class="number">1</span>;</span><br><span class="line">  ~*<span class="attribute">mobile</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">  <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">  <span class="attribute">server_name</span> example.com;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">root</span> /var/www;</span><br><span class="line"></span><br><span class="line">  <span class="section">location</span> / &#123;</span><br><span class="line">    <span class="attribute">if</span> (<span class="variable">$is_mobile</span>) &#123;</span><br><span class="line">      <span class="attribute">alias</span> /var/www/mobile/;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="attribute">alias</span> /var/www/desktop/;</span><br><span class="line">    <span class="attribute">try_files</span> <span class="variable">$uri</span> <span class="variable">$uri</span>/ /index.html;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>或者</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">  <span class="section">location</span> / &#123;</span><br><span class="line">    <span class="attribute">root</span> /var/www/desktop;</span><br><span class="line">    <span class="attribute">if</span> (<span class="variable">$http_user_agent</span> <span class="regexp">~* &#x27;(mobile|android|iphone|ipad|phone)&#x27;)</span> &#123;</span><br><span class="line">      <span class="attribute">root</span> /var/www/mobile;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="attribute">index</span> index.html;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个配置中：</p>
+<ul>
+<li>**<code>map $http_user_agent $is_mobile</code>**：创建一个变量 <code>$is_mobile</code>，根据 <code>$http_user_agent</code> 中的 <code>User-Agent</code> 头部信息判断设备类型。如果 <code>User-Agent</code> 中包含 <code>iphone</code>、<code>android</code>、<code>mobile</code> 等关键词，则将 <code>$is_mobile</code> 设置为 <code>1</code>，否则设置为 <code>0</code>。</li>
+<li>**<code>location /</code>**：对所有请求进行匹配。</li>
+<li>**<code>if ($is_mobile)</code>**：使用 <code>if</code> 语句根据 <code>$is_mobile</code> 的值判断设备类型。如果是移动设备，则将请求映射到 <code>/var/www/mobile/</code> 目录；否则映射到 <code>/var/www/desktop/</code> 目录。</li>
+<li>**<code>try_files $uri $uri/ /index.html;</code>**：尝试寻找与请求 <code>URI</code> 匹配的文件，如果找不到则返回 <code>/index.html</code>。</li>
+</ul>
+<p>需要注意的是，尽管 <code>if</code> 语句在 <code>Nginx</code> 中是有效的，但它可能会导致性能问题，并且在某些情况下可能不起作用。如果您担心性能问题，可以考虑使用更高效的方法，如根据不同的 <code>User-Agent</code> 头部信息设置不同的变量，并使用 <code>map</code> 指令匹配。</p>
+<h3 id="配置负载均衡"><a href="#配置负载均衡" class="headerlink" title="配置负载均衡"></a>配置负载均衡</h3><p>要在 <code>Nginx</code> 中配置负载均衡，您可以使用 <code>upstream</code> 块定义一组后端服务器，并在 <code>server</code> 块中使用 <code>proxy_pass</code> 指令将请求代理到这组后端服务器。以下是一个示例配置：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">  <span class="section">upstream</span> backend &#123;</span><br><span class="line">    <span class="attribute">server</span> backend1.example.com;</span><br><span class="line">    <span class="attribute">server</span> backend2.example.com;</span><br><span class="line">    <span class="attribute">server</span> backend3.example.com;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span> example.com;</span><br><span class="line"></span><br><span class="line">    <span class="section">location</span> / &#123;</span><br><span class="line">      <span class="attribute">proxy_pass</span>          http://backend;</span><br><span class="line">      <span class="attribute">proxy_set_header</span>    Host <span class="variable">$proxy_host</span>;</span><br><span class="line">      <span class="attribute">proxy_set_header</span>    X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">      <span class="attribute">proxy_set_header</span>    X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个配置中：</p>
+<ul>
+<li>**<code>upstream backend</code>**：定义了一个名为 <code>backend</code> 的负载均衡组，其中包含了三个后端服务器：<code>backend1.example.com</code>、<code>backend2.example.com</code> 和 <code>backend3.example.com</code>。</li>
+<li>**<code>server块中的location /</code>**：匹配所有请求。</li>
+<li>**<code>proxy_pass http://backend;</code>**：将请求代理到名为 <code>backend</code> 的负载均衡组中的服务器。<code>Nginx</code> 会自动根据默认的负载均衡算法（轮询）将请求分发到这组后端服务器中的一个。</li>
+<li>**<code>proxy_set_header</code>**：设置代理请求的头部信息，如真实 <code>IP</code> 地址、转发者 <code>IP</code> 地址和主机地址。</li>
+</ul>
+<p>您还可以根据需要添加其他负载均衡配置选项，例如设置负载均衡算法、调整权重等。以下是一个更复杂的负载均衡配置示例：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">  <span class="section">upstream</span> backend &#123;</span><br><span class="line">    least_conn; <span class="comment"># 使用最少连接数算法</span></span><br><span class="line">    <span class="attribute">server</span> backend1.example.com weight=<span class="number">3</span>;</span><br><span class="line">    <span class="attribute">server</span> backend2.example.com;</span><br><span class="line">    <span class="attribute">server</span> backend3.example.com;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span> example.com;</span><br><span class="line"></span><br><span class="line">    <span class="section">location</span> / &#123;</span><br><span class="line">      <span class="attribute">proxy_pass</span> http://backend;</span><br><span class="line">      <span class="attribute">proxy_set_header</span> X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">      <span class="attribute">proxy_set_header</span> X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">      <span class="attribute">proxy_set_header</span> Host <span class="variable">$host</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个配置中：</p>
+<ul>
+<li>**<code>least_conn</code>**：使用最少连接数算法进行负载均衡。</li>
+<li>**<code>server backend1.example.com weight=3;</code>**：设置 <code>backend1.example.com</code> 的权重为 <code>3</code>，比其他后端服务器更具优先级。</li>
+<li>**<code>proxy_set_header</code>**：设置代理请求的头部信息，如真实 <code>IP</code> 地址、转发者 <code>IP</code> 地址和主机地址。</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>本文介绍了一些常用的 <code>Nginx</code> 基础配置，包括虚拟主机配置、<code>HTTP</code> 重定向、反向代理、<code>SSL/TLS</code> 配置等内容，并提供了详细的示例说明。正确配置 <code>Nginx</code> 不仅可以提高网站的性能和安全性，还能提升用户体验和搜索引擎排名。希望本文能够帮助您更好地理解和应用 <code>Nginx</code>，在实际项目中发挥其作用。</p>
+<p><strong>注意：</strong></p>
+<p>配置完成后，保存并关闭文件，然后重新加载Nginx以使配置生效：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl reload nginx</span><br></pre></td></tr></table></figure>
+
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/" rel="tag">nginx</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2022/04/08/nginx-commonly-config/" data-id="cluqhksbm000kp6q259kd6d15" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/04/20/security-anti-reptile/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Web安全之静态内容防爬虫
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/09/26/security-sql-injection/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Web安全之 SQL 注入</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+      
+      <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/04/04/homebrew/">MacOS 和 Linux 的 Homebrew 安装与卸载</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/01/github-emoji/">Emoji 大全</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/29/vitepress-blog-guide/">使用VitePress搭建个人博客</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/05/webpack-plugin-mechanism/">Webpack Plugin插件机制</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/08/interview-questions/">前端面试题汇总</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/" rel="tag">blog</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/canvas/" rel="tag">canvas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/csrf/" rel="tag">csrf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debugging/" rel="tag">debugging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-pages/" rel="tag">github pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/homebrew/" rel="tag">homebrew</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/" rel="tag">html</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interview/" rel="tag">interview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/loader/" rel="tag">loader</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/" rel="tag">mobile</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reptile/" rel="tag">reptile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/" rel="tag">security</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/service-worker/" rel="tag">service worker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/translate/" rel="tag">translate</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vitepress/" rel="tag">vitepress</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webworker/" rel="tag">webworker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/weinre/" rel="tag">weinre</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xss/" rel="tag">xss</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yuv/" rel="tag">yuv</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">八月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">七月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2024 HankLiu, Inc. All rights reserved.<br>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">主页</a>
+  
+    <a href="/archives" class="mobile-nav-link">文章</a>
+  
+    <a href="/toolbox-frontend" class="mobile-nav-link">小工具</a>
+  
+    <a href="/resume" class="mobile-nav-link">小简介</a>
+  
+  <a href="#search" class="mobile-nav-link st-search-show-outputs">Search</a>
+</nav>
+  
+
+<!-- totop start -->
+<div id="totop">
+	<a title="To Top"></a>
+</div>
+<!-- totop end -->
+
+<!-- swiftype search start -->
+
+<!-- swiftype search end -->
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/lrsjng.jquery-qrcode/0.12.0/jquery.qrcode.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+</div>
+</body>
+</html>
