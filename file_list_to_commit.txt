@@ -1,1 +1,1 @@
-.github/workflows/gh-page.yml
+source/_posts/nginx-commonly-config.md
