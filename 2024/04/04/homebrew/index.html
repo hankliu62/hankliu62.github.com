@@ -15,7 +15,7 @@
 <meta property="og:description" content="MacOS 和 Linux 的 Homebrew 安装与卸载HomebrewmacOS（或 Linux）缺失的软件包的管理器 安装 Homebrew1&#x2F;bin&#x2F;bash -c &quot;$(curl -fsSL https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;Homebrew&#x2F;install&#x2F;HEAD&#x2F;install.sh)&quot;  脚本会在执行前暂停，并说明它将做什么">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-04-04T13:56:26.000Z">
-<meta property="article:modified_time" content="2024-04-08T05:31:39.498Z">
+<meta property="article:modified_time" content="2024-04-10T14:39:46.779Z">
 <meta property="article:author" content="HankLiu">
 <meta property="article:tag" content="homebrew">
 <meta name="twitter:card" content="summary">
@@ -80,9 +80,11 @@
       
         <a class="main-nav-link" href="/archives">文章</a>
       
-        <a class="main-nav-link" href="/toolbox-frontend">小工具</a>
+        <a class="main-nav-link" href="/toolkit">小工具</a>
       
         <a class="main-nav-link" href="/resume">小简介</a>
+      
+        <a class="main-nav-link" href="/about">小关于</a>
       
     </nav>
   </div>
@@ -191,7 +193,7 @@
 <p>首先确保运行的<code>/bin/zsh -c &quot;$(curl -fsSL https://gitee.com/ **cunkai** /HomebrewCN/raw/master/Homebrew.sh)&quot;</code> 中间那个 <strong>cunkai</strong> 不是别的。</p>
 </blockquote>
 <p><strong>1.</strong> 如果遇到安装软件报错 <strong>404</strong> ，切换网络如果还不行：</p>
-<p>查看下官方更新记录<code>https://brew.sh/blog/</code> 如果近期有更新，可以发我邮箱<a href="mailto:&#99;&#117;&#110;&#107;&#97;&#x69;&#46;&#x77;&#x61;&#110;&#103;&#64;&#x66;&#x6f;&#120;&#x6d;&#97;&#105;&#108;&#46;&#x63;&#x6f;&#109;">&#99;&#117;&#110;&#107;&#97;&#x69;&#46;&#x77;&#x61;&#110;&#103;&#64;&#x66;&#x6f;&#120;&#x6d;&#97;&#105;&#108;&#46;&#x63;&#x6f;&#109;</a>。我看看是否官方修改了某些代码。</p>
+<p>查看下官方更新记录<code>https://brew.sh/blog/</code> 如果近期有更新，可以发我邮箱<a href="mailto:&#x63;&#117;&#x6e;&#107;&#x61;&#x69;&#46;&#119;&#x61;&#110;&#x67;&#x40;&#102;&#x6f;&#120;&#x6d;&#97;&#x69;&#x6c;&#46;&#x63;&#111;&#109;">&#x63;&#117;&#x6e;&#107;&#x61;&#x69;&#46;&#119;&#x61;&#110;&#x67;&#x40;&#102;&#x6f;&#120;&#x6d;&#97;&#x69;&#x6c;&#46;&#x63;&#111;&#109;</a>。我看看是否官方修改了某些代码。</p>
 <p><strong>2.</strong> 不小心改动了brew文件夹里面的内容，如何重置，运行：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew update-reset</span><br></pre></td></tr></table></figure>
 
@@ -234,7 +236,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/homebrew/" rel="tag">homebrew</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/04/homebrew/" data-id="cluqimabi000bqiq9ffgx0a28" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/04/homebrew/" data-id="clutx2uub000drbp73jig0xc9" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -244,6 +246,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2024/04/08/github-action-docker/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          使用 GitHub Actions 自动化部署 Nuxt3 应用到 Docker 容器中
+        
+      </div>
+    </a>
   
   
     <a href="/2024/04/01/github-emoji/" id="article-nav-older" class="article-nav-link-wrap">
@@ -268,6 +279,10 @@
       <ul>
         
           <li>
+            <a href="/2024/04/08/github-action-docker/">使用 GitHub Actions 自动化部署 Nuxt3 应用到 Docker 容器中</a>
+          </li>
+        
+          <li>
             <a href="/2024/04/04/homebrew/">MacOS 和 Linux 的 Homebrew 安装与卸载</a>
           </li>
         
@@ -283,10 +298,6 @@
             <a href="/2024/03/05/webpack-plugin-mechanism/">Webpack Plugin插件机制</a>
           </li>
         
-          <li>
-            <a href="/2024/02/08/interview-questions/">前端面试题汇总</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -296,7 +307,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/" rel="tag">blog</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/canvas/" rel="tag">canvas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/csrf/" rel="tag">csrf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debugging/" rel="tag">debugging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-pages/" rel="tag">github pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/homebrew/" rel="tag">homebrew</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/" rel="tag">html</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interview/" rel="tag">interview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/loader/" rel="tag">loader</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/" rel="tag">mobile</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reptile/" rel="tag">reptile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/" rel="tag">security</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/service-worker/" rel="tag">service worker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/translate/" rel="tag">translate</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vitepress/" rel="tag">vitepress</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webworker/" rel="tag">webworker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/weinre/" rel="tag">weinre</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xss/" rel="tag">xss</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yuv/" rel="tag">yuv</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/" rel="tag">blog</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/canvas/" rel="tag">canvas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/csrf/" rel="tag">csrf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debugging/" rel="tag">debugging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-pages/" rel="tag">github pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/homebrew/" rel="tag">homebrew</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/" rel="tag">html</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interview/" rel="tag">interview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/loader/" rel="tag">loader</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/" rel="tag">mobile</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reptile/" rel="tag">reptile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/" rel="tag">security</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/service-worker/" rel="tag">service worker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/translate/" rel="tag">translate</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vitepress/" rel="tag">vitepress</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webworker/" rel="tag">webworker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/weinre/" rel="tag">weinre</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xss/" rel="tag">xss</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yuv/" rel="tag">yuv</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -305,7 +316,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">七月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">七月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li></ul>
     </div>
   </div>
 
@@ -328,9 +339,11 @@
   
     <a href="/archives" class="mobile-nav-link">文章</a>
   
-    <a href="/toolbox-frontend" class="mobile-nav-link">小工具</a>
+    <a href="/toolkit" class="mobile-nav-link">小工具</a>
   
     <a href="/resume" class="mobile-nav-link">小简介</a>
+  
+    <a href="/about" class="mobile-nav-link">小关于</a>
   
   <a href="#search" class="mobile-nav-link st-search-show-outputs">Search</a>
 </nav>

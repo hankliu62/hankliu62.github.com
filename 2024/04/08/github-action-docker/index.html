@@ -1,0 +1,305 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  
+  <title>使用 GitHub Actions 自动化部署 Nuxt3 应用到 Docker 容器中 | HankLiu的博客小屋</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="使用 GitHub Actions 自动化部署 Nuxt3 应用到 Docker 容器中介绍在当今的软件开发中，自动化部署是提高生产效率和保证代码质量的关键步骤之一。GitHub Actions 是一个强大的持续集成和持续部署工具，而 Docker 则提供了一种轻量级、可移植的容器化解决方案。本文将介绍如何结合 GitHub Actions 和 Docker，自动化部署一个基于 Nuxt.js 3">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 GitHub Actions 自动化部署 Nuxt3 应用到 Docker 容器中">
+<meta property="og:url" content="https://hankliu62.github.io/2024/04/08/github-action-docker/index.html">
+<meta property="og:site_name" content="HankLiu的博客小屋">
+<meta property="og:description" content="使用 GitHub Actions 自动化部署 Nuxt3 应用到 Docker 容器中介绍在当今的软件开发中，自动化部署是提高生产效率和保证代码质量的关键步骤之一。GitHub Actions 是一个强大的持续集成和持续部署工具，而 Docker 则提供了一种轻量级、可移植的容器化解决方案。本文将介绍如何结合 GitHub Actions 和 Docker，自动化部署一个基于 Nuxt.js 3">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-04-08T13:38:20.000Z">
+<meta property="article:modified_time" content="2024-04-10T14:39:46.779Z">
+<meta property="article:author" content="HankLiu">
+<meta property="article:tag" content="git">
+<meta property="article:tag" content="github">
+<meta property="article:tag" content="docker">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/img/favicon.ico" sizes="16x16">
+  
+  <link rel="stylesheet" href="/css/style.css?t=1">
+  
+    <link href="//fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner">
+    <div id="banner-mask"></div>
+  </div>
+  <div id="header-outer" class="outer">
+    <nav id="upper-nav" class="inner">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      <div class="sub-nav">
+        
+        
+          <a id="nav-github" class="nav-icon" href="https://github.com/hankliu62"></a>
+        
+      </div>
+    </nav>
+    <div id="header-title">
+      
+        <h1 id="blog-title-wrap">
+          <a href="/" id="blog-title">HankLiu的博客小屋</a>
+        </h1>
+      
+      
+        <h5 class="blog-subtitle-wrap">努力去听风的声音，不必在意风的方向。</h5>
+      
+    </div>
+    <div id="contenedor">
+      <ul class="cube">
+        <li class="cara"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="100" width="100" viewBox="-50 -50 200 200">
+          <circle cx="50" cy="50" r="45" stroke-width="5" stroke="black" stroke-opacity="0.5" fill-opacity="0"></circle>
+          <rect id="clockwise" x="47.5" y="27.5" width="5" height="25" rx="2.5" ry="2.5" fill="black" fill-opacity="0.5" transform="rotate(330 50 50)"></rect>
+          <rect id="minute" x="48.5" y="16.5" width="3" height="35" rx="1.5" ry="1.5" fill="black" fill-opacity="0.5"></rect>
+        </svg></li>
+        <li class="cara">P</li>
+        <li class="cara">X</li>
+        <li class="cara">L</li>
+        <li class="cara">C</li>
+        <li class="cara">Y</li>
+      </ul>
+    </div>
+    <nav id="main-nav">
+      
+        <a class="main-nav-link" href="/">主页</a>
+      
+        <a class="main-nav-link" href="/archives">文章</a>
+      
+        <a class="main-nav-link" href="/toolkit">小工具</a>
+      
+        <a class="main-nav-link" href="/resume">小简介</a>
+      
+        <a class="main-nav-link" href="/about">小关于</a>
+      
+    </nav>
+  </div>
+</header>
+
+    <div class="outer">
+      <section id="main"><article id="post-github-action-docker" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2024/04/08/github-action-docker/" class="article-date">
+  <time datetime="2024-04-08T13:38:20.000Z" itemprop="datePublished">2024-04-08</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-false">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      使用 GitHub Actions 自动化部署 Nuxt3 应用到 Docker 容器中
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="使用-GitHub-Actions-自动化部署-Nuxt3-应用到-Docker-容器中"><a href="#使用-GitHub-Actions-自动化部署-Nuxt3-应用到-Docker-容器中" class="headerlink" title="使用 GitHub Actions 自动化部署 Nuxt3 应用到 Docker 容器中"></a>使用 GitHub Actions 自动化部署 Nuxt3 应用到 Docker 容器中</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>在当今的软件开发中，自动化部署是提高生产效率和保证代码质量的关键步骤之一。<code>GitHub Actions</code> 是一个强大的持续集成和持续部署工具，而 <code>Docker</code> 则提供了一种轻量级、可移植的容器化解决方案。本文将介绍如何结合 <code>GitHub Actions</code> 和 <code>Docker</code>，自动化部署一个基于 <code>Nuxt.js 3</code> 的应用到 <code>Docker</code> 容器中。</p>
+<h3 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h3><p>在开始之前，请确保您已经具备以下环境和工具：</p>
+<ul>
+<li>一个 <code>GitHub</code> 账号，并且在该账号下创建了一个仓库用于存放您的 <code>Nuxt.js 3</code> 项目。</li>
+<li>一个 <code>Docker Hub</code> 账号，用于存放您的 <code>Docker</code> 镜像。</li>
+<li>安装了 <code>Docker</code> 和 <code>Docker Compose</code> 的开发环境。</li>
+</ul>
+<h4 id="步骤一：准备-Nuxt-js-3-项目"><a href="#步骤一：准备-Nuxt-js-3-项目" class="headerlink" title="步骤一：准备 Nuxt.js 3 项目"></a>步骤一：准备 Nuxt.js 3 项目</h4><p>首先，您需要有一个基于 <code>Nuxt.js 3</code> 的项目。如果还没有，可以通过以下命令创建一个新的 <code>Nuxt.js 3</code> 项目：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Copy code</span><br><span class="line">npx create-nuxt-app@latest my-nuxt-app</span><br></pre></td></tr></table></figure>
+
+<p>按照提示选择项目配置，然后进入项目目录。</p>
+<h4 id="步骤二：编写-Dockerfile"><a href="#步骤二：编写-Dockerfile" class="headerlink" title="步骤二：编写 Dockerfile"></a>步骤二：编写 Dockerfile</h4><p>接下来，我们需要创建一个 <code>Dockerfile</code> 文件，用于构建 <code>Docker</code> 镜像。在项目根目录下创建一个名为 <code>Dockerfile</code> 的文件，并添加以下内容：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 Node 18 作为基础镜像</span></span><br><span class="line"><span class="keyword">FROM</span> node:<span class="number">18</span> AS builder</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置工作目录</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> /app</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 拷贝 package.json 和 package-lock.json 到工作目录</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> package*.json ./</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装依赖</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> npm install</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 拷贝源代码到工作目录</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> . .</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 构建应用</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> npm run build</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 Nginx 作为基础镜像</span></span><br><span class="line"><span class="keyword">FROM</span> nginx:alpine</span><br><span class="line"></span><br><span class="line"><span class="comment"># 拷贝 Nuxt.js 应用到 Nginx 静态文件目录</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> --from=builder /app/dist /usr/share/nginx/html</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 暴露 80 端口</span></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">80</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动 Nginx</span></span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash"> [<span class="string">&quot;nginx&quot;</span>, <span class="string">&quot;-g&quot;</span>, <span class="string">&quot;daemon off;&quot;</span>]</span></span><br></pre></td></tr></table></figure>
+
+<p>该 <code>Dockerfile</code> 文件中定义了两个阶段的构建过程。第一阶段使用 <code>Node 14</code> 作为基础镜像，用于构建 <code>Nuxt.js</code> 应用；第二阶段使用 <code>Nginx</code> 作为基础镜像，用于运行 <code>Nuxt.js</code> 应用。</p>
+<h3 id="步骤三：编写-Docker-Compose-文件"><a href="#步骤三：编写-Docker-Compose-文件" class="headerlink" title="步骤三：编写 Docker Compose 文件"></a>步骤三：编写 <code>Docker Compose</code> 文件</h3><p>为了简化 <code>Docker</code> 容器的管理，我们可以使用 <code>Docker Compose</code> 来定义和运行多个容器。在项目根目录下创建一个名为 <code>docker-compose.yml</code> 的文件，并添加以下内容：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3&#x27;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">app:</span></span><br><span class="line">    <span class="attr">build:</span> <span class="string">.</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&#x27;3000:80&#x27;</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">NODE_ENV=production</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br></pre></td></tr></table></figure>
+
+<p>该 <code>Docker Compose</code> 文件定义了一个名为 <code>app</code> 的服务，使用了刚才编写的 <code>Dockerfile</code> 来构建镜像，并将容器的 <code>80</code> 端口映射到宿主机的 <code>3000</code> 端口。另外，设置了 NODE_ENV 环境变量为 <code>production</code>，并且设置容器始终在退出时重新启动。</p>
+<h4 id="步骤四：配置-GitHub-Actions"><a href="#步骤四：配置-GitHub-Actions" class="headerlink" title="步骤四：配置 GitHub Actions"></a>步骤四：配置 GitHub Actions</h4><p>接下来，我们将配置 <code>GitHub Actions</code>，使其在每次推送代码到仓库时自动构建并部署应用到 <code>Docker</code> 容器中。</p>
+<p>在项目根目录下创建一个名为 <code>.github/workflows</code> 的目录，并在该目录下创建一个名为 <code>deploy.yml</code> 的文件，并添加以下内容：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">to</span> <span class="string">Docker</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">master</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">build:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Checkout</span> <span class="string">repository</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/checkout@v2</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Set</span> <span class="string">up</span> <span class="string">Docker</span> <span class="string">Buildx</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">docker/setup-buildx-action@v1</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Log</span> <span class="string">in</span> <span class="string">to</span> <span class="string">Docker</span> <span class="string">Hub</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">docker/login-action@v1</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">username:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.DOCKER_USERNAME</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="attr">password:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.DOCKER_PASSWORD</span> <span class="string">&#125;&#125;</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Build</span> <span class="string">and</span> <span class="string">push</span> <span class="string">Docker</span> <span class="string">image</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">docker/build-push-action@v2</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">context:</span> <span class="string">.</span></span><br><span class="line">          <span class="attr">file:</span> <span class="string">./Dockerfile</span></span><br><span class="line">          <span class="attr">push:</span> <span class="literal">true</span></span><br><span class="line">          <span class="attr">tags:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.DOCKER_USERNAME</span> <span class="string">&#125;&#125;/my-nuxt-app:latest</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">to</span> <span class="string">Docker</span> <span class="string">Compose</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">appleboy/ssh-action@master</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">host:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.SSH_HOST</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="attr">username:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.SSH_USERNAME</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="attr">key:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.SSH_PRIVATE_KEY</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="attr">script:</span> <span class="string">docker-compose</span> <span class="string">pull</span> <span class="string">&amp;&amp;</span> <span class="string">docker-compose</span> <span class="string">up</span> <span class="string">-d</span></span><br></pre></td></tr></table></figure>
+
+<p>该 <code>GitHub Actions</code> 配置文件定义了一个名为 <code>Deploy to Docker</code> 的工作流，在代码推送到 <code>master</code> 分支时触发。它包含了以下几个步骤：</p>
+<ul>
+<li>检出仓库代码。</li>
+<li>设置 <code>Docker Buildx</code>，以便支持多平台构建。</li>
+<li>登录到 <code>Docker Hub</code>。</li>
+<li>构建并推送 <code>Docker</code> 镜像到 <code>Docker Hub</code>。</li>
+<li>使用 <code>SSH</code> 连接到部署目标主机，并执行 <code>docker-compose pull</code> 和 <code>docker-compose up -d</code> 命令来更新容器。</li>
+</ul>
+<h4 id="步骤五：配置-Secrets"><a href="#步骤五：配置-Secrets" class="headerlink" title="步骤五：配置 Secrets"></a>步骤五：配置 Secrets</h4><p>为了安全地管理敏感信息，如 <code>Docker Hub</code> 和部署目标主机的凭据，我们需要在 <code>GitHub</code> 仓库的 <code>Settings -&gt; Secrets</code> 页面中添加这些凭据。</p>
+<p>添加以下凭据：</p>
+<ul>
+<li><strong>DOCKER_USERNAME</strong>: 您的 <code>Docker Hub</code> 用户名。</li>
+<li><strong>DOCKER_PASSWORD</strong>: 您的 <code>Docker Hub</code> 密码或访问令牌。</li>
+<li><strong>SSH_HOST</strong>: 部署目标主机的 <code>IP</code> 地址或域名。</li>
+<li><strong>SSH_USERNAME</strong>: 部署目标主机的用户名。</li>
+<li><strong>SSH_PRIVATE_KEY</strong>: <code>SSH</code> 私钥，用于与部署目标主机建立安全连接。</li>
+</ul>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>通过结合 <code>GitHub Actions</code>、<code>Docker</code> 和 <code>Docker Compose</code>，我们成功实现了一个自动化部署流程，可以在每次代码更新时自动构建并部署 <code>Nuxt.js 3</code> 应用到 <code>Docker</code> 容器中。这种自动化流程可以大大提高开发团队的生产效率，并且确保了部署的一致性和可靠性。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2024/04/08/github-action-docker/" data-id="clutx2uu60005rbp7207d6yp4" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2024/04/04/homebrew/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">MacOS 和 Linux 的 Homebrew 安装与卸载</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+      
+      <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/04/08/github-action-docker/">使用 GitHub Actions 自动化部署 Nuxt3 应用到 Docker 容器中</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/04/homebrew/">MacOS 和 Linux 的 Homebrew 安装与卸载</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/01/github-emoji/">Emoji 大全</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/29/vitepress-blog-guide/">使用VitePress搭建个人博客</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/05/webpack-plugin-mechanism/">Webpack Plugin插件机制</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/" rel="tag">blog</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/canvas/" rel="tag">canvas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/csrf/" rel="tag">csrf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debugging/" rel="tag">debugging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-pages/" rel="tag">github pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/homebrew/" rel="tag">homebrew</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/" rel="tag">html</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interview/" rel="tag">interview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/loader/" rel="tag">loader</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/" rel="tag">mobile</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reptile/" rel="tag">reptile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/" rel="tag">security</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/service-worker/" rel="tag">service worker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/translate/" rel="tag">translate</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vitepress/" rel="tag">vitepress</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webworker/" rel="tag">webworker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/weinre/" rel="tag">weinre</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xss/" rel="tag">xss</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yuv/" rel="tag">yuv</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">七月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2024 HankLiu, Inc. All rights reserved.<br>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">主页</a>
+  
+    <a href="/archives" class="mobile-nav-link">文章</a>
+  
+    <a href="/toolkit" class="mobile-nav-link">小工具</a>
+  
+    <a href="/resume" class="mobile-nav-link">小简介</a>
+  
+    <a href="/about" class="mobile-nav-link">小关于</a>
+  
+  <a href="#search" class="mobile-nav-link st-search-show-outputs">Search</a>
+</nav>
+  
+
+<!-- totop start -->
+<div id="totop">
+	<a title="To Top"></a>
+</div>
+<!-- totop end -->
+
+<!-- swiftype search start -->
+
+<!-- swiftype search end -->
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/lrsjng.jquery-qrcode/0.12.0/jquery.qrcode.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+</div>
+</body>
+</html>
