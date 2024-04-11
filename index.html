@@ -164,7 +164,95 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/08/github-action-docker/" data-id="cluv7pb280005rxq49b05abcp" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/08/github-action-docker/" data-id="cluv7qcvh0005rxq74oc16ewg" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-github-action-publish-package" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2024/04/06/github-action-publish-package/" class="article-date">
+  <time datetime="2024-04-06T20:22:20.000Z" itemprop="datePublished">2024-04-06</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-true">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/04/06/github-action-publish-package/">使用 GitHub Action 实现自动化发布 npm 包</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="使用-GitHub-Action-实现自动化发布-npm-包"><a href="#使用-GitHub-Action-实现自动化发布-npm-包" class="headerlink" title="使用 GitHub Action 实现自动化发布 npm 包"></a>使用 GitHub Action 实现自动化发布 npm 包</h2><p>在开发 <code>JavaScript</code> 应用程序或库时，发布到 <code>npm</code> 上是一种常见的方式来分享和分发你的代码。手动发布 <code>npm</code> 包可能会变得繁琐和容易出错，因此自动化这个过程是非常有帮助的。</p>
+<p><code>GitHub Actions</code> 是一个功能强大的工具，它可以帮助你实现自动化发布 <code>npm</code> 包的流程。在本文中，我们将学习如何使用 <code>GitHub Action</code> 实现自动化发布 <code>npm</code> 包的步骤。</p>
+<h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><ol>
+<li>确保你有一个 <a href="https://www.npmjs.com/"><code>npm</code> 账号</a>，并且已经登录到 <code>npm</code>。</li>
+<li>创建一个 <code>GitHub</code> 仓库用于存储你的 <code>npm</code> 包的代码。</li>
+</ol>
+<h3 id="设置-GitHub-Action"><a href="#设置-GitHub-Action" class="headerlink" title="设置 GitHub Action"></a>设置 GitHub Action</h3><ol>
+<li>在你的 GitHub 仓库中，创建一个名为 <code>.github/workflows/npm-publish.yml</code> 的文件，用于存储 GitHub Action 的配置。</li>
+<li>在 <code>npm-publish.yml</code> 中添加以下内容：</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Publish</span> <span class="string">to</span> <span class="string">npm</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span></span><br><span class="line">      <span class="comment"># 触发ci/cd的代码分支</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">master</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">build:</span></span><br><span class="line">    <span class="comment"># 指定操作系统</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="comment"># 将代码拉到虚拟机</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">获取源码</span> <span class="string">🛎️</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/checkout@v2</span></span><br><span class="line">      <span class="comment"># 指定node版本</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Node环境版本</span> <span class="string">🗜️</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/setup-node@v3</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">node-version:</span> <span class="number">18</span></span><br><span class="line">          <span class="attr">registry-url:</span> <span class="string">&#x27;https://registry.npmjs.org&#x27;</span></span><br><span class="line">      <span class="comment"># 依赖缓存策略</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Npm缓存</span> <span class="string">📁</span></span><br><span class="line">        <span class="attr">id:</span> <span class="string">cache-dependencies</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/cache@v3</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">path:</span> <span class="string">|</span></span><br><span class="line"><span class="string">            **/node_modules</span></span><br><span class="line"><span class="string"></span>          <span class="attr">key:</span> <span class="string">$&#123;&#123;runner.OS&#125;&#125;-$&#123;&#123;hashFiles(&#x27;**/package-lock.json&#x27;)&#125;&#125;</span></span><br><span class="line">      <span class="comment"># 依赖下载</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">安装依赖</span> <span class="string">📦</span></span><br><span class="line">        <span class="attr">if:</span> <span class="string">steps.cache-dependencies.outputs.cache-hit</span> <span class="type">!=</span> <span class="string">&#x27;true&#x27;</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">install</span></span><br><span class="line">      <span class="comment"># 打包</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">打包</span> <span class="string">🏗️</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">run</span> <span class="string">build</span></span><br><span class="line">      <span class="comment"># 测试</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">测试</span> <span class="string">💣</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">run</span> <span class="string">test</span></span><br><span class="line">      <span class="comment"># 发布</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">发布</span> <span class="string">🚀</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">publish</span></span><br><span class="line">        <span class="attr">env:</span></span><br><span class="line">          <span class="attr">NPM_TOKEN:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.NPM_TOKEN</span> <span class="string">&#125;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="申请-npm-访问令牌"><a href="#申请-npm-访问令牌" class="headerlink" title="申请 npm 访问令牌"></a>申请 npm 访问令牌</h3><ol>
+<li>登录 <code>npm</code> 官网，登录成功后，点开右上角头像，并点击 <code>Access Tokens</code> 选项。</li>
+</ol>
+<p><img src="https://github.com/hankliu62/hankliu62.github.com/assets/8088864/2b9ae517-3e57-417a-a00d-d9721a25c4c1" alt="image"></p>
+<ol start="2">
+<li>点开 <code>Generate New Token</code> 下拉框，点击 <code>Classic Token</code> 选项。</li>
+</ol>
+<p><img src="https://github.com/hankliu62/hankliu62.github.com/assets/8088864/b7bdbfd5-4a5f-483c-a795-08bb29d8f35e" alt="image"></p>
+<ol start="3">
+<li>创建一个名称为 <code>GITHUB_PUBLISH_TOKEN</code> 的令牌，并选择 <code>publish 发布</code>权限。</li>
+</ol>
+<p><img src="https://github.com/hankliu62/hankliu62.github.com/assets/8088864/922f2bca-5b37-4863-acd4-121e75e4388a" alt="image"></p>
+<ol start="4">
+<li>复制新生成的访问令牌。</li>
+</ol>
+<p><img src="https://github.com/hankliu62/hankliu62.github.com/assets/8088864/0eef68e5-8adf-483e-90dc-94ac12a45db9" alt="image"></p>
+<h3 id="配置-npm-访问令牌"><a href="#配置-npm-访问令牌" class="headerlink" title="配置 npm 访问令牌"></a>配置 npm 访问令牌</h3><ol>
+<li>进入项目仓库，点击仓库tab选项卡的 <code>Settings</code> ，点开 <code>Secrets and variables</code> 选项卡，点击 <code>Actions</code> 选项，点击对应页面的 <code>&quot;New repository secret&quot;</code> 按钮。</li>
+</ol>
+<p><img src="https://github.com/hankliu62/hankliu62.github.com/assets/8088864/6d4b0fd4-5f03-4ffc-a464-115a66ebfdcd" alt="image"></p>
+<ol start="2">
+<li>新建名称为 <code>NPM_TOKEN</code>的 <code>secret</code>, 并将刚刚申请到的<code>GITHUB_PUBLISH_TOKEN</code>填入 <code>secret</code> 字段。</li>
+</ol>
+<p><img src="https://github.com/hankliu62/hankliu62.github.com/assets/8088864/09de4a85-e1b9-4a10-98e5-1cf8bf2aec9e" alt="image"></p>
+<h3 id="发布-npm-包"><a href="#发布-npm-包" class="headerlink" title="发布 npm 包"></a>发布 npm 包</h3><ol>
+<li>在你的代码中做任何更改。</li>
+<li>提交这些更改并创建一个新的 <code>Release</code>。</li>
+<li><code>GitHub Action</code> 将自动触发并自动构建、测试和发布你的 <code>npm</code> 包。</li>
+</ol>
+<p>通过以上步骤，你已经成功地设置了 <code>GitHub Action</code> 来实现自动化发布 <code>npm</code> 包的流程。现在，每当你创建一个新的 <code>Release</code>，你的代码将自动发布到 <code>npm</code> 上，让你的开发流程更加高效和方便。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/" rel="tag">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2024/04/06/github-action-publish-package/" data-id="cluv7qcvi0007rxq7515t30mg" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -279,7 +367,7 @@
 <p>首先确保运行的<code>/bin/zsh -c &quot;$(curl -fsSL https://gitee.com/ **cunkai** /HomebrewCN/raw/master/Homebrew.sh)&quot;</code> 中间那个 <strong>cunkai</strong> 不是别的。</p>
 </blockquote>
 <p><strong>1.</strong> 如果遇到安装软件报错 <strong>404</strong> ，切换网络如果还不行：</p>
-<p>查看下官方更新记录<code>https://brew.sh/blog/</code> 如果近期有更新，可以发我邮箱<a href="mailto:&#x63;&#117;&#x6e;&#107;&#x61;&#105;&#x2e;&#119;&#97;&#110;&#x67;&#x40;&#x66;&#111;&#120;&#109;&#x61;&#105;&#x6c;&#x2e;&#x63;&#111;&#x6d;">&#x63;&#117;&#x6e;&#107;&#x61;&#105;&#x2e;&#119;&#97;&#110;&#x67;&#x40;&#x66;&#111;&#120;&#109;&#x61;&#105;&#x6c;&#x2e;&#x63;&#111;&#x6d;</a>。我看看是否官方修改了某些代码。</p>
+<p>查看下官方更新记录<code>https://brew.sh/blog/</code> 如果近期有更新，可以发我邮箱<a href="mailto:&#99;&#117;&#x6e;&#x6b;&#x61;&#105;&#46;&#x77;&#x61;&#110;&#103;&#64;&#x66;&#111;&#120;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#99;&#111;&#x6d;">&#99;&#117;&#x6e;&#x6b;&#x61;&#105;&#46;&#x77;&#x61;&#110;&#103;&#64;&#x66;&#111;&#120;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#99;&#111;&#x6d;</a>。我看看是否官方修改了某些代码。</p>
 <p><strong>2.</strong> 不小心改动了brew文件夹里面的内容，如何重置，运行：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew update-reset</span><br></pre></td></tr></table></figure>
 
@@ -322,7 +410,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/homebrew/" rel="tag">homebrew</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/04/homebrew/" data-id="cluv7pb2d000drxq47613hgep" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/04/homebrew/" data-id="cluv7qcvm000frxq77tdz19iq" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -409,7 +497,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/01/github-emoji/" data-id="cluv7pb290007rxq44inq1t1w" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/01/github-emoji/" data-id="cluv7qcvj0008rxq7ffph4klx" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -539,7 +627,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/" rel="tag">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vitepress/" rel="tag">vitepress</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/" rel="tag">vue</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/03/29/vitepress-blog-guide/" data-id="cluv7pb2r0014rxq4h92jd3wh" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/03/29/vitepress-blog-guide/" data-id="cluv7qcvx0017rxq7aj8dfvfi" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -599,7 +687,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/" rel="tag">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/03/05/webpack-plugin-mechanism/" data-id="cluv7pb2s0019rxq44v8257gp" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/03/05/webpack-plugin-mechanism/" data-id="cluv7qcwg0042rxq795vu4ctp" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -790,7 +878,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/" rel="tag">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/interview/" rel="tag">interview</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/02/08/interview-questions/" data-id="cluv7pb3d0043rxq4hi83d9rh" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/02/08/interview-questions/" data-id="cluv7qcwi0047rxq703z40dlu" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -850,7 +938,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/" rel="tag">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/01/12/github-pages-env/" data-id="cluv7pb2a0008rxq44paiacdb" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/01/12/github-pages-env/" data-id="cluv7qcvk000arxq72ds59uw5" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -930,7 +1018,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/" rel="tag">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github-pages/" rel="tag">github pages</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2023/12/27/github-pages/" data-id="cluv7pb2b000arxq4dz8ke0cb" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2023/12/27/github-pages/" data-id="cluv7qcvk000brxq71au2bfkw" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -1004,138 +1092,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/loader/" rel="tag">loader</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/translate/" rel="tag">translate</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2023/02/23/thread-loader/" data-id="cluv7pb2q0010rxq4ctumbicd" class="article-share-link">Share</a>
-        
-      </div>
-    </footer>
-  </div>
-  </div>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-cache-loader" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <h3 href="/2023/01/10/cache-loader/" class="article-date">
-  <time datetime="2023-01-10T10:10:20.000Z" itemprop="datePublished">2023-01-10</time>
-</h3>
-    
-  </div>
-  <div class="article-inner">
-  <div class="curve-down">
-  <div class="fill-content fill-content-true">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/01/10/cache-loader/">cache-loader</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-        <h2 id="cache-loader"><a href="#cache-loader" class="headerlink" title="cache-loader"></a>cache-loader</h2><p><code>cache-loader</code> 允许在磁盘（默认）或数据库中缓存后续加载器的结果。</p>
-<h3 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h3><p>要开始使用，您需要安装 <code>cache-loader</code>：</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev cache-loader</span><br></pre></td></tr></table></figure>
-
-<p>将此加载器添加到其他（耗时的）加载器前面，以便在磁盘上缓存结果。</p>
-<p>webpack.config.js</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="attr">module</span>: &#123;</span><br><span class="line">    <span class="attr">rules</span>: [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">test</span>: <span class="regexp">/\.ext$/</span>,</span><br><span class="line">        <span class="attr">use</span>: [<span class="string">&#x27;cache-loader&#x27;</span>, ...loaders],</span><br><span class="line">        <span class="attr">include</span>: path.<span class="title function_">resolve</span>(<span class="string">&#x27;src&#x27;</span>),</span><br><span class="line">      &#125;,</span><br><span class="line">    ],</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>⚠️ 请注意，保存和读取缓存文件会有一定的开销，因此只将此加载器用于缓存耗时的加载器。</p>
-</blockquote>
-<h3 id="选项"><a href="#选项" class="headerlink" title="选项"></a>选项</h3><table>
-<thead>
-<tr>
-<th align="center">名称</th>
-<th align="center">类型</th>
-<th align="center">n 默认值</th>
-<th align="left">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><strong><code>cacheContext</code></strong></td>
-<td align="center"><code>&#123;String&#125;</code></td>
-<td align="center"><code>undefined</code></td>
-<td align="left">允许您覆盖默认的缓存上下文，以便相对于某个路径生成缓存。默认情况下，它将使用绝对路径。</td>
-</tr>
-<tr>
-<td align="center"><strong><code>cacheKey</code></strong></td>
-<td align="center"><code>&#123;Function(options, request) -&gt; &#123;String&#125;&#125;</code></td>
-<td align="center"><code>undefined</code></td>
-<td align="left">允许您覆盖默认的缓存键生成器。</td>
-</tr>
-<tr>
-<td align="center"><strong><code>cacheDirectory</code></strong></td>
-<td align="center"><code>&#123;String&#125;</code></td>
-<td align="center"><code>findCacheDir(&#123; name: &#39;cache-loader&#39; &#125;) or os.tmpdir()</code></td>
-<td align="left">提供一个缓存目录，其中应存储缓存项（用于默认的读写实现）。</td>
-</tr>
-<tr>
-<td align="center"><strong><code>cacheIdentifier</code></strong></td>
-<td align="center"><code>&#123;String&#125;</code></td>
-<td align="center"><code>cache-loader:&#123;version&#125; &#123;process.env.NODE_ENV&#125;</code></td>
-<td align="left">提供一个无效标识符，用于生成哈希值。您可以将其用于加载器的额外依赖项（用于默认的读写实现）</td>
-</tr>
-<tr>
-<td align="center"><strong><code>compare</code></strong></td>
-<td align="center"><code>&#123;Function(stats, dep) -&gt; &#123;Boolean&#125;&#125;</code></td>
-<td align="center"><code>undefined</code></td>
-<td align="left">允许您覆盖缓存的依赖项与正在读取的依赖项之间的默认比较函数。返回 <code>true</code> 以使用缓存的资源。</td>
-</tr>
-<tr>
-<td align="center"><strong><code>precision</code></strong></td>
-<td align="center"><code>&#123;Number&#125;</code></td>
-<td align="center"><code>0</code></td>
-<td align="left">在将这些参数传递给比较函数之前，使用此毫秒数对<code>stats</code>和<code>dep</code>的<code>mtime</code>进行四舍五入。</td>
-</tr>
-<tr>
-<td align="center"><strong><code>read</code></strong></td>
-<td align="center"><code>&#123;Function(cacheKey, callback) -&gt; &#123;void&#125;&#125;</code></td>
-<td align="center"><code>undefined</code></td>
-<td align="left">允许您覆盖从文件中读取默认缓存数据的函数。</td>
-</tr>
-<tr>
-<td align="center"><strong><code>readOnly</code></strong></td>
-<td align="center"><code>&#123;Boolean&#125;</code></td>
-<td align="center"><code>false</code></td>
-<td align="left">允许您覆盖默认值，并使缓存只读（在某些环境中很有用，您不希望更新缓存，而只是从中读取）。</td>
-</tr>
-<tr>
-<td align="center"><strong><code>write</code></strong></td>
-<td align="center"><code>&#123;Function(cacheKey, data, callback) -&gt; &#123;void&#125;&#125;</code></td>
-<td align="center"><code>undefined</code></td>
-<td align="left">允许您覆盖将默认缓存数据写入文件（例如Redis，memcached）的函数。</td>
-</tr>
-</tbody></table>
-<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><h4 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h4><p><strong>webpack.config.js</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="attr">module</span>: &#123;</span><br><span class="line">    <span class="attr">rules</span>: [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">test</span>: <span class="regexp">/\.js$/</span>,</span><br><span class="line">        <span class="attr">use</span>: [<span class="string">&#x27;cache-loader&#x27;</span>, <span class="string">&#x27;babel-loader&#x27;</span>],</span><br><span class="line">        <span class="attr">include</span>: path.<span class="title function_">resolve</span>(<span class="string">&#x27;src&#x27;</span>),</span><br><span class="line">      &#125;,</span><br><span class="line">    ],</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>在基础示例中，<code>cache-loader</code> 被用于缓存对 <code>.js</code> 文件的处理结果。当文件内容发生变化时，缓存将被无效化，并且会重新处理文件。这种缓存机制可以显著提高构建速度，特别是当处理大量未更改的文件时。</p>
-<h4 id="数据库集成"><a href="#数据库集成" class="headerlink" title="数据库集成"></a>数据库集成</h4><p><strong>webpack.config.js</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 或者使用其他数据库客户端 - memcached, mongodb, ...</span></span><br><span class="line"><span class="keyword">const</span> redis = <span class="built_in">require</span>(<span class="string">&#x27;redis&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> crypto = <span class="built_in">require</span>(<span class="string">&#x27;crypto&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="comment">// 连接到客户端</span></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">BUILD_CACHE_TIMEOUT</span> = <span class="number">24</span> * <span class="number">3600</span>; <span class="comment">// 1天</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">digest</span>(<span class="params">str</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> crypto</span><br><span class="line">    .<span class="title function_">createHash</span>(<span class="string">&#x27;md5&#x27;</span>)</span><br><span class="line">    .<span class="title function_">update</span>(str)</span><br><span class="line">    .<span class="title function_">digest</span>(<span class="string">&#x27;hex&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 生成自定义缓存键</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">cacheKey</span>(<span class="params">options, request</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">`build:cache:<span class="subst">$&#123;digest(request)&#125;</span>`</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 从数据库读取数据并解析</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">read</span>(<span class="params">key, callback</span>) &#123;</span><br><span class="line">  client.<span class="title function_">get</span>(key, <span class="function">(<span class="params">err, result</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="title function_">callback</span>(err);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!result) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="title function_">callback</span>(<span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">`Key <span class="subst">$&#123;key&#125;</span> not found`</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">let</span> data = <span class="title class_">JSON</span>.<span class="title function_">parse</span>(result);</span><br><span class="line">      <span class="title function_">callback</span>(<span class="literal">null</span>, data);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">      <span class="title function_">callback</span>(e);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在cacheKey下将数据写入数据库</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">write</span>(<span class="params">key, data, callback</span>) &#123;</span><br><span class="line">  client.<span class="title function_">set</span>(key, <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(data), <span class="string">&#x27;EX&#x27;</span>, <span class="variable constant_">BUILD_CACHE_TIMEOUT</span>, callback);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="attr">module</span>: &#123;</span><br><span class="line">    <span class="attr">rules</span>: [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">test</span>: <span class="regexp">/\.js$/</span>,</span><br><span class="line">        <span class="attr">use</span>: [</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">loader</span>: <span class="string">&#x27;cache-loader&#x27;</span>,</span><br><span class="line">            <span class="attr">options</span>: &#123;</span><br><span class="line">              cacheKey,</span><br><span class="line">              read,</span><br><span class="line">              write,</span><br><span class="line">            &#125;,</span><br><span class="line">          &#125;,</span><br><span class="line">          <span class="string">&#x27;babel-loader&#x27;</span>,</span><br><span class="line">        ],</span><br><span class="line">        <span class="attr">include</span>: path.<span class="title function_">resolve</span>(<span class="string">&#x27;src&#x27;</span>),</span><br><span class="line">      &#125;,</span><br><span class="line">    ],</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p><code>ache-loader</code> 被配置为使用自定义的读取和写入函数，这些函数将数据存储在 <code>Redis</code> 数据库中。通过 <code>cacheKey</code> 函数，可以为每个请求生成一个唯一的缓存键。<code>read</code> 函数从数据库中读取缓存数据，并将其解析为 <code>JavaScript</code> 对象。<code>write</code> 函数将处理后的数据写入数据库，并设置了一个过期时间（在这种情况下为 <code>1</code> 天）。</p>
-<p>通过这种方式，缓存数据可以在构建过程中跨多个运行实例共享，并且可以持久化存储，即使 <code>webpack</code> 构建进程重启也不会丢失。这可以进一步提高构建速度，特别是在大型项目中，并且可以在多个构建任务之间共享缓存数据。</p>
-<p>翻译: <a href="https://www.npmjs.com/package/cache-loader">cache-loader</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <div class="article-footer-content">
-        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/loader/" rel="tag">loader</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/translate/" rel="tag">translate</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li></ul>
-
-        <a data-url="https://hankliu62.github.io/2023/01/10/cache-loader/" data-id="cluv7pb200000rxq44eivf6r8" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2023/02/23/thread-loader/" data-id="cluv7qcvw0012rxq7fsm87h3j" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -1168,6 +1125,10 @@
           </li>
         
           <li>
+            <a href="/2024/04/06/github-action-publish-package/">使用 GitHub Action 实现自动化发布 npm 包</a>
+          </li>
+        
+          <li>
             <a href="/2024/04/04/homebrew/">MacOS 和 Linux 的 Homebrew 安装与卸载</a>
           </li>
         
@@ -1179,10 +1140,6 @@
             <a href="/2024/03/29/vitepress-blog-guide/">使用VitePress搭建个人博客</a>
           </li>
         
-          <li>
-            <a href="/2024/03/05/webpack-plugin-mechanism/">Webpack Plugin插件机制</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -1192,7 +1149,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/" rel="tag">blog</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/canvas/" rel="tag">canvas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/csrf/" rel="tag">csrf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debugging/" rel="tag">debugging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-pages/" rel="tag">github pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/homebrew/" rel="tag">homebrew</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/" rel="tag">html</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interview/" rel="tag">interview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/loader/" rel="tag">loader</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/" rel="tag">mobile</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reptile/" rel="tag">reptile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/" rel="tag">security</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/service-worker/" rel="tag">service worker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/translate/" rel="tag">translate</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vitepress/" rel="tag">vitepress</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webworker/" rel="tag">webworker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/weinre/" rel="tag">weinre</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xss/" rel="tag">xss</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yuv/" rel="tag">yuv</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/" rel="tag">blog</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/canvas/" rel="tag">canvas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/csrf/" rel="tag">csrf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debugging/" rel="tag">debugging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-pages/" rel="tag">github pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/homebrew/" rel="tag">homebrew</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/" rel="tag">html</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interview/" rel="tag">interview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/loader/" rel="tag">loader</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/" rel="tag">mobile</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reptile/" rel="tag">reptile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/" rel="tag">security</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/service-worker/" rel="tag">service worker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/translate/" rel="tag">translate</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vitepress/" rel="tag">vitepress</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webworker/" rel="tag">webworker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/weinre/" rel="tag">weinre</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xss/" rel="tag">xss</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yuv/" rel="tag">yuv</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -1201,7 +1158,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">七月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">七月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li></ul>
     </div>
   </div>
 
