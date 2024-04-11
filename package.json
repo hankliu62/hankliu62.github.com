@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "rm -rf public && hexo g",
-    "dev": "hexo s",
+    "dev": "rm -rf db.jso && hexo s",
     "deploy": "rm -rf public && hexo g && hexo d",
     "sync": "node .bin/md2github-issues"
   },
