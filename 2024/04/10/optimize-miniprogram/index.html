@@ -1,0 +1,357 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  
+  <title>小程序性能优化实践指南 | HankLiu的博客小屋</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="小程序性能优化实践指南背景随着移动互联网的发展，小程序已经成为了许多企业和开发者的首选平台之一。然而，随着小程序功能的不断丰富和用户需求的增加，小程序的性能优化变得愈发重要。本文将介绍一些常见的小程序性能优化实践，并提供详细的例子来说明如何在实际项目中进行优化。 性能指标小程序（或微信小程序）的性能优化是确保小程序在用户设备上以流畅、快速的方式运行的重要方面之一。以下是一些常见的小程序性能指标：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="小程序性能优化实践指南">
+<meta property="og:url" content="https://hankliu62.github.io/2024/04/10/optimize-miniprogram/index.html">
+<meta property="og:site_name" content="HankLiu的博客小屋">
+<meta property="og:description" content="小程序性能优化实践指南背景随着移动互联网的发展，小程序已经成为了许多企业和开发者的首选平台之一。然而，随着小程序功能的不断丰富和用户需求的增加，小程序的性能优化变得愈发重要。本文将介绍一些常见的小程序性能优化实践，并提供详细的例子来说明如何在实际项目中进行优化。 性能指标小程序（或微信小程序）的性能优化是确保小程序在用户设备上以流畅、快速的方式运行的重要方面之一。以下是一些常见的小程序性能指标：">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-04-10T08:50:26.000Z">
+<meta property="article:modified_time" content="2024-04-12T12:07:22.982Z">
+<meta property="article:author" content="HankLiu">
+<meta property="article:tag" content="miniprogram">
+<meta property="article:tag" content="optimize">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/img/favicon.ico" sizes="16x16">
+  
+  <link rel="stylesheet" href="/css/style.css?t=1">
+  
+    <link href="//fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner">
+    <div id="banner-mask"></div>
+  </div>
+  <div id="header-outer" class="outer">
+    <nav id="upper-nav" class="inner">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      <div class="sub-nav">
+        
+        
+          <a id="nav-github" class="nav-icon" href="https://github.com/hankliu62"></a>
+        
+      </div>
+    </nav>
+    <div id="header-title">
+      
+        <h1 id="blog-title-wrap">
+          <a href="/" id="blog-title">HankLiu的博客小屋</a>
+        </h1>
+      
+      
+        <h5 class="blog-subtitle-wrap">努力去听风的声音，不必在意风的方向。</h5>
+      
+    </div>
+    <div id="contenedor">
+      <ul class="cube">
+        <li class="cara"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="100" width="100" viewBox="-50 -50 200 200">
+          <circle cx="50" cy="50" r="45" stroke-width="5" stroke="black" stroke-opacity="0.5" fill-opacity="0"></circle>
+          <rect id="clockwise" x="47.5" y="27.5" width="5" height="25" rx="2.5" ry="2.5" fill="black" fill-opacity="0.5" transform="rotate(330 50 50)"></rect>
+          <rect id="minute" x="48.5" y="16.5" width="3" height="35" rx="1.5" ry="1.5" fill="black" fill-opacity="0.5"></rect>
+        </svg></li>
+        <li class="cara">P</li>
+        <li class="cara">X</li>
+        <li class="cara">L</li>
+        <li class="cara">C</li>
+        <li class="cara">Y</li>
+      </ul>
+    </div>
+    <nav id="main-nav">
+      
+        <a class="main-nav-link" href="/">主页</a>
+      
+        <a class="main-nav-link" href="/archives">文章</a>
+      
+        <a class="main-nav-link" href="/toolkit">小工具</a>
+      
+        <a class="main-nav-link" href="/resume">小简介</a>
+      
+        <a class="main-nav-link" href="/about">小关于</a>
+      
+    </nav>
+  </div>
+</header>
+
+    <div class="outer">
+      <section id="main"><article id="post-optimize-miniprogram" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2024/04/10/optimize-miniprogram/" class="article-date">
+  <time datetime="2024-04-10T08:50:26.000Z" itemprop="datePublished">2024-04-10</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-false">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      小程序性能优化实践指南
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="小程序性能优化实践指南"><a href="#小程序性能优化实践指南" class="headerlink" title="小程序性能优化实践指南"></a>小程序性能优化实践指南</h2><h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>随着移动互联网的发展，小程序已经成为了许多企业和开发者的首选平台之一。然而，随着小程序功能的不断丰富和用户需求的增加，小程序的性能优化变得愈发重要。本文将介绍一些常见的小程序性能优化实践，并提供详细的例子来说明如何在实际项目中进行优化。</p>
+<h3 id="性能指标"><a href="#性能指标" class="headerlink" title="性能指标"></a>性能指标</h3><p>小程序（或微信小程序）的性能优化是确保小程序在用户设备上以流畅、快速的方式运行的重要方面之一。以下是一些常见的小程序性能指标：</p>
+<h4 id="LoadPackage"><a href="#LoadPackage" class="headerlink" title="LoadPackage"></a>LoadPackage</h4><p>指小程序代码包下载阶段。在此阶段，小程序需要从服务器下载代码包以执行后续的逻辑。代码包大小和下载速度会影响小程序的启动性能。</p>
+<p>获取方式： 可通过网络监控工具或浏览器开发者工具查看网络请求的时间和代码包大小等信息。</p>
+<h4 id="First-Paint-FP"><a href="#First-Paint-FP" class="headerlink" title="First Paint (FP)"></a>First Paint (FP)</h4><p>页面首次绘制是浏览器开始将内容呈现在屏幕上的时间点。此时用户无法与页面交互，但首次绘制仍可显示部分内容，向用户展示页面正在加载。</p>
+<p>获取方式： 通过浏览器性能分析工具或 <code>Performance API</code> 来捕获此事件，并了解页面渲染启动时间。</p>
+<h4 id="First-Contentful-Paint-FCP"><a href="#First-Contentful-Paint-FCP" class="headerlink" title="First Contentful Paint (FCP)"></a>First Contentful Paint (FCP)</h4><p>页面的第一个内容块被绘制到屏幕上的时间点。用户可以看到页面的某些部分，但是页面尚未完全加载。</p>
+<p>获取方式： 通过 <code>Chrome DevTools</code> 的 <code>Performance</code> 面板或 <code>Lighthouse</code> 等工具可以获取该指标。</p>
+<h4 id="First-Meaningful-Paint-FMP"><a href="#First-Meaningful-Paint-FMP" class="headerlink" title="First Meaningful Paint (FMP)"></a>First Meaningful Paint (FMP)</h4><p>用户认为有用内容被展示在屏幕上的时间点。FMP 更准确地反映用户感知到的页面加载速度，因为它考虑了页面加载时的实际内容。</p>
+<p>获取方式： 通过用户体验监控工具、<code>Web Vitals</code> 库或<code>Chrome User Experience Report</code> 等方式可以收集数据并分析用户感知到的页面加载速度。</p>
+<h4 id="Largest-Contentful-Paint-LCP"><a href="#Largest-Contentful-Paint-LCP" class="headerlink" title="Largest Contentful Paint (LCP)"></a>Largest Contentful Paint (LCP)</h4><p>页面中最大的内容元素（如图片、文本等）被绘制到屏幕上且变得可见的时间点。<code>LCP</code> 是衡量用户认为页面已可交互的重要指标之一，优化 <code>LCP</code> 可提升用户体验和页面加载速度。</p>
+<p>获取方式： 通过 <code>Chrome DevTools</code> 的 <code>Performance</code> 面板、<code>Web Vitals</code> 库或 <code>PageSpeed Insights</code> 等工具来获取和分析 <code>LCP</code> 数据。</p>
+<p>这些指标参数是小程序性能优化的重要参考，通过监控和优化这些参数，可以提升小程序的性能，提升用户体验。</p>
+<h3 id="具体措施"><a href="#具体措施" class="headerlink" title="具体措施"></a>具体措施</h3><h4 id="图片优化"><a href="#图片优化" class="headerlink" title="图片优化"></a>图片优化</h4><p>图片是小程序中常见的资源，但过多或未经优化的图片会增加页面加载时间和用户流量消耗。以下是一些图片优化的实践：</p>
+<p><strong>使用适当的图片格式：</strong></p>
+<ul>
+<li><code>JPEG</code> 格式适合照片和渐变色图片。</li>
+<li><code>PNG</code> 格式适合图标和带有透明背景的图片。</li>
+<li><code>WebP</code> 格式是一种新的图片格式，具有更好的压缩率和质量，但需要注意兼容性。</li>
+</ul>
+<p><strong>压缩图片大小：</strong></p>
+<ul>
+<li>使用工具如 <code>TinyPNG</code>、<code>ImageOptim</code> 等对图片进行压缩，减小图片文件大小。</li>
+<li>避免在小程序中直接使用大图，尽量将图片压缩至合适的尺寸。</li>
+</ul>
+<p><strong>懒加载图片：</strong></p>
+<ul>
+<li>当页面中存在大量图片时，可以使用懒加载技术，延迟加载图片，减少页面加载时间。</li>
+<li>通过小程序的 <code>wx.createIntersectionObserver()</code> 方法监听图片元素是否进入视窗，然后动态加载图片。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 示例：图片懒加载</span></span><br><span class="line"><span class="keyword">const</span> observer = wx.<span class="title function_">createIntersectionObserver</span>();</span><br><span class="line">observer.<span class="title function_">relativeToViewport</span>().<span class="title function_">observe</span>(<span class="string">&#x27;.lazy-img&#x27;</span>, <span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (res.<span class="property">intersectionRatio</span> &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> lazyImg = res.<span class="property">dataset</span>.<span class="property">lazyImg</span>;</span><br><span class="line">    <span class="comment">// 加载图片</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">setData</span>(&#123;</span><br><span class="line">      <span class="attr">imgUrl</span>: lazyImg</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">// 停止观察</span></span><br><span class="line">    observer.<span class="title function_">disconnect</span>();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="数据缓存和请求优化"><a href="#数据缓存和请求优化" class="headerlink" title="数据缓存和请求优化"></a>数据缓存和请求优化</h4><p>小程序中频繁的网络请求会增加用户等待时间和服务器负载，因此优化数据请求和缓存是提升小程序性能的关键。</p>
+<p><strong>使用缓存：</strong></p>
+<ul>
+<li>对于频繁使用的数据，可以使用小程序的本地缓存功能，如 <code>wx.setStorageSync()</code> 和 <code>wx.getStorageSync()</code>，将数据存储在本地缓存中，减少网络请求。</li>
+<li>对于需要实时更新的数据，可以设置合适的缓存过期时间，避免数据过期而导致的不一致性。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 示例：数据缓存</span></span><br><span class="line"><span class="keyword">const</span> key = <span class="string">&#x27;userData&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> data = wx.<span class="title function_">getStorageSync</span>(key);</span><br><span class="line"><span class="keyword">if</span> (data) &#123;</span><br><span class="line">  <span class="comment">// 从缓存中获取数据</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Data from cache:&#x27;</span>, data);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="comment">// 发起网络请求获取数据</span></span><br><span class="line">  wx.<span class="title function_">request</span>(&#123;</span><br><span class="line">    <span class="attr">url</span>: <span class="string">&#x27;https://api.example.com/user&#x27;</span>,</span><br><span class="line">    <span class="attr">success</span>: <span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> userData = res.<span class="property">data</span>;</span><br><span class="line">      <span class="comment">// 将数据存入缓存</span></span><br><span class="line">      wx.<span class="title function_">setStorageSync</span>(key, userData);</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Data from network:&#x27;</span>, userData);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>合并请求：</strong></p>
+<ul>
+<li>尽量减少网络请求的次数，可以将多个请求合并为一个请求，减少请求的重复和消耗。</li>
+<li>使用小程序的 <code>wx.request()</code> 方法发送请求，并通过 <code>Promise.all()</code> 方法等待所有请求完成。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 示例：合并请求</span></span><br><span class="line"><span class="title class_">Promise</span>.<span class="title function_">all</span>([</span><br><span class="line">  wx.<span class="title function_">request</span>(&#123; <span class="attr">url</span>: <span class="string">&#x27;https://api.example.com/data1&#x27;</span> &#125;),</span><br><span class="line">  wx.<span class="title function_">request</span>(&#123; <span class="attr">url</span>: <span class="string">&#x27;https://api.example.com/data2&#x27;</span> &#125;),</span><br><span class="line">  wx.<span class="title function_">request</span>(&#123; <span class="attr">url</span>: <span class="string">&#x27;https://api.example.com/data3&#x27;</span> &#125;)</span><br><span class="line">]).<span class="title function_">then</span>(<span class="function">(<span class="params">[res1, res2, res3]</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Data 1:&#x27;</span>, res1.<span class="property">data</span>);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Data 2:&#x27;</span>, res2.<span class="property">data</span>);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Data 3:&#x27;</span>, res3.<span class="property">data</span>);</span><br><span class="line">&#125;).<span class="title function_">catch</span>(<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;Error:&#x27;</span>, error);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="页面渲染优化"><a href="#页面渲染优化" class="headerlink" title="页面渲染优化"></a>页面渲染优化</h4><p>页面渲染是影响用户体验的重要因素，优化页面渲染可以提高小程序的性能和流畅度。</p>
+<p><strong>使用 WXML 和 WXSS：</strong></p>
+<ul>
+<li>尽量避免使用复杂的 <code>HTML</code> 和 <code>CSS</code> 样式，可以使用小程序的 <code>WXML</code> 和 <code>WXSS</code> 实现相同的效果，减少页面渲染时间。</li>
+<li>避免使用嵌套过深的结构，尽量保持页面结构简洁。</li>
+</ul>
+<p><strong>减少 DOM 操作：</strong></p>
+<ul>
+<li>减少在页面渲染过程中对 <code>DOM</code> 的操作，例如频繁的节点添加、删除和更新。</li>
+<li>使用小程序的数据绑定功能，在数据变化时自动更新页面，避免手动操作 <code>DOM</code>。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 示例：数据绑定</span></span><br><span class="line"><span class="title class_">Page</span>(&#123;</span><br><span class="line">  <span class="attr">data</span>: &#123;</span><br><span class="line">    <span class="attr">userInfo</span>: &#123;&#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="title function_">onLoad</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 获取用户信息</span></span><br><span class="line">    wx.<span class="title function_">getUserInfo</span>(&#123;</span><br><span class="line">      <span class="attr">success</span>: <span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// 更新页面数据</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">setData</span>(&#123;</span><br><span class="line">          <span class="attr">userInfo</span>: res.<span class="property">userInfo</span></span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="代码包体积优化"><a href="#代码包体积优化" class="headerlink" title="代码包体积优化"></a>代码包体积优化</h4><p>当小程序项目过大时，可以将不同功能模块分包加载，按需加载页面和资源，减少初始化时间和页面首次加载时间。</p>
+<h5 id="分包策略"><a href="#分包策略" class="headerlink" title="分包策略"></a>分包策略</h5><p>独立分包允许小程序页面独立运行，无需依赖主包或其他分包。当从独立分包页面进入小程序时，用户无需等待主包下载，从而显著提升了启动速度。</p>
+<ul>
+<li><strong>主包</strong>：包含小程序的初始启动逻辑、基础框架和一些常用页面等内容。用户打开小程序时会首先下载主包。</li>
+<li><strong>分包</strong>：除了主包以外的其他代码包，每个分包可以包含若干个页面或组件。分包相对独立于主包运行，可以根据业务逻辑将相关页面或组件划分到不同的分包中。</li>
+</ul>
+<h5 id="分包异步化"><a href="#分包异步化" class="headerlink" title="分包异步化"></a>分包异步化</h5><p>分包异步化进一步细化了小程序的分包粒度，从页面级别深入到组件甚至文件级别。这使得原本只能放在主包内的部分插件、组件和代码逻辑得以剥离到分包中，并在运行时异步加载。这一技术有效解决了主包过度膨胀的问题，进一步降低了启动时的代码加载量。</p>
+<p><strong>app.json 配置：</strong></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;subpackages&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">  <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;root&quot;</span><span class="punctuation">:</span> <span class="string">&quot;pages/goods/&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;goods&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">]</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>动态引入：</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">wx.<span class="title function_">loadSubPackage</span>(&#123;</span><br><span class="line">  <span class="attr">root</span>: <span class="string">&#x27;pages/goods/&#x27;</span>,</span><br><span class="line">  <span class="attr">success</span>: <span class="keyword">function</span>(<span class="params">res</span>) &#123;</span><br><span class="line">    <span class="comment">// 分包加载成功后的回调</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">fail</span>: <span class="keyword">function</span>(<span class="params">res</span>) &#123;</span><br><span class="line">    <span class="comment">// 分包加载失败处理</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h5 id="分包预下载机制"><a href="#分包预下载机制" class="headerlink" title="分包预下载机制"></a>分包预下载机制</h5><p>尽管分包加载能够提升启动速度，但当用户跳转到分包内页面时，仍需等待分包下载，这可能导致页面切换的延迟。为解决这一问题，需要引入了分包预下载机制。该机制允许小程序在后台预先下载分包，确保用户在首次进入分包页面时无需等待下载，从而提升了页面切换的流畅性。</p>
+<p><strong>预下载原理：</strong></p>
+<p>分包预下载机制利用小程序框架的预加载能力，在用户打开小程序时提前加载分包资源，使得当用户需要访问对应分包页面时，可以更快地展示内容，减少加载等待时间。</p>
+<p>预下载机制通常会在主包的某些关键页面或事件触发时开始执行，提前下载分包所需的资源文件，如 <code>JS</code>、<code>CSS</code>、图片等。</p>
+<p><strong>实现步骤：</strong></p>
+<ul>
+<li><p><code>识别关键页面</code>：需要确定哪些页面是用户经常访问的重要页面，这些页面通常会被定义为关键页面，可以考虑在这些页面触发时启动预下载机制。</p>
+</li>
+<li><p><code>触发预下载</code>：在合适的时机，例如用户打开小程序时或进入关键页面时，调用相应的预下载函数或方法，开始下载分包资源。</p>
+</li>
+<li><p><code>资源加载</code>：下载完成后，将分包资源缓存至本地，以便在用户访问分包页面时直接使用已下载的资源，避免重新下载。</p>
+</li>
+</ul>
+<p><strong>实际项目场景：</strong></p>
+<ul>
+<li><p><code>图片密集页面</code>：对于包含大量图片的分包页面（如相册、产品展示页），通过预下载图片资源可以提高用户体验。</p>
+</li>
+<li><p><code>复杂交互页面</code>：对于交互复杂的分包页面（如地图、视频播放页），提前加载相关组件和数据能够加快页面展示速度。</p>
+</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>小程序性能优化是一个持续改进的过程，通过合理的设计和优化，可以提高小程序的用户体验和性能表现。本文介绍了一些常见的小程序性能优化实践，包括图片优化、数据缓存和请求优化、页面渲染优化等方面的内容，并提供了详细的示例来说明如何在实际项目中进行优化。希望本文能够帮助开发者更好地优化自己的小程序项目，提升用户满意度和使用体验。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/miniprogram/" rel="tag">miniprogram</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/optimize/" rel="tag">optimize</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2024/04/10/optimize-miniprogram/" data-id="cluwmil3b000rpfoxezqo3r3i" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2024/04/08/github-action-docker/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">使用 GitHub Actions 自动化部署 Nuxt3 应用到 Docker 容器中</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+      
+      <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/04/10/optimize-miniprogram/">小程序性能优化实践指南</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/08/github-action-docker/">使用 GitHub Actions 自动化部署 Nuxt3 应用到 Docker 容器中</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/06/github-action-publish-package/">使用 GitHub Action 实现自动化发布 npm 包</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/04/homebrew/">MacOS 和 Linux 的 Homebrew 安装与卸载</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/01/github-emoji/">Emoji 大全</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/" rel="tag">blog</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/canvas/" rel="tag">canvas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/csrf/" rel="tag">csrf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debugging/" rel="tag">debugging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-pages/" rel="tag">github pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/homebrew/" rel="tag">homebrew</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/" rel="tag">html</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interview/" rel="tag">interview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/loader/" rel="tag">loader</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/miniprogram/" rel="tag">miniprogram</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/" rel="tag">mobile</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/optimize/" rel="tag">optimize</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reptile/" rel="tag">reptile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/" rel="tag">security</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/service-worker/" rel="tag">service worker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/translate/" rel="tag">translate</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vitepress/" rel="tag">vitepress</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webworker/" rel="tag">webworker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/weinre/" rel="tag">weinre</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xss/" rel="tag">xss</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yuv/" rel="tag">yuv</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">七月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2024 HankLiu, Inc. All rights reserved.<br>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">主页</a>
+  
+    <a href="/archives" class="mobile-nav-link">文章</a>
+  
+    <a href="/toolkit" class="mobile-nav-link">小工具</a>
+  
+    <a href="/resume" class="mobile-nav-link">小简介</a>
+  
+    <a href="/about" class="mobile-nav-link">小关于</a>
+  
+  <a href="#search" class="mobile-nav-link st-search-show-outputs">Search</a>
+</nav>
+  
+
+<!-- totop start -->
+<div id="totop">
+	<a title="To Top"></a>
+</div>
+<!-- totop end -->
+
+<!-- swiftype search start -->
+
+<!-- swiftype search end -->
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/lrsjng.jquery-qrcode/0.12.0/jquery.qrcode.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+</div>
+</body>
+</html>
