@@ -1,4 +1,2 @@
-package.json
-source/_posts/github-action-publish-package.md
+source/_posts/optimize-miniprogram.md
 themes/hexo-theme-paperbox
-yarn.lock
