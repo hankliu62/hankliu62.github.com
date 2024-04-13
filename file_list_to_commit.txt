@@ -1,2 +1,2 @@
-source/_posts/optimize-miniprogram.md
+source/_posts/abort-controller.md
 themes/hexo-theme-paperbox
