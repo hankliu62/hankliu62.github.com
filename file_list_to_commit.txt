@@ -1,2 +1,2 @@
-source/_posts/abort-controller.md
+source/_posts/fontend-optimize-indicators.md
 themes/hexo-theme-paperbox
