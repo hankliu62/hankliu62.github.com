@@ -1,0 +1,343 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  
+  <title>Web前端最新优化指标：从FP到FPS的全面解析 | HankLiu的博客小屋</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Web前端最新优化指标：从FP到FPS的全面解析摘要在当今互联网时代，Web前端性能优化是网站开发中至关重要的一环。随着技术的不断发展，出现了一系列新的性能指标，如FP、FCP、FMP、LCP、TTI、CLS、FID、FPS等。本文将深入探讨这些最新的Web前端优化指标，详细介绍获取和优化的方法，并提供丰富的实例和技巧，帮助开发者全面了解和应用于实践中。 引言随着Web技术的不断发展，用户对网页加">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Web前端最新优化指标：从FP到FPS的全面解析">
+<meta property="og:url" content="https://hankliu62.github.io/2024/04/14/fontend-optimize-indicators/index.html">
+<meta property="og:site_name" content="HankLiu的博客小屋">
+<meta property="og:description" content="Web前端最新优化指标：从FP到FPS的全面解析摘要在当今互联网时代，Web前端性能优化是网站开发中至关重要的一环。随着技术的不断发展，出现了一系列新的性能指标，如FP、FCP、FMP、LCP、TTI、CLS、FID、FPS等。本文将深入探讨这些最新的Web前端优化指标，详细介绍获取和优化的方法，并提供丰富的实例和技巧，帮助开发者全面了解和应用于实践中。 引言随着Web技术的不断发展，用户对网页加">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-04-14T12:12:12.000Z">
+<meta property="article:modified_time" content="2024-04-14T04:36:38.873Z">
+<meta property="article:author" content="HankLiu">
+<meta property="article:tag" content="optimize">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/img/favicon.ico" sizes="16x16">
+  
+  <link rel="stylesheet" href="/css/style.css?t=1">
+  
+    <link href="//fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner">
+    <div id="banner-mask"></div>
+  </div>
+  <div id="header-outer" class="outer">
+    <nav id="upper-nav" class="inner">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      <div class="sub-nav">
+        
+        
+          <a id="nav-github" class="nav-icon" href="https://github.com/hankliu62"></a>
+        
+      </div>
+    </nav>
+    <div id="header-title">
+      
+        <h1 id="blog-title-wrap">
+          <a href="/" id="blog-title">HankLiu的博客小屋</a>
+        </h1>
+      
+      
+        <h5 class="blog-subtitle-wrap">努力去听风的声音，不必在意风的方向。</h5>
+      
+    </div>
+    <div id="contenedor">
+      <ul class="cube">
+        <li class="cara"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="100" width="100" viewBox="-50 -50 200 200">
+          <circle cx="50" cy="50" r="45" stroke-width="5" stroke="black" stroke-opacity="0.5" fill-opacity="0"></circle>
+          <rect id="clockwise" x="47.5" y="27.5" width="5" height="25" rx="2.5" ry="2.5" fill="black" fill-opacity="0.5" transform="rotate(330 50 50)"></rect>
+          <rect id="minute" x="48.5" y="16.5" width="3" height="35" rx="1.5" ry="1.5" fill="black" fill-opacity="0.5"></rect>
+        </svg></li>
+        <li class="cara">P</li>
+        <li class="cara">X</li>
+        <li class="cara">L</li>
+        <li class="cara">C</li>
+        <li class="cara">Y</li>
+      </ul>
+    </div>
+    <nav id="main-nav">
+      
+        <a class="main-nav-link" href="/">主页</a>
+      
+        <a class="main-nav-link" href="/archives">文章</a>
+      
+        <a class="main-nav-link" href="/toolkit">小工具</a>
+      
+        <a class="main-nav-link" href="/resume">小简介</a>
+      
+        <a class="main-nav-link" href="/about">小关于</a>
+      
+    </nav>
+  </div>
+</header>
+
+    <div class="outer">
+      <section id="main"><article id="post-fontend-optimize-indicators" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2024/04/14/fontend-optimize-indicators/" class="article-date">
+  <time datetime="2024-04-14T12:12:12.000Z" itemprop="datePublished">2024-04-14</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-false">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Web前端最新优化指标：从FP到FPS的全面解析
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="Web前端最新优化指标：从FP到FPS的全面解析"><a href="#Web前端最新优化指标：从FP到FPS的全面解析" class="headerlink" title="Web前端最新优化指标：从FP到FPS的全面解析"></a>Web前端最新优化指标：从FP到FPS的全面解析</h2><h3 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h3><p>在当今互联网时代，Web前端性能优化是网站开发中至关重要的一环。随着技术的不断发展，出现了一系列新的性能指标，如<code>FP</code>、<code>FCP</code>、<code>FMP</code>、<code>LCP</code>、<code>TTI</code>、<code>CLS</code>、<code>FID</code>、<code>FPS</code>等。本文将深入探讨这些最新的Web前端优化指标，详细介绍获取和优化的方法，并提供丰富的实例和技巧，帮助开发者全面了解和应用于实践中。</p>
+<h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><p>随着Web技术的不断发展，用户对网页加载速度和性能的要求越来越高。为了提供更好的用户体验，出现了一系列新的Web前端优化指标，如<code>FP</code>、<code>FCP</code>、<code>FMP</code>、<code>LCP</code>、<code>TTI</code>、<code>CLS</code>、<code>FID</code>、<code>FPS</code>等。本文将深入探讨这些指标的含义、获取方法以及优化技巧，帮助开发者更好地理解和应用于实践中。</p>
+<h3 id="FP（First-Paint）"><a href="#FP（First-Paint）" class="headerlink" title="FP（First Paint）"></a>FP（First Paint）</h3><p>FP是指浏览器首次将像素呈现到屏幕上的时间点，即首次绘制。它标志着页面开始加载的时间，但并不表示页面内容已经完全可见。下面是获取和优化FP的方法：</p>
+<h4 id="获取FP的方法："><a href="#获取FP的方法：" class="headerlink" title="获取FP的方法："></a>获取FP的方法：</h4><p>可以通过 <code>Performance API</code> 中的相关接口来获取FP时间，如<code>performance.timing.navigationStart</code>和<code>performance.timing.firstPaint</code>等。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取FP时间</span></span><br><span class="line"><span class="keyword">const</span> fpTime = performance.<span class="property">timing</span>.<span class="property">firstPaint</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;FP时间：&quot;</span>, fpTime);</span><br></pre></td></tr></table></figure>
+
+<h4 id="FP（First-Paint）持续时间"><a href="#FP（First-Paint）持续时间" class="headerlink" title="FP（First Paint）持续时间"></a>FP（First Paint）持续时间</h4><p>FP持续时间是指从页面开始加载到首次绘制内容到屏幕上的时间间隔。通常可以通过测量页面开始加载（navigationStart）和FP事件之间的时间差来计算。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> startTime = performance.<span class="property">timing</span>.<span class="property">navigationStart</span>;</span><br><span class="line"><span class="keyword">const</span> fpTime = performance.<span class="property">timing</span>.<span class="property">firstPaint</span>;</span><br><span class="line"><span class="keyword">const</span> fpDuration = fpTime - startTime;</span><br></pre></td></tr></table></figure>
+
+<h4 id="优化FP的方法："><a href="#优化FP的方法：" class="headerlink" title="优化FP的方法："></a>优化FP的方法：</h4><p>优化FP可以通过减少页面加载时间和优化渲染流程来实现。例如，通过合并和压缩CSS、JavaScript文件，减少网络请求次数和文件大小，以加快页面加载速度。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 合并和压缩CSS文件 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;styles.css&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 合并和压缩JavaScript文件 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;scripts.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="FCP（First-Contentful-Paint）"><a href="#FCP（First-Contentful-Paint）" class="headerlink" title="FCP（First Contentful Paint）"></a>FCP（First Contentful Paint）</h3><p>FCP是指浏览器首次绘制来自DOM的内容的时间点，即首次内容绘制。它表示页面开始显示内容的时间，但并不表示所有内容都已加载完毕。下面是获取和优化FCP的方法：</p>
+<h4 id="获取FCP的方法："><a href="#获取FCP的方法：" class="headerlink" title="获取FCP的方法："></a>获取FCP的方法：</h4><p>可以通过 <code>Performance API</code> 中的相关接口来获取FCP时间，如 <code>performance.timing.navigationStart</code> 和 <code>performance.timing.firstContentfulPaint</code> 等。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取FCP时间</span></span><br><span class="line"><span class="keyword">const</span> fcpTime = performance.<span class="property">timing</span>.<span class="property">firstContentfulPaint</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;FCP时间：&quot;</span>, fcpTime);</span><br></pre></td></tr></table></figure>
+
+<h4 id="FCP（First-Contentful-Paint）持续时间"><a href="#FCP（First-Contentful-Paint）持续时间" class="headerlink" title="FCP（First Contentful Paint）持续时间"></a>FCP（First Contentful Paint）持续时间</h4><p>FCP持续时间是指从页面开始加载到首次绘制来自DOM的内容的时间间隔。可以通过监测FCP事件和页面开始加载之间的时间差来计算。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;paint&#x27;</span>, <span class="keyword">function</span>(<span class="params">event</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (event.<span class="property">name</span> === <span class="string">&#x27;first-contentful-paint&#x27;</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> startTime = performance.<span class="property">timing</span>.<span class="property">navigationStart</span>;</span><br><span class="line">    <span class="keyword">const</span> fcpTime = event.<span class="property">startTime</span>;</span><br><span class="line">    <span class="keyword">const</span> fcpDuration = fcpTime - startTime;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;FCP持续时间：&#x27;</span>, fcpDuration);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="优化FCP的方法："><a href="#优化FCP的方法：" class="headerlink" title="优化FCP的方法："></a>优化FCP的方法：</h4><p>优化FCP可以通过减少关键资源的加载时间和优化关键路径资源来实现。例如，通过预加载关键资源、懒加载技术和延迟加载非关键资源等。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 预加载关键资源 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;preload&quot;</span> <span class="attr">href</span>=<span class="string">&quot;critical.css&quot;</span> <span class="attr">as</span>=<span class="string">&quot;style&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 懒加载非关键资源 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;placeholder.jpg&quot;</span> <span class="attr">data-src</span>=<span class="string">&quot;image.jpg&quot;</span> <span class="attr">loading</span>=<span class="string">&quot;lazy&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="FMP（First-Meaningful-Paint）"><a href="#FMP（First-Meaningful-Paint）" class="headerlink" title="FMP（First Meaningful Paint）"></a>FMP（First Meaningful Paint）</h3><p>FMP是指浏览器首次绘制页面主要内容的时间点，即首次有意义的绘制。它表示用户认为页面已经有用的时间点。下面是获取和优化FMP的方法：</p>
+<h4 id="获取FMP的方法："><a href="#获取FMP的方法：" class="headerlink" title="获取FMP的方法："></a>获取FMP的方法：</h4><p>可以通过 <code>Performance API</code> 中的相关接口来获取FMP时间，如 <code>PerformanceObserver</code> 接口监听 <code>paint</code> 事件，判断首次有意义的绘制。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 监听FMP事件</span></span><br><span class="line"><span class="keyword">const</span> observer = <span class="keyword">new</span> <span class="title class_">PerformanceObserver</span>(<span class="function">(<span class="params">list</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> entries = list.<span class="title function_">getEntries</span>();</span><br><span class="line">  <span class="keyword">const</span> fmpTime = entries[<span class="number">0</span>].<span class="property">startTime</span>;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;FMP时间：&quot;</span>, fmpTime);</span><br><span class="line">&#125;);</span><br><span class="line">observer.<span class="title function_">observe</span>(&#123; <span class="attr">type</span>: <span class="string">&quot;paint&quot;</span>, <span class="attr">buffered</span>: <span class="literal">true</span> &#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="FMP（First-Meaningful-Paint）持续时间"><a href="#FMP（First-Meaningful-Paint）持续时间" class="headerlink" title="FMP（First Meaningful Paint）持续时间"></a>FMP（First Meaningful Paint）持续时间</h4><p>FMP持续时间是指从页面开始加载到首次绘制页面主要内容的时间间隔。可以通过监测FMP事件和页面开始加载之间的时间差来计算。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> observer = <span class="keyword">new</span> <span class="title class_">PerformanceObserver</span>(<span class="function">(<span class="params">list</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> entries = list.<span class="title function_">getEntries</span>();</span><br><span class="line">  <span class="keyword">const</span> fmpTime = entries[<span class="number">0</span>].<span class="property">startTime</span>;</span><br><span class="line">  <span class="keyword">const</span> startTime = performance.<span class="property">timing</span>.<span class="property">navigationStart</span>;</span><br><span class="line">  <span class="keyword">const</span> fmpDuration = fmpTime - startTime;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;FMP持续时间：&#x27;</span>, fmpDuration);</span><br><span class="line">&#125;);</span><br><span class="line">observer.<span class="title function_">observe</span>(&#123; <span class="attr">type</span>: <span class="string">&#x27;paint&#x27;</span>, <span class="attr">buffered</span>: <span class="literal">true</span> &#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="优化FMP的方法："><a href="#优化FMP的方法：" class="headerlink" title="优化FMP的方法："></a>优化FMP的方法：</h4><p>优化FMP可以通过减少关键资源的加载时间和提高关键路径资源加载速度来实现。例如，使用HTTP&#x2F;2多路复用和服务器推送技术，以及使用CDN加速关键资源加载。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 使用CDN加速关键资源 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.example.com/scripts.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="LCP（Largest-Contentful-Paint）"><a href="#LCP（Largest-Contentful-Paint）" class="headerlink" title="LCP（Largest Contentful Paint）"></a>LCP（Largest Contentful Paint）</h3><p>LCP是指浏览器在视觉上渲染的最大内容元素的时间点，即最大内容渲染时间点。它衡量的是页面主要内容加载完成的时间点。下面是获取和优化LCP的方法：</p>
+<h4 id="获取LCP的方法："><a href="#获取LCP的方法：" class="headerlink" title="获取LCP的方法："></a>获取LCP的方法：</h4><p>可以通过 <code>Performance API</code> 中的相关接口来获取 <code>LCP</code> 时间，如 <code>PerformanceObserver</code> 接口监听 <code>largest-contentful-paint</code> 事件。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 监听LCP事件</span></span><br><span class="line"><span class="keyword">const</span> observer = <span class="keyword">new</span> <span class="title class_">PerformanceObserver</span>(<span class="function">(<span class="params">list</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> entries = list.<span class="title function_">getEntries</span>();</span><br><span class="line">  <span class="keyword">const</span> lcpTime = entries[<span class="number">0</span>].<span class="property">startTime</span>;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;LCP时间：&quot;</span>, lcpTime);</span><br><span class="line">&#125;);</span><br><span class="line">observer.<span class="title function_">observe</span>(&#123; <span class="attr">type</span>: <span class="string">&quot;largest-contentful-paint&quot;</span>, <span class="attr">buffered</span>: <span class="literal">true</span> &#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="LCP（Largest-Contentful-Paint）持续时间"><a href="#LCP（Largest-Contentful-Paint）持续时间" class="headerlink" title="LCP（Largest Contentful Paint）持续时间"></a>LCP（Largest Contentful Paint）持续时间</h4><p>LCP持续时间是指从页面开始加载到最大内容元素被渲染完成的时间间隔。可以通过监测LCP事件和页面开始加载之间的时间差来计算。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> observer = <span class="keyword">new</span> <span class="title class_">PerformanceObserver</span>(<span class="function">(<span class="params">list</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> entries = list.<span class="title function_">getEntries</span>();</span><br><span class="line">  <span class="keyword">const</span> lcpTime = entries[<span class="number">0</span>].<span class="property">startTime</span>;</span><br><span class="line">  <span class="keyword">const</span> startTime = performance.<span class="property">timing</span>.<span class="property">navigationStart</span>;</span><br><span class="line">  <span class="keyword">const</span> lcpDuration = lcpTime - startTime;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;LCP持续时间：&#x27;</span>, lcpDuration);</span><br><span class="line">&#125;);</span><br><span class="line">observer.<span class="title function_">observe</span>(&#123; <span class="attr">type</span>: <span class="string">&#x27;largest-contentful-paint&#x27;</span>, <span class="attr">buffered</span>: <span class="literal">true</span> &#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="优化LCP的方法："><a href="#优化LCP的方法：" class="headerlink" title="优化LCP的方法："></a>优化LCP的方法：</h4><p>优化LCP可以通过优化关键路径资源的加载顺序和减少页面主要内容的渲染时间来实现。例如，使用懒加载技术延迟加载非关键内容，以及减少渲染阻塞资源的加载。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 使用懒加载延迟加载非关键内容 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;placeholder.jpg&quot;</span> <span class="attr">data-src</span>=<span class="string">&quot;image.jpg&quot;</span> <span class="attr">loading</span>=<span class="string">&quot;lazy&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="TTI（Time-to-Interactive）"><a href="#TTI（Time-to-Interactive）" class="headerlink" title="TTI（Time to Interactive）"></a>TTI（Time to Interactive）</h3><p>TTI是指页面变得可交互的时间点，即用户可以与页面进行交互的时间点。它是衡量页面可用性的重要指标。下面是获取和优化TTI的方法：</p>
+<h4 id="获取TTI的方法："><a href="#获取TTI的方法：" class="headerlink" title="获取TTI的方法："></a>获取TTI的方法：</h4><p>可以通过 <code>Performance API</code> 中的相关接口来获取TTI时间，如 <code>PerformanceObserver</code> 接口监听 <code>longtask</code> 事件。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 监听TTI事件</span></span><br><span class="line"><span class="keyword">const</span> observer = <span class="keyword">new</span> <span class="title class_">PerformanceObserver</span>(<span class="function">(<span class="params">list</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> entries = list.<span class="title function_">getEntries</span>();</span><br><span class="line">  <span class="keyword">const</span> ttiTime = entries[<span class="number">0</span>].<span class="property">startTime</span>;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;TTI时间：&quot;</span>, ttiTime);</span><br><span class="line">&#125;);</span><br><span class="line">observer.<span class="title function_">observe</span>(&#123; <span class="attr">entryTypes</span>: [<span class="string">&quot;longtask&quot;</span>] &#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="TTI（Time-to-Interactive）持续时间"><a href="#TTI（Time-to-Interactive）持续时间" class="headerlink" title="TTI（Time to Interactive）持续时间"></a>TTI（Time to Interactive）持续时间</h4><p>TTI持续时间是指从页面开始加载到页面变得可交互的时间间隔。可以通过监测TTI事件和页面开始加载之间的时间差来计算。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> observer = <span class="keyword">new</span> <span class="title class_">PerformanceObserver</span>(<span class="function">(<span class="params">list</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> entries = list.<span class="title function_">getEntries</span>();</span><br><span class="line">  <span class="keyword">const</span> ttiTime = entries[<span class="number">0</span>].<span class="property">startTime</span>;</span><br><span class="line">  <span class="keyword">const</span> startTime = performance.<span class="property">timing</span>.<span class="property">navigationStart</span>;</span><br><span class="line">  <span class="keyword">const</span> ttiDuration = ttiTime - startTime;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;TTI持续时间：&#x27;</span>, ttiDuration);</span><br><span class="line">&#125;);</span><br><span class="line">observer.<span class="title function_">observe</span>(&#123; <span class="attr">entryTypes</span>: [<span class="string">&#x27;longtask&#x27;</span>] &#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="优化TTI的方法："><a href="#优化TTI的方法：" class="headerlink" title="优化TTI的方法："></a>优化TTI的方法：</h4><p>优化TTI可以通过减少主线程阻塞时间和延迟加载非关键资源来实现。例如，通过减少JavaScript执行时间、使用服务端渲染技术和懒加载技术等。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用懒加载延迟加载非关键资源</span></span><br><span class="line"><span class="keyword">const</span> image = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;img&quot;</span>);</span><br><span class="line">image.<span class="property">src</span> = <span class="string">&quot;image.jpg&quot;</span>;</span><br><span class="line">image.<span class="property">loading</span> = <span class="string">&quot;lazy&quot;</span>;</span><br><span class="line"><span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">appendChild</span>(image);</span><br></pre></td></tr></table></figure>
+
+<h3 id="CLS（Cumulative-Layout-Shift）"><a href="#CLS（Cumulative-Layout-Shift）" class="headerlink" title="CLS（Cumulative Layout Shift）"></a>CLS（Cumulative Layout Shift）</h3><p>CLS是指页面在加载过程中发生的所有不良布局变化的总和，即累积布局偏移。它衡量的是页面的视觉稳定性。下面是获取和优化CLS的方法：</p>
+<h4 id="获取CLS的方法："><a href="#获取CLS的方法：" class="headerlink" title="获取CLS的方法："></a>获取CLS的方法：</h4><p>可以通过 <code>Performance API</code> 中的相关接口来获取CLS值，如 <code>PerformanceObserver</code> 接口监听 <code>layout-shift</code> 事件。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 监听CLS事件</span></span><br><span class="line"><span class="keyword">const</span> observer = <span class="keyword">new</span> <span class="title class_">PerformanceObserver</span>(<span class="function">(<span class="params">list</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> entries = list.<span class="title function_">getEntries</span>();</span><br><span class="line">  <span class="keyword">const</span> clsValue = entries.<span class="title function_">reduce</span>(<span class="function">(<span class="params">acc, entry</span>) =&gt;</span> acc + entry.<span class="property">value</span>, <span class="number">0</span>);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;CLS值：&quot;</span>, clsValue);</span><br><span class="line">&#125;);</span><br><span class="line">observer.<span class="title function_">observe</span>(&#123; <span class="attr">type</span>: <span class="string">&quot;layout-shift&quot;</span> &#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="CLS（Cumulative-Layout-Shift）持续时间"><a href="#CLS（Cumulative-Layout-Shift）持续时间" class="headerlink" title="CLS（Cumulative Layout Shift）持续时间"></a>CLS（Cumulative Layout Shift）持续时间</h4><p>CLS持续时间是指在页面加载过程中发生的所有布局变化的总和。可以通过监测CLS事件和页面开始加载之间的时间差来计算。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> observer = <span class="keyword">new</span> <span class="title class_">PerformanceObserver</span>(<span class="function">(<span class="params">list</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> entries = list.<span class="title function_">getEntries</span>();</span><br><span class="line">  <span class="keyword">let</span> clsValue = <span class="number">0</span>;</span><br><span class="line">  entries.<span class="title function_">forEach</span>(<span class="function">(<span class="params">entry</span>) =&gt;</span> &#123;</span><br><span class="line">    clsValue += entry.<span class="property">value</span>;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">const</span> startTime = performance.<span class="property">timing</span>.<span class="property">navigationStart</span>;</span><br><span class="line">  <span class="keyword">const</span> clsDuration = clsValue - startTime;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;CLS持续时间：&#x27;</span>, clsDuration);</span><br><span class="line">&#125;);</span><br><span class="line">observer.<span class="title function_">observe</span>(&#123; <span class="attr">type</span>: <span class="string">&#x27;layout-shift&#x27;</span> &#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="优化CLS的方法："><a href="#优化CLS的方法：" class="headerlink" title="优化CLS的方法："></a>优化CLS的方法：</h4><p>优化CLS可以通过避免页面元素的不稳定布局和动态元素的尺寸变化来实现。例如，指定图片和媒体元素的尺寸、避免动态插入内容导致页面布局变化等。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 指定图片和媒体元素的尺寸 */</span></span><br><span class="line"><span class="selector-tag">img</span>, <span class="selector-tag">video</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="FID（First-Input-Delay）"><a href="#FID（First-Input-Delay）" class="headerlink" title="FID（First Input Delay）"></a>FID（First Input Delay）</h3><p>FID是指用户首次与页面交互到浏览器响应交互的时间间隔，即首次输入延迟。它衡量的是页面的交互性能。下面是获取和优化FID的方法：</p>
+<h4 id="获取FID的方法："><a href="#获取FID的方法：" class="headerlink" title="获取FID的方法："></a>获取FID的方法：</h4><p>可以通过 <code>Performance API</code> 中的相关接口来获取FID值，如 <code>PerformanceObserver</code> 接口监听 <code>first-input</code> 事件。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 监听FID事件</span></span><br><span class="line"><span class="keyword">const</span> observer = <span class="keyword">new</span> <span class="title class_">PerformanceObserver</span>(<span class="function">(<span class="params">list</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> entries = list.<span class="title function_">getEntries</span>();</span><br><span class="line">  <span class="keyword">const</span> fidValue = entries[<span class="number">0</span>].<span class="property">processingStart</span> - entries[<span class="number">0</span>].<span class="property">startTime</span>;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;FID值：&quot;</span>, fidValue);</span><br><span class="line">&#125;);</span><br><span class="line">observer.<span class="title function_">observe</span>(&#123; <span class="attr">type</span>: <span class="string">&quot;first-input&quot;</span>, <span class="attr">buffered</span>: <span class="literal">true</span> &#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="FID（First-Input-Delay）持续时间"><a href="#FID（First-Input-Delay）持续时间" class="headerlink" title="FID（First Input Delay）持续时间"></a>FID（First Input Delay）持续时间</h4><p>FID持续时间是指从用户首次与页面交互到浏览器响应交互的时间间隔。可以通过监测FID事件和页面开始加载之间的时间差来计算。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> observer = <span class="keyword">new</span> <span class="title class_">PerformanceObserver</span>(<span class="function">(<span class="params">list</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> entries = list.<span class="title function_">getEntries</span>();</span><br><span class="line">  <span class="keyword">const</span> fidTime = entries[<span class="number">0</span>].<span class="property">processingStart</span> - entries[<span class="number">0</span>].<span class="property">startTime</span>;</span><br><span class="line">  <span class="keyword">const</span> startTime = performance.<span class="property">timing</span>.<span class="property">navigationStart</span>;</span><br><span class="line">  <span class="keyword">const</span> fidDuration = fidTime - startTime;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;FID持续时间：&#x27;</span>, fidDuration);</span><br><span class="line">&#125;);</span><br><span class="line">observer.<span class="title function_">observe</span>(&#123; <span class="attr">type</span>: <span class="string">&#x27;first-input&#x27;</span>, <span class="attr">buffered</span>: <span class="literal">true</span> &#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="优化FID的方法："><a href="#优化FID的方法：" class="headerlink" title="优化FID的方法："></a>优化FID的方法：</h4><p>优化FID可以通过减少主线程阻塞时间和优化JavaScript执行时间来实现。例如，减少长任务的执行时间、优化事件处理程序的性能等。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 优化事件处理程序的性能</span></span><br><span class="line"><span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;button&quot;</span>).<span class="title function_">addEventListener</span>(<span class="string">&quot;click&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 执行优化后的代码</span></span><br><span class="line">&#125;, &#123; <span class="attr">passive</span>: <span class="literal">true</span> &#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="FPS（Frames-per-Second）"><a href="#FPS（Frames-per-Second）" class="headerlink" title="FPS（Frames per Second）"></a>FPS（Frames per Second）</h3><p>FPS是指页面在每秒钟内渲染的帧数，即每秒钟刷新的次数。它衡量的是页面的流畅度和动画效果。下面是获取和优化FPS的方法：</p>
+<h4 id="获取FPS的方法："><a href="#获取FPS的方法：" class="headerlink" title="获取FPS的方法："></a>获取FPS的方法：</h4><p>可以通过浏览器的性能监控工具或第三方工具来获取页面的FPS值，如 <code>Chrome DevTools</code> 或 <code>WebPageTest</code> 等。</p>
+<h4 id="FPS（Frames-per-Second）持续时间"><a href="#FPS（Frames-per-Second）持续时间" class="headerlink" title="FPS（Frames per Second）持续时间"></a>FPS（Frames per Second）持续时间</h4><p>FPS持续时间是指页面在每秒内渲染的帧数。可以通过监测页面的渲染性能并计算平均帧率来获取。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用requestAnimationFrame来监测FPS</span></span><br><span class="line"><span class="keyword">let</span> fps = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">let</span> lastTime = performance.<span class="title function_">now</span>();</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">loop</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> currentTime = performance.<span class="title function_">now</span>();</span><br><span class="line">  <span class="keyword">const</span> elapsedTime = currentTime - lastTime;</span><br><span class="line">  fps = <span class="number">1000</span> / elapsedTime;</span><br><span class="line">  lastTime = currentTime;</span><br><span class="line">  <span class="title function_">requestAnimationFrame</span>(loop);</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">loop</span>();</span><br></pre></td></tr></table></figure>
+
+<h4 id="优化FPS的方法："><a href="#优化FPS的方法：" class="headerlink" title="优化FPS的方法："></a>优化FPS的方法：</h4><p>优化FPS可以通过减少页面渲染的复杂度和优化动画效果来实现。例如，使用CSS3动画代替JavaScript动画、避免频繁的重绘和重排等。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 使用CSS3动画 */</span></span><br><span class="line"><span class="selector-class">.element</span> &#123;</span><br><span class="line">  <span class="attribute">animation</span>: slide-in <span class="number">1s</span> ease-in-out infinite;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@keyframes</span> slide-in &#123;</span><br><span class="line">  <span class="selector-tag">from</span> &#123; <span class="attribute">transform</span>: <span class="built_in">translateX</span>(-<span class="number">100%</span>); &#125;</span><br><span class="line">  <span class="selector-tag">to</span> &#123; <span class="attribute">transform</span>: <span class="built_in">translateX</span>(<span class="number">0</span>); &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文详细介绍了Web前端最新优化指标，包括<code>FP</code>、<code>FCP</code>、<code>FMP</code>、<code>LCP</code>、<code>TTI</code>、<code>CLS</code>、<code>FID</code>、<code>FPS</code>等，并提供了获取和优化的方法和实例。这些指标不仅帮助开发者更好地评估和优化网页性能，也有助于提升用户体验和网站竞争力。我们可以参考这些指标对网站的性能进行相关的优化。优化是一把双刃剑，有好的一面也有坏的一面，请谨慎优化。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/optimize/" rel="tag">optimize</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2024/04/14/fontend-optimize-indicators/" data-id="cluz1as990005qnq96g3j85lw" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2024/04/12/abort-controller/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">使用 AbortController 实现异步操作控制</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+      
+      <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/04/14/fontend-optimize-indicators/">Web前端最新优化指标：从FP到FPS的全面解析</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/12/abort-controller/">使用 AbortController 实现异步操作控制</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/10/optimize-miniprogram/">小程序性能优化实践指南</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/08/github-action-docker/">使用 GitHub Actions 自动化部署 Nuxt3 应用到 Docker 容器中</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/06/github-action-publish-package/">使用 GitHub Action 实现自动化发布 npm 包</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/" rel="tag">blog</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/canvas/" rel="tag">canvas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/csrf/" rel="tag">csrf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debugging/" rel="tag">debugging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-pages/" rel="tag">github pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/homebrew/" rel="tag">homebrew</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/" rel="tag">html</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/" rel="tag">html5</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interview/" rel="tag">interview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/loader/" rel="tag">loader</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/miniprogram/" rel="tag">miniprogram</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/" rel="tag">mobile</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/optimize/" rel="tag">optimize</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reptile/" rel="tag">reptile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/" rel="tag">security</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/service-worker/" rel="tag">service worker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/translate/" rel="tag">translate</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vitepress/" rel="tag">vitepress</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webworker/" rel="tag">webworker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/weinre/" rel="tag">weinre</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xss/" rel="tag">xss</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yuv/" rel="tag">yuv</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">七月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2024 HankLiu, Inc. All rights reserved.<br>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">主页</a>
+  
+    <a href="/archives" class="mobile-nav-link">文章</a>
+  
+    <a href="/toolkit" class="mobile-nav-link">小工具</a>
+  
+    <a href="/resume" class="mobile-nav-link">小简介</a>
+  
+    <a href="/about" class="mobile-nav-link">小关于</a>
+  
+  <a href="#search" class="mobile-nav-link st-search-show-outputs">Search</a>
+</nav>
+  
+
+<!-- totop start -->
+<div id="totop">
+	<a title="To Top"></a>
+</div>
+<!-- totop end -->
+
+<!-- swiftype search start -->
+
+<!-- swiftype search end -->
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/lrsjng.jquery-qrcode/0.12.0/jquery.qrcode.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+</div>
+</body>
+</html>
