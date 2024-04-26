@@ -90,6 +90,197 @@
     <div class="outer">
       <section id="main">
   
+    <article id="post-interview-questions" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2024/02/08/interview-questions/" class="article-date">
+  <time datetime="2024-02-08T12:12:26.000Z" itemprop="datePublished">2024-02-08</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-true">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/02/08/interview-questions/">前端面试题汇总</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Event-Loop"><a href="#Event-Loop" class="headerlink" title="Event Loop"></a>Event Loop</h2><p>Event Loop即事件循环，是指浏览器或者Nodejs解决javascript单线程运行时异步逻辑不会阻塞的一种机制。</p>
+<p>Event Loop是一个执行模型，不同的运行环境有不同的实现，浏览器和nodejs基于不同的技术实现自己的event loop。</p>
+<ul>
+<li>浏览器的Event Loop是在HTML5规范中明确定义。</li>
+<li>Nodejs的Event Loop是libuv实现的。</li>
+<li>libuv已经对Event Loop作出了实现，HTML5规范中只是定义的浏览器中Event Loop的模型，具体的实现交给了浏览器厂商。</li>
+</ul>
+<h3 id="宏队列和微队列"><a href="#宏队列和微队列" class="headerlink" title="宏队列和微队列"></a>宏队列和微队列</h3><p>在javascript中，任务被分为两种，一种为宏任务(macrotask)，也称为task，一种为微任务(microtask)，也称为jobs。</p>
+<p>宏任务主要包括:</p>
+<ul>
+<li>script全部代码</li>
+<li>setTimeout</li>
+<li>setInterval</li>
+<li>setImmediate (Nodejs独有，浏览器暂时不支持，只有IE10支持)</li>
+<li>requestAnimationFrame (浏览器独有)</li>
+<li>I&#x2F;O</li>
+<li>UI rendering (浏览器独有)</li>
+</ul>
+<p>微任务主要包括:</p>
+<ul>
+<li>process.nextTick (Nodejs独有)</li>
+<li>Promise</li>
+<li>Object.observe (废弃)</li>
+<li>MutationObserver</li>
+</ul>
+<h3 id="浏览器中的Event-Loop"><a href="#浏览器中的Event-Loop" class="headerlink" title="浏览器中的Event Loop"></a>浏览器中的Event Loop</h3><p>Javascript 有一个主线程 main thread 和 一个调用栈(执行栈) call-stack，所有任务都会被放到调用栈等待主线程的执行。</p>
+<p>JS调用栈采用的是后进先出的规则，当函数执行时，会被添加到调用栈的顶部，当执行栈执行完后，就会从栈顶移除，直到栈内被清空。</p>
+<p>Javascript单线程任务可以分为同步任务和异步任务，同步任务会在调用栈内按照顺序依次被主线程执行，异步任务会在异步任务有了结果后，将注册的回调函数放入任务队列中等待主线程空闲的时候（调用栈被清空的时候），被读取到调用栈内等待主线程的执行</p>
+<p>任务队列 Task Queue, 是先进先出的数据结构。</p>
+<p><img src="https://user-images.githubusercontent.com/8088864/124855609-c2904a00-dfdb-11eb-9138-df80150fa3a3.jpg" alt="浏览器事件循环的进程模型"></p>
+<p>浏览器Event Loop的具体流程:</p>
+<ol>
+<li>执行全局Javascript的同步代码，可能包含一些同步语句，也可以是异步语句(setTimeout语句不执行回调函数里面的，Promise中.then之前的语句)</li>
+<li>全局Javascript执行完毕后，调用栈call-stack会被清空</li>
+<li>从微队列microtask queue中取出位于首部的回调函数，放入到调用栈call-stack中执行，执行完毕后从调用栈中删除，microtask queue的长度减1。</li>
+<li>继续从微队列microtask queue的队首取出任务，放到调用栈中执行，依次循环往复，直至微任务队列microtask queue中的任务都被调用栈执行完毕。<strong>特别注意，如果在执行微任务microtask过程中，又产生了微任务microtask，新产生的微任务也会追加到微任务队列microtask queue的尾部，新生成的微任务也会在当前周期中被执行完毕。</strong></li>
+<li>microtask queue中的任务都被执行完毕后，microtask queue为空队列，调用栈也处于空闲阶段</li>
+<li>执行UI rendering</li>
+<li>从宏队列macrotask queue的队首取出宏任务，放入调用栈中执行。</li>
+<li>执行完后，调用栈为空闲状态</li>
+<li>重复 3 - 8 的步骤，直至宏任务队列的任务都被执行完毕。<br>…</li>
+</ol>
+<p>浏览器Event Loop的3个重点:</p>
+<ol>
+<li>宏队列macrotask queue每次只从中取出一个任务放到调用栈中执行，执行完后去执行微任务队列中的所有任务</li>
+<li>微任务队列中的所有任务都会依次取出来执行，只是微任务队列中的任务清空</li>
+<li>UI rendering 的执行节点在微任务队列执行完毕后，宏任务队列中取出任务执行之前执行</li>
+</ol>
+<h3 id="NodeJs中的Event-Loop"><a href="#NodeJs中的Event-Loop" class="headerlink" title="NodeJs中的Event Loop"></a>NodeJs中的Event Loop</h3><p>libuv结构</p>
+<p><img src="https://user-images.githubusercontent.com/8088864/125010304-d64db600-e098-11eb-824f-de433a12a095.png" alt="libuv的事件循环模型"></p>
+<p>NodeJs中的宏任务队列和微任务队列</p>
+<p>NodeJs的Event Loop中，执行宏任务队列的回调有6个阶段</p>
+<p><img src="https://user-images.githubusercontent.com/8088864/125010342-e9608600-e098-11eb-84e0-70a5bd5f5867.png" alt="NodeJS中的宏队列执行回调的6个阶段"></p>
+<p>Node的Event Loop可以分为6个阶段，各个阶段执行的任务如下所示:</p>
+<ul>
+<li><code>timers</code>: 执行setTimeout和setInterval中到期的callback。</li>
+<li><code>I/O callbacks</code>: 执行几乎所有的回调，除了close callbacks以及timers调度的回调和setImmediate()调度的回调。</li>
+<li><code>idle, prepare</code>: 仅在内部使用。</li>
+<li><code>poll</code>: 最重要的阶段，检索新的I&#x2F;O事件，在适当的情况下回阻塞在该阶段。</li>
+<li><code>check</code>: 执行setImmediate的callback(setImmediate()会将事件回调插入到事件队列的尾部，主线程和事件队列的任务执行完毕后会立即执行setImmediate中传入的回调函数)。</li>
+<li><code>close callbacks</code>: 执行<code>close</code>事件的callback，例如socket.on(‘close’, fn)或则http.server.on(‘close’, fn)等。</li>
+</ul>
+<p>NodeJs中的宏任务队列可以分为下列4个:</p>
+<ol>
+<li>Timers Queue</li>
+<li>I&#x2F;O Callbacks Queue</li>
+<li>Check Queue</li>
+<li>Close Callbacks Queue</li>
+</ol>
+<p>在浏览器中只有一个宏任务队列，所有宏任务都会放入到宏任务队列中等待放入执行栈中被主线程执行，NodeJs中有4个宏任务队列，不同类型的宏任务会被放入到不同的宏任务队列中。</p>
+<p>NodeJs中的微任务队列可以分为下列2个:</p>
+<ol>
+<li><code>Next Tick Queue</code>: 放置process.nextTick(callback)的回调函数</li>
+<li><code>Other Micro Queue</code>: 其他microtask，例如Promise等</li>
+</ol>
+<p>在浏览器中只有一个微任务队列，所有微任务都会放入到微任务队列中等待放入执行栈中被主线程执行，NodeJs中有2个微任务队列，不同类型的微任务会被放入到不同的微任务队列中。</p>
+<p><img src="https://user-images.githubusercontent.com/8088864/125030923-71a55200-e0be-11eb-93be-95f1cbc456e3.png" alt="NodeJs事件循环"></p>
+<p>NodeJs的Event Loop的具体流程:</p>
+<ol>
+<li>执行全局Javascript的同步代码，可能包含一些同步语句，也可以是异步语句(setTimeout语句不执行回调函数里面的，Promise中.then之前的语句)。</li>
+<li>执行微任务队列中的微任务，先执行Next Tick Queue队列中的所有的所有任务，再执行Other Micro Queue队列中的所有任务。</li>
+<li>开始执行宏任务队列中的任务，共6个阶段，从第1个阶段开始执行每个阶段对应宏任务队列中的所有任务，<strong>注意，这里执行的是该阶段宏任务队列中的所有的任务，浏览器Event Loop每次只会中宏任务队列中取出队首的任务执行，执行完后开始执行微任务队列中的任务，NodeJs的Event Loop会执行完该阶段中宏任务队列中的所有任务后，才开始执行微任务队列中的任务，也就是步骤2</strong>。</li>
+<li>Timers Queue -&gt; 步骤2 -&gt; I&#x2F;O Callbacks Queue -&gt; 步骤2 -&gt; Check Queue -&gt; 步骤2 -&gt; Close Callback Queue -&gt; 步骤2 -&gt; Timers Queue -&gt; ……</li>
+</ol>
+<p><strong>特别注意:</strong></p>
+<ul>
+<li>上述的第三步，当 NodeJs 版本小于11时，NodeJs的Event Loop会执行完该阶段中宏任务队列中的所有任务</li>
+<li>当 NodeJS 版本大于等于11时，<strong>在timer阶段的setTimeout,setInterval…和在check阶段的setImmediate都在node11里面都修改为一旦执行一个阶段里的一个任务就立刻执行微任务队列</strong>。为了和浏览器更加趋同。</li>
+</ul>
+<p>NodeJs的Event Loop的microtask queue和macrotask queue的执行顺序详情</p>
+<p><img src="https://user-images.githubusercontent.com/8088864/125032436-8aaf0280-e0c0-11eb-926a-30be5bf116f9.png" alt="NodeJS中的微任务队列执行顺序"></p>
+<p><img src="https://user-images.githubusercontent.com/8088864/125032451-8f73b680-e0c0-11eb-8349-d6c5f20bd11a.png" alt="NodeJS中的宏任务队列执行顺序"></p>
+<p>当setTimeout(fn, 0)和setImmediate(fn)放在同一同步代码中执行时，可能会出现下面两种情况：</p>
+<ol>
+<li><p><strong>第一种情况</strong>: 同步代码执行完后，timer还没到期，setImmediate中注册的回调函数先放入到Check Queue的宏任务队列中，先执行微任务队列，然后开始执行宏任务队列，先从Timers Queue开始，由于在Timer Queue中未发现任何的回调函数，往下阶段走，直到Check Queue中发现setImmediate中注册的回调函数，先执行，然后timer到期，setTimeout注册的回调函数会放入到Timers Queue的宏任务队列中，下一轮后再次执行到Timers Queue阶段时，才会再Timers Queue中发现了setTimeout注册的回调函数，于是执行该timer的回调，所以，<strong>setImmediate(fn)注册的回调函数会早于setTimeout(fn, 0)注册的回调函数执行</strong>。</p>
+</li>
+<li><p><strong>第二种情况</strong>: 同步代码执行完之前，timer已经到期，setTimeout注册的回调函数会放入到Timers Queue的宏任务队列中，执行同步代码到setImmediate时，将其回调函数注册到Check Queue中，同步代码执行完后，先执行微任务队列，然后开始执行宏任务队列，先从Timers Queue开始，在Timers Queue发现了timer中注册的回调函数，取出执行，往下阶段走，到Check Queue中发现setImmediate中注册的回调函数，又执行，所以这种情况时，<strong>setTimeout(fn, 0)注册的回调函数会早于setImmediate(fn)注册的回调函数执行</strong>。</p>
+</li>
+<li><p>在同步代码中同时调setTimeout(fn, 0)和setImmediate执行顺序情况是不确定的，但是如果把他们放在一个IO的回调，比如readFile(‘xx’, function () {&#x2F;&#x2F; ….})回调中，那么IO回调是在I&#x2F;O Callbacks Queue中，setTimeout到期回调注册到Timers Queue，setImmediate回调注册到Check Queue，I&#x2F;O Callbacks Queue执行完到Check Queue，Timers Queue得到下个循环周期，所以setImmediate回调这种情况下肯定比setTimeout(fn, 0)回调先执行。</p>
+</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">setImmediate</span>(<span class="keyword">function</span> <span class="title function_">A</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">1</span>);</span><br><span class="line">  <span class="title function_">setImmediate</span>(<span class="keyword">function</span> <span class="title function_">B</span>(<span class="params"></span>)&#123;<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">2</span>);&#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="keyword">function</span> <span class="title function_">timeout</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;TIMEOUT FIRED&#x27;</span>);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 执行结果: 会存在下面两种情况</span></span><br><span class="line"><span class="comment">// 第一种情况:</span></span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="comment">// TIMEOUT FIRED</span></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 第二种情况:</span></span><br><span class="line"><span class="comment">// TIMEOUT FIRED</span></span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+
+<p>注:</p>
+<ul>
+<li>setImmediate中如果又存在setImmediate语句，内部的setImmediate语句注册的回调函数会在下一个<code>check</code>阶段来执行，并不在当前的<code>check</code>阶段来执行。</li>
+</ul>
+<p>poll 阶段详解:</p>
+<p>poll 阶段主要又两个功能:</p>
+<ol>
+<li>当timers到达指定的时间后，执行指定的timer的回调(Executing scripts for timers whose threshold has elapsed, then)。</li>
+<li>处理poll队列的事件(Processing events in the poll queue)。</li>
+</ol>
+<p>当进入到poll阶段，并且没有timers被调用的时候，会出现下面的情况:</p>
+<ul>
+<li>如果poll队列不为空，Event Loop将同步执行poll queue中的任务，直到poll queue队列为空或者执行的callback达到上限。</li>
+<li>如果poll队列为空，会发生下面的情况:<ul>
+<li>如果脚本执行过setImmediate代码，Event Loop会结束poll阶段，直接进入check阶段，执行Check Queue中调用setImmediate注册的回调函数。</li>
+<li>如果脚本没有执行过setImmediate代码，poll阶段将等待callback被添加到队列中，然后立即执行。</li>
+</ul>
+</li>
+</ul>
+<p>当进入到poll阶段，并且调用了timers的话，会发生下面的情况:</p>
+<ul>
+<li>一旦poll queue为空，Event Loop会检测Timers Queue中是否存在任务，如果存在任务的话，Event Loop会回到timer阶段并执行Timers Queue中timers注册的回调函数。<strong>执行完后是进入check阶段，还是又重新进入I&#x2F;O callbacks阶段?</strong></li>
+</ul>
+<p>setTimeout 对比 setImmediate</p>
+<ul>
+<li>setTimeout(fn, 0)在timers阶段执行，并且是在poll阶段进行判断是否达到指定的timer时间才会执行</li>
+<li>setImmediate(fn)在check阶段执行</li>
+</ul>
+<p>两者的执行顺序要根据当前的执行环境才能确定：</p>
+<ul>
+<li>如果两者都在主模块(main module)调用，那么执行先后取决于进程性能，顺序随机</li>
+<li>如果两者都不在主模块调用，即在一个I&#x2F;O Circle中调用，那么setImmediate的回调永远先执行，因为会先到Check阶段</li>
+</ul>
+<p>setImmediate 对比 process.nextTick</p>
+<ul>
+<li>setImmediate(fn)的回调任务会插入到宏队列Check Queue中</li>
+<li>process.nextTick(fn)的回调任务会插入到微队列Next Tick Queue中</li>
+<li>process.nextTick(fn)调用深度有限制，上限是1000，而setImmediate则没有</li>
+</ul>
+        
+          <p class="article-more-link">
+            <a href="/2024/02/08/interview-questions/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/" rel="tag">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/interview/" rel="tag">interview</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2024/02/08/interview-questions/" data-id="clvfyuwid004mqgp2b1mvcla4" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-github-pages-env" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <h3 href="/2024/01/12/github-pages-env/" class="article-date">
@@ -137,7 +328,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/" rel="tag">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/01/12/github-pages-env/" data-id="cluz1as9e000eqnq982gaeheh" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/01/12/github-pages-env/" data-id="clvfyuwh8000eqgp2h1zoff1i" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -217,7 +408,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/" rel="tag">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github-pages/" rel="tag">github pages</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2023/12/27/github-pages/" data-id="cluz1as9f000fqnq99txkani5" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2023/12/27/github-pages/" data-id="clvfyuwh8000fqgp25gnubuiw" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -291,7 +482,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/loader/" rel="tag">loader</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/translate/" rel="tag">translate</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2023/02/23/thread-loader/" data-id="cluz1as9s0018qnq9g0ao7f33" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2023/02/23/thread-loader/" data-id="clvfyuwhk0016qgp20oln0upm" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -422,7 +613,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/loader/" rel="tag">loader</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/translate/" rel="tag">translate</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2023/01/10/cache-loader/" data-id="cluz1as950001qnq9hisqhrmd" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2023/01/10/cache-loader/" data-id="clvfyuwgz0001qgp24zv08ol3" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -502,7 +693,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/canvas/" rel="tag">canvas</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html/" rel="tag">html</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webworker/" rel="tag">webworker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/yuv/" rel="tag">yuv</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2022/12/08/offscreen-canvas/" data-id="cluz1as9l000tqnq9768aaoiw" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2022/12/08/offscreen-canvas/" data-id="clvfyuwhg000vqgp2a8cm4ap1" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -658,7 +849,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html/" rel="tag">html</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webworker/" rel="tag">webworker</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2022/07/20/webwork-postmessage/" data-id="cluz1asah004cqnq9hv146kft" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2022/07/20/webwork-postmessage/" data-id="clvfyuwib004hqgp2fpwcekim" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -809,7 +1000,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/" rel="tag">nginx</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2022/04/08/nginx-commonly-config/" data-id="cluz1as9l000sqnq9frk8csm8" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2022/04/08/nginx-commonly-config/" data-id="clvfyuwhe000sqgp28fpm480v" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -909,7 +1100,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/" rel="tag">network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/reptile/" rel="tag">reptile</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/security/" rel="tag">security</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2021/12/20/security-anti-reptile/" data-id="cluz1as9n000xqnq9hl8ydybt" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2021/12/20/security-anti-reptile/" data-id="clvfyuwhg000xqgp29cvx4uxy" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -1003,69 +1194,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/" rel="tag">network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/security/" rel="tag">security</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sql/" rel="tag">sql</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2021/09/26/security-sql-injection/" data-id="cluz1as9o0012qnq976ns1b0n" class="article-share-link">Share</a>
-        
-      </div>
-    </footer>
-  </div>
-  </div>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-security-x-content-types-options" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <h3 href="/2021/03/12/security-x-content-types-options/" class="article-date">
-  <time datetime="2021-03-12T09:09:12.000Z" itemprop="datePublished">2021-03-12</time>
-</h3>
-    
-  </div>
-  <div class="article-inner">
-  <div class="curve-down">
-  <div class="fill-content fill-content-true">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/12/security-x-content-types-options/">Web安全之使用 X-Content-Type-Options 首部字段</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-        <h2 id="Web安全之使用-X-Content-Type-Options-首部字段"><a href="#Web安全之使用-X-Content-Type-Options-首部字段" class="headerlink" title="Web安全之使用 X-Content-Type-Options 首部字段"></a>Web安全之使用 X-Content-Type-Options 首部字段</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p><code>X-Content-Type-Options</code> 是一个 <code>HTTP</code> 响应头，用于防止浏览器对响应内容的 <code>MIME</code> 类型进行嗅探或猜测。当设置为 <code>nosniff</code> 时，它告诉浏览器应该严格按照响应头中 <code>Content-Type</code> 字段所指定的类型来处理资源，而不应该根据文件扩展名、文件内容或其他因素来尝试重新确定资源的类型。</p>
-<h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><p>使用 <code>X-Content-Type-Options</code> 可以提高网站的安全性，因为它可以防止某些类型的攻击，例如 <code>MIME</code> 类型混淆攻击。这种攻击通常涉及将恶意内容伪装成合法的资源类型（如 <code>JavaScript</code> 文件），然后利用浏览器对 <code>MIME</code> 类型的错误处理来执行恶意代码，能够有效的预防 <code>XSS</code> 攻击。</p>
-<h3 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h3><p>要在你的 <code>web</code> 服务器上设置 <code>X-Content-Type-Options</code> 响应头，你需要根据你的服务器软件（如 <code>Apache、Nginx、IIS</code> 等）进行配置。下面是一些常见的服务器配置示例：</p>
-<h4 id="Apache"><a href="#Apache" class="headerlink" title="Apache"></a>Apache</h4><p>在 Apache 中，你可以使用 mod_headers 模块来设置响应头。在你的网站配置文件中添加以下行：</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Header</span> set X-Content-Type-Options <span class="string">&quot;nosniff&quot;</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h4><p>在 Nginx 中，你可以在 http、server 或 location 块中添加 add_header 指令来设置响应头：</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">add_header</span> X-Content-Type-Options <span class="string">&quot;nosniff&quot;</span>;</span><br></pre></td></tr></table></figure>
-
-<h4 id="IIS"><a href="#IIS" class="headerlink" title="IIS"></a>IIS</h4><p>在 IIS 中，你可以使用 web.config 文件来设置响应头。在 &lt;system.webServer&gt; 部分添加以下配置：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">httpProtocol</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">customHeaders</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">add</span> <span class="attr">name</span>=<span class="string">&quot;X-Content-Type-Options&quot;</span> <span class="attr">value</span>=<span class="string">&quot;nosniff&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">customHeaders</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">httpProtocol</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="Node-js-使用-Express"><a href="#Node-js-使用-Express" class="headerlink" title="Node.js (使用 Express)"></a>Node.js (使用 Express)</h4><p>如果你使用 <code>Node.js</code> 和 <code>Express</code> 框架，你可以在应用程序中添加中间件来设置响应头：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">use</span>(<span class="function">(<span class="params">req, res, next</span>) =&gt;</span> &#123;</span><br><span class="line">  res.<span class="title function_">setHeader</span>(<span class="string">&#x27;X-Content-Type-Options&#x27;</span>, <span class="string">&#x27;nosniff&#x27;</span>);</span><br><span class="line">  <span class="title function_">next</span>();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<p>请确保你的服务器配置正确，并且 <code>X-Content-Type-Options</code> 头部已正确设置。这样，浏览器在接收响应时就会遵守该头部的指示，从而提高应用程序的安全性。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <div class="article-footer-content">
-        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/" rel="tag">network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/security/" rel="tag">security</a></li></ul>
-
-        <a data-url="https://hankliu62.github.io/2021/03/12/security-x-content-types-options/" data-id="cluz1as9p0013qnq96dsp2lx5" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2021/09/26/security-sql-injection/" data-id="clvfyuwhi0012qgp2ay1v6c0i" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -1094,6 +1223,10 @@
       <ul>
         
           <li>
+            <a href="/2024/04/16/webrtc/">WebRTC:实时通信的未来</a>
+          </li>
+        
+          <li>
             <a href="/2024/04/14/fontend-optimize-indicators/">Web前端最新优化指标：从FP到FPS的全面解析</a>
           </li>
         
@@ -1109,10 +1242,6 @@
             <a href="/2024/04/08/github-action-docker/">使用 GitHub Actions 自动化部署 Nuxt3 应用到 Docker 容器中</a>
           </li>
         
-          <li>
-            <a href="/2024/04/06/github-action-publish-package/">使用 GitHub Action 实现自动化发布 npm 包</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -1122,7 +1251,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/" rel="tag">blog</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/canvas/" rel="tag">canvas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/csrf/" rel="tag">csrf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debugging/" rel="tag">debugging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-pages/" rel="tag">github pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/homebrew/" rel="tag">homebrew</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/" rel="tag">html</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/" rel="tag">html5</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interview/" rel="tag">interview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/loader/" rel="tag">loader</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/miniprogram/" rel="tag">miniprogram</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/" rel="tag">mobile</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/optimize/" rel="tag">optimize</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reptile/" rel="tag">reptile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/" rel="tag">security</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/service-worker/" rel="tag">service worker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/translate/" rel="tag">translate</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vitepress/" rel="tag">vitepress</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webworker/" rel="tag">webworker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/weinre/" rel="tag">weinre</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xss/" rel="tag">xss</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yuv/" rel="tag">yuv</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/" rel="tag">blog</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/canvas/" rel="tag">canvas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/csrf/" rel="tag">csrf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debugging/" rel="tag">debugging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-pages/" rel="tag">github pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/homebrew/" rel="tag">homebrew</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/" rel="tag">html</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/" rel="tag">html5</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interview/" rel="tag">interview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/loader/" rel="tag">loader</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/miniprogram/" rel="tag">miniprogram</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/" rel="tag">mobile</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/optimize/" rel="tag">optimize</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reptile/" rel="tag">reptile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/" rel="tag">security</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/service-worker/" rel="tag">service worker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/translate/" rel="tag">translate</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vitepress/" rel="tag">vitepress</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webrtc/" rel="tag">webrtc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webworker/" rel="tag">webworker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/weinre/" rel="tag">weinre</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xss/" rel="tag">xss</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yuv/" rel="tag">yuv</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -1131,7 +1260,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">七月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">七月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li></ul>
     </div>
   </div>
 
