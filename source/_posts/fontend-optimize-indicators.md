@@ -12,25 +12,90 @@ tag: [optimize]
 ### 引言
 随着Web技术的不断发展，用户对网页加载速度和性能的要求越来越高。为了提供更好的用户体验，出现了一系列新的Web前端优化指标，如`FP`、`FCP`、`FMP`、`LCP`、`TTI`、`CLS`、`FID`、`FPS`等。本文将深入探讨这些指标的含义、获取方法以及优化技巧，帮助开发者更好地理解和应用于实践中。
 
+### DOMContentLoaded 事件
+
+`DOMContentLoaded` 事件，当 `HTML` 文档被完全加载和解析完成之后，`DOMContentLoaded` 事件被触发，无需等待样式表、图像和子框架的完成加载。
+
+#### 获取 DOMContentLoaded 事件的方法：
+
+通过监听 `document` 对象上的 `DOMContentLoaded` 事件获得：
+
+``` javascript
+document.addEventListener('DOMContentLoaded', function() {}, false)
+```
+
+#### DOMContentLoaded 事件持续时间
+
+可以通过 `Performance API` 中的相关接口来获取 `DOMContentLoaded` 事件的开始和结束时间，如`performance.timing.domContentLoadedEventEnd`和`performance.timing.domContentLoadedEventStart`，两者相差就为持续时间。
+
+``` javascript
+// 计算规则
+const dclTime = performance.timing.domContentLoadedEventEnd - performance.timing.domContentLoadedEventStart
+```
+
+### load 事件
+
+`load` 事件，当页面中依赖的所有资源：DOM、图片、CSS、Flash、javascript 等都加载完后，执行完后会在 `window` 对象上触发对应的事件，
+
+####
+`window.onload` 注册的回调就会在 `load` 事件触发时候被调用，或者通过 `window.addEventListener` 来进行监听。
+
+```javascript
+window.onload = function() {}
+
+// or
+
+window.addEventListener('load', function() {}, false)
+```
+
+#### load 事件持续时间
+
+可以通过 `Performance API` 中的相关接口来获取 `load` 事件的开始和结束时间，如`performance.timing.loadEventEnd`和`performance.timing.loadEventStart`，两者相差就为持续时间。
+
+```javascript
+const loadTime = performance.timing.loadEventEnd - performance.timing.loadEventStart;
+```
+
 ### FP（First Paint）
 FP是指浏览器首次将像素呈现到屏幕上的时间点，即首次绘制。它标志着页面开始加载的时间，但并不表示页面内容已经完全可见。下面是获取和优化FP的方法：
 
 #### 获取FP的方法：
-可以通过 `Performance API` 中的相关接口来获取FP时间，如`performance.timing.navigationStart`和`performance.timing.firstPaint`等。
+可以通过 `Performance API` 中的相关接口来获取FP时间，如`performance.timing.navigationStart`和`performance.getEntriesByType('paint')`等。
 
 ```javascript
 // 获取FP时间
-const fpTime = performance.timing.firstPaint;
-console.log("FP时间：", fpTime);
+const entries = performance.getEntriesByType('paint');
+for (const entry of entries) {
+  // 首次渲染
+  if (entry.name === 'first-paint') {
+    // FP开始时间
+    const fpTime = entry.startTime;
+    console.log("FP时间：", fpTime);
+  }
+}
 ```
 
 #### FP（First Paint）持续时间
-FP持续时间是指从页面开始加载到首次绘制内容到屏幕上的时间间隔。通常可以通过测量页面开始加载（navigationStart）和FP事件之间的时间差来计算。
+FP持续时间是指从页面开始加载到首次绘制内容到屏幕上的时间间隔。可以通过 `PerformanceObserver` 对象，通过监听 `paint` 类型来获取，还能获得 `FP（First Paint）` 所花费的时间。
 
 ``` javascript
-const startTime = performance.timing.navigationStart;
-const fpTime = performance.timing.firstPaint;
-const fpDuration = fpTime - startTime;
+const observer = new PerformanceObserver((list) => {
+  const entries = list.getEntries();
+  for (const entry of entries) {
+    // 首次渲染
+    if (entry.name === 'first-paint') {
+      // FP开始时间
+      const fpTime = entry.startTime;
+      // 持续时间
+      const duration = entry.duration;
+      // FP结束时间
+      const fpDurationTime = fpTime + duration;
+      console.log("FP持续时间：", fpDurationTime);
+    }
+  }
+});
+
+observer.observe({ type: "paint", buffered: true });
 ```
 
 #### 优化FP的方法：
@@ -50,26 +115,43 @@ const fpDuration = fpTime - startTime;
 FCP是指浏览器首次绘制来自DOM的内容的时间点，即首次内容绘制。它表示页面开始显示内容的时间，但并不表示所有内容都已加载完毕。下面是获取和优化FCP的方法：
 
 #### 获取FCP的方法：
-可以通过 `Performance API` 中的相关接口来获取FCP时间，如 `performance.timing.navigationStart` 和 `performance.timing.firstContentfulPaint` 等。
+可以通过 `Performance API` 中的相关接口来获取FCP时间，如 `performance.timing.navigationStart` 和 `performance.timing.getEntriesByType('paint')` 等。
 
 ```javascript
-// 获取FCP时间
-const fcpTime = performance.timing.firstContentfulPaint;
-console.log("FCP时间：", fcpTime);
+// 获取FP时间
+const entries = performance.getEntriesByType('paint');
+for (const entry of entries) {
+  // 首次渲染
+  if (entry.name === 'first-contentful-paint') {
+    // FCP开始时间
+    const fcpTime = entry.startTime;
+    console.log("FCP时间：", fcpTime);
+  }
+}
 ```
 
 #### FCP（First Contentful Paint）持续时间
-FCP持续时间是指从页面开始加载到首次绘制来自DOM的内容的时间间隔。可以通过监测FCP事件和页面开始加载之间的时间差来计算。
+FCP持续时间是指从页面开始加载到首次绘制来自DOM的内容的时间间隔。可以通过 `PerformanceObserver` 对象，通过监听 `paint` 类型来获取，还能获得 `FCP（First Contentful Paint）` 所花费的时间。
 
 ``` javascript
-window.addEventListener('paint', function(event) {
-  if (event.name === 'first-contentful-paint') {
-    const startTime = performance.timing.navigationStart;
-    const fcpTime = event.startTime;
-    const fcpDuration = fcpTime - startTime;
-    console.log('FCP持续时间：', fcpDuration);
+// 获取FCP时间
+const observer = new PerformanceObserver((list) => {
+  const entries = list.getEntries();
+  for (const entry of entries) {
+    // 首次渲染
+    if (entry.name === 'first-contentful-paint') {
+      // FCP开始时间
+      const fcpTime = entry.startTime;
+      // 持续时间
+      const duration = entry.duration;
+      // FCP持续时间
+      const fcpDurationTime = fcpTime + duration;
+      console.log("FCP持续时间：", fcpDurationTime);
+    }
   }
 });
+
+observer.observe({ type: "paint", buffered: true });
 ```
 
 #### 优化FCP的方法：
@@ -91,27 +173,16 @@ FMP是指浏览器首次绘制页面主要内容的时间点，即首次有意�
 可以通过 `Performance API` 中的相关接口来获取FMP时间，如 `PerformanceObserver` 接口监听 `paint` 事件，判断首次有意义的绘制。
 
 ``` javascript
-// 监听FMP事件
-const observer = new PerformanceObserver((list) => {
-  const entries = list.getEntries();
-  const fmpTime = entries[0].startTime;
-  console.log("FMP时间：", fmpTime);
-});
-observer.observe({ type: "paint", buffered: true });
+// FMP计算比较复杂，lighthouse的计算的大体思路是，将页面中最大布局变化后的第一次渲染事件作为FMP事件，并且计算中考虑到了可视区的因素。
+
+// FMP计算过于复杂，没有现成的performance API，如果希望在监控中上报这个指标，可以自己使用MutationObserver计算。
 ```
 
 #### FMP（First Meaningful Paint）持续时间
 FMP持续时间是指从页面开始加载到首次绘制页面主要内容的时间间隔。可以通过监测FMP事件和页面开始加载之间的时间差来计算。
 
 ``` javascript
-const observer = new PerformanceObserver((list) => {
-  const entries = list.getEntries();
-  const fmpTime = entries[0].startTime;
-  const startTime = performance.timing.navigationStart;
-  const fmpDuration = fmpTime - startTime;
-  console.log('FMP持续时间：', fmpDuration);
-});
-observer.observe({ type: 'paint', buffered: true });
+// FMP计算过于复杂，没有现成的performance API，如果希望在监控中上报这个指标，可以自己使用MutationObserver计算。
 ```
 
 #### 优化FMP的方法：
@@ -144,10 +215,14 @@ LCP持续时间是指从页面开始加载到最大内容元素被渲染完成�
 
 ``` javascript
 const observer = new PerformanceObserver((list) => {
-  const entries = list.getEntries();
+  // 计算最大的内容
+  const entries = list.getEntries().sort((pre, next) => next.size - pre.size);
+  // LCP开始事件
   const lcpTime = entries[0].startTime;
-  const startTime = performance.timing.navigationStart;
-  const lcpDuration = lcpTime - startTime;
+  // 持续时间
+  const duration = entries[0].duration;
+  // FCP持续时间
+  const lcpDuration = lcpTime + duration;
   console.log('LCP持续时间：', lcpDuration);
 });
 observer.observe({ type: 'largest-contentful-paint', buffered: true });
@@ -165,30 +240,11 @@ observer.observe({ type: 'largest-contentful-paint', buffered: true });
 TTI是指页面变得可交互的时间点，即用户可以与页面进行交互的时间点。它是衡量页面可用性的重要指标。下面是获取和优化TTI的方法：
 
 #### 获取TTI的方法：
-可以通过 `Performance API` 中的相关接口来获取TTI时间，如 `PerformanceObserver` 接口监听 `longtask` 事件。
+可以通过 `Performance API` 中的相关接口来获取TTI时间，通过 `performance.timing.domInteractive` 和 `performance.timing.fetchStart` 的时间差来获得。
 
 ``` javascript
 // 监听TTI事件
-const observer = new PerformanceObserver((list) => {
-  const entries = list.getEntries();
-  const ttiTime = entries[0].startTime;
-  console.log("TTI时间：", ttiTime);
-});
-observer.observe({ entryTypes: ["longtask"] });
-```
-
-#### TTI（Time to Interactive）持续时间
-TTI持续时间是指从页面开始加载到页面变得可交互的时间间隔。可以通过监测TTI事件和页面开始加载之间的时间差来计算。
-
-``` javascript
-const observer = new PerformanceObserver((list) => {
-  const entries = list.getEntries();
-  const ttiTime = entries[0].startTime;
-  const startTime = performance.timing.navigationStart;
-  const ttiDuration = ttiTime - startTime;
-  console.log('TTI持续时间：', ttiDuration);
-});
-observer.observe({ entryTypes: ['longtask'] });
+const timeToInteractive = performance.timing.domInteractive - performance.timing.fetchStart;
 ```
 
 #### 优化TTI的方法：
@@ -204,7 +260,8 @@ document.body.appendChild(image);
 ```
 
 ### CLS（Cumulative Layout Shift）
-CLS是指页面在加载过程中发生的所有不良布局变化的总和，即累积布局偏移。它衡量的是页面的视觉稳定性。下面是获取和优化CLS的方法：
+
+CLS是指页面在加载过程中发生的所有不良布局变化的总和，即累积布局偏移。它衡量的是页面的视觉稳定性。发生的每次布局变化中的最大幅度的布局变化得分的指标。为了提供良好的用户体验，站点应该努力使 CLS 分数达到 **0.1** 或更低。下面是获取和优化CLS的方法：
 
 #### 获取CLS的方法：
 可以通过 `Performance API` 中的相关接口来获取CLS值，如 `PerformanceObserver` 接口监听 `layout-shift` 事件。
@@ -249,7 +306,11 @@ img, video {
 ```
 
 ### FID（First Input Delay）
-FID是指用户首次与页面交互到浏览器响应交互的时间间隔，即首次输入延迟。它衡量的是页面的交互性能。下面是获取和优化FID的方法：
+FID是指用户首次与页面交互到浏览器响应交互的时间间隔，即首次输入延迟。它衡量的是页面的交互性能。
+
+第一次输入延迟，用于测量可交互性。FID 衡量的是从用户第一次与页面交互（例如，当他们点击链接，点击按钮，或使用自定义的 JavaScript 驱动的控件）到浏览器实际能够开始响应该交互的时间，为了提供良好的用户体验，站点应该努力使 FID 保持在 **100** 毫秒以内。
+
+下面是获取和优化FID的方法：
 
 #### 获取FID的方法：
 可以通过 `Performance API` 中的相关接口来获取FID值，如 `PerformanceObserver` 接口监听 `first-input` 事件。
@@ -258,24 +319,28 @@ FID是指用户首次与页面交互到浏览器响应交互的时间间隔，�
 // 监听FID事件
 const observer = new PerformanceObserver((list) => {
   const entries = list.getEntries();
-  const fidValue = entries[0].processingStart - entries[0].startTime;
-  console.log("FID值：", fidValue);
+  const fidTime = entries[0].startTime;
+  console.log("FID值：", fidTime);
 });
 observer.observe({ type: "first-input", buffered: true });
 ```
 
-#### FID（First Input Delay）持续时间
+#### FID（First Input Delay）结束时间
 FID持续时间是指从用户首次与页面交互到浏览器响应交互的时间间隔。可以通过监测FID事件和页面开始加载之间的时间差来计算。
 
 ``` javascript
+// 监听FID事件
 const observer = new PerformanceObserver((list) => {
   const entries = list.getEntries();
-  const fidTime = entries[0].processingStart - entries[0].startTime;
-  const startTime = performance.timing.navigationStart;
-  const fidDuration = fidTime - startTime;
-  console.log('FID持续时间：', fidDuration);
+  // fid开始时间
+  const fidTime = entries[0].startTime;
+  // 持续时间
+  const duration = entries[0].duration;
+  // fid结束时间
+  const fidDurationTime = fidTime + duration;
+  console.log("FID结束时间：", fidDurationTime);
 });
-observer.observe({ type: 'first-input', buffered: true });
+observer.observe({ type: "first-input", buffered: true });
 ```
 
 #### 优化FID的方法：
