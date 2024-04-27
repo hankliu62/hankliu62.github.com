@@ -90,6 +90,100 @@
     <div class="outer">
       <section id="main">
   
+    <article id="post-security-sql-injection" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2021/09/26/security-sql-injection/" class="article-date">
+  <time datetime="2021-09-26T18:20:26.000Z" itemprop="datePublished">2021-09-26</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-true">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/09/26/security-sql-injection/">Web安全之 SQL 注入</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="Web安全之-SQL-注入"><a href="#Web安全之-SQL-注入" class="headerlink" title="Web安全之 SQL 注入"></a>Web安全之 SQL 注入</h2><p>随着互联网的快速发展，网络安全问题日益受到人们的关注。 <code>SQL</code> 注入是一种常见的网络安全攻击方式，严重威胁着数据库的安全。本文将从 <code>SQL</code> 注入的概念、原理、危害以及防范措施等方面，对网络安全中的 <code>SQL</code> 注入进行深入探讨。</p>
+<h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p><code>SQL</code> 注入（<code>SQL Injection</code>）是指攻击者在用户输入的数据中注入恶意的 <code>SQL</code> 语句，从而在未经授权的情况下实现对数据库的非法操作。当应用程序没有对用户输入的数据进行有效的验证和过滤时，攻击者可以利用这一漏洞，篡改原始的 <code>SQL</code> 语句，进而窃取、篡改或删除数据库中的数据。</p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p><code>SQL</code> 注入的原理主要基于应用程序对用户输入数据的处理不当。攻击者通过在用户输入的数据中插入恶意的 <code>SQL</code> 语句，使得应用程序在构建 <code>SQL</code> 查询时，将恶意语句作为查询的一部分发送给数据库执行。这样，攻击者就可以绕过应用程序的验证，直接对数据库进行操作。</p>
+<h3 id="危害"><a href="#危害" class="headerlink" title="危害"></a>危害</h3><ol>
+<li><strong>数据泄露：</strong>攻击者可以通过 <code>SQL</code> 注入获取数据库中的敏感信息，如用户密码、身份信息、银行账户等，从而导致数据泄露和用户隐私泄露。</li>
+<li><strong>数据篡改：</strong>攻击者可以利用 <code>SQL</code> 注入修改数据库中的数据，破坏数据的完整性和准确性。</li>
+<li><strong>数据删除：</strong>攻击者可以通过 <code>SQL</code> 注入删除数据库中的数据，导致数据丢失和业务受损。</li>
+<li><strong>服务器被控制：</strong>攻击者还可以通过 <code>SQL</code> 注入获取数据库的完全控制权限，进一步对服务器进行攻击和控制。</li>
+</ol>
+<h3 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h3><p>下面是一个简单的 <code>Node.js</code> 和 <code>Express</code> 框架中的 <code>SQL</code> 注入案例：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> mysql = <span class="built_in">require</span>(<span class="string">&#x27;mysql&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">express</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建数据库连接</span></span><br><span class="line"><span class="keyword">const</span> connection = mysql.<span class="title function_">createConnection</span>(&#123;</span><br><span class="line">  <span class="attr">host</span>: <span class="string">&#x27;localhost&#x27;</span>,</span><br><span class="line">  <span class="attr">user</span>: <span class="string">&#x27;root&#x27;</span>,</span><br><span class="line">  <span class="attr">password</span>: <span class="string">&#x27;password&#x27;</span>,</span><br><span class="line">  <span class="attr">database</span>: <span class="string">&#x27;test&#x27;</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">connection.<span class="title function_">connect</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义一个简单的路由处理函数，存在 SQL 注入漏洞</span></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/users&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> username = req.<span class="property">query</span>.<span class="property">username</span>; <span class="comment">// 从查询字符串获取用户名</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 直接将用户名插入 SQL 查询中，没有进行任何过滤或转义</span></span><br><span class="line">  <span class="keyword">const</span> query = <span class="string">`SELECT * FROM users WHERE username = &#x27;<span class="subst">$&#123;username&#125;</span>&#x27;`</span>;</span><br><span class="line"></span><br><span class="line">  connection.<span class="title function_">query</span>(query, <span class="function">(<span class="params">error, results, fields</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (error) <span class="keyword">throw</span> error;</span><br><span class="line">    res.<span class="title function_">send</span>(results);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">listen</span>(<span class="number">3000</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;App listening on port 3000&#x27;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>在上述代码中，我们定义了一个简单的 <code>Express</code> 应用，它监听 <code>/users</code> 路由，并从查询字符串中获取 <code>username</code> 参数。然后，我们直接将 <code>username</code> 插入 <code>SQL</code> 查询语句中。由于没有对 <code>username</code> 进行任何形式的过滤或转义，攻击者可以通过在查询字符串中插入恶意的 <code>SQL</code> 代码来操纵查询结果，甚至执行任意的 <code>SQL</code> 语句。</p>
+<p>例如，攻击者可以通过以下 <code>URL</code> 尝试注入攻击：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:3000/users?username=&#x27;; DROP TABLE users; --</span><br></pre></td></tr></table></figure>
+
+<p>这个 <code>URL</code> 会导致 <code>SQL</code> 查询变成：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> users <span class="keyword">WHERE</span> username <span class="operator">=</span> <span class="string">&#x27;&#x27;</span>; <span class="keyword">DROP</span> <span class="keyword">TABLE</span> users; <span class="comment">--&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>如果应用执行了这条查询，它会删除 <code>users</code> 表中的所有数据。</p>
+<h3 id="防范措施"><a href="#防范措施" class="headerlink" title="防范措施"></a>防范措施</h3><p>为了防止 <code>SQL</code> 注入攻击，你应该：</p>
+<h4 id="使用参数化查询"><a href="#使用参数化查询" class="headerlink" title="使用参数化查询"></a>使用参数化查询</h4><p>参数化查询可以确保用户输入被当作数据而不是 <code>SQL</code> 代码来处理。在 <code>Node.js</code> 中，可以使用像 <code>mysql</code> 包中的 <code>query</code> 方法的参数化版本，或者使用 <code>ORM</code>（对象关系映射）库如 <code>Sequelize</code> 或者 <code>TypeORM</code>。</p>
+<p>在上述的 <code>Node.js</code> 例子中，你可以使用 <code>mysql</code> 包来执行参数化查询。以下是一个使用 <code>mysql</code> 包和参数化查询来预防 <code>SQL</code> 注入的示例：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/users&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> username = req.<span class="property">query</span>.<span class="property">username</span>; <span class="comment">// 从查询字符串获取用户名</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 构建 SQL 语句</span></span><br><span class="line">  <span class="keyword">const</span> query = <span class="string">`SELECT * FROM users WHERE username = &#x27;?&#x27;`</span>;</span><br><span class="line"></span><br><span class="line">  connection.<span class="title function_">query</span>(query, [username], <span class="function">(<span class="params">error, results, fields</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (error) <span class="keyword">throw</span> error;</span><br><span class="line">    res.<span class="title function_">send</span>(results);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，<code>? </code>是一个参数占位符，代表我们要查询的 <code>username</code>。我们将 <code>username</code> 作为数组 <code>[username]</code> 的元素传递给 <code>query</code> 方法的第二个参数。这样，<code>MySQL</code> 驱动程序就会知道 <code>?</code> 应该被 <code>username</code> 的值替换。</p>
+<p>由于参数化查询确保了用户输入被当作数据处理，而不是作为 <code>SQL</code> 代码的一部分，因此即使 <code>username</code> 包含恶意的 <code>SQL</code> 代码，它也不会被执行。这是预防 <code>SQL</code> 注入攻击的一种有效方式。</p>
+<h4 id="使用预编译语句"><a href="#使用预编译语句" class="headerlink" title="使用预编译语句"></a>使用预编译语句</h4><p>预编译语句是一种将 <code>SQL</code> 语句和参数分开处理的方式，数据库管理系统会对 <code>SQL</code> 语句进行解析、优化和编译，然后存储起来。每次执行时，只需传递参数，避免了 <code>SQL</code> 注入的风险。</p>
+<p>在上述的 <code>Node.js</code> 例子中，你可以使用 <code>mysql</code> 包来执行预编译语句。以下是一个使用 <code>mysql</code> 包和预编译语句来预防 <code>SQL</code> 注入的示例：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/users&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> username = req.<span class="property">query</span>.<span class="property">username</span>; <span class="comment">// 从查询字符串获取用户名</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 准备预编译语句</span></span><br><span class="line">  <span class="keyword">const</span> prepareQuery = <span class="string">`PREPARE stmt FROM &quot;SELECT * FROM users WHERE username = &#x27;?&#x27;&quot;`</span>;</span><br><span class="line">  connection.<span class="title function_">query</span>(prepareQuery, <span class="function">(<span class="params">error, results, fields</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (error) <span class="keyword">throw</span> error;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置参数并执行预编译语句</span></span><br><span class="line">    <span class="keyword">const</span> executeQuery = <span class="string">&#x27;EXECUTE stmt USING ?&#x27;</span>;</span><br><span class="line">    connection.<span class="title function_">query</span>(executeQuery, [username], <span class="function">(<span class="params">error, results, fields</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (error) <span class="keyword">throw</span> error;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(results);</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 释放预编译语句</span></span><br><span class="line">      connection.<span class="title function_">query</span>(<span class="string">&#x27;DEALLOCATE PREPARE stmt&#x27;</span>, <span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (error) <span class="keyword">throw</span> error;</span><br><span class="line">        connection.<span class="title function_">end</span>();</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在这个预编译语句的例子中，我们首先准备一个预编译语句，其中包含一个占位符 <code>?</code>。然后，我们使用 <code>PREPARE</code> 语句将其发送到数据库进行编译。之后，我们使用 <code>EXECUTE</code> 语句并传递参数 <code>[username]</code> 来执行预编译的语句。最后，我们使用 <code>DEALLOCATE PREPARE</code> 语句释放预编译语句的资源。</p>
+<p>使用预编译语句的好处是，即使参数中包含恶意的 <code>SQL</code> 代码，它也不会被数据库执行。这是因为预编译语句将参数和 <code>SQL</code> 语句分开处理，数据库只会执行预编译的 <code>SQL</code> 语句，并将参数作为数据来处理。</p>
+<h4 id="转义用户输入"><a href="#转义用户输入" class="headerlink" title="转义用户输入"></a>转义用户输入</h4><p>转义用户输入是另一种防止 <code>SQL</code> 注入攻击的方法。转义用户输入意味着将用户提供的值中的特殊字符（如单引号、双引号等）替换为它们的转义版本，这样在 <code>SQL</code> 语句中它们就会被当作普通文本处理，而不是 <code>SQL</code> 代码的一部分。</p>
+<p>虽然参数化查询是首选的方法，因为它提供了更高级别的安全性，但在某些情况下，你可能需要手动转义用户输入。在 <code>Node.js</code> 中，你可以使用 <code>MySQL</code> 驱动程序的 <code>escape</code> 方法来转义用户输入。</p>
+<p>以下是一个使用 <code>Node.js</code> 和 <code>mysql</code> 驱动程序手动转义用户输入的例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/users&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 从查询字符串获取用户名</span></span><br><span class="line">  <span class="keyword">const</span> username = req.<span class="property">query</span>.<span class="property">username</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 使用 escape 方法转义用户输入</span></span><br><span class="line">  <span class="keyword">const</span> safeUsername = mysql.<span class="built_in">escape</span>(username);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 构建 SQL 语句</span></span><br><span class="line">  <span class="keyword">const</span> query = <span class="string">`SELECT * FROM users WHERE username = &#x27;<span class="subst">$&#123;safeUsername&#125;</span>&#x27;`</span>;</span><br><span class="line"></span><br><span class="line">  connection.<span class="title function_">query</span>(query, <span class="function">(<span class="params">error, results, fields</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (error) <span class="keyword">throw</span> error;</span><br><span class="line">    res.<span class="title function_">send</span>(results);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，我们使用了 <code>mysql.escape</code> 方法来转义 <code>username</code> 中的特殊字符。这样，即使 <code>username</code> 包含特殊字符，它也不会被误解为 <code>SQL</code> 语句的一部分。</p>
+<p>然而，尽管手动转义用户输入可以提供一定程度的保护，但它仍然不是最安全的做法。原因之一是它可能会导致程序逻辑变得复杂且容易出错，尤其是在构建复杂的 <code>SQL</code> 语句时。因此，推荐使用参数化查询或预编译语句，因为它们提供了更强的安全性保证，并且更容易正确使用。</p>
+<h4 id="最小权限原则"><a href="#最小权限原则" class="headerlink" title="最小权限原则"></a>最小权限原则</h4><p>确保数据库账户只有执行必要操作的最小权限。例如，如果应用程序只需要从数据库中读取数据，那么就不应该赋予它写入权限。</p>
+<p>在 <code>MySQL</code> 中设置只读权限，你需要登录到MySQL数据库，然后为用户创建一个新的角色并授予只读权限。你可以使用GRANT语句来实现这一点。具体如下所示:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 登录到MySQL</span></span><br><span class="line">mysql <span class="operator">-</span>u root <span class="operator">-</span>p</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 创建新角色</span></span><br><span class="line"><span class="keyword">CREATE</span> ROLE <span class="string">&#x27;readonlyuser&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 授予只读权限</span></span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">SELECT</span> <span class="keyword">ON</span> your_database.<span class="operator">*</span> <span class="keyword">TO</span> <span class="string">&#x27;readonlyuser&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 刷新权限</span></span><br><span class="line">FLUSH PRIVILEGES;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 退出MySQL</span></span><br><span class="line">EXIT;</span><br></pre></td></tr></table></figure>
+
+<p>在上面的例子中，<code>your_database</code> 是你想要让用户具有只读权限的数据库名。<code>&#39;readonlyuser&#39;@&#39;localhost&#39;</code> 表示用户名为 <code>readonlyuser</code> ，并且该用户只能从本地主机连接到数据库。如果你希望用户可以从任何主机连接，你可以将 <code>localhost</code> 替换为 <code>&#39;%&#39;</code>。</p>
+<h4 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h4><p>不要将详细的数据库错误信息直接返回给用户。这可以防止攻击者利用这些信息进行更复杂的攻击。</p>
+<h4 id="安全审计和测试"><a href="#安全审计和测试" class="headerlink" title="安全审计和测试"></a>安全审计和测试</h4><p>使用工具如 <code>SQLMap</code>、<code>OWASP Zap</code> 等进行安全审计和测试，确保应用程序不会受到 <code>SQL</code> 注入攻击。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>总之， <code>SQL</code> 注入是一种常见的网络安全攻击方式，对数据库的安全构成严重威胁。为了防范 <code>SQL</code> 注入攻击，我们需要加强用户输入验证、使用参数化查询、存储过程等安全措施，并定期更新和修补数据库管理系统和应用程序。只有这样，我们才能确保数据库的安全，保护用户的数据隐私和业务安全。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/" rel="tag">network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/security/" rel="tag">security</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sql/" rel="tag">sql</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2021/09/26/security-sql-injection/" data-id="clvhem3uh0014rrq61orr04jr" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-security-x-content-types-options" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <h3 href="/2021/03/12/security-x-content-types-options/" class="article-date">
@@ -139,7 +233,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/" rel="tag">network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/security/" rel="tag">security</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2021/03/12/security-x-content-types-options/" data-id="clvfyuwhj0013qgp2c8b02o33" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2021/03/12/security-x-content-types-options/" data-id="clvhem3ui0017rrq6b94sazvd" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -237,7 +331,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/csrf/" rel="tag">csrf</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/" rel="tag">network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/security/" rel="tag">security</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2020/12/27/security-csrf/" data-id="clvfyuwhh0010qgp25zyr1czt" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2020/12/27/security-csrf/" data-id="clvhem3ug0012rrq64l809qn1" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -309,7 +403,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/" rel="tag">network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/security/" rel="tag">security</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xss/" rel="tag">xss</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2020/06/12/security-xss/" data-id="clvfyuwhm0018qgp2div3f74e" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2020/06/12/security-xss/" data-id="clvhem3uj0018rrq64tqndo5x" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -405,7 +499,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/" rel="tag">css</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2019/10/12/commomly-css/" data-id="clvfyuwh10003qgp29k3446ft" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2019/10/12/commomly-css/" data-id="clvhem3u10003rrq650xpg1hc" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -552,7 +646,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/service-worker/" rel="tag">service worker</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2019/10/12/service-worker/" data-id="clvfyuwhk0015qgp2fhv18qjs" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2019/10/12/service-worker/" data-id="clvhem3uk001arrq6e0r1en0c" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -623,7 +717,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/debugging/" rel="tag">debugging</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/" rel="tag">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/" rel="tag">mobile</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2019/05/12/mobile-debugging-tools/" data-id="clvfyuwhe000qqgp29xzm0dcp" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2019/05/12/mobile-debugging-tools/" data-id="clvhem3ud000srrq69dh812wa" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -693,7 +787,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/" rel="tag">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2018/11/09/git-clone-failure/" data-id="clvfyuwh40008qgp23rywfktn" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2018/11/09/git-clone-failure/" data-id="clvhem3u50009rrq6hfanbpgn" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -743,7 +837,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/" rel="tag">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/" rel="tag">mobile</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/weinre/" rel="tag">weinre</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2017/09/19/web-mobile-tools-weinre/" data-id="clvfyuwhp001fqgp2d4ns12br" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2017/09/19/web-mobile-tools-weinre/" data-id="clvhem3up001irrq6a3l12y34" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -853,91 +947,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/" rel="tag">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/" rel="tag">shell</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2017/09/14/commonly-shell-command/" data-id="clvfyuwh20004qgp28djybihb" class="article-share-link">Share</a>
-        
-      </div>
-    </footer>
-  </div>
-  </div>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-hexo-github-blog-guide" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <h3 href="/2017/09/09/hexo-github-blog-guide/" class="article-date">
-  <time datetime="2017-09-09T12:20:26.000Z" itemprop="datePublished">2017-09-09</time>
-</h3>
-    
-  </div>
-  <div class="article-inner">
-  <div class="curve-down">
-  <div class="fill-content fill-content-true">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/09/hexo-github-blog-guide/">MAC搭建个人博客hexo+github详细完整步骤</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>自己也算是摸爬滚打搭建成功，然后自己再重新安装部署一遍，把完整步骤分享给大家，同时最后有一些连接，如果我的步骤不行，大家可以参考其他人的.</p>
-<h2 id="一、安装Homebrew"><a href="#一、安装Homebrew" class="headerlink" title="一、安装Homebrew"></a>一、安装Homebrew</h2><p>Homebrew是基于Ruby的，所以安装过程也是很简单的，把下面的代码粘贴到Terminal中执行</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/ruby -e <span class="string">&quot;<span class="subst">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>查看安装是否成功:</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew --version</span><br></pre></td></tr></table></figure>
-
-<p>如下图所示表示安装成功</p>
-<p><img src="https://user-images.githubusercontent.com/8088864/30236069-ba7e712e-9544-11e7-910a-7ec04c1d5579.png" alt="image"></p>
-<p>更多的brew命令</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">//查看brew的帮助</span><br><span class="line">brew –<span class="built_in">help</span></span><br><span class="line"></span><br><span class="line">//安装软件</span><br><span class="line">brew install git</span><br><span class="line"></span><br><span class="line">//卸载软件</span><br><span class="line">brew uninstall git</span><br><span class="line"></span><br><span class="line">//搜索软件</span><br><span class="line">brew search git</span><br><span class="line"></span><br><span class="line">//显示已经安装软件列表</span><br><span class="line">brew list</span><br><span class="line"></span><br><span class="line">//更新软件，把所有的Formula目录更新，并且会对本机已经安装并有更新的软件用*标明。</span><br><span class="line">brew update</span><br><span class="line"></span><br><span class="line">//更新某具体软件</span><br><span class="line">brew upgrade git</span><br><span class="line"></span><br><span class="line">//查看软件信息</span><br><span class="line">brew [info | home] [FORMULA...]</span><br><span class="line"></span><br><span class="line">//删除程序，和upgrade一样，单个软件删除和所有程序老版删除。</span><br><span class="line">brew cleanup git</span><br><span class="line">brew cleanup</span><br><span class="line"></span><br><span class="line">//查看那些已安装的程序需要更新</span><br><span class="line">brew outdated</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//其它Homebrew指令:</span><br><span class="line">brew list   //—列出已安装的软件</span><br><span class="line"></span><br><span class="line">brew update   //—更新Homebrew</span><br><span class="line"></span><br><span class="line">brew home *   //—用浏览器打开</span><br><span class="line"></span><br><span class="line">brew info *   //—显示软件内容信息</span><br><span class="line"></span><br><span class="line">brew deps *    //—显示包依赖</span><br><span class="line"></span><br><span class="line">brew server *  //—启动web服务器，可以通过浏览器访问</span><br><span class="line">                 //http://localhost:4567/ 来同网页来管理包</span><br><span class="line"></span><br><span class="line">brew -h brew   //—帮助</span><br></pre></td></tr></table></figure>
-
-<h2 id="二、安装Git"><a href="#二、安装Git" class="headerlink" title="二、安装Git"></a>二、安装Git</h2><h3 id="1、使用brew安装Git"><a href="#1、使用brew安装Git" class="headerlink" title="1、使用brew安装Git"></a>1、使用brew安装Git</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install git</span><br></pre></td></tr></table></figure>
-
-<h3 id="2、完成安装"><a href="#2、完成安装" class="headerlink" title="2、完成安装"></a>2、完成安装</h3><p>查看是否安装成功</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git --version</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://user-images.githubusercontent.com/8088864/30236377-b5343392-954a-11e7-9566-927e43ec4983.png" alt="Git安装成功"></p>
-<h2 id="三、通过nvm安装指定版本的node"><a href="#三、通过nvm安装指定版本的node" class="headerlink" title="三、通过nvm安装指定版本的node"></a>三、通过nvm安装指定版本的node</h2><h3 id="1、安装nvm"><a href="#1、安装nvm" class="headerlink" title="1、安装nvm"></a>1、安装nvm</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install nvm</span><br></pre></td></tr></table></figure>
-
-<h3 id="2、配置nvm"><a href="#2、配置nvm" class="headerlink" title="2、配置nvm"></a>2、配置nvm</h3><p>配置nvm在shell中可以使用nvm命令，修改<code>~/.bash_profile</code>文件，如果不存在，新建<code> .bash_profile</code>文件</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~</span><br><span class="line">vim .bash_profile</span><br></pre></td></tr></table></figure>
-
-<p>在文件中添加如下命令:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export NVM_DIR=~/.nvm</span><br><span class="line">source $(brew --prefix nvm)/nvm.sh</span><br></pre></td></tr></table></figure>
-
-<p>重新source</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> .bash_profile</span><br></pre></td></tr></table></figure>
-
-<h3 id="3、安装node"><a href="#3、安装node" class="headerlink" title="3、安装node"></a>3、安装node</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">nvm ls-remote 查看 所有的node可用版本</span><br><span class="line"></span><br><span class="line">nvm install xxx 下载你想要的版本</span><br><span class="line"></span><br><span class="line">nvm use xxx 使用指定版本的node</span><br><span class="line"></span><br><span class="line">nvm <span class="built_in">alias</span> default xxx 每次启动终端都使用该版本的node</span><br></pre></td></tr></table></figure>
-
-<h3 id="4、完成安装"><a href="#4、完成安装" class="headerlink" title="4、完成安装"></a>4、完成安装</h3><p>查看是否安装成功</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">node -v</span><br><span class="line">npm -v</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://user-images.githubusercontent.com/8088864/30236355-4d1f8f18-954a-11e7-8da7-54d3f9ae1c91.png" alt="Node安装成功"></p>
-        
-          <p class="article-more-link">
-            <a href="/2017/09/09/hexo-github-blog-guide/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <div class="article-footer-content">
-        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/" rel="tag">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li></ul>
-
-        <a data-url="https://hankliu62.github.io/2017/09/09/hexo-github-blog-guide/" data-id="clvfyuwha000hqgp2dqfa3us4" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2017/09/14/commonly-shell-command/" data-id="clvhem3u20004rrq61qt2b806" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -966,6 +976,10 @@
       <ul>
         
           <li>
+            <a href="/2024/04/20/communication-across-browser-tabs/">跨浏览器标签页进行通讯的方式简介</a>
+          </li>
+        
+          <li>
             <a href="/2024/04/16/webrtc/">WebRTC:实时通信的未来</a>
           </li>
         
@@ -981,10 +995,6 @@
             <a href="/2024/04/10/optimize-miniprogram/">小程序性能优化实践指南</a>
           </li>
         
-          <li>
-            <a href="/2024/04/08/github-action-docker/">使用 GitHub Actions 自动化部署 Nuxt3 应用到 Docker 容器中</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -994,7 +1004,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/" rel="tag">blog</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/canvas/" rel="tag">canvas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/csrf/" rel="tag">csrf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debugging/" rel="tag">debugging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-pages/" rel="tag">github pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/homebrew/" rel="tag">homebrew</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/" rel="tag">html</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/" rel="tag">html5</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interview/" rel="tag">interview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/loader/" rel="tag">loader</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/miniprogram/" rel="tag">miniprogram</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/" rel="tag">mobile</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/optimize/" rel="tag">optimize</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reptile/" rel="tag">reptile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/" rel="tag">security</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/service-worker/" rel="tag">service worker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/translate/" rel="tag">translate</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vitepress/" rel="tag">vitepress</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webrtc/" rel="tag">webrtc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webworker/" rel="tag">webworker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/weinre/" rel="tag">weinre</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xss/" rel="tag">xss</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yuv/" rel="tag">yuv</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/" rel="tag">blog</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/canvas/" rel="tag">canvas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/csrf/" rel="tag">csrf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debugging/" rel="tag">debugging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-pages/" rel="tag">github pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/homebrew/" rel="tag">homebrew</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/" rel="tag">html</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/" rel="tag">html5</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interview/" rel="tag">interview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/loader/" rel="tag">loader</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/miniprogram/" rel="tag">miniprogram</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/" rel="tag">mobile</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/optimize/" rel="tag">optimize</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reptile/" rel="tag">reptile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/" rel="tag">security</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/service-worker/" rel="tag">service worker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/translate/" rel="tag">translate</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vitepress/" rel="tag">vitepress</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webrtc/" rel="tag">webrtc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webworker/" rel="tag">webworker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/weinre/" rel="tag">weinre</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xss/" rel="tag">xss</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yuv/" rel="tag">yuv</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -1003,7 +1013,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">七月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">七月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li></ul>
     </div>
   </div>
 
