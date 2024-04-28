@@ -276,23 +276,6 @@ const observer = new PerformanceObserver((list) => {
 observer.observe({ type: "layout-shift" });
 ```
 
-#### CLS（Cumulative Layout Shift）持续时间
-CLS持续时间是指在页面加载过程中发生的所有布局变化的总和。可以通过监测CLS事件和页面开始加载之间的时间差来计算。
-
-``` javascript
-const observer = new PerformanceObserver((list) => {
-  const entries = list.getEntries();
-  let clsValue = 0;
-  entries.forEach((entry) => {
-    clsValue += entry.value;
-  });
-  const startTime = performance.timing.navigationStart;
-  const clsDuration = clsValue - startTime;
-  console.log('CLS持续时间：', clsDuration);
-});
-observer.observe({ type: 'layout-shift' });
-```
-
 #### 优化CLS的方法：
 
 优化CLS可以通过避免页面元素的不稳定布局和动态元素的尺寸变化来实现。例如，指定图片和媒体元素的尺寸、避免动态插入内容导致页面布局变化等。
@@ -321,24 +304,6 @@ const observer = new PerformanceObserver((list) => {
   const entries = list.getEntries();
   const fidTime = entries[0].startTime;
   console.log("FID值：", fidTime);
-});
-observer.observe({ type: "first-input", buffered: true });
-```
-
-#### FID（First Input Delay）结束时间
-FID持续时间是指从用户首次与页面交互到浏览器响应交互的时间间隔。可以通过监测FID事件和页面开始加载之间的时间差来计算。
-
-``` javascript
-// 监听FID事件
-const observer = new PerformanceObserver((list) => {
-  const entries = list.getEntries();
-  // fid开始时间
-  const fidTime = entries[0].startTime;
-  // 持续时间
-  const duration = entries[0].duration;
-  // fid结束时间
-  const fidDurationTime = fidTime + duration;
-  console.log("FID结束时间：", fidDurationTime);
 });
 observer.observe({ type: "first-input", buffered: true });
 ```

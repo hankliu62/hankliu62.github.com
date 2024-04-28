@@ -4,16 +4,14 @@ date: 2024-04-16 16:16:16
 tag: [webrtc]
 ---
 
-## WebRTC:实时通信的未来
-
-### 引言
+## 引言
 在当今数字化的世界中，实时通信变得越来越重要。从视频会议到在线游戏，从远程医疗到物联网设备，人们希望能够立即与其他人或设备进行交流和互动。`WebRTC（Web Real-Time Communication）` 技术的出现填补了这一需求，为Web应用程序提供了强大的实时通信能力。本文将深入探讨 `WebRTC` 技术的原理、应用场景以及实现细节，带您了解这一引人注目的技术。
 
-### 什么是WebRTC？
+## 什么是WebRTC？
 
 `WebRTC` 是一种开放标准的实时通信技术，允许浏览器之间进行点对点的音频、视频和数据传输，而无需任何插件或附加软件。它是由Google、Mozilla和Opera等公司发起的一个开放源代码项目，旨在为Web应用程序提供实时通信的能力。
 
-### WebRTC的核心特性
+## WebRTC的核心特性
 
 1. 实时性
 `WebRTC` 提供了实时的音频和视频传输能力，使用户可以在几乎没有延迟的情况下进行实时通信。这种实时性对于视频会议、在线教育和远程医疗等应用非常重要。
@@ -27,13 +25,13 @@ tag: [webrtc]
 4. 跨平台
 `WebRTC` 可以在各种平台上运行，包括桌面浏览器、移动浏览器和原生应用程序。这使得开发人员可以轻松地创建跨平台的实时通信应用程序。
 
-### 名词和方法解释
+## 名词和方法解释
 
-#### RTCPeerConnection
+### RTCPeerConnection
 
 `RTCPeerConnection` 是 `WebRTC API` 中的一个关键接口，用于在两个对等端之间建立点对点连接。它提供了一种实现浏览器之间实时音视频通信的方式，允许在不同浏览器之间直接传输数据，而无需通过服务器。通过 `RTCPeerConnection`，用户可以在浏览器中创建一个实时通信的会话，并在其中发送和接收音频、视频或其他任何类型的数据。
 
-##### 作用
+#### 作用
 `RTCPeerConnection` 的主要作用包括：
 
 1. 建立和管理对等连接：`RTCPeerConnection` 提供了一种方法来建立和管理两个浏览器之间的点对点连接，使它们可以直接通信，无需通过中间服务器。
@@ -44,7 +42,7 @@ tag: [webrtc]
 
 4. 实现信号传输和媒体传输：它还负责在对等连接之间传输信令消息和媒体数据，以确保通信的顺利进行。
 
-##### 参数
+#### 参数
 `RTCPeerConnection` 构造函数包含的1个参数，一个 `RTCConfiguration` 对象，用于指定配置参数。这个对象包含以下属性：
 
 - **iceServers**：一个 `RTCIceServer` 对象数组，用于指定 `ICE` 服务器信息。
@@ -58,7 +56,7 @@ tag: [webrtc]
 - **certificates** (可选)：一个 `RTCCertificate` 对象数组，用于指定本地证书数组。
 - **iceCandidatePoolSize** (可选)：一个数值，指定 `ICE` 候选地址池的大小。
 
-##### 属性和方法
+#### 属性和方法
 1. **restartIce()**
 
 `restartIce()` 方法用于在 `WebRTC` 对等连接中重新启动 `ICE` 连接过程。`ICE（Interactive Connectivity Establishment）`是一种用于建立对等连接的网络协议，它可以帮助确定网络上的最佳路径，以确保数据能够在两个 `RTCPeerConnection` 之间进行有效传输。
@@ -140,7 +138,7 @@ peerConnection.setRemoteDescription(remoteDescription)
 
 该方法返回一个 `RTCRtpTransceiver` 对象，表示新添加的传输通道。这个传输通道可以用于控制和管理新添加的媒体流的传输。通过使用 `addTransceiver()` 方法，您可以动态地向对等连接中添加新的媒体轨道，从而实现更灵活和动态的媒体流管理。
 
-##### 事件
+#### 事件
 
 1. **onnegotiationneeded**
 
@@ -200,8 +198,7 @@ peerConnection.createOffer()
 
 在上面的示例中，`onicecandidate` 事件处理程序将在每次发现新的 ICE 候选时被触发。在处理程序中，我们检查 `event.candidate` 是否存在，如果存在则将候选信息发送给远程 `RTCPeerConnection`。当 `event.candidate` 为 `null` 时，表示所有的 ICE 候选已经发现并发送完毕。
 
-
-#### RTCIceCandidate
+### RTCIceCandidate
 
 `RTCIceCandidate` 是 `WebRTC` 中的一个接口，表示 `ICE (Interactive Connectivity Establishment)` 候选者，用于描述网络中的地址信息，以帮助建立对等连接。以下是关于 `RTCIceCandidate` 接口的详细解释：
 
@@ -209,7 +206,7 @@ peerConnection.createOffer()
 
 `RTCIceCandidate` 是 `WebRTC` 中用于建立对等连接的关键组成部分，用于确定连接双方的网络地址和传输协议。
 
-##### 参数
+#### 参数
 
 `RTCIceCandidate` 接口具体的参数如下所示：
 
@@ -217,7 +214,7 @@ peerConnection.createOffer()
 - **sdpMid**：候选者所对应的媒体流的标识符，用于区分不同的媒体流。
 - **sdpMLineIndex**：候选者所在的媒体流的索引，表示候选者属于媒体流描述中的哪一行。
 
-##### 案例
+#### 案例
 
 下面是一个简单的例子，展示了如何创建一个 `RTCIceCandidate` 对象，并将其添加到 `RTCPeerConnection` 中。`ICE` 候选者通常是通过信令服务器交换的，用于建立对等连接并进行网络地址交换。
 
@@ -242,7 +239,7 @@ peerConnection.addIceCandidate(iceCandidate)
   });
 ```
 
-#### RTCSessionDescription
+### RTCSessionDescription
 
 `RTCSessionDescription` 是 WebRTC API 中的一个重要接口，用于表示会话描述协议 (SDP) 中的一部分。SDP 是一种用于描述媒体会话的文本协议，包含了媒体流的相关信息，如编解码器、媒体类型、媒体格式、网络传输协议等。
 
@@ -252,7 +249,7 @@ peerConnection.addIceCandidate(iceCandidate)
 
 2. **描述本地媒体的信息**：同样地，当一个端点想要向远程端点发送媒体流时，它会创建一个 `RTCSessionDescription` 对象，其中包含了本地媒体流的描述信息。这个描述会随后通过信令传输给远程端点，以便它能够了解到本地端点要发送的媒体流的相关信息。
 
-##### 属性
+#### 属性
 
 `RTCSessionDescription` 是 WebRTC 中用于描述会话信息的对象。它有两个主要属性：
 
@@ -263,7 +260,7 @@ peerConnection.addIceCandidate(iceCandidate)
 
 - **sdp**：会话描述协议 (SDP) 的文本内容，包含了媒体流的相关信息，如编解码器、媒体类型、传输协议等。
 
-##### 案例
+#### 案例
 
 举个例子，一个典型的 `RTCSessionDescription` 对象可以看起来像这样：
 
@@ -285,20 +282,20 @@ peerConnection.setRemoteDescription(sessionDescription)
   });
 ```
 
-#### RTCCertificate
+### RTCCertificate
 
 `RTCCertificate` 是用于配置和管理 `WebRTC` 连接所使用的安全证书的接口。它可以用来指定本地端点的安全凭证，以确保通信的安全性和可靠性。
 
 `RTCCertificate` 接口本身并没有提供直接创建证书的方法。相反，`WebRTC API` 中的 `RTCPeerConnection.generateCertificate()` 方法用于生成新的证书。这个方法返回一个 `Promise`，在解析时会返回一个新的 `RTCCertificate` 实例，或者在生成证书时出现错误时返回一个错误对象。
 
-##### 属性和方法
+#### 属性和方法
 
 `RTCCertificate` 接口没有提供构造函数来创建新的证书，而是通过 `createOffer()`、`createAnswer()` 等方法间接使用。它的主要属性和方法包括：
 
-- **expires**：表示证书的到期时间，以 `UNIX` 时间戳表示。
-- **getFingerprints()**：返回一个包含证书指纹信息的数组。
+- `expires`：表示证书的到期时间，以 `UNIX` 时间戳表示。
+- `getFingerprints()`：返回一个包含证书指纹信息的数组。
 
-##### 案例
+#### 案例
 
 以下是一个使用 `RTCPeerConnection.generateCertificate()` 方法生成证书的示例：
 
@@ -352,13 +349,13 @@ certificatePromise.then((certificate) => {
 });
 ```
 
-#### RTCRtpTransceiver
+### RTCRtpTransceiver
 
 `RTCRtpTransceiver` 接口表示一个媒体传输通道，用于在 `WebRTC` 对等连接（`RTCPeerConnection`）中传输媒体流。每个传输通道可以处理一个或多个媒体流的发送和接收。
 
 `RTCRtpTransceiver` 接口通常由 `RTCPeerConnection` 对象的 `addTransceiver()` 方法创建，并在对等连接的创建和管理过程中使用。它提供了灵活的控制选项，使您能够更好地管理对等连接中的媒体流传输。
 
-##### 属性
+#### 属性
 
 `RTCRtpTransceiver` 表示 `WebRTC` 对等连接（`RTCPeerConnection`）中的一个媒体传输通道，该对象包含的属性和方法如下所示：
 
@@ -369,12 +366,12 @@ certificatePromise.then((certificate) => {
 - `currentDirection`：当前传输通道的传输方向。
 - `stopped`：指示传输通道是否已停止的布尔值。
 
-##### 方法
+#### 方法
 
 - `setCodecPreferences(codecs)`：设置传输通道的编解码器偏好。
 - `stop()`：停止传输通道，不再发送或接收媒体流。
 
-#### 其他名词术语解释
+### 其他名词术语解释
 
 当涉及到 WebRTC 和实时通信时，以下术语是很常见的：
 
@@ -388,15 +385,15 @@ certificatePromise.then((certificate) => {
 
 这些术语在 WebRTC 中起着至关重要的作用，它们共同构建了实时通信系统的基础。
 
-### WebRTC的工作原理
+## WebRTC的工作原理
 
 `WebRTC（Web Real-Time Communication）` 是一项用于实现浏览器之间实时通信的开放标准技术。它允许在不需要额外插件的情况下，通过浏览器直接进行音频、视频和数据传输。`WebRTC` 技术的出现，极大地促进了在线会议、远程教育、视频直播等领域的发展。下面将深入探讨 `WebRTC` 的核心技术，包括**媒体获取**、**媒体传输**、**信令交换**以及**NAT穿越**等方面，并结合详细的例子进行说明。
 
-#### 摄像头媒体获取（Media Acquisition）
+### 摄像头媒体获取（Media Acquisition）
 
 `navigator.mediaDevices.getUserMedia()` 是 WebRTC 提供的方法之一，用于从用户的摄像头和麦克风中获取媒体流。它允许 Web 应用程序访问用户的音视频设备，并将其转换为可用于实时通信、音视频录制等目的的媒体流。
 
-##### 示例代码
+#### 示例代码
 
 以下是关于 `navigator.mediaDevices.getUserMedia()` 方法的例子：
 
@@ -412,18 +409,18 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: true })
   });
 ```
 
-##### 参数说明
+#### 参数说明
 - `constraints` 是一个可选参数，用于指定获取媒体流的约束条件。
 - 可以包含两个属性：
   - `video`：指定是否捕获视频。可以是布尔值或包含视频约束的对象。
   - `audio`：指定是否捕获音频。可以是布尔值或包含音频约束的对象。
 
-##### 返回值
+#### 返回值
 - `getUserMedia()` 方法返回一个 `Promise` 对象。
 - 如果用户授权并成功获取媒体流，则 `Promise` 对象的 `then` 回调函数会被调用，并传递一个 `MediaStream` 对象作为参数，其中包含捕获的视频和/或音频轨道。
 - 如果用户拒绝权限或获取媒体流失败，则 `Promise` 对象的 `catch` 回调函数会被调用，并传递一个 `Error` 对象作为参数，其中包含错误的详细信息。
 
-##### 用途
+#### 用途
 
 获取到媒体流后，您可以将其用于各种用途，例如：
 
@@ -431,7 +428,7 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: true })
 - 将视频流传输到远程对等端，实现实时视频通话或视频会议。
 - 对音频流进行处理、录制或转发等操作。
 
-##### 权限和安全性
+#### 权限和安全性
 
 - 浏览器通常会在第一次调用 `getUserMedia()` 方法时向用户请求音视频设备的权限。
 - 用户需要允许或拒绝权限请求，以控制是否允许网站访问其摄像头和麦克风。
@@ -439,14 +436,14 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: true })
 
 总的来说，`navigator.mediaDevices.getUserMedia()` 方法为开发者提供了一种方便的方式来获取用户的音视频流，从而实现各种实时音视频通信、录制和处理等功能。
 
-##### 说明
+#### 说明
 
 上面的代码演示了如何使用 `getUserMedia API` 获取用户的音视频流，并将其绑定到一个 `<video>` 元素上进行实时预览。通过这种方式，我们可以轻松地在浏览器中获取用户的音视频数据，为后续的通信做准备。
 
-#### 桌面媒体获取（Media Acquisition）
+### 桌面媒体获取（Media Acquisition）
 `navigator.mediaDevices.getDisplayMedia()` 是 WebRTC 提供的方法之一，用于获取屏幕共享流。它允许用户捕获屏幕上的内容并将其转换为媒体流，以便在 Web 应用程序中进行处理和展示。
 
-##### 示例代码
+#### 示例代码
 
 让我们详细解释一下这个方法的用法和相关概念：
 
@@ -460,18 +457,18 @@ navigator.mediaDevices.getDisplayMedia(constraints)
   });
 ```
 
-##### 参数说明
+#### 参数说明
 - `constraints` 是一个可选参数，用于指定获取屏幕共享流的约束条件。
 - 可以包含两个属性：
   - `video`：指定是否捕获视频。默认值为 `true`。
   - `audio`：指定是否捕获音频。默认值为 `false`。
 
-##### 返回值
+#### 返回值
 - `getDisplayMedia()` 方法返回一个 `Promise` 对象。
 - 如果用户授权并成功获取屏幕共享流，则 `Promise` 对象的 `then` 回调函数会被调用，并传递一个 `MediaStream` 对象作为参数，其中包含屏幕共享的视频和/或音频轨道。
 - 如果用户拒绝权限或获取屏幕共享流失败，则 `Promise` 对象的 `catch` 回调函数会被调用，并传递一个 `Error` 对象作为参数，其中包含错误的详细信息。
 
-##### 用途
+#### 用途
 
 获取到媒体流后，您可以将其用于各种用途，例如：
 
@@ -479,18 +476,18 @@ navigator.mediaDevices.getDisplayMedia(constraints)
 - 将屏幕共享流传输到远程对等端，实现屏幕共享功能。
 - 对媒体流进行处理、录制或转发等操作。
 
-##### 权限和安全性
+#### 权限和安全性
 - 浏览器通常会在第一次调用 `getDisplayMedia()` 方法时向用户请求屏幕共享权限。
 - 用户需要允许或拒绝权限请求，以控制是否允许网站捕获屏幕内容。
 - 为了保护用户隐私和安全，浏览器会限制某些情况下的屏幕共享，例如当网页位于不安全的上下文中时。
 
-##### 说明
+#### 说明
 `navigator.mediaDevices.getDisplayMedia()` 方法为开发者提供了一种方便的方式来获取屏幕共享流，从而实现屏幕录制、远程教学、视频会议等各种实时协作和分享功能。
 
-#### 媒体传输（Media Transmission）
+### 媒体传输（Media Transmission）
 `WebRTC` 的媒体传输主要涉及使用 `RTCPeerConnection` 建立点对点的连接，并将音视频数据传输给其他 `RTCPeerConnection`。这个过程涉及到 `ICE` 候选、会话描述等技术，以确保数据能够安全、高效地传输。
 
-##### 示例代码
+#### 示例代码
 ``` javascript
 // 创建一个RTCPeerConnection对象
 const peerConnection = new RTCPeerConnection();
@@ -562,13 +559,13 @@ peerConnection.createOffer()
   });
 ```
 
-##### 说明
+#### 说明
 上面的代码演示了如何使用 `RTCPeerConnection` 建立点对点连接，并将本地的音视频流添加到连接中。然后，通过创建一个`Offer`，并将其发送给对方，以发起一个通信会话。在这个过程中，我们还需要处理 `ICE` 候选，以便在连接过程中进行 `NAT` 穿越。
 
-#### 信令交换（Signaling）
+### 信令交换（Signaling）
 `WebRTC` 的信令交换主要涉及将会话描述、`ICE` 候选等元数据信息交换给其他 `RTCPeerConnection`，以建立和管理通信会话。这个过程通常需要借助于信令服务器来协调客户端之间的消息传递。
 
-##### 示例代码
+#### 示例代码
 ``` javascript
 // 建立WebSocket连接
 const ws = new WebSocket('ws://localhost:8080');
@@ -627,13 +624,13 @@ ws.onmessage = function(event) {
 };
 ```
 
-##### 说明
+#### 说明
 上面的代码演示了如何使用 `WebSocket` 进行信令交换。客户端通过 `WebSocket` 连接到信令服务器，并监听来自服务器的消息。当收到对方发送的 `Offer`、`Answer` 或 `ICE` 候选时，客户端需要相应地处理并执行相应的操作，以建立和管理通信会话。
 
-#### NAT穿越（NAT Traversal）
+### NAT穿越（NAT Traversal）
 `NAT（Network Address Translation）` 穿越是指在 `NAT` 环境下，通过一系列的技术手段实现两个位于私有网络中的计算机或设备之间的直接通信。`WebRTC` 通过使用 `STUN` 和 `TURN` 服务器来实现 `NAT` 穿越，以确保在各种网络环境下都能够正常进行实时通信。
 
-##### 示例代码
+#### 示例代码
 ``` javascript
 // 配置ICE服务器
 const configuration = {
@@ -647,7 +644,7 @@ const configuration = {
 const peerConnection = new RTCPeerConnection(configuration);
 ```
 
-#### 添加传输通道
+### 添加传输通道
 
 当通道和管理通信会话建立成功后，我们需要将我们本地的音视频流传输到远端的 `RTCPeerConnection` 中，所以我们需要调用 `RTCPeerConnection.addTransceiver` 方法。
 
@@ -712,10 +709,10 @@ peerConnection.ontrack = (event) => {
 };
 ```
 
-##### 说明
+#### 说明
 上面的代码示例中，我们通过配置 `ICE` 服务器来实现 `NAT` 穿越。其中，`STUN` 服务器用于获取公网 `IP` 地址和端口，而 `TURN` 服务器则用于在无法直接通信的情况下进行中转。通过合理配置 `ICE` 服务器，我们可以在不同的网络环境中都能够顺利地进行实时通信。
 
-### WebRTC的应用场景
+## WebRTC的应用场景
 `WebRTC` 技术已经被广泛应用于多个领域，包括：
 
 1. 视频会议
@@ -730,7 +727,7 @@ peerConnection.ontrack = (event) => {
 4. 远程医疗
 医疗机构可以利用 `WebRTC` 技术搭建远程医疗平台，实现医生和患者之间的远程会诊和医疗服务，提高医疗资源的利用效率。
 
-### WebRTC的未来发展趋势
+## WebRTC的未来发展趋势
 
 随着实时通信需求的不断增加，`WebRTC` 技术也在不断发展和完善。未来，我们可以期待以下几个方面的发展趋势：
 
@@ -746,5 +743,5 @@ peerConnection.ontrack = (event) => {
 4. 安全性和隐私保护
 随着个人隐私和数据安全意识的提高，`WebRTC` 技术将会加强对通信内容的加密和隐私保护，以确保用户数据的安全性。
 
-### 总结
+## 总结
 `WebRTC` 技术的出现为实时通信应用提供了强大的支持，使得开发者可以轻松构建具有高质量和稳定性的实时通信应用。随着技术的不断发展和完善，我们有理由相信 `WebRTC` 将会在未来的数字化世界中扮演越来越重要的角色，为用户带来更丰富、更便捷的通信体验。
