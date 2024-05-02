@@ -1,0 +1,465 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  
+  <title>浅入解析 React Fiber 结构 | HankLiu的博客小屋</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="浅入解析 React Fiber 结构React Fiber 是 React 中用于表示组件树的一种数据结构，它的设计和实现是 React 中的一项重要内容。本文将深入探讨 React Fiber 的结构，包括其所有属性及其含义，并对属性中的对象类型进行详细说明和解释。通过阅读本文，读者将更好地理解 React Fiber 的内部机制。 React@18+ Fiber 结构概述在 React 中，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅入解析 React Fiber 结构">
+<meta property="og:url" content="https://hankliu62.github.io/2024/04/24/react-fiber-struct/index.html">
+<meta property="og:site_name" content="HankLiu的博客小屋">
+<meta property="og:description" content="浅入解析 React Fiber 结构React Fiber 是 React 中用于表示组件树的一种数据结构，它的设计和实现是 React 中的一项重要内容。本文将深入探讨 React Fiber 的结构，包括其所有属性及其含义，并对属性中的对象类型进行详细说明和解释。通过阅读本文，读者将更好地理解 React Fiber 的内部机制。 React@18+ Fiber 结构概述在 React 中，">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-04-24T10:52:26.000Z">
+<meta property="article:modified_time" content="2024-05-02T16:07:58.208Z">
+<meta property="article:author" content="HankLiu">
+<meta property="article:tag" content="react">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/img/favicon.ico" sizes="16x16">
+  
+  <link rel="stylesheet" href="/css/style.css?t=1">
+  
+    <link href="//fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner">
+    <div id="banner-mask"></div>
+  </div>
+  <div id="header-outer" class="outer">
+    <nav id="upper-nav" class="inner">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      <div class="sub-nav">
+        
+        
+          <a id="nav-github" class="nav-icon" href="https://github.com/hankliu62"></a>
+        
+      </div>
+    </nav>
+    <div id="header-title">
+      
+        <h1 id="blog-title-wrap">
+          <a href="/" id="blog-title">HankLiu的博客小屋</a>
+        </h1>
+      
+      
+        <h5 class="blog-subtitle-wrap">努力去听风的声音，不必在意风的方向。</h5>
+      
+    </div>
+    <div id="contenedor">
+      <ul class="cube">
+        <li class="cara"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="100" width="100" viewBox="-50 -50 200 200">
+          <circle cx="50" cy="50" r="45" stroke-width="5" stroke="black" stroke-opacity="0.5" fill-opacity="0"></circle>
+          <rect id="clockwise" x="47.5" y="27.5" width="5" height="25" rx="2.5" ry="2.5" fill="black" fill-opacity="0.5" transform="rotate(330 50 50)"></rect>
+          <rect id="minute" x="48.5" y="16.5" width="3" height="35" rx="1.5" ry="1.5" fill="black" fill-opacity="0.5"></rect>
+        </svg></li>
+        <li class="cara">P</li>
+        <li class="cara">X</li>
+        <li class="cara">L</li>
+        <li class="cara">C</li>
+        <li class="cara">Y</li>
+      </ul>
+    </div>
+    <nav id="main-nav">
+      
+        <a class="main-nav-link" href="/">主页</a>
+      
+        <a class="main-nav-link" href="/archives">文章</a>
+      
+        <a class="main-nav-link" href="/toolkit">小工具</a>
+      
+        <a class="main-nav-link" href="/resume">小简介</a>
+      
+        <a class="main-nav-link" href="/about">小关于</a>
+      
+    </nav>
+  </div>
+</header>
+
+    <div class="outer">
+      <section id="main"><article id="post-react-fiber-struct" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2024/04/24/react-fiber-struct/" class="article-date">
+  <time datetime="2024-04-24T10:52:26.000Z" itemprop="datePublished">2024-04-24</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-false">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      浅入解析 React Fiber 结构
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h3 id="浅入解析-React-Fiber-结构"><a href="#浅入解析-React-Fiber-结构" class="headerlink" title="浅入解析 React Fiber 结构"></a>浅入解析 React Fiber 结构</h3><p>React Fiber 是 React 中用于表示组件树的一种数据结构，它的设计和实现是 React 中的一项重要内容。本文将深入探讨 React Fiber 的结构，包括其所有属性及其含义，并对属性中的对象类型进行详细说明和解释。通过阅读本文，读者将更好地理解 React Fiber 的内部机制。</p>
+<h3 id="React-18-Fiber-结构概述"><a href="#React-18-Fiber-结构概述" class="headerlink" title="React@18+ Fiber 结构概述"></a>React@18+ Fiber 结构概述</h3><p>在 React 中，每个组件都对应一个 Fiber 对象，用于表示组件树中的一个节点。以下是 Fiber 对象的结构定义：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> <span class="title class_">Fiber</span> = &#123;</span><br><span class="line">  <span class="attr">tag</span>: <span class="title class_">WorkTag</span>,</span><br><span class="line">  <span class="attr">key</span>: <span class="literal">null</span> | <span class="built_in">string</span>,</span><br><span class="line">  <span class="attr">elementType</span>: <span class="built_in">string</span> | <span class="title class_">FunctionComponent</span> | <span class="title class_">ClassComponent</span> | <span class="title class_">HostComponent</span> | <span class="title class_">SuspenseComponent</span> | ...,</span><br><span class="line">  <span class="attr">type</span>: <span class="built_in">string</span> | <span class="title class_">FunctionComponent</span> | <span class="title class_">ClassComponent</span> | <span class="title class_">HostComponent</span> | <span class="title class_">SuspenseComponent</span> | ...,</span><br><span class="line">  <span class="attr">stateNode</span>: <span class="title class_">HTMLElement</span> | <span class="title class_">Component</span> | <span class="literal">null</span>,</span><br><span class="line">  <span class="attr">return</span>: <span class="title class_">Fiber</span> | <span class="literal">null</span>,</span><br><span class="line">  <span class="attr">child</span>: <span class="title class_">Fiber</span> | <span class="literal">null</span>,</span><br><span class="line">  <span class="attr">sibling</span>: <span class="title class_">Fiber</span> | <span class="literal">null</span>,</span><br><span class="line">  <span class="attr">index</span>: <span class="built_in">number</span>,</span><br><span class="line">  <span class="attr">ref</span>: <span class="title class_">RefObject</span> | <span class="literal">null</span>,</span><br><span class="line">  <span class="attr">pendingProps</span>: <span class="built_in">any</span>,</span><br><span class="line">  <span class="attr">memoizedProps</span>: <span class="built_in">any</span>,</span><br><span class="line">  <span class="attr">updateQueue</span>: <span class="title class_">UpdateQueue</span>&lt;<span class="built_in">any</span>&gt; | <span class="literal">null</span>,</span><br><span class="line">  <span class="attr">memoizedState</span>: <span class="title class_">Hook</span> | <span class="title class_">StateObject</span> | <span class="literal">null</span>,</span><br><span class="line">  <span class="attr">dependencies</span>: <span class="title class_">Dependencies</span> | <span class="literal">null</span>,</span><br><span class="line">  <span class="attr">mode</span>: <span class="title class_">TypeOfMode</span>,</span><br><span class="line">  <span class="attr">effectTag</span>: <span class="title class_">SideEffectTag</span>,</span><br><span class="line">  <span class="attr">nextEffect</span>: <span class="title class_">Fiber</span> | <span class="literal">null</span>,</span><br><span class="line">  <span class="attr">firstEffect</span>: <span class="title class_">Fiber</span> | <span class="literal">null</span>,</span><br><span class="line">  <span class="attr">lastEffect</span>: <span class="title class_">Fiber</span> | <span class="literal">null</span>,</span><br><span class="line">  <span class="attr">lanes</span>: <span class="title class_">Lanes</span>,</span><br><span class="line">  <span class="attr">childLanes</span>: <span class="title class_">Lanes</span>,</span><br><span class="line">  <span class="attr">alternate</span>: <span class="title class_">Fiber</span> | <span class="literal">null</span>,</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>根据提供的 Fiber 类型定义，下面是完整的 Fiber 节点的属性列表：</p>
+<ol>
+<li><p><strong>tag</strong>：</p>
+<ul>
+<li>标识 Fiber 节点的类型，如 <code>HostComponent</code>、<code>ClassComponent</code>、<code>FunctionComponent</code> 等。</li>
+</ul>
+</li>
+<li><p><strong>key</strong>：</p>
+<ul>
+<li>用于在DOM更新期间识别节点。可以是字符串类型或 null。</li>
+</ul>
+</li>
+<li><p><strong>elementType</strong>：</p>
+<ul>
+<li>元素类型，通常是 <code>React.createElement()</code> 中传递的类型，用于保持节点的身份。</li>
+</ul>
+</li>
+<li><p><strong>type</strong>：</p>
+<ul>
+<li>节点的具体类型，与 elementType 相似，但对于 ClassComponent 等需要再次处理。</li>
+</ul>
+</li>
+<li><p><strong>stateNode</strong>：</p>
+<ul>
+<li>与此 Fiber 节点关联的实际 DOM 节点、组件实例或其他实体。</li>
+</ul>
+</li>
+<li><p><strong>return</strong>：</p>
+<ul>
+<li>指向此节点的父节点。</li>
+</ul>
+</li>
+<li><p><strong>child</strong>：</p>
+<ul>
+<li>指向此节点的第一个子节点。</li>
+</ul>
+</li>
+<li><p><strong>sibling</strong>：</p>
+<ul>
+<li>指向此节点的下一个兄弟节点。</li>
+</ul>
+</li>
+<li><p><strong>index</strong>：</p>
+<ul>
+<li>表示节点在兄弟节点中的位置索引。</li>
+</ul>
+</li>
+<li><p><strong>ref</strong>：</p>
+<ul>
+<li>表示与此节点关联的 ref，可以是函数、字符串或 RefObject 对象。</li>
+</ul>
+</li>
+<li><p><strong>refCleanup</strong>：</p>
+<ul>
+<li>用于清理 ref 的函数。</li>
+</ul>
+</li>
+<li><p><strong>pendingProps</strong>：</p>
+<ul>
+<li>待处理的属性，即将应用于此节点的属性。</li>
+</ul>
+</li>
+<li><p><strong>memoizedProps</strong>：</p>
+<ul>
+<li>表示此节点最近一次渲染时应用的属性。</li>
+</ul>
+</li>
+<li><p><strong>updateQueue</strong>：</p>
+<ul>
+<li>包含了所有待处理的更新操作。</li>
+</ul>
+</li>
+<li><p><strong>memoizedState</strong>：</p>
+<ul>
+<li>上一次渲染时的状态。如果组件使用了 Hooks，那么 memoizedState 就应该是一个链表结构，每个节点表示一个 Hook 的状态值。如果组件是类组件，则 memoizedState 应该是该组件在上一次渲染时的状态对象。</li>
+</ul>
+</li>
+<li><p><strong>dependencies</strong>：</p>
+<ul>
+<li>表示此节点更新所依赖的上下文、Props、State等信息。</li>
+</ul>
+</li>
+<li><p><strong>mode</strong>：</p>
+<ul>
+<li>表示当前渲染模式，如并发模式。</li>
+</ul>
+</li>
+<li><p><strong>flags</strong>：</p>
+<ul>
+<li>描述 Fiber 节点和其子树的一些属性的位标志，用于标记节点需要执行的操作。</li>
+</ul>
+</li>
+<li><p><strong>subtreeFlags</strong>：</p>
+<ul>
+<li>描述 Fiber 子树的属性的位标志，用于标记节点需要执行的操作。</li>
+</ul>
+</li>
+<li><p><strong>deletions</strong>：</p>
+<ul>
+<li>用于存储要删除的 Fiber 节点。</li>
+</ul>
+</li>
+<li><p><strong>lanes</strong>：</p>
+<ul>
+<li>表示此节点的调度优先级。</li>
+</ul>
+</li>
+<li><p><strong>childLanes</strong>：</p>
+<ul>
+<li>表示此节点子树中的调度优先级。</li>
+</ul>
+</li>
+<li><p><strong>alternate</strong>：</p>
+<ul>
+<li>指向上一次渲染时与当前 Fiber 节点对应的 Fiber 节点。</li>
+</ul>
+</li>
+<li><p><strong>actualDuration</strong>：</p>
+<ul>
+<li>当前渲染阶段的实际持续时间，用于性能分析。</li>
+</ul>
+</li>
+<li><p><strong>actualStartTime</strong>：</p>
+<ul>
+<li>当前渲染阶段的开始时间，用于性能分析。</li>
+</ul>
+</li>
+<li><p><strong>selfBaseDuration</strong>：</p>
+<ul>
+<li>最近一次渲染阶段的持续时间，不包括子节点。</li>
+</ul>
+</li>
+<li><p><strong>treeBaseDuration</strong>：</p>
+<ul>
+<li>所有子节点渲染阶段持续时间的总和。</li>
+</ul>
+</li>
+<li><p><strong>_debugInfo</strong>：</p>
+<ul>
+<li>用于调试的附加信息。</li>
+</ul>
+</li>
+<li><p><strong>_debugOwner</strong>：</p>
+<ul>
+<li>指向此节点的拥有者。</li>
+</ul>
+</li>
+<li><p><strong>_debugIsCurrentlyTiming</strong>：</p>
+<ul>
+<li>标志位，指示当前是否正在记录渲染时间。</li>
+</ul>
+</li>
+<li><p><strong>_debugNeedsRemount</strong>：</p>
+<ul>
+<li>标志位，指示是否需要重新挂载组件。</li>
+</ul>
+</li>
+<li><p><strong>_debugHookTypes</strong>：</p>
+<ul>
+<li>用于调试的 hook 类型信息。</li>
+</ul>
+</li>
+</ol>
+<p>这些属性组成了 Fiber 节点的完整表示，用于 React 内部的渲染和更新过程。</p>
+<h3 id="属性详解"><a href="#属性详解" class="headerlink" title="属性详解"></a>属性详解</h3><h4 id="tag"><a href="#tag" class="headerlink" title="tag"></a>tag</h4><p>tag 属性表示 Fiber 节点的类型，其值可以是以下几种之一：</p>
+<ul>
+<li><strong>HostRoot:</strong> 表示根节点。</li>
+<li><strong>FunctionComponent:</strong> 表示函数组件。</li>
+<li><strong>ClassComponent:</strong> 表示类组件。</li>
+<li><strong>HostComponent:</strong> 表示 DOM 元素。</li>
+<li><strong>ContextProvider:</strong> 表示 Context 提供者。</li>
+<li><strong>ContextConsumer:</strong> 表示 Context 消费者。</li>
+<li><strong>SuspenseComponent:</strong> 表示 Suspense 组件。</li>
+<li><strong>DehydratedFragment:</strong> 表示脱水片段。</li>
+</ul>
+<h4 id="memoizedState"><a href="#memoizedState" class="headerlink" title="memoizedState"></a>memoizedState</h4><p>memoizedState 属性表示组件在上一次渲染时的状态，其类型根据组件的具体情况而定。如果组件使用了 Hooks，那么 memoizedState 就应该是一个链表结构，每个节点表示一个 Hook 的状态值。如果组件是类组件，则 memoizedState 应该是该组件在上一次渲染时的状态对象。memoizedState 具体的属性如下所示</p>
+<ul>
+<li><strong>memoizedState:</strong> 组件的记忆状态，即上次渲染时的状态。</li>
+<li><strong>next:</strong> 指向下一个 hook 节点的指针。</li>
+</ul>
+<h4 id="flags"><a href="#flags" class="headerlink" title="flags"></a>flags</h4><p>flags 属性用于标记节点需要执行的操作，其值是一个位掩码，描述 Fiber 节点的不同状态和行为，并在调度和渲染过程中起着重要作用，包含以下几种标记：</p>
+<p>这里有一些重要的标志位和常量的含义：</p>
+<ul>
+<li><strong>NoFlags:</strong> 用于表示没有任何状态或行为。</li>
+<li><strong>Update:</strong> 表示组件需要更新。</li>
+<li><strong>Placement:</strong> 表示组件需要被放置到 DOM 树中。</li>
+<li><strong>ChildDeletion:</strong> 表示组件的子节点被删除。</li>
+<li><strong>Callback:</strong> 表示需要执行回调函数。</li>
+<li><strong>Visibility:</strong> 表示组件的可见性发生变化。</li>
+<li><strong>Ref:</strong> 表示组件的引用发生变化。</li>
+<li><strong>Snapshot:</strong> 表示需要获取组件的快照。</li>
+<li><strong>Passive:</strong> 表示组件处于被动模式。</li>
+<li><strong>StoreConsistency:</strong> 表示需要保持状态的一致性。</li>
+</ul>
+<blockquote>
+<p>以前使用 <code>effectTag</code> 属性来表示副作用。</p>
+</blockquote>
+<h3 id="源码解析"><a href="#源码解析" class="headerlink" title="源码解析"></a>源码解析</h3><p>React Fiber 的源码位于 React 源码库中的 <code>react-reconciler</code> 模块。读者可以在该模块中找到 Fiber 结构的定义以及相关的操作和算法实现。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>本文浅入解析了 React Fiber 结构，介绍了其所有属性及其含义，并对对象类型的属性进行了进一步说明和解释。通过深入理解 Fiber 结构，可以更好地理解 React 内部的工作原理，并能够更加高效地使用 React 进行开发。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/" rel="tag">react</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2024/04/24/react-fiber-struct/" data-id="clvpfx1da0010qboqe4yehex3" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2024/04/20/communication-across-browser-tabs/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">跨浏览器标签页进行通讯的方式简介</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+      
+      <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/04/24/react-fiber-struct/">浅入解析 React Fiber 结构</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/20/communication-across-browser-tabs/">跨浏览器标签页进行通讯的方式简介</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/16/webrtc/">WebRTC:实时通信的未来</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/14/fontend-optimize-indicators/">Web前端最新优化指标：从FP到FPS的全面解析</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/12/abort-controller/">使用 AbortController 实现异步操作控制</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/" rel="tag">blog</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/canvas/" rel="tag">canvas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/csrf/" rel="tag">csrf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debugging/" rel="tag">debugging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-pages/" rel="tag">github pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/homebrew/" rel="tag">homebrew</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/" rel="tag">html</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/" rel="tag">html5</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interview/" rel="tag">interview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/loader/" rel="tag">loader</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/miniprogram/" rel="tag">miniprogram</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/" rel="tag">mobile</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/optimize/" rel="tag">optimize</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reptile/" rel="tag">reptile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/" rel="tag">security</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/service-worker/" rel="tag">service worker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/translate/" rel="tag">translate</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vitepress/" rel="tag">vitepress</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webrtc/" rel="tag">webrtc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webworker/" rel="tag">webworker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/weinre/" rel="tag">weinre</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xss/" rel="tag">xss</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yuv/" rel="tag">yuv</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">七月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2024 HankLiu, Inc. All rights reserved.<br>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">主页</a>
+  
+    <a href="/archives" class="mobile-nav-link">文章</a>
+  
+    <a href="/toolkit" class="mobile-nav-link">小工具</a>
+  
+    <a href="/resume" class="mobile-nav-link">小简介</a>
+  
+    <a href="/about" class="mobile-nav-link">小关于</a>
+  
+  <a href="#search" class="mobile-nav-link st-search-show-outputs">Search</a>
+</nav>
+  
+
+<!-- totop start -->
+<div id="totop">
+	<a title="To Top"></a>
+</div>
+<!-- totop end -->
+
+<!-- swiftype search start -->
+
+<!-- swiftype search end -->
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/lrsjng.jquery-qrcode/0.12.0/jquery.qrcode.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+</div>
+</body>
+</html>
