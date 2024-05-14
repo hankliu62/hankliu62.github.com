@@ -1,1 +1,1 @@
-source/_posts/github-action-auto-git-tag.md
+source/_posts/typescript-config.md
