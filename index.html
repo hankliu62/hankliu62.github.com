@@ -326,7 +326,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/" rel="tag">react</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/24/react-fiber-struct/" data-id="clvpfx1da0010qboqe4yehex3" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/24/react-fiber-struct/" data-id="clw71eh6k0010rzox9xa440bx" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -495,7 +495,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html/" rel="tag">html</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html5/" rel="tag">html5</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/20/communication-across-browser-tabs/" data-id="clvpfx1cv0005qboq5gfuf7n4" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/20/communication-across-browser-tabs/" data-id="clw71eh650005rzox72t3fxvh" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -685,9 +685,46 @@
 <li><code>stopped</code>：指示传输通道是否已停止的布尔值。</li>
 </ul>
 <h4 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h4><ul>
-<li><code>setCodecPreferences(codecs)</code>：设置传输通道的编解码器偏好。</li>
+<li><code>setCodecPreferences(codecs)</code>：设置传输通道的编解码器偏好，<code>codecs</code> 是通过 <code>RTCRtpSender.getCapabilities</code> 和 <code>RTCRtpReceiver.getCapabilities</code> 静态方法获得的编解码器。</li>
 <li><code>stop()</code>：停止传输通道，不再发送或接收媒体流。</li>
 </ul>
+<p><code>RTCRtpSender</code> 和 <code>RTCRtpReceiver</code> 是 WebRTC API 中用于发送和接收媒体流的对象。</p>
+<h3 id="RTCRtpSender："><a href="#RTCRtpSender：" class="headerlink" title="RTCRtpSender："></a>RTCRtpSender：</h3><p><code>RTCRtpSender</code> 接口表示 <code>RTCPeerConnection</code> 中的媒体发送器。它负责发送媒体流到远程对等方。</p>
+<h4 id="属性-2"><a href="#属性-2" class="headerlink" title="属性"></a>属性</h4><ul>
+<li><code>track</code>：成员属性，代表当前与 <code>RTCRtpSender</code> 相关联的 <code>MediaStreamTrack</code> 对象。可以是音频轨道或视频轨道。</li>
+</ul>
+<h4 id="方法-1"><a href="#方法-1" class="headerlink" title="方法"></a>方法</h4><ul>
+<li><p><code>getParameters()</code>：成员方法，返回一个 <code>RTCRtpSendParameters</code> 对象，该对象包含了当前发送器的参数信息，如编码器设置等。</p>
+</li>
+<li><p><code>setParameters(parameters)</code>：成员方法，用于设置发送器的参数，例如修改编码器设置等。参数 <code>parameters</code> 是一个包含新参数的 <code>RTC RtpSendParameters</code> 对象。</p>
+</li>
+<li><p><code>replaceTrack(newTrack)</code>：成员方法，用于替换当前发送器的媒体轨道。可以用于在运行时更改发送的媒体类型（例如切换摄像头）。</p>
+</li>
+<li><p><code>getCapabilities(kind)</code>：静态方法，用于获取特定类型（音频或视频）的编解码器能力信息。参数 <code>kind</code> 可以是 “audio” 或 “video”。</p>
+</li>
+</ul>
+<h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h4><p>以下是关于如何使用 <code>getCapabilities</code> 方法来获取编解码器能力信息的示例代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取视频编解码器能力信息</span></span><br><span class="line"><span class="keyword">const</span> videoCapabilities = <span class="title class_">RTCRtpSender</span>.<span class="title function_">getCapabilities</span>(<span class="string">&#x27;video&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Video Codecs:&quot;</span>, videoCapabilities.<span class="property">codecs</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取音频编解码器能力信息</span></span><br><span class="line"><span class="keyword">const</span> audioCapabilities = <span class="title class_">RTCRtpSender</span>.<span class="title function_">getCapabilities</span>(<span class="string">&#x27;audio&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Audio Codecs:&quot;</span>, audioCapabilities.<span class="property">codecs</span>);</span><br></pre></td></tr></table></figure>
+
+<p>这段代码中，我们首先使用 <code>RTCRtpSender.getCapabilities</code> 方法来获取视频和音频编解码器的能力信息。然后，我们打印出返回的 <code>codecs</code> 属性，其中包含了关于支持的编解码器的详细信息，例如编解码器的类型、编码器和解码器参数等。</p>
+<h3 id="RTCRtpReceiver："><a href="#RTCRtpReceiver：" class="headerlink" title="RTCRtpReceiver："></a>RTCRtpReceiver：</h3><p><code>RTCRtpReceiver</code> 接口表示 <code>RTCPeerConnection</code> 中的媒体接收器。它负责接收远程对等方发送的媒体流。</p>
+<h4 id="属性-3"><a href="#属性-3" class="headerlink" title="属性"></a>属性</h4><ul>
+<li><code>track</code>：属性，代表当前与 <code>RTCRtpReceiver</code> 相关联的 <code>MediaStreamTrack</code> 对象。可以是音频轨道或视频轨道。</li>
+</ul>
+<h4 id="方法-2"><a href="#方法-2" class="headerlink" title="方法"></a>方法</h4><ul>
+<li><p><code>getParameters()</code>：成员方法，返回一个 <code>RTC RtpReceiveParameters</code> 对象，该对象包含了当前接收器的参数信息，如解码器设置等。</p>
+</li>
+<li><p><code>getContributingSources()</code>：成员方法，返回一个包含贡献源信息的数组，表示当前接收器接收到的媒体流的贡献者。</p>
+</li>
+<li><p><code>getStats()</code>：成员方法，返回一个 Promise，该 Promise 在解析后会提供有关接收器的统计信息。</p>
+</li>
+<li><p><code>getCapabilities(kind)</code>：静态方法，用于获取特定类型（音频或视频）的编解码器能力信息。参数 <code>kind</code> 可以是 “audio” 或 “video”。</p>
+</li>
+</ul>
+<h4 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h4><p>以下是一个使用 <code>RTCRtpReceiver.getCapabilities</code> 方法来获取音频和视频编解码器能力信息的示例代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取视频编解码器能力信息</span></span><br><span class="line"><span class="keyword">const</span> videoCapabilities = <span class="title class_">RTCRtpReceiver</span>.<span class="title function_">getCapabilities</span>(<span class="string">&#x27;video&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Video Codecs:&quot;</span>, videoCapabilities.<span class="property">codecs</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取音频编解码器能力信息</span></span><br><span class="line"><span class="keyword">const</span> audioCapabilities = <span class="title class_">RTCRtpReceiver</span>.<span class="title function_">getCapabilities</span>(<span class="string">&#x27;audio&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Audio Codecs:&quot;</span>, audioCapabilities.<span class="property">codecs</span>);</span><br></pre></td></tr></table></figure>
+
+<p>这段代码中，我们使用 <code>RTCRtpReceiver.getCapabilities</code> 方法来获取音频和视频编解码器的能力信息。在真实使用当中，我们可以设置传输的音视频的编解码器<br>然后，我们打印出返回的 <code>codecs</code> 属性，其中包含了关于支持的编解码器的详细信息，例如编解码器的类型、编码器和解码器参数等。</p>
 <h3 id="其他名词术语解释"><a href="#其他名词术语解释" class="headerlink" title="其他名词术语解释"></a>其他名词术语解释</h3><p>当涉及到 WebRTC 和实时通信时，以下术语是很常见的：</p>
 <ul>
 <li><p><strong>SDP（Session Description Protocol）</strong>：会话描述协议，用于描述多媒体会话的参数，例如编解码器信息、媒体流传输方式等。在 WebRTC 中，SDP 用于建立和管理对等连接。</p>
@@ -788,6 +825,15 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">peerConnection.<span class="property">ontrack</span> = <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> remoteTrack = event.<span class="property">track</span>;</span><br><span class="line">  <span class="keyword">if</span> (trackEvt.<span class="property">streams</span>.<span class="property">length</span> !== <span class="number">1</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">warning</span>(<span class="string">&#x27;More that one mediaStream associated with track!&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 远端的流</span></span><br><span class="line">  <span class="keyword">const</span> stream = trackEvt.<span class="property">streams</span>[<span class="number">0</span>];</span><br><span class="line">  <span class="comment">// 监听流移除轨道事件</span></span><br><span class="line">  stream.<span class="property">onremovetrack</span> = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 不存在音频和视频</span></span><br><span class="line">    <span class="keyword">if</span> (stream.<span class="title function_">getTracks</span>().<span class="property">length</span> === <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="title function_">emit</span>(<span class="title class_">ConnectionEvent</span>(&#123; <span class="attr">type</span>: <span class="string">&#x27;remove-stream&#x27;</span>, stream &#125;));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="title function_">emit</span>(<span class="title class_">ConnectionEvent</span>(&#123; <span class="attr">type</span>: <span class="string">&#x27;add-stream&#x27;</span>, stream &#125;));</span><br><span class="line">  <span class="comment">// 处理远程视频轨道</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <h4 id="说明-4"><a href="#说明-4" class="headerlink" title="说明"></a>说明</h4><p>上面的代码示例中，我们通过配置 <code>ICE</code> 服务器来实现 <code>NAT</code> 穿越。其中，<code>STUN</code> 服务器用于获取公网 <code>IP</code> 地址和端口，而 <code>TURN</code> 服务器则用于在无法直接通信的情况下进行中转。通过合理配置 <code>ICE</code> 服务器，我们可以在不同的网络环境中都能够顺利地进行实时通信。</p>
+<h3 id="设置-Codec-编解码器"><a href="#设置-Codec-编解码器" class="headerlink" title="设置 Codec 编解码器"></a>设置 Codec 编解码器</h3><h4 id="获取可用-Codec"><a href="#获取可用-Codec" class="headerlink" title="获取可用 Codec"></a>获取可用 Codec</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> supportsSetCodecPreferences = <span class="variable language_">window</span>.<span class="property">RTCRtpTransceiver</span> &amp;&amp; <span class="string">&#x27;setCodecPreferences&#x27;</span> <span class="keyword">in</span> <span class="variable language_">window</span>.<span class="property">RTCRtpTransceiver</span>.<span class="property"><span class="keyword">prototype</span></span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="获取-Codec"><a href="#获取-Codec" class="headerlink" title="获取 Codec"></a>获取 Codec</h4><p>通过 <code>RTCRtpSender.getCapabilities(&#39;video&#39;)</code> 获取可支持的 <code>codec</code>。然后把它们放进列表 <code>codecPreferences</code> 里，通过 <code>Select</code> 元素展示，让用户选择想使用的 <code>codec</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (supportsSetCodecPreferences) &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; codecs &#125; = <span class="title class_">RTCRtpSender</span>.<span class="title function_">getCapabilities</span>(<span class="string">&#x27;video&#x27;</span>);</span><br><span class="line">    <span class="keyword">const</span> codecPreferences = [];</span><br><span class="line">    codecs.<span class="title function_">forEach</span>(<span class="function"><span class="params">codec</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> ([<span class="string">&#x27;video/red&#x27;</span>, <span class="string">&#x27;video/ulpfec&#x27;</span>, <span class="string">&#x27;video/rtx&#x27;</span>].<span class="title function_">includes</span>(codec.<span class="property">mimeType</span>)) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      codecPreferences.<span class="title function_">push</span>(&#123; ...codec, <span class="attr">value</span>: (codec.<span class="property">mimeType</span> + <span class="string">&#x27; &#x27;</span> + (codec.<span class="property">sdpFmtpLine</span> || <span class="string">&#x27;&#x27;</span>)).<span class="title function_">trim</span>() &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="配置-Codec"><a href="#配置-Codec" class="headerlink" title="配置 Codec"></a>配置 Codec</h4><p>找到用户选择的 <code>Codec</code>。调用 <code>transceiver.setCodecPreferences(codecs) </code>，把选中的 <code>Codec</code> 交给 <code>transceiver</code> 最上面，优先使用。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (supportsSetCodecPreferences) &#123;</span><br><span class="line">    <span class="comment">// 获取选择的codec</span></span><br><span class="line">    <span class="keyword">let</span> selectedIndex = <span class="number">1</span></span><br><span class="line">    <span class="keyword">const</span> preferredCodec = codecPreferences[selectedIndex];</span><br><span class="line">    <span class="keyword">if</span> (preferredCodec.<span class="property">value</span> !== <span class="string">&#x27;&#x27;</span>) &#123;</span><br><span class="line">      <span class="keyword">const</span> [mimeType, sdpFmtpLine] = preferredCodec.<span class="property">value</span>.<span class="title function_">split</span>(<span class="string">&#x27; &#x27;</span>);</span><br><span class="line">      <span class="keyword">const</span> &#123; codecs &#125; = <span class="title class_">RTCRtpSender</span>.<span class="title function_">getCapabilities</span>(<span class="string">&#x27;video&#x27;</span>);</span><br><span class="line">      <span class="keyword">const</span> selectedCodecIndex = codecs.<span class="title function_">findIndex</span>(<span class="function"><span class="params">c</span> =&gt;</span> c.<span class="property">mimeType</span> === mimeType &amp;&amp; c.<span class="property">sdpFmtpLine</span> === sdpFmtpLine);</span><br><span class="line">      <span class="keyword">const</span> selectedCodec = codecs[selectedCodecIndex];</span><br><span class="line">      <span class="comment">// 先移除</span></span><br><span class="line">      codecs.<span class="title function_">splice</span>(selectedCodecIndex, <span class="number">1</span>);</span><br><span class="line">      <span class="comment">// 插入第一个</span></span><br><span class="line">      codecs.<span class="title function_">unshift</span>(selectedCodec);</span><br><span class="line">      <span class="keyword">const</span> transceiver = pc1.<span class="title function_">getTransceivers</span>().<span class="title function_">find</span>(<span class="function"><span class="params">t</span> =&gt;</span> t.<span class="property">sender</span> &amp;&amp; t.<span class="property">sender</span>.<span class="property">track</span> === localStream.<span class="title function_">getVideoTracks</span>()[<span class="number">0</span>]);</span><br><span class="line">      transceiver.<span class="title function_">setCodecPreferences</span>(codecs);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+
 <h2 id="WebRTC的应用场景"><a href="#WebRTC的应用场景" class="headerlink" title="WebRTC的应用场景"></a>WebRTC的应用场景</h2><p><code>WebRTC</code> 技术已经被广泛应用于多个领域，包括：</p>
 <ol>
 <li><p>视频会议<br><code>WebRTC</code> 使得在网页浏览器中进行高清视频会议成为可能，用户可以通过浏览器直接加入会议室，与其他参与者进行实时视频通话。</p>
@@ -819,7 +865,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webrtc/" rel="tag">webrtc</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/16/webrtc/" data-id="clvpfx1e5004jqboq37grgd7d" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/16/webrtc/" data-id="clw71eh7j004nrzoxbrcx99f0" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -953,7 +999,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/optimize/" rel="tag">optimize</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/14/fontend-optimize-indicators/" data-id="clvpfx1cw0008qboq0gxk0u3v" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/14/fontend-optimize-indicators/" data-id="clw71eh660008rzox4vz0grh0" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -1029,7 +1075,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html5/" rel="tag">html5</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/12/abort-controller/" data-id="clvpfx1cm0000qboq22f9h7j7" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/12/abort-controller/" data-id="clw71eh5w0000rzox6fecfevg" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -1169,7 +1215,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/miniprogram/" rel="tag">miniprogram</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/optimize/" rel="tag">optimize</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/10/optimize-miniprogram/" data-id="clvpfx1d9000xqboq72qwdzlw" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/10/optimize-miniprogram/" data-id="clw71eh6j000xrzoxdsai41gl" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -1256,7 +1302,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/08/github-action-docker/" data-id="clvpfx1d0000bqboq88dk1bii" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/08/github-action-docker/" data-id="clw71eh68000brzox7m4fgutp" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -1344,7 +1390,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/" rel="tag">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/06/github-action-publish-package/" data-id="clvpfx1d1000cqboqe80p9s6k" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/06/github-action-publish-package/" data-id="clw71eh69000crzoxgfyb0i6u" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -1459,7 +1505,7 @@
 <p>首先确保运行的<code>/bin/zsh -c &quot;$(curl -fsSL https://gitee.com/ **cunkai** /HomebrewCN/raw/master/Homebrew.sh)&quot;</code> 中间那个 <strong>cunkai</strong> 不是别的。</p>
 </blockquote>
 <p><strong>1.</strong> 如果遇到安装软件报错 <strong>404</strong> ，切换网络如果还不行：</p>
-<p>查看下官方更新记录<code>https://brew.sh/blog/</code> 如果近期有更新，可以发我邮箱<a href="mailto:&#99;&#117;&#110;&#x6b;&#97;&#x69;&#x2e;&#x77;&#97;&#x6e;&#x67;&#x40;&#x66;&#x6f;&#120;&#109;&#x61;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#109;">&#99;&#117;&#110;&#x6b;&#97;&#x69;&#x2e;&#x77;&#97;&#x6e;&#x67;&#x40;&#x66;&#x6f;&#120;&#109;&#x61;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#109;</a>。我看看是否官方修改了某些代码。</p>
+<p>查看下官方更新记录<code>https://brew.sh/blog/</code> 如果近期有更新，可以发我邮箱<a href="mailto:&#x63;&#117;&#x6e;&#107;&#97;&#105;&#x2e;&#x77;&#97;&#110;&#103;&#x40;&#102;&#111;&#120;&#109;&#97;&#105;&#x6c;&#x2e;&#99;&#x6f;&#109;">&#x63;&#117;&#x6e;&#107;&#97;&#105;&#x2e;&#x77;&#97;&#110;&#103;&#x40;&#102;&#111;&#120;&#109;&#97;&#105;&#x6c;&#x2e;&#99;&#x6f;&#109;</a>。我看看是否官方修改了某些代码。</p>
 <p><strong>2.</strong> 不小心改动了brew文件夹里面的内容，如何重置，运行：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew update-reset</span><br></pre></td></tr></table></figure>
 
@@ -1502,7 +1548,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/homebrew/" rel="tag">homebrew</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/04/homebrew/" data-id="clvpfx1d5000lqboqciuig9wp" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/04/homebrew/" data-id="clw71eh6e000lrzoxekjg6bnh" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -1589,7 +1635,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/01/github-emoji/" data-id="clvpfx1d2000eqboqhx3yhrxt" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/01/github-emoji/" data-id="clw71eh6a000erzox90851gtb" class="article-share-link">Share</a>
         
       </div>
     </footer>
