@@ -273,7 +273,7 @@ const observer = new PerformanceObserver((list) => {
   const clsValue = entries.reduce((acc, entry) => acc + entry.value, 0);
   console.log("CLS值：", clsValue);
 });
-observer.observe({ type: "layout-shift" });
+observer.observe({ type: "layout-shift", buffered: true }); // 必须加上 buffered: true
 ```
 
 #### 优化CLS的方法：
