@@ -368,8 +368,72 @@ certificatePromise.then((certificate) => {
 
 #### 方法
 
-- `setCodecPreferences(codecs)`：设置传输通道的编解码器偏好。
+- `setCodecPreferences(codecs)`：设置传输通道的编解码器偏好，`codecs` 是通过 `RTCRtpSender.getCapabilities` 和 `RTCRtpReceiver.getCapabilities` 静态方法获得的编解码器。
 - `stop()`：停止传输通道，不再发送或接收媒体流。
+
+`RTCRtpSender` 和 `RTCRtpReceiver` 是 WebRTC API 中用于发送和接收媒体流的对象。
+
+### RTCRtpSender：
+
+`RTCRtpSender` 接口表示 `RTCPeerConnection` 中的媒体发送器。它负责发送媒体流到远程对等方。
+
+#### 属性
+
+- `track`：成员属性，代表当前与 `RTCRtpSender` 相关联的 `MediaStreamTrack` 对象。可以是音频轨道或视频轨道。
+
+#### 方法
+- `getParameters()`：成员方法，返回一个 `RTCRtpSendParameters` 对象，该对象包含了当前发送器的参数信息，如编码器设置等。
+- `setParameters(parameters)`：成员方法，用于设置发送器的参数，例如修改编码器设置等。参数 `parameters` 是一个包含新参数的 `RTC RtpSendParameters` 对象。
+- `replaceTrack(newTrack)`：成员方法，用于替换当前发送器的媒体轨道。可以用于在运行时更改发送的媒体类型（例如切换摄像头）。
+
+- `getCapabilities(kind)`：静态方法，用于获取特定类型（音频或视频）的编解码器能力信息。参数 `kind` 可以是 "audio" 或 "video"。
+
+#### 示例
+
+以下是关于如何使用 `getCapabilities` 方法来获取编解码器能力信息的示例代码：
+
+```javascript
+// 获取视频编解码器能力信息
+const videoCapabilities = RTCRtpSender.getCapabilities('video');
+console.log("Video Codecs:", videoCapabilities.codecs);
+
+// 获取音频编解码器能力信息
+const audioCapabilities = RTCRtpSender.getCapabilities('audio');
+console.log("Audio Codecs:", audioCapabilities.codecs);
+```
+
+这段代码中，我们首先使用 `RTCRtpSender.getCapabilities` 方法来获取视频和音频编解码器的能力信息。然后，我们打印出返回的 `codecs` 属性，其中包含了关于支持的编解码器的详细信息，例如编解码器的类型、编码器和解码器参数等。
+
+### RTCRtpReceiver：
+
+`RTCRtpReceiver` 接口表示 `RTCPeerConnection` 中的媒体接收器。它负责接收远程对等方发送的媒体流。
+
+#### 属性
+
+- `track`：属性，代表当前与 `RTCRtpReceiver` 相关联的 `MediaStreamTrack` 对象。可以是音频轨道或视频轨道。
+
+#### 方法
+- `getParameters()`：成员方法，返回一个 `RTC RtpReceiveParameters` 对象，该对象包含了当前接收器的参数信息，如解码器设置等。
+- `getContributingSources()`：成员方法，返回一个包含贡献源信息的数组，表示当前接收器接收到的媒体流的贡献者。
+- `getStats()`：成员方法，返回一个 Promise，该 Promise 在解析后会提供有关接收器的统计信息。
+
+- `getCapabilities(kind)`：静态方法，用于获取特定类型（音频或视频）的编解码器能力信息。参数 `kind` 可以是 "audio" 或 "video"。
+
+#### 示例
+以下是一个使用 `RTCRtpReceiver.getCapabilities` 方法来获取音频和视频编解码器能力信息的示例代码：
+
+```javascript
+// 获取视频编解码器能力信息
+const videoCapabilities = RTCRtpReceiver.getCapabilities('video');
+console.log("Video Codecs:", videoCapabilities.codecs);
+
+// 获取音频编解码器能力信息
+const audioCapabilities = RTCRtpReceiver.getCapabilities('audio');
+console.log("Audio Codecs:", audioCapabilities.codecs);
+```
+
+这段代码中，我们使用 `RTCRtpReceiver.getCapabilities` 方法来获取音频和视频编解码器的能力信息。在真实使用当中，我们可以设置传输的音视频的编解码器
+然后，我们打印出返回的 `codecs` 属性，其中包含了关于支持的编解码器的详细信息，例如编解码器的类型、编码器和解码器参数等。
 
 ### 其他名词术语解释
 
@@ -711,6 +775,56 @@ peerConnection.ontrack = (event) => {
 
 #### 说明
 上面的代码示例中，我们通过配置 `ICE` 服务器来实现 `NAT` 穿越。其中，`STUN` 服务器用于获取公网 `IP` 地址和端口，而 `TURN` 服务器则用于在无法直接通信的情况下进行中转。通过合理配置 `ICE` 服务器，我们可以在不同的网络环境中都能够顺利地进行实时通信。
+
+### 设置 Codec 编解码器
+
+#### 获取可用 Codec
+
+```javascript
+const supportsSetCodecPreferences = window.RTCRtpTransceiver && 'setCodecPreferences' in window.RTCRtpTransceiver.prototype;
+```
+
+#### 获取 Codec
+
+通过 `RTCRtpSender.getCapabilities('video')` 获取可支持的 `codec`。然后把它们放进列表 `codecPreferences` 里，通过 `Select` 元素展示，让用户选择想使用的 `codec`。
+
+```javascript
+if (supportsSetCodecPreferences) {
+    const { codecs } = RTCRtpSender.getCapabilities('video');
+    const codecPreferences = [];
+    codecs.forEach(codec => {
+      if (['video/red', 'video/ulpfec', 'video/rtx'].includes(codec.mimeType)) {
+        return;
+      }
+      codecPreferences.push({ ...codec, value: (codec.mimeType + ' ' + (codec.sdpFmtpLine || '')).trim() });
+    });
+  }
+```
+
+#### 配置 Codec
+
+找到用户选择的 `Codec`。调用 `transceiver.setCodecPreferences(codecs) `，把选中的 `Codec` 交给 `transceiver` 最上面，优先使用。
+
+``` javascript
+if (supportsSetCodecPreferences) {
+    // 获取选择的codec
+    let selectedIndex = 1
+    const preferredCodec = codecPreferences[selectedIndex];
+    if (preferredCodec.value !== '') {
+      const [mimeType, sdpFmtpLine] = preferredCodec.value.split(' ');
+      const { codecs } = RTCRtpSender.getCapabilities('video');
+      const selectedCodecIndex = codecs.findIndex(c => c.mimeType === mimeType && c.sdpFmtpLine === sdpFmtpLine);
+      const selectedCodec = codecs[selectedCodecIndex];
+      // 先移除
+      codecs.splice(selectedCodecIndex, 1);
+      // 插入第一个
+      codecs.unshift(selectedCodec);
+      const transceiver = pc1.getTransceivers().find(t => t.sender && t.sender.track === localStream.getVideoTracks()[0]);
+      transceiver.setCodecPreferences(codecs);
+    }
+  }
+```
+
 
 ## WebRTC的应用场景
 `WebRTC` 技术已经被广泛应用于多个领域，包括：
