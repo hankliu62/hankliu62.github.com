@@ -326,7 +326,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/" rel="tag">react</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/24/react-fiber-struct/" data-id="clw71eh6k0010rzox9xa440bx" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/24/react-fiber-struct/" data-id="clw71fcgr0010skom1zuf9goq" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -495,7 +495,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html/" rel="tag">html</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html5/" rel="tag">html5</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/20/communication-across-browser-tabs/" data-id="clw71eh650005rzox72t3fxvh" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/20/communication-across-browser-tabs/" data-id="clw71fcgb0005skombxx12r3r" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -865,7 +865,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webrtc/" rel="tag">webrtc</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/16/webrtc/" data-id="clw71eh7j004nrzoxbrcx99f0" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/16/webrtc/" data-id="clw71fchr004mskomews947iq" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -968,7 +968,7 @@
 
 <h3 id="CLS（Cumulative-Layout-Shift）"><a href="#CLS（Cumulative-Layout-Shift）" class="headerlink" title="CLS（Cumulative Layout Shift）"></a>CLS（Cumulative Layout Shift）</h3><p>CLS是指页面在加载过程中发生的所有不良布局变化的总和，即累积布局偏移。它衡量的是页面的视觉稳定性。发生的每次布局变化中的最大幅度的布局变化得分的指标。为了提供良好的用户体验，站点应该努力使 CLS 分数达到 <strong>0.1</strong> 或更低。下面是获取和优化CLS的方法：</p>
 <h4 id="获取CLS的方法："><a href="#获取CLS的方法：" class="headerlink" title="获取CLS的方法："></a>获取CLS的方法：</h4><p>可以通过 <code>Performance API</code> 中的相关接口来获取CLS值，如 <code>PerformanceObserver</code> 接口监听 <code>layout-shift</code> 事件。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 监听CLS事件</span></span><br><span class="line"><span class="keyword">const</span> observer = <span class="keyword">new</span> <span class="title class_">PerformanceObserver</span>(<span class="function">(<span class="params">list</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> entries = list.<span class="title function_">getEntries</span>();</span><br><span class="line">  <span class="keyword">const</span> clsValue = entries.<span class="title function_">reduce</span>(<span class="function">(<span class="params">acc, entry</span>) =&gt;</span> acc + entry.<span class="property">value</span>, <span class="number">0</span>);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;CLS值：&quot;</span>, clsValue);</span><br><span class="line">&#125;);</span><br><span class="line">observer.<span class="title function_">observe</span>(&#123; <span class="attr">type</span>: <span class="string">&quot;layout-shift&quot;</span> &#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 监听CLS事件</span></span><br><span class="line"><span class="keyword">const</span> observer = <span class="keyword">new</span> <span class="title class_">PerformanceObserver</span>(<span class="function">(<span class="params">list</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> entries = list.<span class="title function_">getEntries</span>();</span><br><span class="line">  <span class="keyword">const</span> clsValue = entries.<span class="title function_">reduce</span>(<span class="function">(<span class="params">acc, entry</span>) =&gt;</span> acc + entry.<span class="property">value</span>, <span class="number">0</span>);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;CLS值：&quot;</span>, clsValue);</span><br><span class="line">&#125;);</span><br><span class="line">observer.<span class="title function_">observe</span>(&#123; <span class="attr">type</span>: <span class="string">&quot;layout-shift&quot;</span>, <span class="attr">buffered</span>: <span class="literal">true</span> &#125;); <span class="comment">// 必须加上 buffered: true</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="优化CLS的方法："><a href="#优化CLS的方法：" class="headerlink" title="优化CLS的方法："></a>优化CLS的方法：</h4><p>优化CLS可以通过避免页面元素的不稳定布局和动态元素的尺寸变化来实现。例如，指定图片和媒体元素的尺寸、避免动态插入内容导致页面布局变化等。</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 指定图片和媒体元素的尺寸 */</span></span><br><span class="line"><span class="selector-tag">img</span>, <span class="selector-tag">video</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -999,7 +999,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/optimize/" rel="tag">optimize</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/14/fontend-optimize-indicators/" data-id="clw71eh660008rzox4vz0grh0" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/14/fontend-optimize-indicators/" data-id="clw71fcgd0008skom26cc72fl" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -1075,7 +1075,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html5/" rel="tag">html5</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/12/abort-controller/" data-id="clw71eh5w0000rzox6fecfevg" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/12/abort-controller/" data-id="clw71fcg00000skom75ll8np1" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -1215,7 +1215,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/miniprogram/" rel="tag">miniprogram</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/optimize/" rel="tag">optimize</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/10/optimize-miniprogram/" data-id="clw71eh6j000xrzoxdsai41gl" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/10/optimize-miniprogram/" data-id="clw71fcgq000xskomenrna3z9" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -1302,7 +1302,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/08/github-action-docker/" data-id="clw71eh68000brzox7m4fgutp" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/08/github-action-docker/" data-id="clw71fcgf000bskomcyqr1kk3" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -1390,7 +1390,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/" rel="tag">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/06/github-action-publish-package/" data-id="clw71eh69000crzoxgfyb0i6u" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/06/github-action-publish-package/" data-id="clw71fcgg000cskoma2sy7z2e" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -1505,7 +1505,7 @@
 <p>首先确保运行的<code>/bin/zsh -c &quot;$(curl -fsSL https://gitee.com/ **cunkai** /HomebrewCN/raw/master/Homebrew.sh)&quot;</code> 中间那个 <strong>cunkai</strong> 不是别的。</p>
 </blockquote>
 <p><strong>1.</strong> 如果遇到安装软件报错 <strong>404</strong> ，切换网络如果还不行：</p>
-<p>查看下官方更新记录<code>https://brew.sh/blog/</code> 如果近期有更新，可以发我邮箱<a href="mailto:&#x63;&#117;&#x6e;&#107;&#97;&#105;&#x2e;&#x77;&#97;&#110;&#103;&#x40;&#102;&#111;&#120;&#109;&#97;&#105;&#x6c;&#x2e;&#99;&#x6f;&#109;">&#x63;&#117;&#x6e;&#107;&#97;&#105;&#x2e;&#x77;&#97;&#110;&#103;&#x40;&#102;&#111;&#120;&#109;&#97;&#105;&#x6c;&#x2e;&#99;&#x6f;&#109;</a>。我看看是否官方修改了某些代码。</p>
+<p>查看下官方更新记录<code>https://brew.sh/blog/</code> 如果近期有更新，可以发我邮箱<a href="mailto:&#99;&#117;&#x6e;&#107;&#x61;&#x69;&#x2e;&#x77;&#x61;&#110;&#103;&#x40;&#102;&#x6f;&#120;&#109;&#x61;&#x69;&#x6c;&#x2e;&#99;&#111;&#x6d;">&#99;&#117;&#x6e;&#107;&#x61;&#x69;&#x2e;&#x77;&#x61;&#110;&#103;&#x40;&#102;&#x6f;&#120;&#109;&#x61;&#x69;&#x6c;&#x2e;&#99;&#111;&#x6d;</a>。我看看是否官方修改了某些代码。</p>
 <p><strong>2.</strong> 不小心改动了brew文件夹里面的内容，如何重置，运行：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew update-reset</span><br></pre></td></tr></table></figure>
 
@@ -1548,7 +1548,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/homebrew/" rel="tag">homebrew</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/04/homebrew/" data-id="clw71eh6e000lrzoxekjg6bnh" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/04/homebrew/" data-id="clw71fcgl000lskom6fhx3m8i" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -1635,7 +1635,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/01/github-emoji/" data-id="clw71eh6a000erzox90851gtb" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/01/github-emoji/" data-id="clw71fcgi000fskom6y955hoi" class="article-share-link">Share</a>
         
       </div>
     </footer>
