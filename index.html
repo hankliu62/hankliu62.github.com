@@ -90,6 +90,103 @@
     <div class="outer">
       <section id="main">
   
+    <article id="post-typescript-config" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2024/05/12/typescript-config/" class="article-date">
+  <time datetime="2024-05-12T08:12:06.000Z" itemprop="datePublished">2024-05-12</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-true">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/05/12/typescript-config/">TypeScript 配置详解</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="TypeScript-配置详解"><a href="#TypeScript-配置详解" class="headerlink" title="TypeScript 配置详解"></a>TypeScript 配置详解</h2><p>TypeScript 是一种由微软开发的开源编程语言，它是 JavaScript 的一个超集，添加了可选的静态类型和基于类的面向对象编程。</p>
+<p>在 TypeScript 项目中，<code>tsconfig.json</code> 是一个用于配置 TypeScript 编译器的配置文件。通过配置 <code>tsconfig.json</code> 文件，我们可以指定编译器如何处理 TypeScript 代码，并设置一些编译选项来满足项目的需求。</p>
+<p>以下是一个典型的 <code>tsconfig.json</code> 配置示例，我们将逐个字段进行详细解释：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="comment">/* 通用编译选项 */</span></span><br><span class="line">  <span class="attr">&quot;compilerOptions&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="comment">/* 基本选项 */</span></span><br><span class="line">    <span class="attr">&quot;target&quot;</span><span class="punctuation">:</span> <span class="string">&quot;es5&quot;</span><span class="punctuation">,</span>                       <span class="comment">// 指定 ECMAScript 目标版本: &#x27;ES3&#x27; (default), &#x27;ES5&#x27;, &#x27;ES6&#x27;/&#x27;ES2015&#x27;, &#x27;ES2016&#x27;, &#x27;ES2017&#x27;, or &#x27;ESNEXT&#x27;</span></span><br><span class="line">    <span class="attr">&quot;module&quot;</span><span class="punctuation">:</span> <span class="string">&quot;commonjs&quot;</span><span class="punctuation">,</span>                  <span class="comment">// 指定使用模块: &#x27;commonjs&#x27;, &#x27;amd&#x27;, &#x27;system&#x27;, &#x27;umd&#x27; or &#x27;es2015&#x27;</span></span><br><span class="line">    <span class="attr">&quot;lib&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span>                             <span class="comment">// 指定要包含在编译中的库文件</span></span><br><span class="line">    <span class="attr">&quot;allowJs&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span>                       <span class="comment">// 允许编译 javascript 文件</span></span><br><span class="line">    <span class="attr">&quot;checkJs&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span>                       <span class="comment">// 报告 javascript 文件中的错误</span></span><br><span class="line">    <span class="attr">&quot;jsx&quot;</span><span class="punctuation">:</span> <span class="string">&quot;preserve&quot;</span><span class="punctuation">,</span>                     <span class="comment">// 指定 jsx 代码的生成: &#x27;preserve&#x27;, &#x27;react-native&#x27;, &#x27;react&#x27; or &#x27;react-jsx&#x27;等</span></span><br><span class="line">    <span class="attr">&quot;declaration&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span>                   <span class="comment">// 生成相应的 &#x27;.d.ts&#x27; 文件</span></span><br><span class="line">    <span class="attr">&quot;sourceMap&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span>                     <span class="comment">// 生成相应的 &#x27;.map&#x27; 文件</span></span><br><span class="line">    <span class="attr">&quot;outFile&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./&quot;</span><span class="punctuation">,</span>                       <span class="comment">// 将输出文件合并为一个文件</span></span><br><span class="line">    <span class="attr">&quot;outDir&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./&quot;</span><span class="punctuation">,</span>                        <span class="comment">// 指定输出目录</span></span><br><span class="line">    <span class="attr">&quot;rootDir&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./&quot;</span><span class="punctuation">,</span>                       <span class="comment">// 用来控制输出目录结构 --outDir.</span></span><br><span class="line">    <span class="attr">&quot;removeComments&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span>                <span class="comment">// 删除编译后的所有的注释</span></span><br><span class="line">    <span class="attr">&quot;noEmit&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span>                        <span class="comment">// 不生成输出文件</span></span><br><span class="line">    <span class="attr">&quot;importHelpers&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span>                 <span class="comment">// 从 tslib 导入辅助工具函数</span></span><br><span class="line">    <span class="attr">&quot;isolatedModules&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span>               <span class="comment">// 将每个文件作为单独的模块 （与 &#x27;ts.transpileModule&#x27; 类似）.</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 严格的类型检查选项 */</span></span><br><span class="line">    <span class="attr">&quot;strict&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span>                        <span class="comment">// 启用所有严格类型检查选项</span></span><br><span class="line">    <span class="attr">&quot;noImplicitAny&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span>                 <span class="comment">// 在表达式和声明上有隐含的 any 类型时报错</span></span><br><span class="line">    <span class="attr">&quot;strictNullChecks&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span>              <span class="comment">// 启用严格的 null 检查</span></span><br><span class="line">    <span class="attr">&quot;noImplicitThis&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span>                <span class="comment">// 当 this 表达式值为 any 类型的时候，生成一个错误</span></span><br><span class="line">    <span class="attr">&quot;alwaysStrict&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span>                  <span class="comment">// 以严格模式检查每个模块，并在每个文件里加入 &#x27;use strict&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 额外的检查 */</span></span><br><span class="line">    <span class="attr">&quot;noUnusedLocals&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span>                <span class="comment">// 有未使用的变量时，抛出错误</span></span><br><span class="line">    <span class="attr">&quot;noUnusedParameters&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span>            <span class="comment">// 有未使用的参数时，抛出错误</span></span><br><span class="line">    <span class="attr">&quot;noImplicitReturns&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span>             <span class="comment">// 并不是所有函数里的代码都有返回值时，抛出错误</span></span><br><span class="line">    <span class="attr">&quot;noFallthroughCasesInSwitch&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span>    <span class="comment">// 报告 switch 语句的 fallthrough 错误。（即，不允许 switch 的 case 语句贯穿）</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 模块解析选项 */</span></span><br><span class="line">    <span class="attr">&quot;moduleResolution&quot;</span><span class="punctuation">:</span> <span class="string">&quot;node&quot;</span><span class="punctuation">,</span>            <span class="comment">// 选择模块解析策略： &#x27;node&#x27; (Node.js) or &#x27;classic&#x27; (TypeScript pre-1.6)</span></span><br><span class="line">    <span class="attr">&quot;baseUrl&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./&quot;</span><span class="punctuation">,</span>                       <span class="comment">// 用于解析非相对模块名称的基目录</span></span><br><span class="line">    <span class="attr">&quot;paths&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span>                           <span class="comment">// 模块名到基于 baseUrl 的路径映射的列表</span></span><br><span class="line">    <span class="attr">&quot;rootDirs&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span>                        <span class="comment">// 根文件夹列表，其组合内容表示项目运行时的结构内容</span></span><br><span class="line">    <span class="attr">&quot;typeRoots&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span>                       <span class="comment">// 包含类型声明的文件列表</span></span><br><span class="line">    <span class="attr">&quot;types&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span>                           <span class="comment">// 需要包含的类型声明文件名列表</span></span><br><span class="line">    <span class="attr">&quot;allowSyntheticDefaultImports&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span>  <span class="comment">// 允许从没有设置默认导出的模块中默认导入。</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Source Map Options */</span></span><br><span class="line">    <span class="attr">&quot;sourceRoot&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./&quot;</span><span class="punctuation">,</span>                    <span class="comment">// 指定调试器应该找到 TypeScript 文件而不是源文件的位置</span></span><br><span class="line">    <span class="attr">&quot;mapRoot&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./&quot;</span><span class="punctuation">,</span>                       <span class="comment">// 指定调试器应该找到映射文件而不是生成文件的位置</span></span><br><span class="line">    <span class="attr">&quot;inlineSourceMap&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span>               <span class="comment">// 生成单个 soucemaps 文件，而不是将 sourcemaps 生成不同的文件</span></span><br><span class="line">    <span class="attr">&quot;inlineSources&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span>                 <span class="comment">// 将代码与 sourcemaps 生成到一个文件中，要求同时设置了 --inlineSourceMap 或 --sourceMap 属性</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 其他选项 */</span></span><br><span class="line">    <span class="attr">&quot;experimentalDecorators&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span>        <span class="comment">// 启用装饰器</span></span><br><span class="line">    <span class="attr">&quot;emitDecoratorMetadata&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span>          <span class="comment">// 为装饰器提供元数据的支持</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="comment">/* 其他配置选项 */</span></span><br><span class="line">  <span class="attr">&quot;include&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;src/**/*.ts&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span>                <span class="comment">// 需要编译的文件路径</span></span><br><span class="line">  <span class="attr">&quot;exclude&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;node_modules&quot;</span><span class="punctuation">,</span> <span class="string">&quot;dist&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span>        <span class="comment">// 不需要编译的文件路径</span></span><br><span class="line">  <span class="attr">&quot;extends&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./base.tsconfig.json&quot;</span><span class="punctuation">,</span>          <span class="comment">// 继承另一个配置文件</span></span><br><span class="line">  <span class="attr">&quot;references&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">&#123;</span> <span class="attr">&quot;path&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./packages/core&quot;</span> <span class="punctuation">&#125;</span><span class="punctuation">]</span>  <span class="comment">// 引用其他 TypeScript 项目</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>现在，让我们详细了解每个配置选项的含义和可选值。</p>
+<h3 id="compilerOptions-字段"><a href="#compilerOptions-字段" class="headerlink" title="compilerOptions 字段"></a>compilerOptions 字段</h3><ul>
+<li><p><code>target</code>: 编译后的 JavaScript 目标版本。可选值包括 <code>&quot;es3&quot;</code>, <code>&quot;es5&quot;</code>, <code>&quot;es6&quot;/&quot;es2015&quot;</code>, <code>&quot;es2016&quot;</code>, <code>&quot;es2017&quot;</code>, <code>&quot;es2018&quot;</code>, <code>&quot;es2019&quot;</code>, <code>&quot;es2020&quot;</code>, <code>&quot;esnext&quot;</code>。</p>
+</li>
+<li><p><code>module</code>: 生成模块代码的模块系统。可选值包括 <code>&quot;commonjs&quot;</code>, <code>&quot;amd&quot;</code>, <code>&quot;system&quot;</code>, <code>&quot;umd&quot;</code>, <code>&quot;es2015&quot;</code>。</p>
+</li>
+<li><p><code>lib</code>: 编译时需要引入的库文件。例如，<code>[&quot;es5&quot;, &quot;dom&quot;, &quot;es2015.promise&quot;]</code> 表示编译时将引入 ES5、DOM 和 Promise 相关的库文件。</p>
+</li>
+<li><p><code>allowJs</code>: 允许编译 JavaScript 文件。设置为 <code>true</code> 表示允许编译 JavaScript 文件。</p>
+</li>
+<li><p><code>checkJs</code>: 对 JavaScript 文件进行类型检查。设置为 <code>true</code> 表示在编译 JavaScript 文件时进行类型检查。</p>
+</li>
+<li><p><code>jsx</code>: 支持 JSX 语法，并指定 JSX 转换方式。可选值包括  <code>&quot;preserve&quot;</code>, <code>&quot;react&quot;</code>, <code>&quot;react-native&quot;</code>, <code>&quot;react-jsx&quot;</code>, <code>&quot;react-jsxdev&quot;</code>, <code>&quot;react-native&quot;</code>, <code>&quot;react-native-svg&quot;</code>等。</p>
+</li>
+<li><p><code>declaration</code>: 生成对外部使用者的声明文件。设置为 <code>true</code> 表示生成 <code>.d.ts</code> 文件。</p>
+</li>
+<li><p><code>sourceMap</code>: 生成源映射文件。设置为 <code>true</code> 表示生成 <code>.map</code> 文件。</p>
+</li>
+<li><p><code>outDir</code>: 编译输出目录。指定编译后的 JavaScript 文件的输出目录。</p>
+</li>
+<li><p><code>rootDir</code>: 源代码根目录。用来控制输出目录结构。</p>
+</li>
+<li><p><code>removeComments</code>: 删除生成文件中的注释。设置为 <code>true</code> 表示删除编译后的所有注释。</p>
+</li>
+<li><p><code>noEmit</code>: 不生成编译结果。设置为 <code>true</code> 表示不生成输出文件。</p>
+</li>
+<li><p><code>strict</code>: 启用所有严格类型检查选项。设置为 <code>true</code> 表示启用所有严格类型检查选项。</p>
+</li>
+</ul>
+<h3 id="2-include-和-exclude-字段"><a href="#2-include-和-exclude-字段" class="headerlink" title="2. include 和 exclude 字段"></a>2. include 和 exclude 字段</h3><p>include 和 exclude 字段用于指定要包含和排除的文件或目录。它们可以是字符串或字符串数组。例如：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;include&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;src/**/*&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;exclude&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;node_modules&quot;</span><span class="punctuation">,</span> <span class="string">&quot;**/*.spec.ts&quot;</span><span class="punctuation">]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-extends-字段"><a href="#3-extends-字段" class="headerlink" title="3. extends 字段"></a>3. extends 字段</h3><p>extends 字段用于继承另一个配置文件的设置。例如：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;extends&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./baseConfig.json&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-files-和-references-字段"><a href="#4-files-和-references-字段" class="headerlink" title="4. files 和 references 字段"></a>4. files 和 references 字段</h3><p>files 字段用于显式地指定要编译的文件列表。references 字段用于指定项目之间的引用关系。例如：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;files&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;src/main.ts&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;references&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">&#123;</span> <span class="attr">&quot;path&quot;</span><span class="punctuation">:</span> <span class="string">&quot;../otherProject&quot;</span> <span class="punctuation">&#125;</span><span class="punctuation">]</span></span><br></pre></td></tr></table></figure>
+
+<p>以上是 TypeScript 中 <code>tsconfig.json</code> 配置文件的详细解释和说明。根据项目的需要，可以灵活配置编译选项，以满足项目的需求。</p>
+<h3 id="TypeScript-编译"><a href="#TypeScript-编译" class="headerlink" title="TypeScript 编译"></a>TypeScript 编译</h3><p>好的 <code>IDE</code> 支持对 <code>TypeScript</code> 的即时编译。但是，如果你想在使用 <code>tsconfig.json</code> 时从命令行手动运行 <code>TypeScript</code> 编译器，你可以通过以下方式：</p>
+<ul>
+<li>运行 <code>tsc</code>，它会在当前目录或者是父级目录寻找 <code>tsconfig.json</code> 文件。</li>
+<li>运行 <code>tsc -p ./path-to-project-directory</code>。当然，这个路径可以是绝对路径，也可以是相对于当前目录的相对路径。</li>
+</ul>
+<p>你甚至可以使用 <code>tsc -w</code> 来启用 <code>TypeScript</code> 编译器的观测模式，在检测到文件改动之后，它将重新编译。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>通过对 tsconfig.json 配置文件的详细解释，我们可以更好地理解和配置 TypeScript 项目。合理地配置 tsconfig.json 可以提高项目的开发效率和代码质量，使得 TypeScript 的强大功能得以充分发挥。希望本文能够帮助读者更加深入地了解 TypeScript 的配置选项和使用方法。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/typeScript/" rel="tag">typeScript</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2024/05/12/typescript-config/" data-id="clw71kuuk001gqqoq0vmge4mw" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-github-action-auto-git-tag" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <h3 href="/2024/05/02/github-action-auto-git-tag/" class="article-date">
@@ -178,7 +275,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tag/" rel="tag">tag</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/05/02/github-action-auto-git-tag/" data-id="clw71fv07000bs8ow8om9cvtg" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/05/02/github-action-auto-git-tag/" data-id="clw71kuu1000bqqoqg2j6d7ue" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -427,7 +524,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/" rel="tag">react</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/24/react-fiber-struct/" data-id="clw71fv0j0012s8ow3puk6l8b" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/24/react-fiber-struct/" data-id="clw71kuue0012qqoqed0bdkn6" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -596,7 +693,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html/" rel="tag">html</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html5/" rel="tag">html5</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/20/communication-across-browser-tabs/" data-id="clw71fv040005s8ow9nr1gdqu" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/20/communication-across-browser-tabs/" data-id="clw71kuty0005qqoq74e684ft" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -966,7 +1063,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webrtc/" rel="tag">webrtc</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/16/webrtc/" data-id="clw71fv1j004rs8ow43498194" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/16/webrtc/" data-id="clw71kuva004vqqoq4grr1w88" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -1100,7 +1197,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/optimize/" rel="tag">optimize</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/14/fontend-optimize-indicators/" data-id="clw71fv050008s8ow5zor9v4y" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/14/fontend-optimize-indicators/" data-id="clw71kutz0008qqoqcbajg8gp" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -1176,7 +1273,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html5/" rel="tag">html5</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/12/abort-controller/" data-id="clw71fuzv0000s8ow1b73d34e" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/12/abort-controller/" data-id="clw71kutp0000qqoq3o8t3w0x" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -1316,7 +1413,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/miniprogram/" rel="tag">miniprogram</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/optimize/" rel="tag">optimize</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/10/optimize-miniprogram/" data-id="clw71fv0j0010s8ow044hag6v" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/10/optimize-miniprogram/" data-id="clw71kuud0010qqoqbmob2n19" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -1403,7 +1500,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/08/github-action-docker/" data-id="clw71fv08000cs8owdo141xvd" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/08/github-action-docker/" data-id="clw71kuu2000cqqoqer0j02ha" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -1491,165 +1588,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/" rel="tag">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/06/github-action-publish-package/" data-id="clw71fv09000es8ow8k94h5n7" class="article-share-link">Share</a>
-        
-      </div>
-    </footer>
-  </div>
-  </div>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-homebrew" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <h3 href="/2024/04/04/homebrew/" class="article-date">
-  <time datetime="2024-04-04T13:56:26.000Z" itemprop="datePublished">2024-04-04</time>
-</h3>
-    
-  </div>
-  <div class="article-inner">
-  <div class="curve-down">
-  <div class="fill-content fill-content-true">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/04/04/homebrew/">MacOS 和 Linux 的 Homebrew 安装与卸载</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-        <h2 id="MacOS-和-Linux-的-Homebrew-安装与卸载"><a href="#MacOS-和-Linux-的-Homebrew-安装与卸载" class="headerlink" title="MacOS 和 Linux 的 Homebrew 安装与卸载"></a>MacOS 和 Linux 的 Homebrew 安装与卸载</h2><h3 id="Homebrew"><a href="#Homebrew" class="headerlink" title="Homebrew"></a>Homebrew</h3><p>macOS（或 Linux）缺失的软件包的管理器</p>
-<h4 id="安装-Homebrew"><a href="#安装-Homebrew" class="headerlink" title="安装 Homebrew"></a>安装 Homebrew</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/bin/bash -c <span class="string">&quot;<span class="subst">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)</span>&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>脚本会在执行前暂停，并说明它将做什么。高级安装选项在 <a href="https://docs.brew.sh/Installation">这里</a>。</p>
-<h4 id="Homebrew-能干什么"><a href="#Homebrew-能干什么" class="headerlink" title="Homebrew 能干什么?"></a>Homebrew 能干什么?</h4><ol>
-<li>使用 <code>Homebrew</code> 安装 <code>Mac</code>（或您的 <code>Linux</code> 系统）没有预装但 <a href="https://formulae.brew.sh/formula/">你需要的东西</a>。</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install wget</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li><code>Homebrew</code> 会将软件包安装到独立目录，并将其文件软链接至 <code>/opt/homebrew</code> 。</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /opt/homebrew</span><br><span class="line">find Cellar</span><br><span class="line"></span><br><span class="line"><span class="comment"># Cellar/wget/1.16.1</span></span><br><span class="line"><span class="comment"># Cellar/wget/1.16.1/bin/wget</span></span><br><span class="line"><span class="comment"># Cellar/wget/1.16.1/share/man/man1/wget.1</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">ls</span> -l bin</span><br><span class="line"><span class="comment"># bin/wget -&gt; ../Cellar/wget/1.16.1/bin/wget</span></span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li><p><code>Homebrew</code> 不会将文件安装到它本身目录之外，所以您可将 <code>Homebrew</code> 安装到任意位置。</p>
-</li>
-<li><p>轻松创建你自己的 <code>Homebrew</code> 包。</p>
-</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew create https://foo.com/foo-1.0.tgz</span><br><span class="line"><span class="comment"># Created /opt/homebrew/Library/Taps/homebrew/homebrew-core/Formula/foo.rb</span></span><br></pre></td></tr></table></figure>
-
-<ol start="5">
-<li>完全基于 <code>Git</code> 和 <code>Ruby</code>，所以自由修改的同时你仍可以轻松撤销你的变更或与上游更新合并。</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew edit wget <span class="comment"># 使用 $EDITOR 编辑!</span></span><br></pre></td></tr></table></figure>
-
-<ol start="6">
-<li><code>Homebrew</code> 的配方都是简单的 <code>Ruby</code> 脚本：</li>
-</ol>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Wget</span> &lt; <span class="title class_ inherited__">Formula</span></span><br><span class="line">  homepage <span class="string">&quot;https://www.gnu.org/software/wget/&quot;</span></span><br><span class="line">  url <span class="string">&quot;https://ftp.gnu.org/gnu/wget/wget-1.15.tar.gz&quot;</span></span><br><span class="line">  sha256 <span class="string">&quot;52126be8cf1bddd7536886e74c053ad7d0ed2aa89b4b630f76785bac21695fcd&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">def</span> <span class="title function_">install</span></span><br><span class="line">    system <span class="string">&quot;./configure&quot;</span>, <span class="string">&quot;--prefix=<span class="subst">#&#123;prefix&#125;</span>&quot;</span></span><br><span class="line">    system <span class="string">&quot;make&quot;</span>, <span class="string">&quot;install&quot;</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-<ol start="7">
-<li><p><code>Homebrew</code> 使 <code>macOS</code>（或您的 <code>Linux</code> 系统）更完整。使用 <code>gem</code> 来安装 <code>RubyGems</code>、用 <code>brew</code> 来安装那些依赖包。</p>
-</li>
-<li><p>“要安装，请拖动此图标……”不会再出现了。使用 <code>Homebrew Cask</code> 安装 <code>macOS</code> 应用程序、字体和插件以及其他非开源软件。</p>
-</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install --cask firefox</span><br></pre></td></tr></table></figure>
-
-<ol start="9">
-<li>制作一个 <code>cask</code> 就像创建一个配方一样简单。</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew create --cask https://foo.com/foo-1.0.dmg</span><br><span class="line"><span class="comment"># Editing /opt/homebrew/Library/Taps/homebrew/homebrew-cask/Casks/foo.rb</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="国内源安装"><a href="#国内源安装" class="headerlink" title="国内源安装"></a>国内源安装</h3><p>国内安装 <code>Homebrew</code> 可能很慢，所以我们推荐使用国内的源来进行安装</p>
-<h4 id="macOS"><a href="#macOS" class="headerlink" title="macOS"></a>macOS</h4><ul>
-<li>常规安装（推荐）：</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/bin/zsh -c &quot;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)&quot;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>极速安装（精简版）：</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/bin/zsh -c &quot;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)&quot; speed</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>卸载</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/bin/zsh -c &quot;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/HomebrewUninstall.sh)&quot;</span><br></pre></td></tr></table></figure>
-
-<h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><ul>
-<li><p>安装</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm Homebrew.sh; wget https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh; bash Homebrew.sh</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>卸载</p>
-</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm HomebrewUninstall.sh; wget https://gitee.com/cunkai/HomebrewCN/raw/master/HomebrewUninstall.sh; bash HomebrewUninstall.sh</span><br></pre></td></tr></table></figure>
-
-<h3 id="macOS-常见错误说明"><a href="#macOS-常见错误说明" class="headerlink" title="macOS 常见错误说明"></a>macOS 常见错误说明</h3><blockquote>
-<p><a href="https://brew.sh/blog/">官方表示只支持最新的三个Mac os版本</a>,老的Mac系统可以试试MacPorts。</p>
-</blockquote>
-<blockquote>
-<p>首先确保运行的<code>/bin/zsh -c &quot;$(curl -fsSL https://gitee.com/ **cunkai** /HomebrewCN/raw/master/Homebrew.sh)&quot;</code> 中间那个 <strong>cunkai</strong> 不是别的。</p>
-</blockquote>
-<p><strong>1.</strong> 如果遇到安装软件报错 <strong>404</strong> ，切换网络如果还不行：</p>
-<p>查看下官方更新记录<code>https://brew.sh/blog/</code> 如果近期有更新，可以发我邮箱<a href="mailto:&#99;&#x75;&#110;&#x6b;&#97;&#105;&#46;&#x77;&#97;&#110;&#103;&#64;&#x66;&#111;&#120;&#109;&#x61;&#x69;&#108;&#x2e;&#x63;&#x6f;&#109;">&#99;&#x75;&#110;&#x6b;&#97;&#105;&#46;&#x77;&#97;&#110;&#103;&#64;&#x66;&#111;&#120;&#109;&#x61;&#x69;&#108;&#x2e;&#x63;&#x6f;&#109;</a>。我看看是否官方修改了某些代码。</p>
-<p><strong>2.</strong> 不小心改动了brew文件夹里面的内容，如何重置，运行：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew update-reset</span><br></pre></td></tr></table></figure>
-
-<p><strong>3.</strong> 报错提示中如果有  <strong>git -c xxxxxxx xxx xxx</strong>  等类似语句。</p>
-<p>  如果有这种提示，把报错中提供的解决语句（git -C ….）逐句运行一般就可以解决。</p>
-<p><strong>4.</strong> 如果遇到报错中含有errno  <strong>54</strong>  &#x2F;  <strong>443</strong>  &#x2F; 的问题：</p>
-<p>  这种一般切换源以后没有问题，因为都是公益服务器，不稳定性很大。</p>
-<p><strong>5.</strong> 检测到你不是最新系统，需要自动升级 Ruby 后失败的：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles</span><br><span class="line"></span><br><span class="line">rm -rf /Users/$(whoami)/Library/Caches/Homebrew/</span><br><span class="line"></span><br><span class="line">brew update</span><br></pre></td></tr></table></figure>
-
-<p><strong>6.</strong> 如果报错  <strong>command not found : brew</strong></p>
-<p>先运行此命令<code>/usr/local/Homebrew/bin/brew -v</code> ，如果是ARM架构的芯片运行<code>/opt/homebrew/bin/brew -v</code> 看是否能出来Homebrew的版本号。</p>
-<p>如果能用就是电脑PATH配置问题，重启终端运行 <code>echo $PATH</code> 打印出来自己分析一下。</p>
-<p><strong>7.</strong> Error: Running Homebrew as root is extremely dangerous and no longer supported.<br>As Homebrew does not drop privileges on installation you would be giving all<br> <strong>build scripts full access to your system.</strong></p>
-<p>此报错原因是执行过su命令，把账户切换到了root权限，退出root权限即可。一般关闭终端重新打开即可，或者输入命令exit回车 或者su - 用户名</p>
-<p><strong>8.</strong> &#x2F;usr&#x2F;local&#x2F;bin&#x2F;brew:  <strong>bad interpreter: &#x2F;bin&#x2F;bash^M: no such file or directory</strong></p>
-<p><code>git config --global core.autocrlf</code></p>
-<p>如果显示true那就运行下面这句话可以解决：</p>
-<p><code>git config --global core.autocrlf input</code></p>
-<p>运行完成后，需要重新运行安装脚本。</p>
-<p><strong>9.</strong> from &#x2F;usr&#x2F;local&#x2F;Homebrew&#x2F;Library&#x2F;Homebrew&#x2F; <strong>brew.rb:23:in &#96;<main>‘</strong></p>
-<p><code>brew update-reset</code></p>
-<p><strong>10.</strong> M1芯片电脑运行which brew如果显示&#x2F;usr&#x2F;local&#x2F;Homebrew&#x2F;bin&#x2F;brew</p>
-<p>解决方法，手动删除&#x2F;usr&#x2F;local目录，重新安装：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/bin/zsh -c &quot;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><strong>11.</strong> The x86_64 architecture is required<br>这句话意思是，这个软件不支持M1芯片，只支持x86_64架构的CPU。</p>
-<p><strong>12.</strong> Warning: No remote ‘origin’ in &#x2F;usr&#x2F;local&#x2F;Homebrew&#x2F;Library&#x2F;Taps&#x2F;homebrew&#x2F;homebrew-cask, skipping update!</p>
-<p>看评论区说解决方法（我未测试）：<a href="https://gitee.com/cunkai/HomebrewCN/issues/I5A7RV">https://gitee.com/cunkai/HomebrewCN/issues/I5A7RV</a></p>
-<p><strong>13.</strong> fatal: not in a git directory   Error: Command failed with exit 128: git</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global http.sslVerify false</span><br></pre></td></tr></table></figure>
-
-<p><strong>14.</strong> &#x2F;usr&#x2F;local&#x2F;Homebrew&#x2F;Library&#x2F;Homebrew&#x2F;cmd&#x2F;vendor-install.sh:1ine245:.&#x2F;3.1.4&#x2F;bin&#x2F;ruby:BadCPUtype inexecutable</p>
-<p>如果你是苹果的M芯片有这种报错，说明你电脑有两个brew，简单粗暴的方法是删除<code>/usr/local/Homebrew</code>目录，保留<code>/opt/homebrew</code>即可。<br>（提示：如何去指定访达，屏幕左上角找到前往-&gt;前往文件夹然后输入<code>/usr/local</code>回车把Homebrew删除即可。反之如果你是英特尔处理器就保留<code>/usr/local</code>下的去opt目录删除）<br>温和的方法是分别运行下面三句话，看看是否包含<code>/usr/local/Homebrew</code>的字符串，删掉整行保存。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">open $&#123;HOME&#125;/.zprofile</span><br><span class="line">open $HOME/.bash_profile</span><br><span class="line">open $&#123;HOME&#125;/.profile</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <div class="article-footer-content">
-        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/homebrew/" rel="tag">homebrew</a></li></ul>
-
-        <a data-url="https://hankliu62.github.io/2024/04/04/homebrew/" data-id="clw71fv0f000os8oweqbqagyj" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/06/github-action-publish-package/" data-id="clw71kuu3000eqqoq460r4pec" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -1678,6 +1617,10 @@
       <ul>
         
           <li>
+            <a href="/2024/05/12/typescript-config/">TypeScript 配置详解</a>
+          </li>
+        
+          <li>
             <a href="/2024/05/02/github-action-auto-git-tag/">使用 GitHub Actions 自动推送 Git Tag</a>
           </li>
         
@@ -1693,10 +1636,6 @@
             <a href="/2024/04/16/webrtc/">WebRTC:实时通信的未来</a>
           </li>
         
-          <li>
-            <a href="/2024/04/14/fontend-optimize-indicators/">Web前端最新优化指标：从FP到FPS的全面解析</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -1706,7 +1645,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/" rel="tag">blog</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/canvas/" rel="tag">canvas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/csrf/" rel="tag">csrf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debugging/" rel="tag">debugging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-pages/" rel="tag">github pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/homebrew/" rel="tag">homebrew</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/" rel="tag">html</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/" rel="tag">html5</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interview/" rel="tag">interview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/loader/" rel="tag">loader</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/miniprogram/" rel="tag">miniprogram</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/" rel="tag">mobile</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/optimize/" rel="tag">optimize</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reptile/" rel="tag">reptile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/" rel="tag">security</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/service-worker/" rel="tag">service worker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag/" rel="tag">tag</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/translate/" rel="tag">translate</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vitepress/" rel="tag">vitepress</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webrtc/" rel="tag">webrtc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webworker/" rel="tag">webworker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/weinre/" rel="tag">weinre</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xss/" rel="tag">xss</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yuv/" rel="tag">yuv</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/" rel="tag">blog</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/canvas/" rel="tag">canvas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/csrf/" rel="tag">csrf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debugging/" rel="tag">debugging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-pages/" rel="tag">github pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/homebrew/" rel="tag">homebrew</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/" rel="tag">html</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/" rel="tag">html5</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interview/" rel="tag">interview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/loader/" rel="tag">loader</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/miniprogram/" rel="tag">miniprogram</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/" rel="tag">mobile</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/optimize/" rel="tag">optimize</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reptile/" rel="tag">reptile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/" rel="tag">security</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/service-worker/" rel="tag">service worker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag/" rel="tag">tag</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/translate/" rel="tag">translate</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typeScript/" rel="tag">typeScript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vitepress/" rel="tag">vitepress</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webrtc/" rel="tag">webrtc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webworker/" rel="tag">webworker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/weinre/" rel="tag">weinre</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xss/" rel="tag">xss</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yuv/" rel="tag">yuv</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -1715,7 +1654,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">五月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">七月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">五月 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">七月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li></ul>
     </div>
   </div>
 
