@@ -1,7 +1,7 @@
 ---
 title: TypeScript 配置详解
 date: 2024-05-12 08:12:06
-tag: [typeScript]
+tag: [typescript]
 ---
 
 ## TypeScript 配置详解
