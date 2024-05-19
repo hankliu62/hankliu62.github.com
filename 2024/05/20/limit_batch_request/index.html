@@ -1,0 +1,300 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  
+  <title>JavaScript 批量请求管理 | HankLiu的博客小屋</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="JavaScript 批量请求管理在现代前端开发中，高效地管理多个并发请求至关重要。无论是从 API 获取数据、处理用户交互，还是处理文件，管理和限制同时进行的请求数量都能显著影响应用的性能和可靠性。在这篇博客文章中，我们将深入探讨使用 JavaScript 管理并发请求的细节，重点介绍如何实现限制并发请求数量的实用方案。 为什么要限制并发请求？在深入代码之前，让我们讨论一下为什么限制并发请求很重">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 批量请求管理">
+<meta property="og:url" content="https://hankliu62.github.io/2024/05/20/limit_batch_request/index.html">
+<meta property="og:site_name" content="HankLiu的博客小屋">
+<meta property="og:description" content="JavaScript 批量请求管理在现代前端开发中，高效地管理多个并发请求至关重要。无论是从 API 获取数据、处理用户交互，还是处理文件，管理和限制同时进行的请求数量都能显著影响应用的性能和可靠性。在这篇博客文章中，我们将深入探讨使用 JavaScript 管理并发请求的细节，重点介绍如何实现限制并发请求数量的实用方案。 为什么要限制并发请求？在深入代码之前，让我们讨论一下为什么限制并发请求很重">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-05-20T15:20:12.000Z">
+<meta property="article:modified_time" content="2024-05-19T00:10:05.629Z">
+<meta property="article:author" content="HankLiu">
+<meta property="article:tag" content="javascript">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/img/favicon.ico" sizes="16x16">
+  
+  <link rel="stylesheet" href="/css/style.css?t=1">
+  
+    <link href="//fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner">
+    <div id="banner-mask"></div>
+  </div>
+  <div id="header-outer" class="outer">
+    <nav id="upper-nav" class="inner">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      <div class="sub-nav">
+        
+        
+          <a id="nav-github" class="nav-icon" href="https://github.com/hankliu62"></a>
+        
+      </div>
+    </nav>
+    <div id="header-title">
+      
+        <h1 id="blog-title-wrap">
+          <a href="/" id="blog-title">HankLiu的博客小屋</a>
+        </h1>
+      
+      
+        <h5 class="blog-subtitle-wrap">努力去听风的声音，不必在意风的方向。</h5>
+      
+    </div>
+    <div id="contenedor">
+      <ul class="cube">
+        <li class="cara"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="100" width="100" viewBox="-50 -50 200 200">
+          <circle cx="50" cy="50" r="45" stroke-width="5" stroke="black" stroke-opacity="0.5" fill-opacity="0"></circle>
+          <rect id="clockwise" x="47.5" y="27.5" width="5" height="25" rx="2.5" ry="2.5" fill="black" fill-opacity="0.5" transform="rotate(330 50 50)"></rect>
+          <rect id="minute" x="48.5" y="16.5" width="3" height="35" rx="1.5" ry="1.5" fill="black" fill-opacity="0.5"></rect>
+        </svg></li>
+        <li class="cara">P</li>
+        <li class="cara">X</li>
+        <li class="cara">L</li>
+        <li class="cara">C</li>
+        <li class="cara">Y</li>
+      </ul>
+    </div>
+    <nav id="main-nav">
+      
+        <a class="main-nav-link" href="/">主页</a>
+      
+        <a class="main-nav-link" href="/archives">文章</a>
+      
+        <a class="main-nav-link" href="/toolkit">小工具</a>
+      
+        <a class="main-nav-link" href="/resume">小简介</a>
+      
+        <a class="main-nav-link" href="/about">小关于</a>
+      
+    </nav>
+  </div>
+</header>
+
+    <div class="outer">
+      <section id="main"><article id="post-limit_batch_request" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2024/05/20/limit_batch_request/" class="article-date">
+  <time datetime="2024-05-20T15:20:12.000Z" itemprop="datePublished">2024-05-20</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-false">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JavaScript 批量请求管理
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="JavaScript-批量请求管理"><a href="#JavaScript-批量请求管理" class="headerlink" title="JavaScript 批量请求管理"></a>JavaScript 批量请求管理</h2><p>在现代前端开发中，高效地管理多个并发请求至关重要。无论是从 API 获取数据、处理用户交互，还是处理文件，管理和限制同时进行的请求数量都能显著影响应用的性能和可靠性。在这篇博客文章中，我们将深入探讨使用 JavaScript 管理并发请求的细节，重点介绍如何实现限制并发请求数量的实用方案。</p>
+<h3 id="为什么要限制并发请求？"><a href="#为什么要限制并发请求？" class="headerlink" title="为什么要限制并发请求？"></a>为什么要限制并发请求？</h3><p>在深入代码之前，让我们讨论一下为什么限制并发请求很重要：</p>
+<ol>
+<li><strong>服务器负载管理</strong>：限制并发请求数量可以防止服务器过载，从而更好地利用资源并保持服务器稳定。</li>
+<li><strong>浏览器限制</strong>：浏览器对单个域名的同时连接数有限制，超过这个限制会导致请求排队，进而降低性能。</li>
+<li><strong>速率限制</strong>：许多 API 强制执行速率限制，控制并发请求数量有助于遵守这些限制，避免被限速或禁止。</li>
+<li><strong>用户体验</strong>：管理并发请求可以提高用户体验，确保应用保持响应，不会因为过多的后台活动而卡顿。</li>
+</ol>
+<h3 id="实现请求队列"><a href="#实现请求队列" class="headerlink" title="实现请求队列"></a>实现请求队列</h3><p>让我们在 JavaScript 中实现一个请求队列，以限制并发请求的数量。首先，定义一个模拟异步请求的 <code>fetch</code> 函数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">fetch</span>(<span class="params">url</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="title function_">resolve</span>(url);</span><br><span class="line">    &#125;, <span class="number">3000</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个 <code>fetch</code> 函数接受一个 URL，返回一个在 3 秒后解决的 promise，模拟网络请求。</p>
+<p>接下来，我们实现一个创建请求函数 <code>createRequest</code>，它能够限制并发请求的数量：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">createRequest</span> = (<span class="params">limit</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> queue = [];</span><br><span class="line">  <span class="keyword">let</span> working = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">function</span> <span class="title function_">request</span>(<span class="params">url</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (working &lt; limit) &#123;</span><br><span class="line">        <span class="title function_">fetch</span>(url)</span><br><span class="line">          .<span class="title function_">then</span>(resolve, reject)</span><br><span class="line">          .<span class="title function_">finally</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">            working--;</span><br><span class="line">            <span class="keyword">if</span> (queue.<span class="property">length</span> &gt; <span class="number">0</span>) &#123;</span><br><span class="line">              <span class="keyword">const</span> cur = queue.<span class="title function_">shift</span>();</span><br><span class="line">              <span class="title function_">request</span>(cur.<span class="property">url</span>).<span class="title function_">then</span>(cur.<span class="property">resolve</span>, cur.<span class="property">reject</span>);</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;);</span><br><span class="line">        working++;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        queue.<span class="title function_">push</span>(&#123; url, resolve, reject &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>这个 <code>createRequest</code> 函数接受一个限制数 <code>limit</code> 作为参数，返回一个请求函数 <code>request</code>。在 <code>request</code> 函数内部：</p>
+<ul>
+<li>如果当前正在进行的请求数量 <code>working</code> 小于 <code>limit</code>，则直接发起请求。</li>
+<li>否则，将请求添加到队列 <code>queue</code> 中。</li>
+</ul>
+<p>在每个请求完成后，减少正在进行的请求数量 <code>working</code>，并检查队列中是否有待处理的请求，如果有，继续处理队列中的请求。</p>
+<p>下面，我们来看看如何使用这个请求函数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">// 等前五个任意一个请求结束后，真正发送请求</span></span><br><span class="line"><span class="keyword">const</span> request = <span class="title function_">createRequest</span>(<span class="number">5</span>);</span><br><span class="line"></span><br><span class="line"><span class="title function_">request</span>(<span class="string">&#x27;url1&#x27;</span>).<span class="title function_">then</span>(<span class="function">(<span class="params">a</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;1&#x27;</span>, a));</span><br><span class="line"><span class="title function_">request</span>(<span class="string">&#x27;url2&#x27;</span>).<span class="title function_">then</span>(<span class="function">(<span class="params">a</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;2&#x27;</span>, a));</span><br><span class="line"><span class="title function_">request</span>(<span class="string">&#x27;url3&#x27;</span>).<span class="title function_">then</span>(<span class="function">(<span class="params">a</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;3&#x27;</span>, a));</span><br><span class="line"><span class="title function_">request</span>(<span class="string">&#x27;url4&#x27;</span>).<span class="title function_">then</span>(<span class="function">(<span class="params">a</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;4&#x27;</span>, a));</span><br><span class="line"><span class="title function_">request</span>(<span class="string">&#x27;url5&#x27;</span>).<span class="title function_">then</span>(<span class="function">(<span class="params">a</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;5&#x27;</span>, a));</span><br><span class="line"><span class="title function_">request</span>(<span class="string">&#x27;url6&#x27;</span>).<span class="title function_">then</span>(<span class="function">(<span class="params">a</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;6&#x27;</span>, a));</span><br><span class="line"><span class="title function_">request</span>(<span class="string">&#x27;url7&#x27;</span>).<span class="title function_">then</span>(<span class="function">(<span class="params">a</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;7&#x27;</span>, a));</span><br></pre></td></tr></table></figure>
+
+<p>在上面的代码中，我们创建了一个限制并发请求数为 5 的 <code>request</code> 函数，并依次发起了 7 个请求。只有在前 5 个请求中的任意一个完成后，才会开始处理后续的请求。</p>
+<h3 id="实践案例"><a href="#实践案例" class="headerlink" title="实践案例"></a>实践案例</h3><p>假设我们有一个需要批量请求 API 的应用，比如一个展示用户数据的界面。我们希望同时发起的请求数不超过 5 个，以确保服务器稳定并优化用户体验。</p>
+<p>首先，我们定义一个模拟 API 请求的 <code>fetchUserData</code> 函数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">fetchUserData</span>(<span class="params">userId</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="title function_">resolve</span>(<span class="string">`UserData for user <span class="subst">$&#123;userId&#125;</span>`</span>);</span><br><span class="line">    &#125;, <span class="title class_">Math</span>.<span class="title function_">random</span>() * <span class="number">2000</span> + <span class="number">1000</span>); <span class="comment">// 随机延迟 1 到 3 秒</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后，我们使用 <code>createRequest</code> 函数创建一个限制并发请求数为 5 的 <code>requestUserData</code> 函数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> requestUserData = <span class="title function_">createRequest</span>(<span class="number">5</span>);</span><br></pre></td></tr></table></figure>
+
+<p>接下来，我们批量请求用户数据，并将结果打印到控制台：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt;= <span class="number">10</span>; i++) &#123;</span><br><span class="line">  <span class="title function_">requestUserData</span>(<span class="string">`user<span class="subst">$&#123;i&#125;</span>`</span>).<span class="title function_">then</span>(<span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(data);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，我们模拟了 10 个用户数据请求，每次最多只有 5 个请求并发进行。每个请求完成后，立即处理队列中的下一个请求。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>在这篇文章中，我们探讨了为什么限制并发请求很重要，并通过一个实用的例子演示了如何在 JavaScript 中实现一个请求队列。这个方法可以帮助我们更好地管理服务器负载、遵守 API 速率限制、优化浏览器性能，并提供更好的用户体验。</p>
+<p>通过合理地管理并发请求，我们可以确保应用的稳定性和响应性，从而提升整体性能。如果你在开发中遇到需要批量处理请求的情况，希望本文的方法能对你有所帮助。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/" rel="tag">javascript</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2024/05/20/limit_batch_request/" data-id="clwcs6rg2000trnq04qmj4bz3" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2024/05/12/typescript-config/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">TypeScript 配置详解</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+      
+      <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/05/20/limit_batch_request/">JavaScript 批量请求管理</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/12/typescript-config/">TypeScript 配置详解</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/02/github-action-auto-git-tag/">使用 GitHub Actions 自动推送 Git Tag</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/24/react-fiber-struct/">浅入解析 React Fiber 结构</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/20/communication-across-browser-tabs/">跨浏览器标签页进行通讯的方式简介</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/" rel="tag">blog</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/canvas/" rel="tag">canvas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/csrf/" rel="tag">csrf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debugging/" rel="tag">debugging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-pages/" rel="tag">github pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/homebrew/" rel="tag">homebrew</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/" rel="tag">html</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/" rel="tag">html5</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interview/" rel="tag">interview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/loader/" rel="tag">loader</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/miniprogram/" rel="tag">miniprogram</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/" rel="tag">mobile</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/optimize/" rel="tag">optimize</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reptile/" rel="tag">reptile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/" rel="tag">security</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/service-worker/" rel="tag">service worker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag/" rel="tag">tag</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/translate/" rel="tag">translate</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/" rel="tag">typescript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vitepress/" rel="tag">vitepress</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webrtc/" rel="tag">webrtc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webworker/" rel="tag">webworker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/weinre/" rel="tag">weinre</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xss/" rel="tag">xss</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yuv/" rel="tag">yuv</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">五月 2024</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">七月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2024 HankLiu, Inc. All rights reserved.<br>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">主页</a>
+  
+    <a href="/archives" class="mobile-nav-link">文章</a>
+  
+    <a href="/toolkit" class="mobile-nav-link">小工具</a>
+  
+    <a href="/resume" class="mobile-nav-link">小简介</a>
+  
+    <a href="/about" class="mobile-nav-link">小关于</a>
+  
+  <a href="#search" class="mobile-nav-link st-search-show-outputs">Search</a>
+</nav>
+  
+
+<!-- totop start -->
+<div id="totop">
+	<a title="To Top"></a>
+</div>
+<!-- totop end -->
+
+<!-- swiftype search start -->
+
+<!-- swiftype search end -->
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/lrsjng.jquery-qrcode/0.12.0/jquery.qrcode.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+</div>
+</body>
+</html>
