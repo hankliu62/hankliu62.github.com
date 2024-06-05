@@ -1,2 +1,2 @@
-source/_posts/limit_batch_request.md
-source/_posts/typescript-config.md
+source/_posts/burial-point-sdk.md
+themes/hexo-theme-paperbox
