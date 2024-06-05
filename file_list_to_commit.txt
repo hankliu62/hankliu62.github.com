@@ -1,2 +1,2 @@
-source/_posts/burial-point-sdk.md
+source/_posts/service-worker-detail.md
 themes/hexo-theme-paperbox
