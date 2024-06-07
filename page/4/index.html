@@ -90,6 +90,104 @@
     <div class="outer">
       <section id="main">
   
+    <article id="post-security-csrf" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2020/12/27/security-csrf/" class="article-date">
+  <time datetime="2020-12-27T10:40:20.000Z" itemprop="datePublished">2020-12-27</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-true">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/27/security-csrf/">Web安全之 CSRF 攻击</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="Web安全之-CSRF-攻击"><a href="#Web安全之-CSRF-攻击" class="headerlink" title="Web安全之 CSRF 攻击"></a>Web安全之 CSRF 攻击</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p><code>CSRF</code>是跨站请求伪造（<code>Cross-Site Request Forgery</code>）的缩写。跨站请求伪造是一种网络攻击方式，攻击者利用已登录的用户在浏览器中存储的合法会话信息，伪造用户发出的请求，以达到欺骗服务器的目的。这种攻击方式并不涉及窃取用户的会话信息，而是利用会话信息。攻击者通常会在用户毫不知情的情况下，在用户的浏览器上执行恶意操作，如更改密码、发布信息、购买商品等。</p>
+<h3 id="攻击原理"><a href="#攻击原理" class="headerlink" title="攻击原理"></a>攻击原理</h3><p><code>CSRF</code>的攻击原理基于Web的隐式身份验证机制。在用户访问Web应用时，浏览器会自动携带用户的会话凭证（如<code>Cookie</code>），以便服务器能够识别用户的身份。攻击者通过构造一个恶意网站或链接，诱使用户访问该网站或点击链接，从而触发一个针对目标网站的伪造请求。由于浏览器会自动携带用户的会话凭证，目标网站无法区分正常请求和伪造请求，因此会执行伪造请求中的操作。</p>
+<h3 id="攻击目标"><a href="#攻击目标" class="headerlink" title="攻击目标"></a>攻击目标</h3><p><code>CSRF</code>的攻击目标主要是需要用户身份认证的操作，如修改用户信息、更改密码、发表评论、进行转账等。攻击者希望利用用户的身份执行这些操作，以达到窃取数据、篡改内容、转移资金等目的。</p>
+<h3 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h3><ol>
+<li>受害者登录 a.com，并保留了登录凭证（Cookie）</li>
+<li>攻击者引诱受害者访问了b.com</li>
+<li>b.com 向 a.com 发送了一个请求：a.com&#x2F;act&#x3D;xx浏览器会默认携带a.com的Cookie</li>
+<li>a.com接收到请求后，对请求进行验证，并确认是受害者的凭证，误以为是受害者自己发送的请求</li>
+<li>a.com以受害者的名义执行了act&#x3D;xx</li>
+<li>攻击完成，攻击者在受害者不知情的情况下，冒充受害者，让a.com执行了自己定义的操作</li>
+</ol>
+<p>例如: 攻击者构造一个伪造的银行转账请求，诱导受害者点击后，该请求会携带受害者的cookie信息，并向正常站点发起请求，从而完成非法转账。或者攻击者设置了一个自动转发邮件的规则，使得受害者的所有邮件都被自动转发到攻击者的邮箱中。</p>
+<h3 id="预防方案"><a href="#预防方案" class="headerlink" title="预防方案"></a>预防方案</h3><p><code>CSRF</code>通常从第三方网站发起，被攻击的网站无法防止攻击发生，只能通过增强自己网站针对CSRF的防护能力来提升安全性。</p>
+<ol>
+<li><p><code>同源检测</code>：通过 <code>Header</code> 中的 <code>Origin Header</code> 、<code>Referrer Header</code> 确定，但不同浏览器可能会有不一样的实现，不能完全保证</p>
+</li>
+<li><p><code>CSRF Token 校验</code>：将 <code>CSRF Token</code>输出到页面中（通常保存在 <code>Session</code> 中），页面提交的请求携带这个 <code>Token</code> ，服务器验证 <code>Token</code> 是否正确</p>
+</li>
+<li><p><code>双重cookie验证</code>：</p>
+<ul>
+<li>流程：<ul>
+<li>步骤1：在用户访问网站页面时，向请求域名注入一个<code>Cookie</code>，内容为随机字符串（例如<code>csrfcookie=v8g9e4ksfhw</code>）</li>
+<li>步骤2：在前端向后端发起请求时，取出<code>Cookie</code>，并添加到<code>URL</code>的参数中（接上例POST <code>https://www.a.com/comment?csrfcookie=v8g9e4ksfhw</code>）</li>
+<li>步骤3：后端接口验证<code>Cookie</code>中的字段与<code>URL</code>参数中的字段是否一致，不一致则拒绝。</li>
+</ul>
+</li>
+<li>优点：<ul>
+<li>无需使用<code>Session</code>，适用面更广，易于实施。</li>
+<li><code>Token</code>储存于客户端中，不会给服务器带来压力。</li>
+<li>相对于<code>Token</code>，实施成本更低，可以在前后端统一拦截校验，而不需要一个个接口和页面添加。</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li><code>Cookie</code>中增加了额外的字段。</li>
+<li>如果有其他漏洞（例如<code>XSS</code>），攻击者可以注入<code>Cookie</code>，那么该防御方式失效。</li>
+<li>难以做到子域名的隔离。</li>
+<li>为了确保<code>Cookie</code>传输安全，采用这种防御方式的最好确保用整站HTTPS的方式，如果还没切HTTPS的使用这种方式也会有风险。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code>SameSite Cookie属性</code>：<code>Cookie</code>的<code>SameSite</code>属性是一种安全策略，用于限制第三方网站获取<code>Cookie</code>的能力，从而增强网站的安全性。<code>SameSite</code>属性可以设置三个值，分别是：</p>
+<ul>
+<li><code>Strict</code>：完全禁止第三方获取<code>Cookie</code>，只有在当前网页的<code>URL</code>与请求目标一致时，才会带上<code>Cookie</code>。这种设置可能会对用户体验造成一定的影响，例如，在跳转到其他网站时，可能会因为未携带<code>Cookie</code>而导致登录状态丢失。</li>
+<li><code>Lax</code>：比<code>Strict</code>宽松一些，允许在跨站使用<code>GET</code>请求时携带<code>Cookie</code>。例如，在通过链接进行页面跳转时，会带上<code>Cookie</code>，但在通过表单提交数据时，不会带上<code>Cookie</code>。</li>
+<li><code>None</code>：允许在任何情况下都携带<code>Cookie</code>。但是，为了安全起见，当设置为None时，必须同时设置<code>Secure</code>属性，即<code>Cookie</code>只能通过<code>HTTPS</code>协议发送，否则设置将无效。</li>
+</ul>
+</li>
+<li><p>验证码：在关键操作或敏感操作前，要求用户输入验证码。这样即使攻击者能够构造伪造请求，也无法自动执行操作，因为需要用户手动输入验证码。</p>
+</li>
+</ol>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>CSRF是一种严重的网络威胁，对于需要用户身份认证的操作尤其危险。为了保障用户数据的安全性和隐私保护，开发人员在设计和开发网络应用时，应该充分考虑CSRF攻击的防御措施，并采取多种手段提高系统的安全性。同时，用户也应该保持警惕，避免点击不明来源的链接或访问可疑网站，以防止CSRF攻击的发生。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/csrf/" rel="tag">csrf</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/" rel="tag">network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/security/" rel="tag">security</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2020/12/27/security-csrf/" data-id="clx5b6dug001hqyom5bfk5p89" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-security-xss" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <h3 href="/2020/06/12/security-xss/" class="article-date">
@@ -149,7 +247,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/" rel="tag">network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/security/" rel="tag">security</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xss/" rel="tag">xss</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2020/06/12/security-xss/" data-id="clx3xn64e001jqnq68dmm92kl" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2020/06/12/security-xss/" data-id="clx5b6dui001nqyomfonic52s" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -245,7 +343,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/" rel="tag">css</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2019/10/12/commomly-css/" data-id="clx3xn63s0004qnq6b31x56la" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2019/10/12/commomly-css/" data-id="clx5b6dtu0004qyoma4jj52uy" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -392,7 +490,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/service-worker/" rel="tag">service worker</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2019/10/12/service-worker/" data-id="clx3xn64f001nqnq6ehvv9l5e" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2019/10/12/service-worker/" data-id="clx5b6duk001qqyomeety8mv5" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -463,7 +561,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/debugging/" rel="tag">debugging</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/" rel="tag">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/" rel="tag">mobile</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2019/05/12/mobile-debugging-tools/" data-id="clx3xn6460011qnq67liagwzz" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2019/05/12/mobile-debugging-tools/" data-id="clx5b6du90010qyombh1nckqs" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -533,7 +631,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/" rel="tag">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2018/11/09/git-clone-failure/" data-id="clx3xn63w000dqnq6elh5cl27" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2018/11/09/git-clone-failure/" data-id="clx5b6dtz000dqyom29lg4z6z" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -583,7 +681,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/" rel="tag">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/" rel="tag">mobile</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/weinre/" rel="tag">weinre</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2017/09/19/web-mobile-tools-weinre/" data-id="clx3xn64i001xqnq6bzj3eqxp" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2017/09/19/web-mobile-tools-weinre/" data-id="clx5b6dun0021qyomdmrlcsgr" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -693,7 +791,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/" rel="tag">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/" rel="tag">shell</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2017/09/14/commonly-shell-command/" data-id="clx3xn63u0008qnq62478evy0" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2017/09/14/commonly-shell-command/" data-id="clx5b6dtv0005qyoma906dd3w" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -777,7 +875,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/" rel="tag">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2017/09/09/hexo-github-blog-guide/" data-id="clx3xn641000pqnq61pgmchkt" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2017/09/09/hexo-github-blog-guide/" data-id="clx5b6du4000pqyom3bjs7q3u" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -842,81 +940,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/" rel="tag">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/" rel="tag">javascript</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2015/12/24/javascript-common-function/" data-id="clx3xn643000uqnq69znbd8y4" class="article-share-link">Share</a>
-        
-      </div>
-    </footer>
-  </div>
-  </div>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-javascript-module" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <h3 href="/2015/12/24/javascript-module/" class="article-date">
-  <time datetime="2015-12-24T18:55:37.000Z" itemprop="datePublished">2015-12-24</time>
-</h3>
-    
-  </div>
-  <div class="article-inner">
-  <div class="curve-down">
-  <div class="fill-content fill-content-true">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/12/24/javascript-module/">菜鸟学习Javascript模块化</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="一、模块化的定义"><a href="#一、模块化的定义" class="headerlink" title="一、模块化的定义"></a>一、模块化的定义</h2><p>模块化是一种处理复杂系统分解为更好的可管理模块的方式。它可以通过在不同组件设定不同的功能，把一个问题分解成多个小的独立、互相作用的组件，来处理复杂、大型的软件。简单点来讲就是以功能为单位，然后通过不同功能的组合来实现一个系统，模块化的主要的目的就是为了减少依赖，减少耦合，提交代码的复用性，最终提交开发的效率。为了这个目的，所以我们必须将耦合密度的功能定义在一个模块中，并且在每个模块中第一一些入口和出口，以方便模块的组合和交互。</p>
-<h2 id="二、Javascript的模块化"><a href="#二、Javascript的模块化" class="headerlink" title="二、Javascript的模块化"></a>二、Javascript的模块化</h2><p>随着网站逐渐变成”互联网应用程序”，嵌入网页的Javascript代码越来越庞大，越来越复杂。Javascript模块化编程，已经成为一个迫切的需求。理想情况下，开发者只需要实现核心的业务逻辑，其他都可以加载别人已经写好的模块。</p>
-<h2 id="三、Javascript模块化的发展"><a href="#三、Javascript模块化的发展" class="headerlink" title="三、Javascript模块化的发展"></a>三、Javascript模块化的发展</h2><h3 id="1、原始写法"><a href="#1、原始写法" class="headerlink" title="1、原始写法"></a>1、原始写法</h3><p>模块就是实现特定功能的一组方法。,不同的函数（以及记录状态的变量）简单地放在一起，就算是一个模块。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">m1</span>(<span class="params"></span>)&#123;</span><br><span class="line">　　<span class="comment">//...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">m2</span>(<span class="params"></span>)&#123;</span><br><span class="line">　　<span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>缺点：”污染”了全局变量，无法保证不与其他模块发生变量名冲突，而且模块成员之间看不出直接关系。</p>
-<h3 id="2、对象写法"><a href="#2、对象写法" class="headerlink" title="2、对象写法"></a>2、对象写法</h3><p>为了解决上面的缺点，可以把模块写成一个对象，所有的模块成员都放到这个对象里面。使用的时候，就是调用这个对象的属性。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> module1 = <span class="keyword">new</span> <span class="title class_">Object</span>(&#123;</span><br><span class="line">　　_count : <span class="number">0</span>,</span><br><span class="line">　　m1 : <span class="keyword">function</span> (<span class="params"></span>)&#123;</span><br><span class="line">　　　 <span class="comment">//...</span></span><br><span class="line">　　&#125;,</span><br><span class="line">　　m2 : <span class="keyword">function</span> (<span class="params"></span>)&#123;</span><br><span class="line">　　　　<span class="comment">//...</span></span><br><span class="line">　　&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<p>缺点：写法会暴露所有模块成员，内部状态可以被外部改写</p>
-<h3 id="3、立即执行函数写法"><a href="#3、立即执行函数写法" class="headerlink" title="3、立即执行函数写法"></a>3、立即执行函数写法</h3><p>使用”立即执行函数”，可以达到不暴露私有成员的目的。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> module1 = (<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">　　<span class="keyword">var</span> _count = <span class="number">0</span>;</span><br><span class="line">　　<span class="keyword">var</span> m1 = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">　　　　<span class="comment">//...</span></span><br><span class="line">　　&#125;;</span><br><span class="line">　　<span class="keyword">var</span> m2 = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">　　　　<span class="comment">//...</span></span><br><span class="line">　　&#125;;</span><br><span class="line">　　<span class="keyword">return</span> &#123;</span><br><span class="line">　　　　m1 : m1,</span><br><span class="line">　　　　m2 : m2</span><br><span class="line">　　&#125;;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
-
-<p>module1就是Javascript模块的基本写法。下面，再对这种写法进行加工。</p>
-<h3 id="4、放大模式"><a href="#4、放大模式" class="headerlink" title="4、放大模式"></a>4、放大模式</h3><p>如果一个模块很大，必须分成几个部分，或者一个模块需要继承另一个模块，这时就有必要采用”放大模式”。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> module1 = (<span class="keyword">function</span> (<span class="params">mod</span>)&#123;</span><br><span class="line">　　mod.<span class="property">m3</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">　　　　<span class="comment">//...</span></span><br><span class="line">　　&#125;;</span><br><span class="line">　　<span class="keyword">return</span> mod;</span><br><span class="line">&#125;)(module1);</span><br></pre></td></tr></table></figure>
-
-<p>上面的代码为module1模块添加了一个新方法m3()，然后返回新的module1模块。</p>
-<h3 id="5、宽放大模式"><a href="#5、宽放大模式" class="headerlink" title="5、宽放大模式"></a>5、宽放大模式</h3><p>在浏览器环境中，模块的各个部分通常都是从网上获取的，有时无法知道哪个部分会先加载。如果采用上一节的写法，第一个执行的部分有可能加载一个不存在空对象，这时就要采用”宽放大模式”。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> module1 = ( <span class="keyword">function</span> (<span class="params">mod</span>)&#123;</span><br><span class="line">　　<span class="comment">//...</span></span><br><span class="line">　　<span class="keyword">return</span> mod;</span><br><span class="line">&#125;)(<span class="variable language_">window</span>.<span class="property">module1</span> || &#123;&#125;);</span><br></pre></td></tr></table></figure>
-<p>与”放大模式”相比，＂宽放大模式＂就是”立即执行函数”的参数可以是空对象。</p>
-<h3 id="6、输入全局变量"><a href="#6、输入全局变量" class="headerlink" title="6、输入全局变量"></a>6、输入全局变量</h3><p>独立性是模块的重要特点，模块内部最好不与程序的其他部分直接交互。<br>为了在模块内部调用全局变量，必须显式地将其他变量输入模块。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> module1 = (<span class="keyword">function</span> (<span class="params">$, YAHOO</span>) &#123;</span><br><span class="line">　　<span class="comment">//...</span></span><br><span class="line">&#125;)(jQuery, <span class="variable constant_">YAHOO</span>);</span><br></pre></td></tr></table></figure>
-
-<p>上面的module1模块需要使用jQuery库和YUI库，就把这两个库（其实是两个模块）当作参数输入module1。这样做除了保证模块的独立性，还使得模块之间的依赖关系变得明显。</p>
-        
-          <p class="article-more-link">
-            <a href="/2015/12/24/javascript-module/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <div class="article-footer-content">
-        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/" rel="tag">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/" rel="tag">javascript</a></li></ul>
-
-        <a data-url="https://hankliu62.github.io/2015/12/24/javascript-module/" data-id="clx3xn644000wqnq6hjme7jbi" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2015/12/24/javascript-common-function/" data-id="clx5b6du6000uqyom88vw3zwe" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -945,6 +969,10 @@
       <ul>
         
           <li>
+            <a href="/2024/06/08/nextjs-nuxtjs-nestjs/">Next.js、Nuxt.js 和 NestJS 的全面介绍</a>
+          </li>
+        
+          <li>
             <a href="/2024/06/01/burial-point-sdk/">前端异常监控与埋点收集SDK</a>
           </li>
         
@@ -960,10 +988,6 @@
             <a href="/2024/05/16/css-cloud/">使用 CSS 创建逼真的云效果</a>
           </li>
         
-          <li>
-            <a href="/2024/05/12/typescript-config/">TypeScript 配置详解</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -973,7 +997,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/" rel="tag">blog</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/canvas/" rel="tag">canvas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/csrf/" rel="tag">csrf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debugging/" rel="tag">debugging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-pages/" rel="tag">github pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/homebrew/" rel="tag">homebrew</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/" rel="tag">html</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/" rel="tag">html5</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interview/" rel="tag">interview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/loader/" rel="tag">loader</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/miniprogram/" rel="tag">miniprogram</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/" rel="tag">mobile</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/optimize/" rel="tag">optimize</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reptile/" rel="tag">reptile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/" rel="tag">security</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/service-worker/" rel="tag">service worker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag/" rel="tag">tag</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/translate/" rel="tag">translate</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/" rel="tag">typescript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vitepress/" rel="tag">vitepress</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webrtc/" rel="tag">webrtc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webworker/" rel="tag">webworker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/weinre/" rel="tag">weinre</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xss/" rel="tag">xss</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yuv/" rel="tag">yuv</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/" rel="tag">blog</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/canvas/" rel="tag">canvas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/csrf/" rel="tag">csrf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debugging/" rel="tag">debugging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-pages/" rel="tag">github pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/homebrew/" rel="tag">homebrew</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/" rel="tag">html</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/" rel="tag">html5</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interview/" rel="tag">interview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/loader/" rel="tag">loader</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/miniprogram/" rel="tag">miniprogram</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/" rel="tag">mobile</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nestjs/" rel="tag">nestjs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nextjs/" rel="tag">nextjs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nuxtjs/" rel="tag">nuxtjs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/optimize/" rel="tag">optimize</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reptile/" rel="tag">reptile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/" rel="tag">security</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/service-worker/" rel="tag">service worker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag/" rel="tag">tag</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/translate/" rel="tag">translate</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/" rel="tag">typescript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vitepress/" rel="tag">vitepress</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webrtc/" rel="tag">webrtc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webworker/" rel="tag">webworker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/weinre/" rel="tag">weinre</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xss/" rel="tag">xss</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yuv/" rel="tag">yuv</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -982,7 +1006,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">六月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">五月 2024</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">七月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">六月 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">五月 2024</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">七月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li></ul>
     </div>
   </div>
 
