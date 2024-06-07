@@ -1,2 +1,2 @@
-source/_posts/service-worker-detail.md
+source/_posts/css-cloud.md
 themes/hexo-theme-paperbox
