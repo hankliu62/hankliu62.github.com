@@ -90,6 +90,82 @@
     <div class="outer">
       <section id="main">
   
+    <article id="post-abort-controller" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2024/04/12/abort-controller/" class="article-date">
+  <time datetime="2024-04-12T10:00:00.000Z" itemprop="datePublished">2024-04-12</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-true">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/04/12/abort-controller/">使用 AbortController 实现异步操作控制</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="使用-AbortController-实现异步操作控制"><a href="#使用-AbortController-实现异步操作控制" class="headerlink" title="使用 AbortController 实现异步操作控制"></a>使用 AbortController 实现异步操作控制</h2><h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>在 <code>JavaScript</code> 中，我们经常需要执行一些异步操作，例如发起网络请求、执行定时任务等。然而，有时候我们希望能够在某些条件下中止这些异步操作，以节省资源或提高用户体验。这时候，<code>AbortController</code> 就派上了用场。</p>
+<p><code>AbortController</code> 是一个可以用来控制异步操作的对象，它可以与 <code>Promise</code>、<code>Fetch API</code> 等配合使用，实现在异步操作进行中中止操作的功能。本文将介绍 <code>AbortController</code> 的基本用法，并提供详细的示例来说明其在实际场景中的应用。</p>
+<h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><p><code>AbortController</code> 提供了两个主要的方法：<code>abort()</code> 和 <code>signal</code> 属性。</p>
+<ul>
+<li><strong>abort()</strong>: 调用该方法可以中止与 <code>AbortController</code> 相关联的异步操作。</li>
+<li><strong>signal</strong>: 这是一个只读属性，它返回一个 <code>AbortSignal</code> 对象，用于监听异步操作的中止状态。<br>下面是一个基本的示例：</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> controller = <span class="keyword">new</span> <span class="title class_">AbortController</span>();</span><br><span class="line"><span class="keyword">const</span> signal = controller.<span class="property">signal</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 监听中止信号</span></span><br><span class="line">signal.<span class="title function_">addEventListener</span>(<span class="string">&#x27;abort&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Operation aborted&#x27;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 5秒后中止操作</span></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  controller.<span class="title function_">abort</span>();</span><br><span class="line">&#125;, <span class="number">5000</span>);</span><br></pre></td></tr></table></figure>
+
+<p>在这个示例中，我们创建了一个 <code>AbortController</code> 对象 <code>controller</code>，并从中获取了 <code>signal</code> 属性。然后，我们通过 <code>setTimeout()</code> 函数设定了一个 <code>5</code> 秒后的定时任务，当定时任务执行时，调用了 <code>controller.abort()</code> 方法来中止操作。同时，我们通过 <code>signal.addEventListener()</code> 方法监听了中止信号，并在中止时输出了一条日志。</p>
+<h3 id="结合-Fetch-API"><a href="#结合-Fetch-API" class="headerlink" title="结合 Fetch API"></a>结合 Fetch API</h3><p><code>AbortController</code> 最常见的用法之一是与 <code>Fetch API</code> 结合使用，实现中止网络请求的功能。下面是一个示例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> controller = <span class="keyword">new</span> <span class="title class_">AbortController</span>();</span><br><span class="line"><span class="keyword">const</span> signal = controller.<span class="property">signal</span>;</span><br><span class="line"></span><br><span class="line"><span class="title function_">fetch</span>(<span class="string">&#x27;https://api.example.com/data&#x27;</span>, &#123; signal &#125;)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function"><span class="params">response</span> =&gt;</span> response.<span class="title function_">json</span>())</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function"><span class="params">data</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(data))</span><br><span class="line">  .<span class="title function_">catch</span>(<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (error.<span class="property">name</span> === <span class="string">&#x27;AbortError&#x27;</span>) &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Request aborted&#x27;</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;Error:&#x27;</span>, error);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 10秒后中止请求</span></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  controller.<span class="title function_">abort</span>();</span><br><span class="line">&#125;, <span class="number">10000</span>);</span><br></pre></td></tr></table></figure>
+
+<p>在这个示例中，我们创建了一个 <code>AbortController</code> 对象 <code>controller</code>，并将其与 <code>Fetch API</code> 中的 <code>signal</code> 属性关联起来。然后，我们发起了一个网络请求，当请求完成时输出了返回的数据，如果请求被中止，则捕获到 <code>AbortError</code> 并输出一条相应的日志。最后，我们设置了一个 10 秒后的定时任务，当定时任务执行时，调用了 <code>controller.abort()</code> 方法来中止网络请求。</p>
+<h3 id="结合-Promise"><a href="#结合-Promise" class="headerlink" title="结合 Promise"></a>结合 Promise</h3><p>除了与 <code>Fetch API</code> 结合使用外，<code>AbortController</code> 还可以与 <code>Promise</code> 结合使用，实现中止 <code>Promise</code> 执行的功能。下面是一个示例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">fetchData</span>(<span class="params">signal</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (signal.<span class="property">aborted</span>) &#123;</span><br><span class="line">        <span class="title function_">reject</span>(<span class="keyword">new</span> <span class="title class_">DOMException</span>(<span class="string">&#x27;AbortError&#x27;</span>, <span class="string">&#x27;AbortError&#x27;</span>));</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="title function_">resolve</span>(<span class="string">&#x27;Data fetched successfully&#x27;</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;, <span class="number">3000</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> controller = <span class="keyword">new</span> <span class="title class_">AbortController</span>();</span><br><span class="line"><span class="keyword">const</span> signal = controller.<span class="property">signal</span>;</span><br><span class="line"></span><br><span class="line"><span class="title function_">fetchData</span>(signal)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function"><span class="params">data</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(data))</span><br><span class="line">  .<span class="title function_">catch</span>(<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (error.<span class="property">name</span> === <span class="string">&#x27;AbortError&#x27;</span>) &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Operation aborted&#x27;</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;Error:&#x27;</span>, error);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 5秒后中止操作</span></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  controller.<span class="title function_">abort</span>();</span><br><span class="line">&#125;, <span class="number">5000</span>);</span><br></pre></td></tr></table></figure>
+
+<p>在这个示例中，我们定义了一个 <code>fetchData()</code> 函数，该函数返回一个 <code>Promise</code> 对象，在一定时间后返回数据或者中止操作。然后，我们创建了一个 <code>AbortController</code> 对象 <code>controller</code>，并将其与 <code>Promise</code> 关联起来。最后，我们设置了一个 <code>5</code> 秒后的定时任务，当定时任务执行时，调用了 <code>controller.abort()</code> 方法来中止 <code>Promise</code> 执行。</p>
+<h3 id="Axios-请求通过-CancelToken-来取消请求"><a href="#Axios-请求通过-CancelToken-来取消请求" class="headerlink" title="Axios 请求通过 CancelToken 来取消请求"></a>Axios 请求通过 CancelToken 来取消请求</h3><p><code>Axios</code> 自带有取消请求的借口，在 <code>Axios</code> 中通过 <code>CancelToken</code> 取消请求发送。下面是一个示例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">/ 引入 <span class="title class_">Axios</span> 库</span><br><span class="line"><span class="keyword">const</span> axios = <span class="built_in">require</span>(<span class="string">&#x27;axios&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建一个 CancelToken.source 对象</span></span><br><span class="line"><span class="keyword">const</span> &#123; <span class="title class_">CancelToken</span>, axiosInstance &#125; = axios;</span><br><span class="line"><span class="keyword">const</span> source = <span class="title class_">CancelToken</span>.<span class="title function_">source</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建一个 Axios 请求</span></span><br><span class="line"><span class="keyword">const</span> request = axiosInstance.<span class="title function_">get</span>(<span class="string">&#x27;https://api.example.com/data&#x27;</span>, &#123;</span><br><span class="line">  <span class="attr">cancelToken</span>: source.<span class="property">token</span> <span class="comment">// 传递 CancelToken 对象到请求配置中</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置一个定时器，在 3 秒后取消请求</span></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  source.<span class="title function_">cancel</span>(<span class="string">&#x27;Request canceled due to timeout&#x27;</span>);</span><br><span class="line">&#125;, <span class="number">3000</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 发起请求并处理响应</span></span><br><span class="line">request.<span class="title function_">then</span>(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Response:&#x27;</span>, response.<span class="property">data</span>);</span><br><span class="line">&#125;).<span class="title function_">catch</span>(<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (axios.<span class="title function_">isCancel</span>(error)) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Request canceled:&#x27;</span>, error.<span class="property">message</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;Error:&#x27;</span>, error);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>在这个示例中，我们首先引入 <code>Axios</code> 库，并创建了一个 <code>CancelToken.source</code> 对象 <code>source</code>。然后，我们发起一个 <code>GET</code> 请求，并在请求配置中传递了 <code>cancelToken: source.token</code>，以便 <code>Axios</code> 知道我们要使用哪个 <code>CancelToken</code> 来取消请求。</p>
+<p>接着，我们设置了一个定时器，在 <code>3</code> 秒后调用 <code>source.cancel()</code> 方法取消请求，并传递了一个取消原因。最后，我们发起请求，并在 <code>.then()</code> 和 <code>.catch()</code> 方法中分别处理响应和错误。如果请求被取消，我们通过 <code>axios.isCancel(error)</code> 来检查错误类型，并输出相应的日志。</p>
+<h3 id="XMLHttpRequest-通过-abort-来取消请求"><a href="#XMLHttpRequest-通过-abort-来取消请求" class="headerlink" title="XMLHttpRequest 通过 abort 来取消请求"></a>XMLHttpRequest 通过 abort 来取消请求</h3><p>在现代浏览器环境中，我们可以使用 <code>XMLHttpRequest（XHR）</code> 对象来发起网络请求，<code>XHR</code> 里面存在 <code>abort</code> 能用来取消这些请求。以下是一个使用XHR取消请求的示例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个XHR对象</span></span><br><span class="line"><span class="keyword">const</span> xhr = <span class="keyword">new</span> <span class="title class_">XMLHttpRequest</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 监听请求状态变化</span></span><br><span class="line">xhr.<span class="property">onreadystatechange</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="comment">// 请求完成并且响应状态为200时，处理响应</span></span><br><span class="line">  <span class="keyword">if</span> (xhr.<span class="property">readyState</span> === <span class="title class_">XMLHttpRequest</span>.<span class="property">DONE</span> &amp;&amp; xhr.<span class="property">status</span> === <span class="number">200</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Response:&#x27;</span>, xhr.<span class="property">responseText</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 准备发送请求，但不发送</span></span><br><span class="line">xhr.<span class="title function_">open</span>(<span class="string">&#x27;GET&#x27;</span>, <span class="string">&#x27;https://api.example.com/data&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 发送请求</span></span><br><span class="line">xhr.<span class="title function_">send</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置一个定时器，在3秒后取消请求</span></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  xhr.<span class="title function_">abort</span>();</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Request canceled&#x27;</span>);</span><br><span class="line">&#125;, <span class="number">3000</span>);</span><br></pre></td></tr></table></figure>
+
+<p>在这个示例中，我们首先创建了一个 <code>XMLHttpRequest</code> 对象 <code>xhr</code>，并设置了它的 <code>onreadystatechange</code> 事件处理程序来监听请求状态变化。然后，我们调用 <code>xhr.open()</code> 方法来准备发送一个 <code>GET</code> 请求到指定的 <code>URL</code>，但并不发送请求。接着，我们调用 <code>xhr.send()</code> 方法来实际发送请求。</p>
+<p>同时，我们设置了一个定时器，在3秒后调用 <code>xhr.abort()</code> 方法来取消请求。当调用 <code>xhr.abort()</code> 方法时，<code>XHR</code> 对象将会立即终止当前的网络请求。</p>
+<p>最后，当请求完成并且响应状态为 <code>200</code> 时，我们通过 <code>xhr.responseText</code> 属性获取响应数据，并输出到控制台。</p>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p><code>AbortController</code> 是一个非常有用的工具，它为我们提供了在异步操作进行中中止操作的能力。通过结合 <code>Fetch API</code>、<code>Promise</code> 等，我们可以在网络请求、定时任务等场景中灵活地使用 <code>AbortController</code>，从而提高代码的可控性和可靠性。希望本文的介绍能够帮助你更好地理解和应用 <code>AbortController</code>。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html5/" rel="tag">html5</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2024/04/12/abort-controller/" data-id="clx3xn63k0000qnq63o625e5j" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-optimize-miniprogram" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <h3 href="/2024/04/10/optimize-miniprogram/" class="article-date">
@@ -217,7 +293,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/miniprogram/" rel="tag">miniprogram</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/optimize/" rel="tag">optimize</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/10/optimize-miniprogram/" data-id="clx2gy5fx0012qhq01lr6f3tx" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/10/optimize-miniprogram/" data-id="clx3xn64b0019qnq69gra1cj8" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -304,7 +380,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/08/github-action-docker/" data-id="clx2gy5fo000dqhq02ixofmvn" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/08/github-action-docker/" data-id="clx3xn63x000fqnq6g8v54cah" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -392,7 +468,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/" rel="tag">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/06/github-action-publish-package/" data-id="clx2gy5fp000gqhq0covk1594" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/06/github-action-publish-package/" data-id="clx3xn63z000iqnq644vwh8fv" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -507,7 +583,7 @@
 <p>首先确保运行的<code>/bin/zsh -c &quot;$(curl -fsSL https://gitee.com/ **cunkai** /HomebrewCN/raw/master/Homebrew.sh)&quot;</code> 中间那个 <strong>cunkai</strong> 不是别的。</p>
 </blockquote>
 <p><strong>1.</strong> 如果遇到安装软件报错 <strong>404</strong> ，切换网络如果还不行：</p>
-<p>查看下官方更新记录<code>https://brew.sh/blog/</code> 如果近期有更新，可以发我邮箱<a href="mailto:&#99;&#117;&#110;&#107;&#x61;&#105;&#x2e;&#x77;&#97;&#x6e;&#x67;&#64;&#x66;&#111;&#x78;&#109;&#x61;&#105;&#x6c;&#x2e;&#x63;&#111;&#x6d;">&#99;&#117;&#110;&#107;&#x61;&#105;&#x2e;&#x77;&#97;&#x6e;&#x67;&#64;&#x66;&#111;&#x78;&#109;&#x61;&#105;&#x6c;&#x2e;&#x63;&#111;&#x6d;</a>。我看看是否官方修改了某些代码。</p>
+<p>查看下官方更新记录<code>https://brew.sh/blog/</code> 如果近期有更新，可以发我邮箱<a href="mailto:&#99;&#117;&#x6e;&#x6b;&#x61;&#x69;&#x2e;&#119;&#x61;&#110;&#103;&#x40;&#x66;&#x6f;&#x78;&#109;&#x61;&#x69;&#108;&#x2e;&#x63;&#x6f;&#109;">&#99;&#117;&#x6e;&#x6b;&#x61;&#x69;&#x2e;&#119;&#x61;&#110;&#103;&#x40;&#x66;&#x6f;&#x78;&#109;&#x61;&#x69;&#108;&#x2e;&#x63;&#x6f;&#109;</a>。我看看是否官方修改了某些代码。</p>
 <p><strong>2.</strong> 不小心改动了brew文件夹里面的内容，如何重置，运行：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew update-reset</span><br></pre></td></tr></table></figure>
 
@@ -550,7 +626,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/homebrew/" rel="tag">homebrew</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/04/homebrew/" data-id="clx2gy5ft000pqhq01wpz85ve" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/04/homebrew/" data-id="clx3xn642000sqnq6dc8744hq" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -637,7 +713,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/01/github-emoji/" data-id="clx2gy5fq000iqhq01cx94iea" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/01/github-emoji/" data-id="clx3xn63z000jqnq69vjyc90n" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -767,7 +843,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/" rel="tag">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vitepress/" rel="tag">vitepress</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/" rel="tag">vue</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/03/29/vitepress-blog-guide/" data-id="clx2gy5g6001sqhq08xj952xq" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/03/29/vitepress-blog-guide/" data-id="clx3xn64i001vqnq600qa9ogh" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -827,7 +903,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/" rel="tag">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/03/05/webpack-plugin-mechanism/" data-id="clx2gy5g7001xqhq014tmfw3c" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/03/05/webpack-plugin-mechanism/" data-id="clx3xn6590052qnq6dz045aw0" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -1018,7 +1094,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/" rel="tag">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/interview/" rel="tag">interview</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/02/08/interview-questions/" data-id="clx2gy5h00056qhq0brsvbawp" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/02/08/interview-questions/" data-id="clx3xn65e005bqnq6by9g5i6c" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -1078,87 +1154,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/" rel="tag">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/01/12/github-pages-env/" data-id="clx2gy5fr000jqhq0ds4rblu8" class="article-share-link">Share</a>
-        
-      </div>
-    </footer>
-  </div>
-  </div>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-github-pages" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <h3 href="/2023/12/27/github-pages/" class="article-date">
-  <time datetime="2023-12-27T12:20:26.000Z" itemprop="datePublished">2023-12-27</time>
-</h3>
-    
-  </div>
-  <div class="article-inner">
-  <div class="curve-down">
-  <div class="fill-content fill-content-true">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/12/27/github-pages/">使用 Github Pages 和 Issues 搭建博客</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Github-Pages-简介"><a href="#Github-Pages-简介" class="headerlink" title="Github Pages 简介"></a>Github Pages 简介</h2><p>自己维护博客服务器，需要购买服务器，配置域名等一些列操作，比较繁琐，索性直接找个现成的稳定的博客平台，github pages成为首选，这里有几个思路</p>
-<ul>
-<li>使用github pages，编写静态网页</li>
-<li>使用github pages 与静态网页生成工具，需要本地电脑编写文章</li>
-<li>使用github pages 与自建后端服务器，需要另外维护一个后端服务器</li>
-<li>使用issues 写文章，issues页面就是一个博客网站</li>
-<li>使用github pages 与 github api，使用issues写文章</li>
-</ul>
-<h3 id="使用github-pages，编写静态网页"><a href="#使用github-pages，编写静态网页" class="headerlink" title="使用github pages，编写静态网页"></a>使用github pages，编写静态网页</h3><p>有很多文档网站是使用这种方式搭建，一般是作为demo页面或者单页文档页面，否则页面稍微一复杂，就变得非常难以维护</p>
-<h3 id="使用github-pages-与-静态网页生成工具"><a href="#使用github-pages-与-静态网页生成工具" class="headerlink" title="使用github pages 与 静态网页生成工具"></a>使用github pages 与 静态网页生成工具</h3><p>有很多博客网站与文档网站都是使用这种方式，这是一种最简单最方便的方式，现在流行的工具有 <code>hexo</code> 和 <code>Jekyll</code> 等，这种方式还要在本地维护一个仓库，生成静态页面后再上传，操作过于繁琐，而且每个页面之间切换都需要重新载入所有资源，网页数据传输量较大</p>
-<p>具体工具如下所示:</p>
-<ul>
-<li><a href="https://github.com/hexojs/hexo">hexo</a></li>
-<li><a href="https://github.com/jekyll/jekyll">Jekyll</a></li>
-</ul>
-<h3 id="使用github-pages-与-自建后端服务器"><a href="#使用github-pages-与-自建后端服务器" class="headerlink" title="使用github pages 与 自建后端服务器"></a>使用github pages 与 自建后端服务器</h3><p>在github pages编写一个单页面应用，数据通过跨域请求来自于自建的服务器，这种方式有三大难点：前端、后端、服务器</p>
-<p><strong>前端</strong></p>
-<p>需要编写一个单页面应用，这对技术需要一定的水平，基本很少有开源工具</p>
-<p><strong>后端</strong></p>
-<p>需要后端服务，这可以使用现成工具提供api，比如wordpress、drupal、ghost等</p>
-<h3 id="使用issues-写文章"><a href="#使用issues-写文章" class="headerlink" title="使用issues 写文章"></a>使用issues 写文章</h3><p>这种方式简单粗暴，直接在issues写文章，评论、标签、提醒神马的都有了，现在其实很流行这种方式，看看这几个博客，都几千个star了</p>
-<ul>
-<li><a href="https://github.com/tmallfe/tmallfe.github.io">https://github.com/tmallfe/tmallfe.github.io</a></li>
-<li><a href="https://github.com/xufei/blog">https://github.com/xufei/blog</a></li>
-<li><a href="https://github.com/fouber/blog">https://github.com/fouber/blog</a></li>
-</ul>
-<p>要说它的缺点嘛，就是人人都可以往你博客提交文章，界面千篇一律，而且也不怎么好看</p>
-<p><strong>服务器</strong></p>
-<p>这个问题很严重，问题来了，你都有自建的服务器了，还要用github pages干嘛呢，哪天自建服务器挂了，博客照样挂。</p>
-<p>这种方式可以使用域名来提升逼格。</p>
-<h3 id="使用github-pages-与-github-api"><a href="#使用github-pages-与-github-api" class="headerlink" title="使用github pages 与 github api"></a>使用github pages 与 github api</h3><p>这种方案与上一种对比起来其实没多大区别，唯一的区别就是自建服务换成了github的另一个服务，就是说，github帮我们建好了。<br>github api：<a href="https://developer.github.com/v3/">https://developer.github.com/v3/</a></p>
-        
-          <p class="article-more-link">
-            <a href="/2023/12/27/github-pages/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <div class="article-footer-content">
-        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/" rel="tag">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github-pages/" rel="tag">github pages</a></li></ul>
-
-        <a data-url="https://hankliu62.github.io/2023/12/27/github-pages/" data-id="clx2gy5fr000kqhq0csz889oe" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/01/12/github-pages-env/" data-id="clx3xn640000kqnq60go24ivw" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -1173,7 +1169,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
     </nav>
   
 </section>
@@ -1199,11 +1195,11 @@
           </li>
         
           <li>
-            <a href="/2024/05/12/typescript-config/">TypeScript 配置详解</a>
+            <a href="/2024/05/16/css-cloud/">使用 CSS 创建逼真的云效果</a>
           </li>
         
           <li>
-            <a href="/2024/05/02/github-action-auto-git-tag/">使用 GitHub Actions 自动推送 Git Tag</a>
+            <a href="/2024/05/12/typescript-config/">TypeScript 配置详解</a>
           </li>
         
       </ul>
@@ -1215,7 +1211,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/" rel="tag">blog</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/canvas/" rel="tag">canvas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/csrf/" rel="tag">csrf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debugging/" rel="tag">debugging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-pages/" rel="tag">github pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/homebrew/" rel="tag">homebrew</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/" rel="tag">html</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/" rel="tag">html5</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interview/" rel="tag">interview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/loader/" rel="tag">loader</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/miniprogram/" rel="tag">miniprogram</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/" rel="tag">mobile</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/optimize/" rel="tag">optimize</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reptile/" rel="tag">reptile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/" rel="tag">security</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/service-worker/" rel="tag">service worker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag/" rel="tag">tag</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/translate/" rel="tag">translate</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/" rel="tag">typescript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vitepress/" rel="tag">vitepress</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webrtc/" rel="tag">webrtc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webworker/" rel="tag">webworker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/weinre/" rel="tag">weinre</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xss/" rel="tag">xss</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yuv/" rel="tag">yuv</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/" rel="tag">blog</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/canvas/" rel="tag">canvas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/csrf/" rel="tag">csrf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debugging/" rel="tag">debugging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-pages/" rel="tag">github pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/homebrew/" rel="tag">homebrew</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/" rel="tag">html</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/" rel="tag">html5</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interview/" rel="tag">interview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/loader/" rel="tag">loader</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/miniprogram/" rel="tag">miniprogram</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/" rel="tag">mobile</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/optimize/" rel="tag">optimize</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reptile/" rel="tag">reptile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/" rel="tag">security</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/service-worker/" rel="tag">service worker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag/" rel="tag">tag</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/translate/" rel="tag">translate</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/" rel="tag">typescript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vitepress/" rel="tag">vitepress</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webrtc/" rel="tag">webrtc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webworker/" rel="tag">webworker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/weinre/" rel="tag">weinre</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xss/" rel="tag">xss</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yuv/" rel="tag">yuv</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -1224,7 +1220,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">六月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">五月 2024</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">七月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">六月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">五月 2024</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">七月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li></ul>
     </div>
   </div>
 
