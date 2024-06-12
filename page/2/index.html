@@ -90,6 +90,376 @@
     <div class="outer">
       <section id="main">
   
+    <article id="post-webrtc" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2024/04/16/webrtc/" class="article-date">
+  <time datetime="2024-04-16T16:16:16.000Z" itemprop="datePublished">2024-04-16</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-true">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/04/16/webrtc/">WebRTC:实时通信的未来</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>在当今数字化的世界中，实时通信变得越来越重要。从视频会议到在线游戏，从远程医疗到物联网设备，人们希望能够立即与其他人或设备进行交流和互动。<code>WebRTC（Web Real-Time Communication）</code> 技术的出现填补了这一需求，为Web应用程序提供了强大的实时通信能力。本文将深入探讨 <code>WebRTC</code> 技术的原理、应用场景以及实现细节，带您了解这一引人注目的技术。</p>
+<h2 id="什么是WebRTC？"><a href="#什么是WebRTC？" class="headerlink" title="什么是WebRTC？"></a>什么是WebRTC？</h2><p><code>WebRTC</code> 是一种开放标准的实时通信技术，允许浏览器之间进行点对点的音频、视频和数据传输，而无需任何插件或附加软件。它是由Google、Mozilla和Opera等公司发起的一个开放源代码项目，旨在为Web应用程序提供实时通信的能力。</p>
+<h2 id="WebRTC的核心特性"><a href="#WebRTC的核心特性" class="headerlink" title="WebRTC的核心特性"></a>WebRTC的核心特性</h2><ol>
+<li><p>实时性<br><code>WebRTC</code> 提供了实时的音频和视频传输能力，使用户可以在几乎没有延迟的情况下进行实时通信。这种实时性对于视频会议、在线教育和远程医疗等应用非常重要。</p>
+</li>
+<li><p>安全性<br><code>WebRTC</code> 通过使用加密技术来保护通信内容的安全性。它使用 <code>DTLS（Datagram Transport Layer Security）</code>协议来保护数据传输的隐私，并使用 <code>SRTP（Secure Real-time Transport Protocol）</code>协议来加密音频和视频数据。</p>
+</li>
+<li><p>去中心化<br><code>WebRTC</code> 采用了点对点（<code>P2P</code>）通信模型，即浏览器之间直接进行通信，而不需要经过中间服务器。这种去中心化的通信方式可以提高通信的效率，并减少了对服务器资源的依赖。</p>
+</li>
+<li><p>跨平台<br><code>WebRTC</code> 可以在各种平台上运行，包括桌面浏览器、移动浏览器和原生应用程序。这使得开发人员可以轻松地创建跨平台的实时通信应用程序。</p>
+</li>
+</ol>
+<h2 id="名词和方法解释"><a href="#名词和方法解释" class="headerlink" title="名词和方法解释"></a>名词和方法解释</h2><h3 id="RTCPeerConnection"><a href="#RTCPeerConnection" class="headerlink" title="RTCPeerConnection"></a>RTCPeerConnection</h3><p><code>RTCPeerConnection</code> 是 <code>WebRTC API</code> 中的一个关键接口，用于在两个对等端之间建立点对点连接。它提供了一种实现浏览器之间实时音视频通信的方式，允许在不同浏览器之间直接传输数据，而无需通过服务器。通过 <code>RTCPeerConnection</code>，用户可以在浏览器中创建一个实时通信的会话，并在其中发送和接收音频、视频或其他任何类型的数据。</p>
+<h4 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h4><p><code>RTCPeerConnection</code> 的主要作用包括：</p>
+<ol>
+<li><p>建立和管理对等连接：<code>RTCPeerConnection</code> 提供了一种方法来建立和管理两个浏览器之间的点对点连接，使它们可以直接通信，无需通过中间服务器。</p>
+</li>
+<li><p>处理媒体流：它允许用户将本地音频、视频或数据流发送到远程对等端，并从远程对等端接收相应的媒体流。</p>
+</li>
+<li><p>网络协商和协议处理：<code>RTCPeerConnection</code> 处理与 <code>ICE</code>、<code>SDP</code> 等相关的网络协商和协议处理，以确保对等连接的正确建立和维护。</p>
+</li>
+<li><p>实现信号传输和媒体传输：它还负责在对等连接之间传输信令消息和媒体数据，以确保通信的顺利进行。</p>
+</li>
+</ol>
+<h4 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h4><p><code>RTCPeerConnection</code> 构造函数包含的1个参数，一个 <code>RTCConfiguration</code> 对象，用于指定配置参数。这个对象包含以下属性：</p>
+<ul>
+<li><strong>iceServers</strong>：一个 <code>RTCIceServer</code> 对象数组，用于指定 <code>ICE</code> 服务器信息。<ul>
+<li><code>urls</code>：<code>ICE</code> 服务器的 <code>URL</code> 或 <code>URL</code> 数组。</li>
+<li><code>username</code> (可选)：<code>ICE</code> 服务器的用户名。</li>
+<li><code>credential</code> (可选)：<code>ICE</code> 服务器的密码。</li>
+</ul>
+</li>
+<li><strong>iceTransportPolicy</strong> (可选)：一个枚举值，用于指定 <code>ICE</code> 传输策略，默认为 <code>&quot;all&quot;</code>，目前支持的值有 <code>&quot;all&quot;</code> | <code>&quot;relay&quot;</code>。</li>
+<li><strong>bundlePolicy</strong> (可选)：一个枚举值，用于指定 <code>SDP</code> 处理策略，默认为 <code>&quot;balanced&quot;</code>，目前支持的值有 <code>&quot;balanced&quot;</code> | <code>&quot;max-bundle&quot;</code> | <code>&quot;max-compat&quot;</code>。</li>
+<li><strong>rtcpMuxPolicy</strong> (可选)：一个枚举值，用于指定 <code>RTCP</code> 复用策略，默认为 <code>&quot;require&quot;</code>，目前支持的值有 <code>&quot;require&quot;</code>。</li>
+<li><strong>peerIdentity</strong> (可选)：<code>PEER</code> 身份验证，默认为 null。</li>
+<li><strong>certificates</strong> (可选)：一个 <code>RTCCertificate</code> 对象数组，用于指定本地证书数组。</li>
+<li><strong>iceCandidatePoolSize</strong> (可选)：一个数值，指定 <code>ICE</code> 候选地址池的大小。</li>
+</ul>
+<h4 id="属性和方法"><a href="#属性和方法" class="headerlink" title="属性和方法"></a>属性和方法</h4><ol>
+<li><strong>restartIce()</strong></li>
+</ol>
+<p><code>restartIce()</code> 方法用于在 <code>WebRTC</code> 对等连接中重新启动 <code>ICE</code> 连接过程。<code>ICE（Interactive Connectivity Establishment）</code>是一种用于建立对等连接的网络协议，它可以帮助确定网络上的最佳路径，以确保数据能够在两个 <code>RTCPeerConnection</code> 之间进行有效传输。</p>
+<p>重新启动 <code>ICE</code> 连接过程通常在网络连接发生变化或连接质量变差时使用，以尝试建立更稳定的连接。这可能包括重新检测网络接口、重新收集 <code>ICE</code> 候选项、更新 <code>ICE Agent</code> 状态等操作。</p>
+<p><code>restartIce()</code> 方法不接受任何参数，调用该方法将触发 <code>ICE</code> 连接重新启动过程。在调用此方法之后，<code>ICE Agent</code> 将重新开始收集候选项并尝试建立新的 <code>ICE</code> 连接。</p>
+<p>下面是一个示例代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 重新启动 ICE 连接过程</span></span><br><span class="line">peerConnection.<span class="title function_">restartIce</span>();</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><strong>setLocalDescription</strong><br><code>setLocalDescription()</code> 方法用于将本地描述（即 SDP，Session Description Protocol）设置为 <code>RTCPeerConnection</code> 对象的本地描述。本地描述包含了当前对等连接的配置信息，例如媒体类型、编解码器、传输协议等。</li>
+</ol>
+<p>通常情况下，当我们创建一个新的对等连接时，会先通过调用 <code>createOffer()</code> 或 <code>createAnswer()</code> 方法生成一个 SDP 描述，并将其设置为本地描述。然后，我们将本地描述发送给远程对等方，远程对等方通过调用 <code>setRemoteDescription()</code> 方法将其应用到对等连接中。这样，两个对等方就可以根据各自的本地描述进行协商，建立一条可靠的连接。</p>
+<p>以下是一个简单的示例，展示了如何使用 <code>setLocalDescription()</code> 方法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建 RTCPeerConnection</span></span><br><span class="line"><span class="keyword">const</span> peerConnection = <span class="keyword">new</span> <span class="title class_">RTCPeerConnection</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建一个 SDP offer</span></span><br><span class="line">peerConnection.<span class="title function_">createOffer</span>()</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function">(<span class="params">offer</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 设置本地描述为 SDP offer</span></span><br><span class="line">    <span class="keyword">return</span> peerConnection.<span class="title function_">setLocalDescription</span>(offer);</span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Local description set successfully.&quot;</span>);</span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="title function_">catch</span>(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&quot;Error setting local description:&quot;</span>, error);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>在上面的示例中，我们首先创建了一个 SDP offer，然后调用 <code>setLocalDescription()</code> 方法将其设置为本地描述。成功设置本地描述后，我们会在控制台输出成功的消息。如果设置本地描述失败，则会捕获到错误并输出错误消息。</p>
+<ol start="3">
+<li><strong>setRemoteDescription</strong><br><code>setRemoteDescription()</code> 方法用于将远程对等连接的描述信息设置到本地对等连接中。这个描述信息通常是由远程对等方通过 SDP（Session Description Protocol）提供的，包含了远程对等方的媒体信息和网络连接信息。</li>
+</ol>
+<p>在 WebRTC 中，当本地对等连接收到远程对等方发送的 SDP offer 或 answer 时，需要通过 <code>setRemoteDescription()</code> 方法将其设置到本地对等连接中，以便进行后续的连接协商和媒体交换。</p>
+<p>以下是一个简单的示例，展示了如何使用 <code>setRemoteDescription()</code> 方法将远程对等连接的描述信息设置到本地对等连接中：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 假设 remoteDescription 是远程对等连接的描述信息（SDP offer 或 answer）</span></span><br><span class="line"><span class="keyword">const</span> remoteDescription = &#123;</span><br><span class="line">  <span class="attr">type</span>: <span class="string">&#x27;offer&#x27;</span>, <span class="comment">// 描述类型为 SDP offer</span></span><br><span class="line">  <span class="attr">sdp</span>: <span class="string">&#x27;...&#x27;</span>     <span class="comment">// SDP offer 的内容</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置远程对等连接的描述信息到本地对等连接中</span></span><br><span class="line">peerConnection.<span class="title function_">setRemoteDescription</span>(remoteDescription)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Remote description set successfully.&#x27;</span>);</span><br><span class="line">    <span class="comment">// 在这里可以继续进行后续的连接协商或媒体交换操作</span></span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="title function_">catch</span>(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;Error setting remote description:&#x27;</span>, error);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>在上面的示例中，我们假设 <code>remoteDescription</code> 是远程对等连接的描述信息，包含了描述的类型（这里假设为 SDP offer）和 SDP offer 的内容。然后，我们通过 <code>setRemoteDescription()</code> 方法将这个描述信息设置到本地对等连接中。如果设置成功，则会打印日志表示远程描述已成功设置，否则会捕获到错误并输出错误消息。</p>
+<ol start="4">
+<li><strong>addTransceiver</strong></li>
+</ol>
+<p><code>addTransceiver()</code> 方法用于向对等连接中添加新的媒体传输通道（<code>RTCRtpTransceiver</code>）。它的参数包括：</p>
+<ul>
+<li><strong>trackOrKind</strong>：要添加到传输通道的媒体轨道（<code>MediaStreamTrack</code>）或媒体类型（<code>string</code>）。如果是 <code>MediaStreamTrack</code> 类型，则表示要添加的具体媒体轨道。如果是 <code>string</code> 类型，则表示要添加的媒体类型，如 <code>&quot;audio&quot;</code> 或 <code>&quot;video&quot;</code>。</li>
+<li><strong>init</strong>（可选）：一个可选的 <code>RTCRtpTransceiverInit</code> 对象，用于配置传输通道的初始化选项。该对象包括以下属性：<ul>
+<li><code>direction</code>：传输通道的传输方向，可以是 <code>&quot;sendrecv&quot;</code>、<code>&quot;sendonly&quot;</code>、<code>&quot;recvonly&quot;</code> 或 <code>&quot;inactive&quot;</code>。</li>
+<li><code>streams</code>：一个包含了要与传输通道关联的 <code>MediaStream</code> 对象的数组。</li>
+<li><code>sendEncodings</code>：一个包含了与传输通道相关联的编码设置的数组，用于配置传输的编码参数。</li>
+</ul>
+</li>
+</ul>
+<p>该方法返回一个 <code>RTCRtpTransceiver</code> 对象，表示新添加的传输通道。这个传输通道可以用于控制和管理新添加的媒体流的传输。通过使用 <code>addTransceiver()</code> 方法，您可以动态地向对等连接中添加新的媒体轨道，从而实现更灵活和动态的媒体流管理。</p>
+<h4 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h4><ol>
+<li><strong>onnegotiationneeded</strong></li>
+</ol>
+<p><code>onnegotiationneeded</code> 事件是 <code>WebRTC</code> 中的一个事件，它在需要重新协商（<code>negotiation</code>）时触发。当需要创建或重新创建对等连接时（例如添加或删除数据流或轨道，或者更改连接配置），就会触发此事件。</p>
+<p>在此事件触发时，通常会调用 <code>createOffer()</code> 或 <code>createAnswer()</code> 方法来生成一个新的 <code>SDP</code>（会话描述协议）以进行协商。然后，这个新的 <code>SDP</code> 将被传递给远程 <code>RTCPeerConnection</code>，以更新对等连接的配置。</p>
+<p>以下是一个示例代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">peerConnection.<span class="property">onnegotiationneeded</span> = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> offer = <span class="keyword">await</span> peerConnection.<span class="title function_">createOffer</span>();</span><br><span class="line">    <span class="keyword">await</span> peerConnection.<span class="title function_">setLocalDescription</span>(offer);</span><br><span class="line">    <span class="comment">// 将 SDP 发送给远程 `RTCPeerConnection`</span></span><br><span class="line">    <span class="title function_">sendOfferToRemotePeer</span>(offer);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;Error creating offer:&#x27;</span>, error);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>在实际应用中，您可以根据需要在 <code>onnegotiationneeded</code> 事件中执行其他操作，例如创建或更新对等连接的配置，以确保连接的稳定性和可靠性。</p>
+<ol start="2">
+<li><strong>onicecandidate</strong><br><code>onicecandidate</code> 事件在 <code>ICE（Interactive Connectivity Establishment）</code>协商过程中生成 <code>ICE</code> 候选时触发。<code>ICE</code> 候选用于发现网络路径和连接两个 <code>RTCPeerConnection</code> 之间的传输地址。当本地 <code>RTCPeerConnection</code> 发现一个新的 <code>ICE</code> 候选时，会触发 <code>onicecandidate</code> 事件，并将候选信息传递给应用程序。</li>
+</ol>
+<p>通常，在收到 <code>ICE</code> 候选后，应用程序会将候选信息发送给远程 <code>RTCPeerConnection</code>，以便远程 <code>RTCPeerConnection</code> 能够知道如何直接与本地 <code>RTCPeerConnection</code> 进行通信。</p>
+<p>以下是一个简单的示例，展示了如何使用 <code>onicecandidate</code> 事件处理程序：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建 RTCPeerConnection</span></span><br><span class="line"><span class="keyword">const</span> peerConnection = <span class="keyword">new</span> <span class="title class_">RTCPeerConnection</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置 onicecandidate 事件处理程序</span></span><br><span class="line">peerConnection.<span class="property">onicecandidate</span> = <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (event.<span class="property">candidate</span>) &#123;</span><br><span class="line">    <span class="comment">// 将 ICE 候选发送给远程 `RTCPeerConnection`</span></span><br><span class="line">    <span class="title function_">sendIceCandidateToRemotePeer</span>(event.<span class="property">candidate</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// 所有 ICE 候选已发送</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;All ICE candidates have been sent.&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 开始 ICE 协商过程</span></span><br><span class="line">peerConnection.<span class="title function_">createOffer</span>()</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function">(<span class="params">offer</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 设置本地描述</span></span><br><span class="line">    <span class="keyword">return</span> peerConnection.<span class="title function_">setLocalDescription</span>(offer);</span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="title function_">catch</span>(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&quot;Error creating offer:&quot;</span>, error);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>在上面的示例中，<code>onicecandidate</code> 事件处理程序将在每次发现新的 ICE 候选时被触发。在处理程序中，我们检查 <code>event.candidate</code> 是否存在，如果存在则将候选信息发送给远程 <code>RTCPeerConnection</code>。当 <code>event.candidate</code> 为 <code>null</code> 时，表示所有的 ICE 候选已经发现并发送完毕。</p>
+<h3 id="RTCIceCandidate"><a href="#RTCIceCandidate" class="headerlink" title="RTCIceCandidate"></a>RTCIceCandidate</h3><p><code>RTCIceCandidate</code> 是 <code>WebRTC</code> 中的一个接口，表示 <code>ICE (Interactive Connectivity Establishment)</code> 候选者，用于描述网络中的地址信息，以帮助建立对等连接。以下是关于 <code>RTCIceCandidate</code> 接口的详细解释：</p>
+<p><code>RTCIceCandidate</code> 表示一个 <code>ICE</code> 候选者，包含了描述网络地址的相关信息。</p>
+<p><code>RTCIceCandidate</code> 是 <code>WebRTC</code> 中用于建立对等连接的关键组成部分，用于确定连接双方的网络地址和传输协议。</p>
+<h4 id="参数-1"><a href="#参数-1" class="headerlink" title="参数"></a>参数</h4><p><code>RTCIceCandidate</code> 接口具体的参数如下所示：</p>
+<ul>
+<li><strong>candidate</strong>：描述 <code>ICE</code> 候选者的字符串，通常是以 <code>SDP (Session Description Protocol)</code> 格式表示的。该字符串包含了 <code>ICE</code> 候选者的网络地址、传输协议、优先级等信息。</li>
+<li><strong>sdpMid</strong>：候选者所对应的媒体流的标识符，用于区分不同的媒体流。</li>
+<li><strong>sdpMLineIndex</strong>：候选者所在的媒体流的索引，表示候选者属于媒体流描述中的哪一行。</li>
+</ul>
+<h4 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h4><p>下面是一个简单的例子，展示了如何创建一个 <code>RTCIceCandidate</code> 对象，并将其添加到 <code>RTCPeerConnection</code> 中。<code>ICE</code> 候选者通常是通过信令服务器交换的，用于建立对等连接并进行网络地址交换。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 从 Websocket 中收到的远端 RTCPeerConnection 的 ICE 候选者的的信息</span></span><br><span class="line"><span class="keyword">const</span> remoteIceCandidateInfo = &#123;</span><br><span class="line">  <span class="attr">candidate</span>: <span class="string">&#x27;candidate:1838085505 1 udp 2122260223 192.168.1.101 52041 typ host generation 0&#x27;</span>,</span><br><span class="line">  <span class="attr">sdpMid</span>: <span class="string">&#x27;audio&#x27;</span>,</span><br><span class="line">  <span class="attr">sdpMLineIndex</span>: <span class="number">0</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建一个新的 ICE 候选者对象</span></span><br><span class="line"><span class="keyword">const</span> iceCandidate = <span class="keyword">new</span> <span class="title class_">RTCIceCandidate</span>(remoteIceCandidateInfo);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将 ICE 候选者添加到本地的 PeerConnection</span></span><br><span class="line">peerConnection.<span class="title function_">addIceCandidate</span>(iceCandidate)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;ICE 候选者添加成功&#x27;</span>);</span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="title function_">catch</span>(<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;添加 ICE 候选者时出错：&#x27;</span>, error);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="RTCSessionDescription"><a href="#RTCSessionDescription" class="headerlink" title="RTCSessionDescription"></a>RTCSessionDescription</h3><p><code>RTCSessionDescription</code> 是 WebRTC API 中的一个重要接口，用于表示会话描述协议 (SDP) 中的一部分。SDP 是一种用于描述媒体会话的文本协议，包含了媒体流的相关信息，如编解码器、媒体类型、媒体格式、网络传输协议等。</p>
+<p>在 WebRTC 中，<code>RTCSessionDescription</code> 主要用于描述通信会话中的两个关键部分：</p>
+<ol>
+<li><p><strong>描述远程媒体的信息</strong>：当一个端点（通常是浏览器）接收到来自远程端点（如另一个浏览器或媒体服务器）的 SDP 描述时，它会使用 <code>RTCSessionDescription</code> 对象来表示该描述。这个描述包含了远程端点发送的媒体流的相关信息，如编解码器、媒体类型、网络地址等。</p>
+</li>
+<li><p><strong>描述本地媒体的信息</strong>：同样地，当一个端点想要向远程端点发送媒体流时，它会创建一个 <code>RTCSessionDescription</code> 对象，其中包含了本地媒体流的描述信息。这个描述会随后通过信令传输给远程端点，以便它能够了解到本地端点要发送的媒体流的相关信息。</p>
+</li>
+</ol>
+<h4 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h4><p><code>RTCSessionDescription</code> 是 WebRTC 中用于描述会话信息的对象。它有两个主要属性：</p>
+<ul>
+<li><p><strong>type</strong>：描述会话的类型，通常是 <code>&quot;offer&quot;</code>、<code>&quot;answer&quot;</code> 或 <code>&quot;pranswer&quot;</code> 中的一个。</p>
+<ul>
+<li><code>&quot;offer&quot;</code>：表示发起一个会话描述，通常由发送方生成并发送给接收方。</li>
+<li><code>&quot;answer&quot;</code>：表示响应一个会话描述，接收方收到 <code>&quot;offer&quot;</code> 后生成的响应。</li>
+<li><code>&quot;pranswer&quot;</code>：表示暂时的会话描述，用于表示正在协商会话的过程中，尚未达成最终协议的描述。</li>
+</ul>
+</li>
+<li><p><strong>sdp</strong>：会话描述协议 (SDP) 的文本内容，包含了媒体流的相关信息，如编解码器、媒体类型、传输协议等。</p>
+</li>
+</ul>
+<h4 id="案例-1"><a href="#案例-1" class="headerlink" title="案例"></a>案例</h4><p>举个例子，一个典型的 <code>RTCSessionDescription</code> 对象可以看起来像这样：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 远端收到的Offer描述</span></span><br><span class="line"><span class="keyword">const</span> sessionDescription = &#123;</span><br><span class="line">  <span class="attr">type</span>: <span class="string">&#x27;offer&#x27;</span>,</span><br><span class="line">  <span class="attr">sdp</span>: <span class="string">&#x27;v=0\no=- 123456789 0 IN IP4 127.0.0.1\ns=...\nt=0 0\n...&#x27;</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// `setRemoteDescription()` 是 WebRTC 中 `RTCPeerConnection` 接口提供的方法之一，用于设置远端描述。它的作用是将远端的 Session Description（会话描述）应用到本地的 `RTCPeerConnection` 对象上，以建立或更新连接所需的各种参数和配置。</span></span><br><span class="line"><span class="comment">// 是一个异步操作，因为它可能需要与远端进行交互，解析和验证会话描述信息，并根据描述信息更新本地连接的状态。</span></span><br><span class="line">peerConnection.<span class="title function_">setRemoteDescription</span>(sessionDescription)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 处理成功设置远端描述后的逻辑</span></span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="title function_">catch</span>(<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 处理设置远端描述失败的逻辑</span></span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="RTCCertificate"><a href="#RTCCertificate" class="headerlink" title="RTCCertificate"></a>RTCCertificate</h3><p><code>RTCCertificate</code> 是用于配置和管理 <code>WebRTC</code> 连接所使用的安全证书的接口。它可以用来指定本地端点的安全凭证，以确保通信的安全性和可靠性。</p>
+<p><code>RTCCertificate</code> 接口本身并没有提供直接创建证书的方法。相反，<code>WebRTC API</code> 中的 <code>RTCPeerConnection.generateCertificate()</code> 方法用于生成新的证书。这个方法返回一个 <code>Promise</code>，在解析时会返回一个新的 <code>RTCCertificate</code> 实例，或者在生成证书时出现错误时返回一个错误对象。</p>
+<h4 id="属性和方法-1"><a href="#属性和方法-1" class="headerlink" title="属性和方法"></a>属性和方法</h4><p><code>RTCCertificate</code> 接口没有提供构造函数来创建新的证书，而是通过 <code>createOffer()</code>、<code>createAnswer()</code> 等方法间接使用。它的主要属性和方法包括：</p>
+<ul>
+<li><code>expires</code>：表示证书的到期时间，以 <code>UNIX</code> 时间戳表示。</li>
+<li><code>getFingerprints()</code>：返回一个包含证书指纹信息的数组。</li>
+</ul>
+<h4 id="案例-2"><a href="#案例-2" class="headerlink" title="案例"></a>案例</h4><p>以下是一个使用 <code>RTCPeerConnection.generateCertificate()</code> 方法生成证书的示例：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// RSASSA-PKCS1-v1_5 算法</span></span><br><span class="line"><span class="keyword">let</span> stdRSACertificate = &#123;</span><br><span class="line">  <span class="comment">// name: 必需，指定生成证书所使用的算法名称。目前支持的值有 &quot;RSASSA-PKCS1-v1_5&quot;、&quot;RSA-PSS&quot; 和 &quot;ECDSA&quot;。</span></span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;RSASSA-PKCS1-v1_5&quot;</span>,</span><br><span class="line">  <span class="comment">// modulusLength: 对于 RSA 算法，指定生成的 RSA 密钥的长度（以位为单位）。可选值为 1024、2048、4096 等。默认为 2048。</span></span><br><span class="line">  <span class="attr">modulusLength</span>: <span class="number">2048</span>,</span><br><span class="line">  <span class="comment">// publicExponent: 对于 RSA 算法，指定生成的 RSA 密钥的公共指数。可选值为 3、65537 等。默认为 65537。</span></span><br><span class="line">  <span class="attr">publicExponent</span>: <span class="keyword">new</span> <span class="title class_">Uint8Array</span>([<span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>]),</span><br><span class="line">  <span class="comment">// hash: 对于 RSA 算法，指定用于签名的散列算法。可选值为 &quot;SHA-1&quot;、&quot;SHA-256&quot;、&quot;SHA-384&quot; 等。默认为 &quot;SHA-256&quot;。</span></span><br><span class="line">  <span class="attr">hash</span>: <span class="string">&quot;SHA-256&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// RSA-PSS 算法</span></span><br><span class="line"><span class="keyword">let</span> stdRSAPSSCertificate = &#123;</span><br><span class="line">  <span class="comment">// name: 必需，指定生成证书所使用的算法名称。目前支持的值有 &quot;RSASSA-PKCS1-v1_5&quot;、&quot;RSA-PSS&quot; 和 &quot;ECDSA&quot;。</span></span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;RSA-PSS&#x27;</span>,</span><br><span class="line">  <span class="comment">// modulusLength: RSA 公钥的模数长度，即 N 的位数。一般来说，这个值越大，密钥的安全性就越高。典型的值为 2048 或 4096。</span></span><br><span class="line">  <span class="attr">modulusLength</span>: <span class="number">2048</span>,</span><br><span class="line">  <span class="comment">// publicExponent: RSA 公钥的指数部分，通常选择一个较小的质数，如 65537 (0x10001)。</span></span><br><span class="line">  <span class="attr">publicExponent</span>: <span class="keyword">new</span> <span class="title class_">Uint8Array</span>([<span class="number">0x01</span>, <span class="number">0x00</span>, <span class="number">0x01</span>]), <span class="comment">// 对应于十进制的65537</span></span><br><span class="line">  <span class="comment">// hash: 用于生成签名的哈希算法，如 SHA-256、SHA-384、SHA-512 等。</span></span><br><span class="line">  <span class="attr">hash</span>: <span class="string">&#x27;SHA-256&#x27;</span>,</span><br><span class="line">  <span class="comment">// saltLength: 签名中所使用的盐的长度，通常设置为哈希算法的输出长度。</span></span><br><span class="line">  <span class="attr">saltLength</span>: <span class="number">32</span> <span class="comment">// 假设使用32字节的盐</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ECDSA 算法</span></span><br><span class="line"><span class="keyword">let</span> stdECDSACertificate = &#123;</span><br><span class="line">  <span class="comment">// name: 必需，指定生成证书所使用的算法名称。目前支持的值有 &quot;RSASSA-PKCS1-v1_5&quot;、&quot;RSA-PSS&quot; 和 &quot;ECDSA&quot;。</span></span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;ECDSA&quot;</span>,</span><br><span class="line">  <span class="comment">// namedCurve 是用于指定生成椭圆曲线数字签名算法 (ECDSA) 证书时所使用的椭圆曲线的参数。目前支持的值有 &quot;P-256&quot;、&quot;P-384&quot; 和 &quot;P-521&quot;。</span></span><br><span class="line">  <span class="attr">namedCurve</span>: <span class="string">&quot;P-256&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用 RTCPeerConnection.generateCertificate() 方法生成新的证书</span></span><br><span class="line"><span class="keyword">const</span> certificatePromise = <span class="title class_">RTCPeerConnection</span>.<span class="title function_">generateCertificate</span>(stdECDSACertificate);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 处理生成证书的结果</span></span><br><span class="line">certificatePromise.<span class="title function_">then</span>(<span class="function">(<span class="params">certificate</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 生成证书成功，可以使用 certificate 对象</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;New certificate generated:&#x27;</span>, certificate);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 在这里可以使用生成的证书进行后续操作，例如创建 RTCPeerConnection 实例</span></span><br><span class="line">&#125;).<span class="title function_">catch</span>(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 生成证书失败，输出错误信息</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;Error generating certificate:&#x27;</span>, error);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="RTCRtpTransceiver"><a href="#RTCRtpTransceiver" class="headerlink" title="RTCRtpTransceiver"></a>RTCRtpTransceiver</h3><p><code>RTCRtpTransceiver</code> 接口表示一个媒体传输通道，用于在 <code>WebRTC</code> 对等连接（<code>RTCPeerConnection</code>）中传输媒体流。每个传输通道可以处理一个或多个媒体流的发送和接收。</p>
+<p><code>RTCRtpTransceiver</code> 接口通常由 <code>RTCPeerConnection</code> 对象的 <code>addTransceiver()</code> 方法创建，并在对等连接的创建和管理过程中使用。它提供了灵活的控制选项，使您能够更好地管理对等连接中的媒体流传输。</p>
+<h4 id="属性-1"><a href="#属性-1" class="headerlink" title="属性"></a>属性</h4><p><code>RTCRtpTransceiver</code> 表示 <code>WebRTC</code> 对等连接（<code>RTCPeerConnection</code>）中的一个媒体传输通道，该对象包含的属性和方法如下所示：</p>
+<ul>
+<li><code>mid</code>：传输通道的标识符（MediaStream ID），在 SDP 中用于唯一标识传输通道。</li>
+<li><code>receiver</code>：与传输通道相关联的接收器对象（<code>RTCReceiver</code>），用于接收远程媒体流。</li>
+<li><code>sender</code>：与传输通道相关联的发送器对象（<code>RTCSender</code>），用于发送本地媒体流。</li>
+<li><code>direction</code>：传输通道的传输方向，可以是 <code>&quot;sendrecv&quot;</code>、<code>&quot;sendonly&quot;</code>、<code>&quot;recvonly&quot;</code> 或 <code>&quot;inactive&quot;</code>。</li>
+<li><code>currentDirection</code>：当前传输通道的传输方向。</li>
+<li><code>stopped</code>：指示传输通道是否已停止的布尔值。</li>
+</ul>
+<h4 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h4><ul>
+<li><code>setCodecPreferences(codecs)</code>：设置传输通道的编解码器偏好，<code>codecs</code> 是通过 <code>RTCRtpSender.getCapabilities</code> 和 <code>RTCRtpReceiver.getCapabilities</code> 静态方法获得的编解码器。</li>
+<li><code>stop()</code>：停止传输通道，不再发送或接收媒体流。</li>
+</ul>
+<p><code>RTCRtpSender</code> 和 <code>RTCRtpReceiver</code> 是 WebRTC API 中用于发送和接收媒体流的对象。</p>
+<h3 id="RTCRtpSender："><a href="#RTCRtpSender：" class="headerlink" title="RTCRtpSender："></a>RTCRtpSender：</h3><p><code>RTCRtpSender</code> 接口表示 <code>RTCPeerConnection</code> 中的媒体发送器。它负责发送媒体流到远程对等方。</p>
+<h4 id="属性-2"><a href="#属性-2" class="headerlink" title="属性"></a>属性</h4><ul>
+<li><code>track</code>：成员属性，代表当前与 <code>RTCRtpSender</code> 相关联的 <code>MediaStreamTrack</code> 对象。可以是音频轨道或视频轨道。</li>
+</ul>
+<h4 id="方法-1"><a href="#方法-1" class="headerlink" title="方法"></a>方法</h4><ul>
+<li><p><code>getParameters()</code>：成员方法，返回一个 <code>RTCRtpSendParameters</code> 对象，该对象包含了当前发送器的参数信息，如编码器设置等。</p>
+</li>
+<li><p><code>setParameters(parameters)</code>：成员方法，用于设置发送器的参数，例如修改编码器设置等。参数 <code>parameters</code> 是一个包含新参数的 <code>RTC RtpSendParameters</code> 对象。</p>
+</li>
+<li><p><code>replaceTrack(newTrack)</code>：成员方法，用于替换当前发送器的媒体轨道。可以用于在运行时更改发送的媒体类型（例如切换摄像头）。</p>
+</li>
+<li><p><code>getCapabilities(kind)</code>：静态方法，用于获取特定类型（音频或视频）的编解码器能力信息。参数 <code>kind</code> 可以是 “audio” 或 “video”。</p>
+</li>
+</ul>
+<h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h4><p>以下是关于如何使用 <code>getCapabilities</code> 方法来获取编解码器能力信息的示例代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取视频编解码器能力信息</span></span><br><span class="line"><span class="keyword">const</span> videoCapabilities = <span class="title class_">RTCRtpSender</span>.<span class="title function_">getCapabilities</span>(<span class="string">&#x27;video&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Video Codecs:&quot;</span>, videoCapabilities.<span class="property">codecs</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取音频编解码器能力信息</span></span><br><span class="line"><span class="keyword">const</span> audioCapabilities = <span class="title class_">RTCRtpSender</span>.<span class="title function_">getCapabilities</span>(<span class="string">&#x27;audio&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Audio Codecs:&quot;</span>, audioCapabilities.<span class="property">codecs</span>);</span><br></pre></td></tr></table></figure>
+
+<p>这段代码中，我们首先使用 <code>RTCRtpSender.getCapabilities</code> 方法来获取视频和音频编解码器的能力信息。然后，我们打印出返回的 <code>codecs</code> 属性，其中包含了关于支持的编解码器的详细信息，例如编解码器的类型、编码器和解码器参数等。</p>
+<h3 id="RTCRtpReceiver："><a href="#RTCRtpReceiver：" class="headerlink" title="RTCRtpReceiver："></a>RTCRtpReceiver：</h3><p><code>RTCRtpReceiver</code> 接口表示 <code>RTCPeerConnection</code> 中的媒体接收器。它负责接收远程对等方发送的媒体流。</p>
+<h4 id="属性-3"><a href="#属性-3" class="headerlink" title="属性"></a>属性</h4><ul>
+<li><code>track</code>：属性，代表当前与 <code>RTCRtpReceiver</code> 相关联的 <code>MediaStreamTrack</code> 对象。可以是音频轨道或视频轨道。</li>
+</ul>
+<h4 id="方法-2"><a href="#方法-2" class="headerlink" title="方法"></a>方法</h4><ul>
+<li><p><code>getParameters()</code>：成员方法，返回一个 <code>RTC RtpReceiveParameters</code> 对象，该对象包含了当前接收器的参数信息，如解码器设置等。</p>
+</li>
+<li><p><code>getContributingSources()</code>：成员方法，返回一个包含贡献源信息的数组，表示当前接收器接收到的媒体流的贡献者。</p>
+</li>
+<li><p><code>getStats()</code>：成员方法，返回一个 Promise，该 Promise 在解析后会提供有关接收器的统计信息。</p>
+</li>
+<li><p><code>getCapabilities(kind)</code>：静态方法，用于获取特定类型（音频或视频）的编解码器能力信息。参数 <code>kind</code> 可以是 “audio” 或 “video”。</p>
+</li>
+</ul>
+<h4 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h4><p>以下是一个使用 <code>RTCRtpReceiver.getCapabilities</code> 方法来获取音频和视频编解码器能力信息的示例代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取视频编解码器能力信息</span></span><br><span class="line"><span class="keyword">const</span> videoCapabilities = <span class="title class_">RTCRtpReceiver</span>.<span class="title function_">getCapabilities</span>(<span class="string">&#x27;video&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Video Codecs:&quot;</span>, videoCapabilities.<span class="property">codecs</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取音频编解码器能力信息</span></span><br><span class="line"><span class="keyword">const</span> audioCapabilities = <span class="title class_">RTCRtpReceiver</span>.<span class="title function_">getCapabilities</span>(<span class="string">&#x27;audio&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Audio Codecs:&quot;</span>, audioCapabilities.<span class="property">codecs</span>);</span><br></pre></td></tr></table></figure>
+
+<p>这段代码中，我们使用 <code>RTCRtpReceiver.getCapabilities</code> 方法来获取音频和视频编解码器的能力信息。在真实使用当中，我们可以设置传输的音视频的编解码器<br>然后，我们打印出返回的 <code>codecs</code> 属性，其中包含了关于支持的编解码器的详细信息，例如编解码器的类型、编码器和解码器参数等。</p>
+<h3 id="其他名词术语解释"><a href="#其他名词术语解释" class="headerlink" title="其他名词术语解释"></a>其他名词术语解释</h3><p>当涉及到 WebRTC 和实时通信时，以下术语是很常见的：</p>
+<ul>
+<li><p><strong>SDP（Session Description Protocol）</strong>：会话描述协议，用于描述多媒体会话的参数，例如编解码器信息、媒体流传输方式等。在 WebRTC 中，SDP 用于建立和管理对等连接。</p>
+</li>
+<li><p><strong>RTCP（Real-Time Control Protocol）</strong>：实时控制协议，是用于在 RTP（实时传输协议）会话中提供控制和监控功能的协议。RTCP 主要用于传输统计信息和控制信息。</p>
+</li>
+<li><p><strong>RTP（Real-Time Transport Protocol）</strong>：实时传输协议，是一种用于在 IP 网络上传输多媒体数据的协议。RTP 通常与 RTCP 一起使用，用于在网络上传输音频和视频流。</p>
+</li>
+<li><p><strong>ICE（Interactive Connectivity Establishment）</strong>：交互式连接建立，是一种用于在两个设备之间建立网络连接的技术。ICE 使用一系列技术（包括 STUN、TURN 和 ICE）来克服网络地址转换（NAT）和防火墙等网络障碍。</p>
+</li>
+</ul>
+<p>这些术语在 WebRTC 中起着至关重要的作用，它们共同构建了实时通信系统的基础。</p>
+<h2 id="WebRTC的工作原理"><a href="#WebRTC的工作原理" class="headerlink" title="WebRTC的工作原理"></a>WebRTC的工作原理</h2><p><code>WebRTC（Web Real-Time Communication）</code> 是一项用于实现浏览器之间实时通信的开放标准技术。它允许在不需要额外插件的情况下，通过浏览器直接进行音频、视频和数据传输。<code>WebRTC</code> 技术的出现，极大地促进了在线会议、远程教育、视频直播等领域的发展。下面将深入探讨 <code>WebRTC</code> 的核心技术，包括<strong>媒体获取</strong>、<strong>媒体传输</strong>、<strong>信令交换</strong>以及<strong>NAT穿越</strong>等方面，并结合详细的例子进行说明。</p>
+<h3 id="摄像头媒体获取（Media-Acquisition）"><a href="#摄像头媒体获取（Media-Acquisition）" class="headerlink" title="摄像头媒体获取（Media Acquisition）"></a>摄像头媒体获取（Media Acquisition）</h3><p><code>navigator.mediaDevices.getUserMedia()</code> 是 WebRTC 提供的方法之一，用于从用户的摄像头和麦克风中获取媒体流。它允许 Web 应用程序访问用户的音视频设备，并将其转换为可用于实时通信、音视频录制等目的的媒体流。</p>
+<h4 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h4><p>以下是关于 <code>navigator.mediaDevices.getUserMedia()</code> 方法的例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">navigator.<span class="property">mediaDevices</span>.<span class="title function_">getUserMedia</span>(&#123; <span class="attr">video</span>: <span class="literal">true</span>, <span class="attr">audio</span>: <span class="literal">true</span> &#125;)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function">(<span class="params">stream</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 获取到用户的音视频流</span></span><br><span class="line">    <span class="keyword">const</span> videoElement = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;localVideo&#x27;</span>);</span><br><span class="line">    videoElement.<span class="property">srcObject</span> = stream;</span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="title function_">catch</span>(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;获取用户媒体设备失败：&#x27;</span>, error);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="参数说明"><a href="#参数说明" class="headerlink" title="参数说明"></a>参数说明</h4><ul>
+<li><code>constraints</code> 是一个可选参数，用于指定获取媒体流的约束条件。</li>
+<li>可以包含两个属性：<ul>
+<li><code>video</code>：指定是否捕获视频。可以是布尔值或包含视频约束的对象。</li>
+<li><code>audio</code>：指定是否捕获音频。可以是布尔值或包含音频约束的对象。</li>
+</ul>
+</li>
+</ul>
+<h4 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h4><ul>
+<li><code>getUserMedia()</code> 方法返回一个 <code>Promise</code> 对象。</li>
+<li>如果用户授权并成功获取媒体流，则 <code>Promise</code> 对象的 <code>then</code> 回调函数会被调用，并传递一个 <code>MediaStream</code> 对象作为参数，其中包含捕获的视频和&#x2F;或音频轨道。</li>
+<li>如果用户拒绝权限或获取媒体流失败，则 <code>Promise</code> 对象的 <code>catch</code> 回调函数会被调用，并传递一个 <code>Error</code> 对象作为参数，其中包含错误的详细信息。</li>
+</ul>
+<h4 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h4><p>获取到媒体流后，您可以将其用于各种用途，例如：</p>
+<ul>
+<li>在 <code>&lt;video&gt;</code> 元素中播放捕获的视频流。</li>
+<li>将视频流传输到远程对等端，实现实时视频通话或视频会议。</li>
+<li>对音频流进行处理、录制或转发等操作。</li>
+</ul>
+<h4 id="权限和安全性"><a href="#权限和安全性" class="headerlink" title="权限和安全性"></a>权限和安全性</h4><ul>
+<li>浏览器通常会在第一次调用 <code>getUserMedia()</code> 方法时向用户请求音视频设备的权限。</li>
+<li>用户需要允许或拒绝权限请求，以控制是否允许网站访问其摄像头和麦克风。</li>
+<li>为了保护用户隐私和安全，浏览器会限制某些情况下的媒体设备访问，例如当网页位于不安全的上下文中时。</li>
+</ul>
+<p>总的来说，<code>navigator.mediaDevices.getUserMedia()</code> 方法为开发者提供了一种方便的方式来获取用户的音视频流，从而实现各种实时音视频通信、录制和处理等功能。</p>
+<h4 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h4><p>上面的代码演示了如何使用 <code>getUserMedia API</code> 获取用户的音视频流，并将其绑定到一个 <code>&lt;video&gt;</code> 元素上进行实时预览。通过这种方式，我们可以轻松地在浏览器中获取用户的音视频数据，为后续的通信做准备。</p>
+<h3 id="桌面媒体获取（Media-Acquisition）"><a href="#桌面媒体获取（Media-Acquisition）" class="headerlink" title="桌面媒体获取（Media Acquisition）"></a>桌面媒体获取（Media Acquisition）</h3><p><code>navigator.mediaDevices.getDisplayMedia()</code> 是 WebRTC 提供的方法之一，用于获取屏幕共享流。它允许用户捕获屏幕上的内容并将其转换为媒体流，以便在 Web 应用程序中进行处理和展示。</p>
+<h4 id="示例代码-1"><a href="#示例代码-1" class="headerlink" title="示例代码"></a>示例代码</h4><p>让我们详细解释一下这个方法的用法和相关概念：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">navigator.<span class="property">mediaDevices</span>.<span class="title function_">getDisplayMedia</span>(constraints)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function"><span class="params">stream</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 处理媒体流</span></span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="title function_">catch</span>(<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 处理错误</span></span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="参数说明-1"><a href="#参数说明-1" class="headerlink" title="参数说明"></a>参数说明</h4><ul>
+<li><code>constraints</code> 是一个可选参数，用于指定获取屏幕共享流的约束条件。</li>
+<li>可以包含两个属性：<ul>
+<li><code>video</code>：指定是否捕获视频。默认值为 <code>true</code>。</li>
+<li><code>audio</code>：指定是否捕获音频。默认值为 <code>false</code>。</li>
+</ul>
+</li>
+</ul>
+<h4 id="返回值-1"><a href="#返回值-1" class="headerlink" title="返回值"></a>返回值</h4><ul>
+<li><code>getDisplayMedia()</code> 方法返回一个 <code>Promise</code> 对象。</li>
+<li>如果用户授权并成功获取屏幕共享流，则 <code>Promise</code> 对象的 <code>then</code> 回调函数会被调用，并传递一个 <code>MediaStream</code> 对象作为参数，其中包含屏幕共享的视频和&#x2F;或音频轨道。</li>
+<li>如果用户拒绝权限或获取屏幕共享流失败，则 <code>Promise</code> 对象的 <code>catch</code> 回调函数会被调用，并传递一个 <code>Error</code> 对象作为参数，其中包含错误的详细信息。</li>
+</ul>
+<h4 id="用途-1"><a href="#用途-1" class="headerlink" title="用途"></a>用途</h4><p>获取到媒体流后，您可以将其用于各种用途，例如：</p>
+<ul>
+<li>在 <code>&lt;video&gt;</code> 元素中播放屏幕共享内容。</li>
+<li>将屏幕共享流传输到远程对等端，实现屏幕共享功能。</li>
+<li>对媒体流进行处理、录制或转发等操作。</li>
+</ul>
+<h4 id="权限和安全性-1"><a href="#权限和安全性-1" class="headerlink" title="权限和安全性"></a>权限和安全性</h4><ul>
+<li>浏览器通常会在第一次调用 <code>getDisplayMedia()</code> 方法时向用户请求屏幕共享权限。</li>
+<li>用户需要允许或拒绝权限请求，以控制是否允许网站捕获屏幕内容。</li>
+<li>为了保护用户隐私和安全，浏览器会限制某些情况下的屏幕共享，例如当网页位于不安全的上下文中时。</li>
+</ul>
+<h4 id="说明-1"><a href="#说明-1" class="headerlink" title="说明"></a>说明</h4><p><code>navigator.mediaDevices.getDisplayMedia()</code> 方法为开发者提供了一种方便的方式来获取屏幕共享流，从而实现屏幕录制、远程教学、视频会议等各种实时协作和分享功能。</p>
+<h3 id="媒体传输（Media-Transmission）"><a href="#媒体传输（Media-Transmission）" class="headerlink" title="媒体传输（Media Transmission）"></a>媒体传输（Media Transmission）</h3><p><code>WebRTC</code> 的媒体传输主要涉及使用 <code>RTCPeerConnection</code> 建立点对点的连接，并将音视频数据传输给其他 <code>RTCPeerConnection</code>。这个过程涉及到 <code>ICE</code> 候选、会话描述等技术，以确保数据能够安全、高效地传输。</p>
+<h4 id="示例代码-2"><a href="#示例代码-2" class="headerlink" title="示例代码"></a>示例代码</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个RTCPeerConnection对象</span></span><br><span class="line"><span class="keyword">const</span> peerConnection = <span class="keyword">new</span> <span class="title class_">RTCPeerConnection</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 添加ICE候选</span></span><br><span class="line">peerConnection.<span class="property">onicecandidate</span> = <span class="keyword">function</span>(<span class="params">event</span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> candidateObject = &#123;&#125;;</span><br><span class="line">  <span class="keyword">const</span> candidate = event.<span class="property">candidate</span>;</span><br><span class="line">  <span class="keyword">if</span> (!candidate) &#123;</span><br><span class="line">    log.<span class="title function_">debug</span>(<span class="string">&#x27;message: Gathered all candidates and sending END candidate&#x27;</span>);</span><br><span class="line">    candidateObject = &#123;</span><br><span class="line">      <span class="attr">sdpMLineIndex</span>: -<span class="number">1</span>,</span><br><span class="line">      <span class="attr">sdpMid</span>: <span class="string">&#x27;end&#x27;</span>,</span><br><span class="line">      <span class="attr">candidate</span>: <span class="string">&#x27;end&#x27;</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    candidateObject = &#123;</span><br><span class="line">      <span class="attr">sdpMLineIndex</span>: candidate.<span class="property">sdpMLineIndex</span>,</span><br><span class="line">      <span class="attr">sdpMid</span>: candidate.<span class="property">sdpMid</span>,</span><br><span class="line">      <span class="attr">candidate</span>: candidate.<span class="property">candidate</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">if</span> (!candidateObject.<span class="property">candidate</span>.<span class="title function_">match</span>(<span class="regexp">/a=/</span>)) &#123;</span><br><span class="line">      candidateObject.<span class="property">candidate</span> = <span class="string">`a=<span class="subst">$&#123;candidateObject.candidate&#125;</span>`</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 发送ICE候选给对方</span></span><br><span class="line">  socket.<span class="title function_">sendSDP</span>(</span><br><span class="line">    <span class="string">&#x27;connectionMessage&#x27;</span>,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">roomId</span>: <span class="string">&#x27;xxx&#x27;</span>,</span><br><span class="line">      <span class="attr">msg</span>: &#123;</span><br><span class="line">        <span class="attr">type</span>: <span class="string">&#x27;candidate&#x27;</span>,</span><br><span class="line">        <span class="attr">candidate</span>: candidateObject</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">browser</span>: <span class="string">&#x27;xxx&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 添加本地流</span></span><br><span class="line">navigator.<span class="property">mediaDevices</span>.<span class="title function_">getUserMedia</span>(&#123; <span class="attr">video</span>: <span class="literal">true</span>, <span class="attr">audio</span>: <span class="literal">true</span> &#125;)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function">(<span class="params">stream</span>) =&gt;</span> &#123;</span><br><span class="line">    stream.<span class="title function_">getTracks</span>().<span class="title function_">forEach</span>(<span class="function">(<span class="params">track</span>) =&gt;</span> &#123;</span><br><span class="line">      peerConnection.<span class="title function_">addTrack</span>(track, stream);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建Offer</span></span><br><span class="line">peerConnection.<span class="title function_">createOffer</span>()</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function">(<span class="params">offer</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> peerConnection.<span class="title function_">setLocalDescription</span>(offer);</span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 将Offer发送给对方</span></span><br><span class="line">    socket.<span class="title function_">sendSDP</span>(</span><br><span class="line">      <span class="string">&#x27;connectionMessage&#x27;</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">roomId</span>: <span class="string">&#x27;xxx&#x27;</span>,</span><br><span class="line">        <span class="attr">msg</span>: &#123;</span><br><span class="line">          <span class="attr">type</span>: peerConnection.<span class="property">localDescription</span>.<span class="property">type</span>,</span><br><span class="line">          <span class="attr">sdp</span>: peerConnection.<span class="property">localDescription</span>.<span class="property">sdp</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">browser</span>: <span class="string">&#x27;xxx&#x27;</span></span><br><span class="line">      &#125;</span><br><span class="line">    );</span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="title function_">catch</span>(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;创建Offer失败：&#x27;</span>, error);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="说明-2"><a href="#说明-2" class="headerlink" title="说明"></a>说明</h4><p>上面的代码演示了如何使用 <code>RTCPeerConnection</code> 建立点对点连接，并将本地的音视频流添加到连接中。然后，通过创建一个<code>Offer</code>，并将其发送给对方，以发起一个通信会话。在这个过程中，我们还需要处理 <code>ICE</code> 候选，以便在连接过程中进行 <code>NAT</code> 穿越。</p>
+<h3 id="信令交换（Signaling）"><a href="#信令交换（Signaling）" class="headerlink" title="信令交换（Signaling）"></a>信令交换（Signaling）</h3><p><code>WebRTC</code> 的信令交换主要涉及将会话描述、<code>ICE</code> 候选等元数据信息交换给其他 <code>RTCPeerConnection</code>，以建立和管理通信会话。这个过程通常需要借助于信令服务器来协调客户端之间的消息传递。</p>
+<h4 id="示例代码-3"><a href="#示例代码-3" class="headerlink" title="示例代码"></a>示例代码</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 建立WebSocket连接</span></span><br><span class="line"><span class="keyword">const</span> ws = <span class="keyword">new</span> <span class="title class_">WebSocket</span>(<span class="string">&#x27;ws://localhost:8080&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 监听WebSocket消息</span></span><br><span class="line">ws.<span class="property">onmessage</span> = <span class="keyword">function</span>(<span class="params">event</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> message = <span class="title class_">JSON</span>.<span class="title function_">parse</span>(event.<span class="property">data</span>).<span class="property">msg</span>;</span><br><span class="line">  <span class="comment">// 当收到远端的Offer时，我们需要设置远端描述，并生成一个Answer，添加到本地描述里面，然后在通过WebSocket发生给远端，让对方设置的远端描述里面。</span></span><br><span class="line">  <span class="keyword">if</span> (message.<span class="property">type</span> === <span class="string">&#x27;offer&#x27;</span>) &#123;</span><br><span class="line">    <span class="comment">// 收到对方的Offer</span></span><br><span class="line">    peerConnection.<span class="title function_">setRemoteDescription</span>(<span class="keyword">new</span> <span class="title class_">RTCSessionDescription</span>(message))</span><br><span class="line">      .<span class="title function_">then</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// 创建并发送Answer</span></span><br><span class="line">        <span class="keyword">return</span> peerConnection.<span class="title function_">createAnswer</span>();</span><br><span class="line">      &#125;)</span><br><span class="line">      .<span class="title function_">then</span>(<span class="function">(<span class="params">answer</span>) =&gt;</span> &#123;</span><br><span class="line">        peerConnection.<span class="title function_">setLocalDescription</span>(answer);</span><br><span class="line">        <span class="keyword">return</span> answer</span><br><span class="line">      &#125;)</span><br><span class="line">      .<span class="title function_">then</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// 将Answer发送给对方</span></span><br><span class="line">        socket.<span class="title function_">sendSDP</span>(</span><br><span class="line">          <span class="string">&#x27;connectionMessage&#x27;</span>,</span><br><span class="line">          &#123; <span class="attr">roomId</span>: <span class="string">&#x27;xxx&#x27;</span>, <span class="attr">msg</span>: answer, <span class="attr">browser</span>: <span class="string">&#x27;xxx&#x27;</span> &#125;</span><br><span class="line">        );</span><br><span class="line">      &#125;)</span><br><span class="line">      .<span class="title function_">catch</span>(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;处理Offer失败：&#x27;</span>, error);</span><br><span class="line">      &#125;);</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (message.<span class="property">type</span> === <span class="string">&#x27;answer&#x27;</span>) &#123;</span><br><span class="line">    <span class="comment">// 当收到远端的Answer时，设置到远端描述，建立通信连接成功！</span></span><br><span class="line">    <span class="comment">// 收到对方的Answer</span></span><br><span class="line">    peerConnection.<span class="title function_">setRemoteDescription</span>(<span class="keyword">new</span> <span class="title class_">RTCSessionDescription</span>(message))</span><br><span class="line">      .<span class="title function_">then</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;成功建立通信连接！&#x27;</span>);</span><br><span class="line">      &#125;)</span><br><span class="line">      .<span class="title function_">catch</span>(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;处理Answer失败：&#x27;</span>, error);</span><br><span class="line">      &#125;);</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (message.<span class="property">type</span> === <span class="string">&#x27;candidate&#x27;</span>) &#123;</span><br><span class="line">    <span class="comment">// 收到远端的ICE候选描述信息时，需要创建RTCIceCandidate对象，然后调用addIceCandidate方法添加ICE候选</span></span><br><span class="line">    <span class="keyword">const</span> candidateParams = <span class="keyword">typeof</span> (message.<span class="property">candidate</span>) === <span class="string">&#x27;object&#x27;</span> ? message.<span class="property">candidate</span> : <span class="title class_">JSON</span>.<span class="title function_">parse</span>(message.<span class="property">candidate</span>);</span><br><span class="line"></span><br><span class="line">    candidateParams.<span class="property">candidate</span> = candidateParams.<span class="property">candidate</span>.<span class="title function_">replace</span>(<span class="regexp">/a=/g</span>, <span class="string">&#x27;&#x27;</span>);</span><br><span class="line">    candidateParams.<span class="property">sdpMLineIndex</span> = <span class="built_in">parseInt</span>(candidateParams.<span class="property">sdpMLineIndex</span>, <span class="number">10</span>);</span><br><span class="line">    <span class="keyword">const</span> candidate = <span class="keyword">new</span> <span class="title class_">RTCIceCandidate</span>(candidateParams);</span><br><span class="line">    <span class="comment">// 收到ICE候选</span></span><br><span class="line">    peerConnection.<span class="title function_">addIceCandidate</span>(candidate)</span><br><span class="line">      .<span class="title function_">then</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;成功添加ICE候选！&#x27;</span>);</span><br><span class="line">      &#125;)</span><br><span class="line">      .<span class="title function_">catch</span>(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;添加ICE候选失败：&#x27;</span>, error);</span><br><span class="line">      &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="说明-3"><a href="#说明-3" class="headerlink" title="说明"></a>说明</h4><p>上面的代码演示了如何使用 <code>WebSocket</code> 进行信令交换。客户端通过 <code>WebSocket</code> 连接到信令服务器，并监听来自服务器的消息。当收到对方发送的 <code>Offer</code>、<code>Answer</code> 或 <code>ICE</code> 候选时，客户端需要相应地处理并执行相应的操作，以建立和管理通信会话。</p>
+<h3 id="NAT穿越（NAT-Traversal）"><a href="#NAT穿越（NAT-Traversal）" class="headerlink" title="NAT穿越（NAT Traversal）"></a>NAT穿越（NAT Traversal）</h3><p><code>NAT（Network Address Translation）</code> 穿越是指在 <code>NAT</code> 环境下，通过一系列的技术手段实现两个位于私有网络中的计算机或设备之间的直接通信。<code>WebRTC</code> 通过使用 <code>STUN</code> 和 <code>TURN</code> 服务器来实现 <code>NAT</code> 穿越，以确保在各种网络环境下都能够正常进行实时通信。</p>
+<h4 id="示例代码-4"><a href="#示例代码-4" class="headerlink" title="示例代码"></a>示例代码</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 配置ICE服务器</span></span><br><span class="line"><span class="keyword">const</span> configuration = &#123;</span><br><span class="line">  <span class="attr">iceServers</span>: [</span><br><span class="line">    &#123; <span class="attr">urls</span>: <span class="string">&#x27;stun:stun.l.google.com:19302&#x27;</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">urls</span>: <span class="string">&#x27;turn:your-turn-server.com&#x27;</span>, <span class="attr">username</span>: <span class="string">&#x27;username&#x27;</span>, <span class="attr">credential</span>: <span class="string">&#x27;password&#x27;</span> &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建RTCPeerConnection对象</span></span><br><span class="line"><span class="keyword">const</span> peerConnection = <span class="keyword">new</span> <span class="title class_">RTCPeerConnection</span>(configuration);</span><br></pre></td></tr></table></figure>
+
+<h3 id="添加传输通道"><a href="#添加传输通道" class="headerlink" title="添加传输通道"></a>添加传输通道</h3><p>当通道和管理通信会话建立成功后，我们需要将我们本地的音视频流传输到远端的 <code>RTCPeerConnection</code> 中，所以我们需要调用 <code>RTCPeerConnection.addTransceiver</code> 方法。</p>
+<p><code>addTransceiver()</code> 方法用于向对等连接（<code>RTCPeerConnection</code> 对象）添加传输通道（transceiver），以便在单个轨道上发送和接收媒体流。通过这种方式，您可以更灵活地控制对等连接的行为，并更精细地管理媒体流的传输。</p>
+<p>该方法接受一个或多个参数，具体取决于您要添加的传输通道的类型和配置。通常情况下，<code>addTransceiver()</code> 方法用于以下两种情况：</p>
+<ol>
+<li><strong>添加本地传输通道（用于发送）</strong>：您可以通过将本地媒体轨道（例如音频或视频轨道）添加到对等连接中来创建一个新的传输通道，以便将该媒体流发送给远端。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> transceivers = [];</span><br><span class="line">localStream.<span class="title function_">getTracks</span>().<span class="title function_">forEach</span>(<span class="keyword">async</span> (track) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> options = &#123;</span><br><span class="line">    <span class="attr">streams</span>: [localStream],</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">if</span> (track.<span class="property">kind</span> === <span class="string">&#x27;video&#x27;</span>) &#123;</span><br><span class="line">    options = &#123;</span><br><span class="line">      <span class="comment">// 生成视频流编码的参数</span></span><br><span class="line">      <span class="attr">sendEncodings</span>: <span class="title function_">generateEncoderParameters</span>(),</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 需要保存传输通道，在不需要传输的时候，方便停止传输</span></span><br><span class="line">  <span class="keyword">const</span> transceiver = peerConnection.<span class="title function_">addTransceiver</span>(track, options);</span><br><span class="line">  transceivers.<span class="title function_">push</span>(transceiver);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>当需要移除的时候</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">transceivers.<span class="title function_">forEach</span>(<span class="function">(<span class="params">transceiver</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">debug</span>(<span class="string">&#x27;Stopping transceiver&#x27;</span>, transceiver);</span><br><span class="line">  <span class="comment">// Don&#x27;t remove the tagged m section, which is the first one (mid=0).</span></span><br><span class="line">  <span class="keyword">if</span> (transceiver.<span class="property">mid</span> === <span class="string">&#x27;0&#x27;</span>) &#123;</span><br><span class="line">    peerConnection.<span class="title function_">removeTrack</span>(transceiver.<span class="property">sender</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    transceiver.<span class="title function_">stop</span>();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><strong>添加远程传输通道（用于接收）</strong>：当您接收到远端对等连接发送的媒体流时，<code>WebRTC</code> 会自动为每个远程媒体轨道创建传输通道，并将其添加到对等连接中。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">peerConnection.<span class="property">ontrack</span> = <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> remoteTrack = event.<span class="property">track</span>;</span><br><span class="line">  <span class="keyword">if</span> (trackEvt.<span class="property">streams</span>.<span class="property">length</span> !== <span class="number">1</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">warning</span>(<span class="string">&#x27;More that one mediaStream associated with track!&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 远端的流</span></span><br><span class="line">  <span class="keyword">const</span> stream = trackEvt.<span class="property">streams</span>[<span class="number">0</span>];</span><br><span class="line">  <span class="comment">// 监听流移除轨道事件</span></span><br><span class="line">  stream.<span class="property">onremovetrack</span> = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 不存在音频和视频</span></span><br><span class="line">    <span class="keyword">if</span> (stream.<span class="title function_">getTracks</span>().<span class="property">length</span> === <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="title function_">emit</span>(<span class="title class_">ConnectionEvent</span>(&#123; <span class="attr">type</span>: <span class="string">&#x27;remove-stream&#x27;</span>, stream &#125;));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="title function_">emit</span>(<span class="title class_">ConnectionEvent</span>(&#123; <span class="attr">type</span>: <span class="string">&#x27;add-stream&#x27;</span>, stream &#125;));</span><br><span class="line">  <span class="comment">// 处理远程视频轨道</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="说明-4"><a href="#说明-4" class="headerlink" title="说明"></a>说明</h4><p>上面的代码示例中，我们通过配置 <code>ICE</code> 服务器来实现 <code>NAT</code> 穿越。其中，<code>STUN</code> 服务器用于获取公网 <code>IP</code> 地址和端口，而 <code>TURN</code> 服务器则用于在无法直接通信的情况下进行中转。通过合理配置 <code>ICE</code> 服务器，我们可以在不同的网络环境中都能够顺利地进行实时通信。</p>
+<h3 id="设置-Codec-编解码器"><a href="#设置-Codec-编解码器" class="headerlink" title="设置 Codec 编解码器"></a>设置 Codec 编解码器</h3><h4 id="获取可用-Codec"><a href="#获取可用-Codec" class="headerlink" title="获取可用 Codec"></a>获取可用 Codec</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> supportsSetCodecPreferences = <span class="variable language_">window</span>.<span class="property">RTCRtpTransceiver</span> &amp;&amp; <span class="string">&#x27;setCodecPreferences&#x27;</span> <span class="keyword">in</span> <span class="variable language_">window</span>.<span class="property">RTCRtpTransceiver</span>.<span class="property"><span class="keyword">prototype</span></span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="获取-Codec"><a href="#获取-Codec" class="headerlink" title="获取 Codec"></a>获取 Codec</h4><p>通过 <code>RTCRtpSender.getCapabilities(&#39;video&#39;)</code> 获取可支持的 <code>codec</code>。然后把它们放进列表 <code>codecPreferences</code> 里，通过 <code>Select</code> 元素展示，让用户选择想使用的 <code>codec</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (supportsSetCodecPreferences) &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; codecs &#125; = <span class="title class_">RTCRtpSender</span>.<span class="title function_">getCapabilities</span>(<span class="string">&#x27;video&#x27;</span>);</span><br><span class="line">    <span class="keyword">const</span> codecPreferences = [];</span><br><span class="line">    codecs.<span class="title function_">forEach</span>(<span class="function"><span class="params">codec</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> ([<span class="string">&#x27;video/red&#x27;</span>, <span class="string">&#x27;video/ulpfec&#x27;</span>, <span class="string">&#x27;video/rtx&#x27;</span>].<span class="title function_">includes</span>(codec.<span class="property">mimeType</span>)) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      codecPreferences.<span class="title function_">push</span>(&#123; ...codec, <span class="attr">value</span>: (codec.<span class="property">mimeType</span> + <span class="string">&#x27; &#x27;</span> + (codec.<span class="property">sdpFmtpLine</span> || <span class="string">&#x27;&#x27;</span>)).<span class="title function_">trim</span>() &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="配置-Codec"><a href="#配置-Codec" class="headerlink" title="配置 Codec"></a>配置 Codec</h4><p>找到用户选择的 <code>Codec</code>。调用 <code>transceiver.setCodecPreferences(codecs) </code>，把选中的 <code>Codec</code> 交给 <code>transceiver</code> 最上面，优先使用。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (supportsSetCodecPreferences) &#123;</span><br><span class="line">    <span class="comment">// 获取选择的codec</span></span><br><span class="line">    <span class="keyword">let</span> selectedIndex = <span class="number">1</span></span><br><span class="line">    <span class="keyword">const</span> preferredCodec = codecPreferences[selectedIndex];</span><br><span class="line">    <span class="keyword">if</span> (preferredCodec.<span class="property">value</span> !== <span class="string">&#x27;&#x27;</span>) &#123;</span><br><span class="line">      <span class="keyword">const</span> [mimeType, sdpFmtpLine] = preferredCodec.<span class="property">value</span>.<span class="title function_">split</span>(<span class="string">&#x27; &#x27;</span>);</span><br><span class="line">      <span class="keyword">const</span> &#123; codecs &#125; = <span class="title class_">RTCRtpSender</span>.<span class="title function_">getCapabilities</span>(<span class="string">&#x27;video&#x27;</span>);</span><br><span class="line">      <span class="keyword">const</span> selectedCodecIndex = codecs.<span class="title function_">findIndex</span>(<span class="function"><span class="params">c</span> =&gt;</span> c.<span class="property">mimeType</span> === mimeType &amp;&amp; c.<span class="property">sdpFmtpLine</span> === sdpFmtpLine);</span><br><span class="line">      <span class="keyword">const</span> selectedCodec = codecs[selectedCodecIndex];</span><br><span class="line">      <span class="comment">// 先移除</span></span><br><span class="line">      codecs.<span class="title function_">splice</span>(selectedCodecIndex, <span class="number">1</span>);</span><br><span class="line">      <span class="comment">// 插入第一个</span></span><br><span class="line">      codecs.<span class="title function_">unshift</span>(selectedCodec);</span><br><span class="line">      <span class="keyword">const</span> transceiver = pc1.<span class="title function_">getTransceivers</span>().<span class="title function_">find</span>(<span class="function"><span class="params">t</span> =&gt;</span> t.<span class="property">sender</span> &amp;&amp; t.<span class="property">sender</span>.<span class="property">track</span> === localStream.<span class="title function_">getVideoTracks</span>()[<span class="number">0</span>]);</span><br><span class="line">      transceiver.<span class="title function_">setCodecPreferences</span>(codecs);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="WebRTC的应用场景"><a href="#WebRTC的应用场景" class="headerlink" title="WebRTC的应用场景"></a>WebRTC的应用场景</h2><p><code>WebRTC</code> 技术已经被广泛应用于多个领域，包括：</p>
+<ol>
+<li><p>视频会议<br><code>WebRTC</code> 使得在网页浏览器中进行高清视频会议成为可能，用户可以通过浏览器直接加入会议室，与其他参与者进行实时视频通话。</p>
+</li>
+<li><p>在线教育<br>教育机构可以利用 <code>WebRTC</code> 技术搭建在线教育平台，让老师和学生之间进行实时的远程教学，实现互动和教学资源共享。</p>
+</li>
+<li><p>社交应用<br>社交应用程序可以利用 <code>WebRTC</code> 技术实现实时语音和视频通话功能，让用户之间进行更加直观和自然的交流。</p>
+</li>
+<li><p>远程医疗<br>医疗机构可以利用 <code>WebRTC</code> 技术搭建远程医疗平台，实现医生和患者之间的远程会诊和医疗服务，提高医疗资源的利用效率。</p>
+</li>
+</ol>
+<h2 id="WebRTC的未来发展趋势"><a href="#WebRTC的未来发展趋势" class="headerlink" title="WebRTC的未来发展趋势"></a>WebRTC的未来发展趋势</h2><p>随着实时通信需求的不断增加，<code>WebRTC</code> 技术也在不断发展和完善。未来，我们可以期待以下几个方面的发展趋势：</p>
+<ol>
+<li><p>网络性能的提升<br>随着网络基础设施的不断改善和网络带宽的增加，<code>WebRTC</code> 技术将能够实现更高质量、更稳定的实时通信体验。</p>
+</li>
+<li><p>新的应用场景<br>随着 <code>WebRTC</code> 技术的成熟和普及，我们可以预见到它将被应用于更多领域，如工业控制、智能家居和虚拟现实等。</p>
+</li>
+<li><p>标准化和开放性<br><code>WebRTC</code> 作为一个开放标准的实时通信技术，将继续推动标准化工作的进行，以确保不同厂商和平台之间的互操作性和兼容性。</p>
+</li>
+<li><p>安全性和隐私保护<br>随着个人隐私和数据安全意识的提高，<code>WebRTC</code> 技术将会加强对通信内容的加密和隐私保护，以确保用户数据的安全性。</p>
+</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><code>WebRTC</code> 技术的出现为实时通信应用提供了强大的支持，使得开发者可以轻松构建具有高质量和稳定性的实时通信应用。随着技术的不断发展和完善，我们有理由相信 <code>WebRTC</code> 将会在未来的数字化世界中扮演越来越重要的角色，为用户带来更丰富、更便捷的通信体验。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webrtc/" rel="tag">webrtc</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2024/04/16/webrtc/" data-id="clxb2sutt0058r2ow2yks8yrq" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-fontend-optimize-indicators" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <h3 href="/2024/04/14/fontend-optimize-indicators/" class="article-date">
@@ -211,7 +581,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/optimize/" rel="tag">optimize</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/14/fontend-optimize-indicators/" data-id="clx5b6dty000bqyom7zl04b5f" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/14/fontend-optimize-indicators/" data-id="clxb2sus9000br2ow17jd320v" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -287,7 +657,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html5/" rel="tag">html5</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/12/abort-controller/" data-id="clx5b6dtn0000qyomal2wcju7" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/12/abort-controller/" data-id="clxb2sury0000r2owd1ik3eq6" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -427,7 +797,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/miniprogram/" rel="tag">miniprogram</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/optimize/" rel="tag">optimize</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/10/optimize-miniprogram/" data-id="clx5b6due0019qyometepamyb" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/10/optimize-miniprogram/" data-id="clxb2susr0019r2owbip3fz4z" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -514,7 +884,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/08/github-action-docker/" data-id="clx5b6du1000gqyomaiaq0sf7" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/08/github-action-docker/" data-id="clxb2susd000gr2owe8ux9txh" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -602,7 +972,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/" rel="tag">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/06/github-action-publish-package/" data-id="clx5b6du1000iqyomahiw68qf" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/06/github-action-publish-package/" data-id="clxb2suse000ir2ow58va7l92" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -717,7 +1087,7 @@
 <p>首先确保运行的<code>/bin/zsh -c &quot;$(curl -fsSL https://gitee.com/ **cunkai** /HomebrewCN/raw/master/Homebrew.sh)&quot;</code> 中间那个 <strong>cunkai</strong> 不是别的。</p>
 </blockquote>
 <p><strong>1.</strong> 如果遇到安装软件报错 <strong>404</strong> ，切换网络如果还不行：</p>
-<p>查看下官方更新记录<code>https://brew.sh/blog/</code> 如果近期有更新，可以发我邮箱<a href="mailto:&#99;&#117;&#x6e;&#107;&#x61;&#x69;&#x2e;&#x77;&#x61;&#x6e;&#x67;&#x40;&#x66;&#x6f;&#x78;&#109;&#97;&#x69;&#x6c;&#x2e;&#x63;&#111;&#x6d;">&#99;&#117;&#x6e;&#107;&#x61;&#x69;&#x2e;&#x77;&#x61;&#x6e;&#x67;&#x40;&#x66;&#x6f;&#x78;&#109;&#97;&#x69;&#x6c;&#x2e;&#x63;&#111;&#x6d;</a>。我看看是否官方修改了某些代码。</p>
+<p>查看下官方更新记录<code>https://brew.sh/blog/</code> 如果近期有更新，可以发我邮箱<a href="mailto:&#99;&#117;&#x6e;&#107;&#x61;&#x69;&#x2e;&#119;&#97;&#x6e;&#x67;&#x40;&#102;&#111;&#120;&#109;&#97;&#105;&#x6c;&#46;&#x63;&#111;&#109;">&#99;&#117;&#x6e;&#107;&#x61;&#x69;&#x2e;&#119;&#97;&#x6e;&#x67;&#x40;&#102;&#111;&#120;&#109;&#97;&#105;&#x6c;&#46;&#x63;&#111;&#109;</a>。我看看是否官方修改了某些代码。</p>
 <p><strong>2.</strong> 不小心改动了brew文件夹里面的内容，如何重置，运行：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew update-reset</span><br></pre></td></tr></table></figure>
 
@@ -760,7 +1130,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/homebrew/" rel="tag">homebrew</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/04/homebrew/" data-id="clx5b6du5000sqyom2zl1d942" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/04/homebrew/" data-id="clxb2susk000sr2ow3p8e0n60" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -847,7 +1217,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/01/github-emoji/" data-id="clx5b6du2000jqyom57hieavd" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/01/github-emoji/" data-id="clxb2susf000jr2ow8l2nglyn" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -977,7 +1347,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/" rel="tag">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vitepress/" rel="tag">vitepress</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/" rel="tag">vue</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/03/29/vitepress-blog-guide/" data-id="clx5b6dum001yqyom0b5s48x0" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/03/29/vitepress-blog-guide/" data-id="clxb2sut00020r2ow8x0racf3" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -1037,198 +1407,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/" rel="tag">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/03/05/webpack-plugin-mechanism/" data-id="clx5b6duo0023qyom2yqbcgbj" class="article-share-link">Share</a>
-        
-      </div>
-    </footer>
-  </div>
-  </div>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-interview-questions" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <h3 href="/2024/02/08/interview-questions/" class="article-date">
-  <time datetime="2024-02-08T12:12:26.000Z" itemprop="datePublished">2024-02-08</time>
-</h3>
-    
-  </div>
-  <div class="article-inner">
-  <div class="curve-down">
-  <div class="fill-content fill-content-true">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/02/08/interview-questions/">前端面试题汇总</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Event-Loop"><a href="#Event-Loop" class="headerlink" title="Event Loop"></a>Event Loop</h2><p>Event Loop即事件循环，是指浏览器或者Nodejs解决javascript单线程运行时异步逻辑不会阻塞的一种机制。</p>
-<p>Event Loop是一个执行模型，不同的运行环境有不同的实现，浏览器和nodejs基于不同的技术实现自己的event loop。</p>
-<ul>
-<li>浏览器的Event Loop是在HTML5规范中明确定义。</li>
-<li>Nodejs的Event Loop是libuv实现的。</li>
-<li>libuv已经对Event Loop作出了实现，HTML5规范中只是定义的浏览器中Event Loop的模型，具体的实现交给了浏览器厂商。</li>
-</ul>
-<h3 id="宏队列和微队列"><a href="#宏队列和微队列" class="headerlink" title="宏队列和微队列"></a>宏队列和微队列</h3><p>在javascript中，任务被分为两种，一种为宏任务(macrotask)，也称为task，一种为微任务(microtask)，也称为jobs。</p>
-<p>宏任务主要包括:</p>
-<ul>
-<li>script全部代码</li>
-<li>setTimeout</li>
-<li>setInterval</li>
-<li>setImmediate (Nodejs独有，浏览器暂时不支持，只有IE10支持)</li>
-<li>requestAnimationFrame (浏览器独有)</li>
-<li>I&#x2F;O</li>
-<li>UI rendering (浏览器独有)</li>
-</ul>
-<p>微任务主要包括:</p>
-<ul>
-<li>process.nextTick (Nodejs独有)</li>
-<li>Promise</li>
-<li>Object.observe (废弃)</li>
-<li>MutationObserver</li>
-</ul>
-<h3 id="浏览器中的Event-Loop"><a href="#浏览器中的Event-Loop" class="headerlink" title="浏览器中的Event Loop"></a>浏览器中的Event Loop</h3><p>Javascript 有一个主线程 main thread 和 一个调用栈(执行栈) call-stack，所有任务都会被放到调用栈等待主线程的执行。</p>
-<p>JS调用栈采用的是后进先出的规则，当函数执行时，会被添加到调用栈的顶部，当执行栈执行完后，就会从栈顶移除，直到栈内被清空。</p>
-<p>Javascript单线程任务可以分为同步任务和异步任务，同步任务会在调用栈内按照顺序依次被主线程执行，异步任务会在异步任务有了结果后，将注册的回调函数放入任务队列中等待主线程空闲的时候（调用栈被清空的时候），被读取到调用栈内等待主线程的执行</p>
-<p>任务队列 Task Queue, 是先进先出的数据结构。</p>
-<p><img src="https://user-images.githubusercontent.com/8088864/124855609-c2904a00-dfdb-11eb-9138-df80150fa3a3.jpg" alt="浏览器事件循环的进程模型"></p>
-<p>浏览器Event Loop的具体流程:</p>
-<ol>
-<li>执行全局Javascript的同步代码，可能包含一些同步语句，也可以是异步语句(setTimeout语句不执行回调函数里面的，Promise中.then之前的语句)</li>
-<li>全局Javascript执行完毕后，调用栈call-stack会被清空</li>
-<li>从微队列microtask queue中取出位于首部的回调函数，放入到调用栈call-stack中执行，执行完毕后从调用栈中删除，microtask queue的长度减1。</li>
-<li>继续从微队列microtask queue的队首取出任务，放到调用栈中执行，依次循环往复，直至微任务队列microtask queue中的任务都被调用栈执行完毕。<strong>特别注意，如果在执行微任务microtask过程中，又产生了微任务microtask，新产生的微任务也会追加到微任务队列microtask queue的尾部，新生成的微任务也会在当前周期中被执行完毕。</strong></li>
-<li>microtask queue中的任务都被执行完毕后，microtask queue为空队列，调用栈也处于空闲阶段</li>
-<li>执行UI rendering</li>
-<li>从宏队列macrotask queue的队首取出宏任务，放入调用栈中执行。</li>
-<li>执行完后，调用栈为空闲状态</li>
-<li>重复 3 - 8 的步骤，直至宏任务队列的任务都被执行完毕。<br>…</li>
-</ol>
-<p>浏览器Event Loop的3个重点:</p>
-<ol>
-<li>宏队列macrotask queue每次只从中取出一个任务放到调用栈中执行，执行完后去执行微任务队列中的所有任务</li>
-<li>微任务队列中的所有任务都会依次取出来执行，只是微任务队列中的任务清空</li>
-<li>UI rendering 的执行节点在微任务队列执行完毕后，宏任务队列中取出任务执行之前执行</li>
-</ol>
-<h3 id="NodeJs中的Event-Loop"><a href="#NodeJs中的Event-Loop" class="headerlink" title="NodeJs中的Event Loop"></a>NodeJs中的Event Loop</h3><p>libuv结构</p>
-<p><img src="https://user-images.githubusercontent.com/8088864/125010304-d64db600-e098-11eb-824f-de433a12a095.png" alt="libuv的事件循环模型"></p>
-<p>NodeJs中的宏任务队列和微任务队列</p>
-<p>NodeJs的Event Loop中，执行宏任务队列的回调有6个阶段</p>
-<p><img src="https://user-images.githubusercontent.com/8088864/125010342-e9608600-e098-11eb-84e0-70a5bd5f5867.png" alt="NodeJS中的宏队列执行回调的6个阶段"></p>
-<p>Node的Event Loop可以分为6个阶段，各个阶段执行的任务如下所示:</p>
-<ul>
-<li><code>timers</code>: 执行setTimeout和setInterval中到期的callback。</li>
-<li><code>I/O callbacks</code>: 执行几乎所有的回调，除了close callbacks以及timers调度的回调和setImmediate()调度的回调。</li>
-<li><code>idle, prepare</code>: 仅在内部使用。</li>
-<li><code>poll</code>: 最重要的阶段，检索新的I&#x2F;O事件，在适当的情况下回阻塞在该阶段。</li>
-<li><code>check</code>: 执行setImmediate的callback(setImmediate()会将事件回调插入到事件队列的尾部，主线程和事件队列的任务执行完毕后会立即执行setImmediate中传入的回调函数)。</li>
-<li><code>close callbacks</code>: 执行<code>close</code>事件的callback，例如socket.on(‘close’, fn)或则http.server.on(‘close’, fn)等。</li>
-</ul>
-<p>NodeJs中的宏任务队列可以分为下列4个:</p>
-<ol>
-<li>Timers Queue</li>
-<li>I&#x2F;O Callbacks Queue</li>
-<li>Check Queue</li>
-<li>Close Callbacks Queue</li>
-</ol>
-<p>在浏览器中只有一个宏任务队列，所有宏任务都会放入到宏任务队列中等待放入执行栈中被主线程执行，NodeJs中有4个宏任务队列，不同类型的宏任务会被放入到不同的宏任务队列中。</p>
-<p>NodeJs中的微任务队列可以分为下列2个:</p>
-<ol>
-<li><code>Next Tick Queue</code>: 放置process.nextTick(callback)的回调函数</li>
-<li><code>Other Micro Queue</code>: 其他microtask，例如Promise等</li>
-</ol>
-<p>在浏览器中只有一个微任务队列，所有微任务都会放入到微任务队列中等待放入执行栈中被主线程执行，NodeJs中有2个微任务队列，不同类型的微任务会被放入到不同的微任务队列中。</p>
-<p><img src="https://user-images.githubusercontent.com/8088864/125030923-71a55200-e0be-11eb-93be-95f1cbc456e3.png" alt="NodeJs事件循环"></p>
-<p>NodeJs的Event Loop的具体流程:</p>
-<ol>
-<li>执行全局Javascript的同步代码，可能包含一些同步语句，也可以是异步语句(setTimeout语句不执行回调函数里面的，Promise中.then之前的语句)。</li>
-<li>执行微任务队列中的微任务，先执行Next Tick Queue队列中的所有的所有任务，再执行Other Micro Queue队列中的所有任务。</li>
-<li>开始执行宏任务队列中的任务，共6个阶段，从第1个阶段开始执行每个阶段对应宏任务队列中的所有任务，<strong>注意，这里执行的是该阶段宏任务队列中的所有的任务，浏览器Event Loop每次只会中宏任务队列中取出队首的任务执行，执行完后开始执行微任务队列中的任务，NodeJs的Event Loop会执行完该阶段中宏任务队列中的所有任务后，才开始执行微任务队列中的任务，也就是步骤2</strong>。</li>
-<li>Timers Queue -&gt; 步骤2 -&gt; I&#x2F;O Callbacks Queue -&gt; 步骤2 -&gt; Check Queue -&gt; 步骤2 -&gt; Close Callback Queue -&gt; 步骤2 -&gt; Timers Queue -&gt; ……</li>
-</ol>
-<p><strong>特别注意:</strong></p>
-<ul>
-<li>上述的第三步，当 NodeJs 版本小于11时，NodeJs的Event Loop会执行完该阶段中宏任务队列中的所有任务</li>
-<li>当 NodeJS 版本大于等于11时，<strong>在timer阶段的setTimeout,setInterval…和在check阶段的setImmediate都在node11里面都修改为一旦执行一个阶段里的一个任务就立刻执行微任务队列</strong>。为了和浏览器更加趋同。</li>
-</ul>
-<p>NodeJs的Event Loop的microtask queue和macrotask queue的执行顺序详情</p>
-<p><img src="https://user-images.githubusercontent.com/8088864/125032436-8aaf0280-e0c0-11eb-926a-30be5bf116f9.png" alt="NodeJS中的微任务队列执行顺序"></p>
-<p><img src="https://user-images.githubusercontent.com/8088864/125032451-8f73b680-e0c0-11eb-8349-d6c5f20bd11a.png" alt="NodeJS中的宏任务队列执行顺序"></p>
-<p>当setTimeout(fn, 0)和setImmediate(fn)放在同一同步代码中执行时，可能会出现下面两种情况：</p>
-<ol>
-<li><p><strong>第一种情况</strong>: 同步代码执行完后，timer还没到期，setImmediate中注册的回调函数先放入到Check Queue的宏任务队列中，先执行微任务队列，然后开始执行宏任务队列，先从Timers Queue开始，由于在Timer Queue中未发现任何的回调函数，往下阶段走，直到Check Queue中发现setImmediate中注册的回调函数，先执行，然后timer到期，setTimeout注册的回调函数会放入到Timers Queue的宏任务队列中，下一轮后再次执行到Timers Queue阶段时，才会再Timers Queue中发现了setTimeout注册的回调函数，于是执行该timer的回调，所以，<strong>setImmediate(fn)注册的回调函数会早于setTimeout(fn, 0)注册的回调函数执行</strong>。</p>
-</li>
-<li><p><strong>第二种情况</strong>: 同步代码执行完之前，timer已经到期，setTimeout注册的回调函数会放入到Timers Queue的宏任务队列中，执行同步代码到setImmediate时，将其回调函数注册到Check Queue中，同步代码执行完后，先执行微任务队列，然后开始执行宏任务队列，先从Timers Queue开始，在Timers Queue发现了timer中注册的回调函数，取出执行，往下阶段走，到Check Queue中发现setImmediate中注册的回调函数，又执行，所以这种情况时，<strong>setTimeout(fn, 0)注册的回调函数会早于setImmediate(fn)注册的回调函数执行</strong>。</p>
-</li>
-<li><p>在同步代码中同时调setTimeout(fn, 0)和setImmediate执行顺序情况是不确定的，但是如果把他们放在一个IO的回调，比如readFile(‘xx’, function () {&#x2F;&#x2F; ….})回调中，那么IO回调是在I&#x2F;O Callbacks Queue中，setTimeout到期回调注册到Timers Queue，setImmediate回调注册到Check Queue，I&#x2F;O Callbacks Queue执行完到Check Queue，Timers Queue得到下个循环周期，所以setImmediate回调这种情况下肯定比setTimeout(fn, 0)回调先执行。</p>
-</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">setImmediate</span>(<span class="keyword">function</span> <span class="title function_">A</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">1</span>);</span><br><span class="line">  <span class="title function_">setImmediate</span>(<span class="keyword">function</span> <span class="title function_">B</span>(<span class="params"></span>)&#123;<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">2</span>);&#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="keyword">function</span> <span class="title function_">timeout</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;TIMEOUT FIRED&#x27;</span>);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 执行结果: 会存在下面两种情况</span></span><br><span class="line"><span class="comment">// 第一种情况:</span></span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="comment">// TIMEOUT FIRED</span></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 第二种情况:</span></span><br><span class="line"><span class="comment">// TIMEOUT FIRED</span></span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
-
-<p>注:</p>
-<ul>
-<li>setImmediate中如果又存在setImmediate语句，内部的setImmediate语句注册的回调函数会在下一个<code>check</code>阶段来执行，并不在当前的<code>check</code>阶段来执行。</li>
-</ul>
-<p>poll 阶段详解:</p>
-<p>poll 阶段主要又两个功能:</p>
-<ol>
-<li>当timers到达指定的时间后，执行指定的timer的回调(Executing scripts for timers whose threshold has elapsed, then)。</li>
-<li>处理poll队列的事件(Processing events in the poll queue)。</li>
-</ol>
-<p>当进入到poll阶段，并且没有timers被调用的时候，会出现下面的情况:</p>
-<ul>
-<li>如果poll队列不为空，Event Loop将同步执行poll queue中的任务，直到poll queue队列为空或者执行的callback达到上限。</li>
-<li>如果poll队列为空，会发生下面的情况:<ul>
-<li>如果脚本执行过setImmediate代码，Event Loop会结束poll阶段，直接进入check阶段，执行Check Queue中调用setImmediate注册的回调函数。</li>
-<li>如果脚本没有执行过setImmediate代码，poll阶段将等待callback被添加到队列中，然后立即执行。</li>
-</ul>
-</li>
-</ul>
-<p>当进入到poll阶段，并且调用了timers的话，会发生下面的情况:</p>
-<ul>
-<li>一旦poll queue为空，Event Loop会检测Timers Queue中是否存在任务，如果存在任务的话，Event Loop会回到timer阶段并执行Timers Queue中timers注册的回调函数。<strong>执行完后是进入check阶段，还是又重新进入I&#x2F;O callbacks阶段?</strong></li>
-</ul>
-<p>setTimeout 对比 setImmediate</p>
-<ul>
-<li>setTimeout(fn, 0)在timers阶段执行，并且是在poll阶段进行判断是否达到指定的timer时间才会执行</li>
-<li>setImmediate(fn)在check阶段执行</li>
-</ul>
-<p>两者的执行顺序要根据当前的执行环境才能确定：</p>
-<ul>
-<li>如果两者都在主模块(main module)调用，那么执行先后取决于进程性能，顺序随机</li>
-<li>如果两者都不在主模块调用，即在一个I&#x2F;O Circle中调用，那么setImmediate的回调永远先执行，因为会先到Check阶段</li>
-</ul>
-<p>setImmediate 对比 process.nextTick</p>
-<ul>
-<li>setImmediate(fn)的回调任务会插入到宏队列Check Queue中</li>
-<li>process.nextTick(fn)的回调任务会插入到微队列Next Tick Queue中</li>
-<li>process.nextTick(fn)调用深度有限制，上限是1000，而setImmediate则没有</li>
-</ul>
-        
-          <p class="article-more-link">
-            <a href="/2024/02/08/interview-questions/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <div class="article-footer-content">
-        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/" rel="tag">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/interview/" rel="tag">interview</a></li></ul>
-
-        <a data-url="https://hankliu62.github.io/2024/02/08/interview-questions/" data-id="clx5b6dvh005hqyom4w3y5o1m" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/03/05/webpack-plugin-mechanism/" data-id="clxb2suts0056r2oweerphsvu" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -1257,6 +1436,10 @@
       <ul>
         
           <li>
+            <a href="/2024/06/12/rspack/">Rspack：下一代前端编译工具</a>
+          </li>
+        
+          <li>
             <a href="/2024/06/08/nextjs-nuxtjs-nestjs/">Next.js、Nuxt.js 和 NestJS 的全面介绍</a>
           </li>
         
@@ -1272,10 +1455,6 @@
             <a href="/2024/05/20/limit_batch_request/">JavaScript 批量请求管理</a>
           </li>
         
-          <li>
-            <a href="/2024/05/16/css-cloud/">使用 CSS 创建逼真的云效果</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -1285,7 +1464,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/" rel="tag">blog</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/canvas/" rel="tag">canvas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/csrf/" rel="tag">csrf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debugging/" rel="tag">debugging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-pages/" rel="tag">github pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/homebrew/" rel="tag">homebrew</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/" rel="tag">html</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/" rel="tag">html5</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interview/" rel="tag">interview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/loader/" rel="tag">loader</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/miniprogram/" rel="tag">miniprogram</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/" rel="tag">mobile</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nestjs/" rel="tag">nestjs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nextjs/" rel="tag">nextjs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nuxtjs/" rel="tag">nuxtjs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/optimize/" rel="tag">optimize</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reptile/" rel="tag">reptile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/" rel="tag">security</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/service-worker/" rel="tag">service worker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag/" rel="tag">tag</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/translate/" rel="tag">translate</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/" rel="tag">typescript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vitepress/" rel="tag">vitepress</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webrtc/" rel="tag">webrtc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webworker/" rel="tag">webworker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/weinre/" rel="tag">weinre</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xss/" rel="tag">xss</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yuv/" rel="tag">yuv</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/" rel="tag">blog</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/canvas/" rel="tag">canvas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/csrf/" rel="tag">csrf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debugging/" rel="tag">debugging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-pages/" rel="tag">github pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/homebrew/" rel="tag">homebrew</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/" rel="tag">html</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/" rel="tag">html5</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interview/" rel="tag">interview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/loader/" rel="tag">loader</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/miniprogram/" rel="tag">miniprogram</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/" rel="tag">mobile</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nestjs/" rel="tag">nestjs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nextjs/" rel="tag">nextjs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nuxtjs/" rel="tag">nuxtjs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/optimize/" rel="tag">optimize</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reptile/" rel="tag">reptile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rspack/" rel="tag">rspack</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/" rel="tag">security</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/service-worker/" rel="tag">service worker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag/" rel="tag">tag</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/translate/" rel="tag">translate</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/" rel="tag">typescript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vitepress/" rel="tag">vitepress</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webrtc/" rel="tag">webrtc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webworker/" rel="tag">webworker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/weinre/" rel="tag">weinre</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xss/" rel="tag">xss</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yuv/" rel="tag">yuv</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -1294,7 +1473,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">六月 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">五月 2024</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">七月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">六月 2024</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">五月 2024</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">七月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li></ul>
     </div>
   </div>
 
