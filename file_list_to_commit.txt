@@ -1,2 +1,2 @@
-source/_posts/nextjs-nuxtjs-nestjs.md
+source/_posts/rspack.md
 themes/hexo-theme-paperbox
