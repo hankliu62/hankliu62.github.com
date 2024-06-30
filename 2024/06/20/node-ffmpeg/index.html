@@ -1,0 +1,338 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  
+  <title>使用 Node.js 和 FFmpeg 构建视频服务器 | HankLiu的博客小屋</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="使用 Node.js 和 FFmpeg 构建视频服务器构建一个视频服务器可以为视频处理、转码和流媒体提供强大的功能支持。在本篇文章中，我们将详细介绍如何使用 Node.js 和 FFmpeg 搭建一个视频服务器，涵盖从环境搭建、基本视频处理、视频上传与存储到视频流媒体播放等多个方面的内容。 环境搭建在开始之前，请确保您的系统上已经安装了以下软件：  Node.js：JavaScript 运行时，用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 Node.js 和 FFmpeg 构建视频服务器">
+<meta property="og:url" content="https://hankliu62.github.io/2024/06/20/node-ffmpeg/index.html">
+<meta property="og:site_name" content="HankLiu的博客小屋">
+<meta property="og:description" content="使用 Node.js 和 FFmpeg 构建视频服务器构建一个视频服务器可以为视频处理、转码和流媒体提供强大的功能支持。在本篇文章中，我们将详细介绍如何使用 Node.js 和 FFmpeg 搭建一个视频服务器，涵盖从环境搭建、基本视频处理、视频上传与存储到视频流媒体播放等多个方面的内容。 环境搭建在开始之前，请确保您的系统上已经安装了以下软件：  Node.js：JavaScript 运行时，用">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-06-20T18:20:12.000Z">
+<meta property="article:modified_time" content="2024-06-30T03:04:17.939Z">
+<meta property="article:author" content="HankLiu">
+<meta property="article:tag" content="nextjs">
+<meta property="article:tag" content="nuxtjs">
+<meta property="article:tag" content="nestjs">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/img/favicon.ico" sizes="16x16">
+  
+  <link rel="stylesheet" href="/css/style.css?t=1">
+  
+    <link href="//fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner">
+    <div id="banner-mask"></div>
+  </div>
+  <div id="header-outer" class="outer">
+    <nav id="upper-nav" class="inner">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      <div class="sub-nav">
+        
+        
+          <a id="nav-github" class="nav-icon" href="https://github.com/hankliu62"></a>
+        
+      </div>
+    </nav>
+    <div id="header-title">
+      
+        <h1 id="blog-title-wrap">
+          <a href="/" id="blog-title">HankLiu的博客小屋</a>
+        </h1>
+      
+      
+        <h5 class="blog-subtitle-wrap">努力去听风的声音，不必在意风的方向。</h5>
+      
+    </div>
+    <div id="contenedor">
+      <ul class="cube">
+        <li class="cara"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="100" width="100" viewBox="-50 -50 200 200">
+          <circle cx="50" cy="50" r="45" stroke-width="5" stroke="black" stroke-opacity="0.5" fill-opacity="0"></circle>
+          <rect id="clockwise" x="47.5" y="27.5" width="5" height="25" rx="2.5" ry="2.5" fill="black" fill-opacity="0.5" transform="rotate(330 50 50)"></rect>
+          <rect id="minute" x="48.5" y="16.5" width="3" height="35" rx="1.5" ry="1.5" fill="black" fill-opacity="0.5"></rect>
+        </svg></li>
+        <li class="cara">P</li>
+        <li class="cara">X</li>
+        <li class="cara">L</li>
+        <li class="cara">C</li>
+        <li class="cara">Y</li>
+      </ul>
+    </div>
+    <nav id="main-nav">
+      
+        <a class="main-nav-link" href="/">主页</a>
+      
+        <a class="main-nav-link" href="/archives">文章</a>
+      
+        <a class="main-nav-link" href="/toolkit">小工具</a>
+      
+        <a class="main-nav-link" href="/resume">小简介</a>
+      
+        <a class="main-nav-link" href="/about">小关于</a>
+      
+    </nav>
+  </div>
+</header>
+
+    <div class="outer">
+      <section id="main"><article id="post-node-ffmpeg" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2024/06/20/node-ffmpeg/" class="article-date">
+  <time datetime="2024-06-20T18:20:12.000Z" itemprop="datePublished">2024-06-20</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-false">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      使用 Node.js 和 FFmpeg 构建视频服务器
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="使用-Node-js-和-FFmpeg-构建视频服务器"><a href="#使用-Node-js-和-FFmpeg-构建视频服务器" class="headerlink" title="使用 Node.js 和 FFmpeg 构建视频服务器"></a>使用 Node.js 和 FFmpeg 构建视频服务器</h2><p>构建一个视频服务器可以为视频处理、转码和流媒体提供强大的功能支持。在本篇文章中，我们将详细介绍如何使用 Node.js 和 FFmpeg 搭建一个视频服务器，涵盖从环境搭建、基本视频处理、视频上传与存储到视频流媒体播放等多个方面的内容。</p>
+<h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><p>在开始之前，请确保您的系统上已经安装了以下软件：</p>
+<ol>
+<li><strong>Node.js</strong>：JavaScript 运行时，用于服务器端开发。</li>
+<li><strong>FFmpeg</strong>：一个强大的多媒体处理工具，可以处理音视频数据。</li>
+</ol>
+<h4 id="安装-Node-js"><a href="#安装-Node-js" class="headerlink" title="安装 Node.js"></a>安装 Node.js</h4><p>请访问 <a href="https://nodejs.org/">Node.js 官网</a> 下载并安装最新版本的 Node.js。安装完成后，您可以使用以下命令验证安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">node -v</span><br><span class="line">npm -v</span><br></pre></td></tr></table></figure>
+
+<h4 id="安装-FFmpeg"><a href="#安装-FFmpeg" class="headerlink" title="安装 FFmpeg"></a>安装 FFmpeg</h4><h5 id="macOS"><a href="#macOS" class="headerlink" title="macOS"></a>macOS</h5><p>可以使用 Homebrew 安装 FFmpeg：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install ffmpeg</span><br></pre></td></tr></table></figure>
+
+<h5 id="Ubuntu"><a href="#Ubuntu" class="headerlink" title="Ubuntu"></a>Ubuntu</h5><p>可以使用 apt-get 安装 FFmpeg：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install ffmpeg</span><br></pre></td></tr></table></figure>
+
+<h5 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h5><p>请访问 <a href="https://ffmpeg.org/download.html">FFmpeg 官网</a> 下载适用于 Windows 的预编译二进制文件，并按照说明进行安装。</p>
+<p>安装完成后，您可以使用以下命令验证安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -version</span><br></pre></td></tr></table></figure>
+
+<h3 id="项目初始化"><a href="#项目初始化" class="headerlink" title="项目初始化"></a>项目初始化</h3><h4 id="创建项目目录"><a href="#创建项目目录" class="headerlink" title="创建项目目录"></a>创建项目目录</h4><p>首先，创建一个新的项目目录并初始化一个新的 Node.js 项目：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> video-server</span><br><span class="line"><span class="built_in">cd</span> video-server</span><br><span class="line">npm init -y</span><br></pre></td></tr></table></figure>
+
+<h4 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h4><p>我们将使用以下 Node.js 包：</p>
+<ul>
+<li><strong>express</strong>：Web 框架，用于处理 HTTP 请求。</li>
+<li><strong>multer</strong>：中间件，用于处理文件上传。</li>
+<li><strong>fluent-ffmpeg</strong>：Node.js 对 FFmpeg 的简单封装，用于处理视频文件。</li>
+</ul>
+<p>安装上述依赖包：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install express multer fluent-ffmpeg</span><br></pre></td></tr></table></figure>
+
+<h3 id="基本服务器设置"><a href="#基本服务器设置" class="headerlink" title="基本服务器设置"></a>基本服务器设置</h3><h4 id="创建服务器"><a href="#创建服务器" class="headerlink" title="创建服务器"></a>创建服务器</h4><p>在项目根目录下创建一个 <code>server.js</code> 文件，配置基本的服务器设置：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> multer = <span class="built_in">require</span>(<span class="string">&#x27;multer&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> ffmpeg = <span class="built_in">require</span>(<span class="string">&#x27;fluent-ffmpeg&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">express</span>();</span><br><span class="line"><span class="keyword">const</span> port = <span class="number">3000</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置静态文件目录</span></span><br><span class="line">app.<span class="title function_">use</span>(express.<span class="title function_">static</span>(<span class="string">&#x27;public&#x27;</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置文件上传存储位置</span></span><br><span class="line"><span class="keyword">const</span> storage = multer.<span class="title function_">diskStorage</span>(&#123;</span><br><span class="line">  <span class="attr">destination</span>: <span class="function">(<span class="params">req, file, cb</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="title function_">cb</span>(<span class="literal">null</span>, <span class="string">&#x27;uploads/&#x27;</span>);</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">filename</span>: <span class="function">(<span class="params">req, file, cb</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="title function_">cb</span>(<span class="literal">null</span>, <span class="title class_">Date</span>.<span class="title function_">now</span>() + path.<span class="title function_">extname</span>(file.<span class="property">originalname</span>));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> upload = <span class="title function_">multer</span>(&#123; storage &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 视频上传处理</span></span><br><span class="line">app.<span class="title function_">post</span>(<span class="string">&#x27;/upload&#x27;</span>, upload.<span class="title function_">single</span>(<span class="string">&#x27;video&#x27;</span>), <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> filePath = req.<span class="property">file</span>.<span class="property">path</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 视频处理逻辑</span></span><br><span class="line">  <span class="title function_">ffmpeg</span>(filePath)</span><br><span class="line">    .<span class="title function_">output</span>(<span class="string">&#x27;output.mp4&#x27;</span>)</span><br><span class="line">    .<span class="title function_">on</span>(<span class="string">&#x27;end&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      res.<span class="title function_">send</span>(<span class="string">&#x27;Video processed successfully&#x27;</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">    .<span class="title function_">on</span>(<span class="string">&#x27;error&#x27;</span>, <span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">error</span>(err);</span><br><span class="line">      res.<span class="title function_">status</span>(<span class="number">500</span>).<span class="title function_">send</span>(<span class="string">&#x27;Video processing failed&#x27;</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">    .<span class="title function_">run</span>();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">listen</span>(port, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Server is running on http://localhost:<span class="subst">$&#123;port&#125;</span>`</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="创建目录结构"><a href="#创建目录结构" class="headerlink" title="创建目录结构"></a>创建目录结构</h4><p>为了管理上传和处理的视频文件，我们需要创建 <code>uploads</code> 目录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> uploads</span><br></pre></td></tr></table></figure>
+
+<h3 id="视频处理"><a href="#视频处理" class="headerlink" title="视频处理"></a>视频处理</h3><p>使用 FFmpeg 可以进行多种视频处理操作，包括转码、剪辑、加水印等。接下来，我们将介绍几种常见的视频处理操作。</p>
+<h4 id="视频转码"><a href="#视频转码" class="headerlink" title="视频转码"></a>视频转码</h4><p>视频转码是将视频文件从一种格式转换为另一种格式。以下示例展示了如何将上传的视频文件转码为 MP4 格式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">post</span>(<span class="string">&#x27;/upload&#x27;</span>, upload.<span class="title function_">single</span>(<span class="string">&#x27;video&#x27;</span>), <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> filePath = req.<span class="property">file</span>.<span class="property">path</span>;</span><br><span class="line">  <span class="keyword">const</span> outputFilePath = <span class="string">&#x27;uploads/&#x27;</span> + <span class="title class_">Date</span>.<span class="title function_">now</span>() + <span class="string">&#x27;.mp4&#x27;</span>;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">ffmpeg</span>(filePath)</span><br><span class="line">    .<span class="title function_">output</span>(outputFilePath)</span><br><span class="line">    .<span class="title function_">on</span>(<span class="string">&#x27;end&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      res.<span class="title function_">send</span>(<span class="string">&#x27;Video transcoded successfully: &#x27;</span> + outputFilePath);</span><br><span class="line">    &#125;)</span><br><span class="line">    .<span class="title function_">on</span>(<span class="string">&#x27;error&#x27;</span>, <span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">error</span>(err);</span><br><span class="line">      res.<span class="title function_">status</span>(<span class="number">500</span>).<span class="title function_">send</span>(<span class="string">&#x27;Video transcoding failed&#x27;</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">    .<span class="title function_">run</span>();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="视频剪辑"><a href="#视频剪辑" class="headerlink" title="视频剪辑"></a>视频剪辑</h4><p>视频剪辑是从视频文件中提取特定的片段。以下示例展示了如何从上传的视频文件中剪辑出前10秒的片段：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">post</span>(<span class="string">&#x27;/upload&#x27;</span>, upload.<span class="title function_">single</span>(<span class="string">&#x27;video&#x27;</span>), <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> filePath = req.<span class="property">file</span>.<span class="property">path</span>;</span><br><span class="line">  <span class="keyword">const</span> outputFilePath = <span class="string">&#x27;uploads/&#x27;</span> + <span class="title class_">Date</span>.<span class="title function_">now</span>() + <span class="string">&#x27;_clip.mp4&#x27;</span>;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">ffmpeg</span>(filePath)</span><br><span class="line">    .<span class="title function_">setStartTime</span>(<span class="string">&#x27;00:00:00&#x27;</span>)</span><br><span class="line">    .<span class="title function_">setDuration</span>(<span class="number">10</span>)</span><br><span class="line">    .<span class="title function_">output</span>(outputFilePath)</span><br><span class="line">    .<span class="title function_">on</span>(<span class="string">&#x27;end&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      res.<span class="title function_">send</span>(<span class="string">&#x27;Video clipped successfully: &#x27;</span> + outputFilePath);</span><br><span class="line">    &#125;)</span><br><span class="line">    .<span class="title function_">on</span>(<span class="string">&#x27;error&#x27;</span>, <span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">error</span>(err);</span><br><span class="line">      res.<span class="title function_">status</span>(<span class="number">500</span>).<span class="title function_">send</span>(<span class="string">&#x27;Video clipping failed&#x27;</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">    .<span class="title function_">run</span>();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="添加水印"><a href="#添加水印" class="headerlink" title="添加水印"></a>添加水印</h4><p>添加水印是将图像或文本叠加到视频上。以下示例展示了如何在视频上添加一个水印图像：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">post</span>(<span class="string">&#x27;/upload&#x27;</span>, upload.<span class="title function_">single</span>(<span class="string">&#x27;video&#x27;</span>), <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> filePath = req.<span class="property">file</span>.<span class="property">path</span>;</span><br><span class="line">  <span class="keyword">const</span> outputFilePath = <span class="string">&#x27;uploads/&#x27;</span> + <span class="title class_">Date</span>.<span class="title function_">now</span>() + <span class="string">&#x27;_watermarked.mp4&#x27;</span>;</span><br><span class="line">  <span class="keyword">const</span> watermarkPath = <span class="string">&#x27;public/watermark.png&#x27;</span>;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">ffmpeg</span>(filePath)</span><br><span class="line">    .<span class="title function_">outputOptions</span>(<span class="string">&#x27;-vf&#x27;</span>, <span class="string">`movie=<span class="subst">$&#123;watermarkPath&#125;</span> [watermark]; [in][watermark] overlay=10:10 [out]`</span>)</span><br><span class="line">    .<span class="title function_">output</span>(outputFilePath)</span><br><span class="line">    .<span class="title function_">on</span>(<span class="string">&#x27;end&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      res.<span class="title function_">send</span>(<span class="string">&#x27;Watermark added successfully: &#x27;</span> + outputFilePath);</span><br><span class="line">    &#125;)</span><br><span class="line">    .<span class="title function_">on</span>(<span class="string">&#x27;error&#x27;</span>, <span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">error</span>(err);</span><br><span class="line">      res.<span class="title function_">status</span>(<span class="number">500</span>).<span class="title function_">send</span>(<span class="string">&#x27;Adding watermark failed&#x27;</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">    .<span class="title function_">run</span>();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="视频上传与存储"><a href="#视频上传与存储" class="headerlink" title="视频上传与存储"></a>视频上传与存储</h3><p>处理视频文件上传和存储是构建视频服务器的重要组成部分。接下来，我们将介绍如何使用 <code>multer</code> 中间件处理视频文件的上传，并将其存储在服务器上。</p>
+<h4 id="配置文件上传中间件"><a href="#配置文件上传中间件" class="headerlink" title="配置文件上传中间件"></a>配置文件上传中间件</h4><p>我们已经在 <code>server.js</code> 中配置了 <code>multer</code>，用于处理文件上传。可以根据需要进一步配置存储设置，如限制文件大小和文件类型：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> upload = <span class="title function_">multer</span>(&#123;</span><br><span class="line">  storage,</span><br><span class="line">  <span class="attr">limits</span>: &#123; <span class="attr">fileSize</span>: <span class="number">100</span> * <span class="number">1024</span> * <span class="number">1024</span> &#125;, <span class="comment">// 限制文件大小为 100MB</span></span><br><span class="line">  <span class="attr">fileFilter</span>: <span class="function">(<span class="params">req, file, cb</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> filetypes = <span class="regexp">/mp4|mkv|avi/</span>;</span><br><span class="line">    <span class="keyword">const</span> mimetype = filetypes.<span class="title function_">test</span>(file.<span class="property">mimetype</span>);</span><br><span class="line">    <span class="keyword">const</span> extname = filetypes.<span class="title function_">test</span>(path.<span class="title function_">extname</span>(file.<span class="property">originalname</span>).<span class="title function_">toLowerCase</span>());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (mimetype &amp;&amp; extname) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="title function_">cb</span>(<span class="literal">null</span>, <span class="literal">true</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="title function_">cb</span>(<span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&#x27;File type not supported&#x27;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="处理文件上传请求"><a href="#处理文件上传请求" class="headerlink" title="处理文件上传请求"></a>处理文件上传请求</h4><p>我们已经在 <code>/upload</code> 路由中处理了文件上传请求，并使用 <code>ffmpeg</code> 进行视频处理。可以根据需要添加更多路由来处理不同的视频操作。</p>
+<h3 id="视频流媒体播放"><a href="#视频流媒体播放" class="headerlink" title="视频流媒体播放"></a>视频流媒体播放</h3><p>为了提供流媒体播放功能，我们需要将视频文件流式传输给客户端。以下示例展示了如何实现视频流媒体播放：</p>
+<h4 id="配置视频流路由"><a href="#配置视频流路由" class="headerlink" title="配置视频流路由"></a>配置视频流路由</h4><p>在 <code>server.js</code> 中添加一个新的路由，用于处理视频流请求：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/video/:filename&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> filePath = path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;uploads&#x27;</span>, req.<span class="property">params</span>.<span class="property">filename</span>);</span><br><span class="line"></span><br><span class="line">  fs.<span class="title function_">stat</span>(filePath, <span class="function">(<span class="params">err, stats</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">error</span>(err);</span><br><span class="line">      <span class="keyword">return</span> res.<span class="title function_">status</span>(<span class="number">404</span>).<span class="title function_">send</span>(<span class="string">&#x27;File not found&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> &#123; range &#125; = req.<span class="property">headers</span>;</span><br><span class="line">    <span class="keyword">if</span> (!range) &#123;</span><br><span class="line">      <span class="keyword">return</span> res.<span class="title function_">status</span>(<span class="number">416</span>).<span class="title function_">send</span>(<span class="string">&#x27;Range not found&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> positions = range.<span class="title function_">replace</span>(<span class="regexp">/bytes=/</span>, <span class="string">&#x27;&#x27;</span>).<span class="title function_">split</span>(<span class="string">&#x27;-&#x27;</span>);</span><br><span class="line">    <span class="keyword">const</span> start = <span class="built_in">parseInt</span>(positions[<span class="number">0</span>], <span class="number">10</span>);</span><br><span class="line">    <span class="keyword">const</span> total = stats.<span class="property">size</span>;</span><br><span class="line">    <span class="keyword">const</span> end = positions[<span class="number">1</span>] ? <span class="built_in">parseInt</span>(positions[<span class="number">1</span>], <span class="number">10</span>) : total - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">const</span> chunksize = end - start + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    res.<span class="title function_">writeHead</span>(<span class="number">206</span>, &#123;</span><br><span class="line">      <span class="string">&#x27;Content-Range&#x27;</span>: <span class="string">`bytes <span class="subst">$&#123;start&#125;</span>-<span class="subst">$&#123;end&#125;</span>/<span class="subst">$&#123;total&#125;</span>`</span>,</span><br><span class="line">      <span class="string">&#x27;Accept-Ranges&#x27;</span>: <span class="string">&#x27;bytes&#x27;</span>,</span><br><span class="line">      <span class="string">&#x27;Content-Length&#x27;</span>: chunksize,</span><br><span class="line">      <span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;video/mp4&#x27;</span>,</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> stream = fs.<span class="title function_">createReadStream</span>(filePath, &#123; start, end &#125;)</span><br><span class="line">      .<span class="title function_">on</span>(<span class="string">&#x27;open&#x27;</span>, <span class="function">() =&gt;</span> stream.<span class="title function_">pipe</span>(res))</span><br><span class="line">      .<span class="title function_">on</span>(<span class="string">&#x27;error&#x27;</span>, <span class="function">(<span class="params">err</span>) =&gt;</span> res.<span class="title function_">end</span>(err));</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="客户端播放视频"><a href="#客户端播放视频" class="headerlink" title="客户端播放视频"></a>客户端播放视频</h4><p>在 <code>public</code></p>
+<p>目录下创建一个 <code>index.html</code> 文件，用于客户端播放视频：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Video Player<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">video</span> <span class="attr">id</span>=<span class="string">&quot;videoPlayer&quot;</span> <span class="attr">controls</span> <span class="attr">width</span>=<span class="string">&quot;600&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">&quot;/video/sample.mp4&quot;</span> <span class="attr">type</span>=<span class="string">&quot;video/mp4&quot;</span>&gt;</span></span><br><span class="line">    Your browser does not support the video tag.</span><br><span class="line">  <span class="tag">&lt;/<span class="name">video</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="完整代码示例"><a href="#完整代码示例" class="headerlink" title="完整代码示例"></a>完整代码示例</h3><p>整合上述所有代码，我们的 <code>server.js</code> 文件如下所示：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> multer = <span class="built_in">require</span>(<span class="string">&#x27;multer&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> ffmpeg = <span class="built_in">require</span>(<span class="string">&#x27;fluent-ffmpeg&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">express</span>();</span><br><span class="line"><span class="keyword">const</span> port = <span class="number">3000</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置静态文件目录</span></span><br><span class="line">app.<span class="title function_">use</span>(express.<span class="title function_">static</span>(<span class="string">&#x27;public&#x27;</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置文件上传存储位置</span></span><br><span class="line"><span class="keyword">const</span> storage = multer.<span class="title function_">diskStorage</span>(&#123;</span><br><span class="line">  <span class="attr">destination</span>: <span class="function">(<span class="params">req, file, cb</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="title function_">cb</span>(<span class="literal">null</span>, <span class="string">&#x27;uploads/&#x27;</span>);</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">filename</span>: <span class="function">(<span class="params">req, file, cb</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="title function_">cb</span>(<span class="literal">null</span>, <span class="title class_">Date</span>.<span class="title function_">now</span>() + path.<span class="title function_">extname</span>(file.<span class="property">originalname</span>));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> upload = <span class="title function_">multer</span>(&#123;</span><br><span class="line">  storage,</span><br><span class="line">  <span class="attr">limits</span>: &#123; <span class="attr">fileSize</span>: <span class="number">100</span> * <span class="number">1024</span> * <span class="number">1024</span> &#125;, <span class="comment">// 限制文件大小为 100MB</span></span><br><span class="line">  <span class="attr">fileFilter</span>: <span class="function">(<span class="params">req, file, cb</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> filetypes = <span class="regexp">/mp4|mkv|avi/</span>;</span><br><span class="line">    <span class="keyword">const</span> mimetype = filetypes.<span class="title function_">test</span>(file.<span class="property">mimetype</span>);</span><br><span class="line">    <span class="keyword">const</span> extname = filetypes.<span class="title function_">test</span>(path.<span class="title function_">extname</span>(file.<span class="property">originalname</span>).<span class="title function_">toLowerCase</span>());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (mimetype &amp;&amp; extname) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="title function_">cb</span>(<span class="literal">null</span>, <span class="literal">true</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="title function_">cb</span>(<span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&#x27;File type not supported&#x27;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 视频上传处理</span></span><br><span class="line">app.<span class="title function_">post</span>(<span class="string">&#x27;/upload&#x27;</span>, upload.<span class="title function_">single</span>(<span class="string">&#x27;video&#x27;</span>), <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> filePath = req.<span class="property">file</span>.<span class="property">path</span>;</span><br><span class="line">  <span class="keyword">const</span> outputFilePath = <span class="string">&#x27;uploads/&#x27;</span> + <span class="title class_">Date</span>.<span class="title function_">now</span>() + <span class="string">&#x27;_watermarked.mp4&#x27;</span>;</span><br><span class="line">  <span class="keyword">const</span> watermarkPath = <span class="string">&#x27;public/watermark.png&#x27;</span>;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">ffmpeg</span>(filePath)</span><br><span class="line">    .<span class="title function_">outputOptions</span>(<span class="string">&#x27;-vf&#x27;</span>, <span class="string">`movie=<span class="subst">$&#123;watermarkPath&#125;</span> [watermark]; [in][watermark] overlay=10:10 [out]`</span>)</span><br><span class="line">    .<span class="title function_">output</span>(outputFilePath)</span><br><span class="line">    .<span class="title function_">on</span>(<span class="string">&#x27;end&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      res.<span class="title function_">send</span>(<span class="string">&#x27;Watermark added successfully: &#x27;</span> + outputFilePath);</span><br><span class="line">    &#125;)</span><br><span class="line">    .<span class="title function_">on</span>(<span class="string">&#x27;error&#x27;</span>, <span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">error</span>(err);</span><br><span class="line">      res.<span class="title function_">status</span>(<span class="number">500</span>).<span class="title function_">send</span>(<span class="string">&#x27;Adding watermark failed&#x27;</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">    .<span class="title function_">run</span>();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 视频流媒体播放</span></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/video/:filename&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> filePath = path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;uploads&#x27;</span>, req.<span class="property">params</span>.<span class="property">filename</span>);</span><br><span class="line"></span><br><span class="line">  fs.<span class="title function_">stat</span>(filePath, <span class="function">(<span class="params">err, stats</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">error</span>(err);</span><br><span class="line">      <span class="keyword">return</span> res.<span class="title function_">status</span>(<span class="number">404</span>).<span class="title function_">send</span>(<span class="string">&#x27;File not found&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> &#123; range &#125; = req.<span class="property">headers</span>;</span><br><span class="line">    <span class="keyword">if</span> (!range) &#123;</span><br><span class="line">      <span class="keyword">return</span> res.<span class="title function_">status</span>(<span class="number">416</span>).<span class="title function_">send</span>(<span class="string">&#x27;Range not found&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> positions = range.<span class="title function_">replace</span>(<span class="regexp">/bytes=/</span>, <span class="string">&#x27;&#x27;</span>).<span class="title function_">split</span>(<span class="string">&#x27;-&#x27;</span>);</span><br><span class="line">    <span class="keyword">const</span> start = <span class="built_in">parseInt</span>(positions[<span class="number">0</span>], <span class="number">10</span>);</span><br><span class="line">    <span class="keyword">const</span> total = stats.<span class="property">size</span>;</span><br><span class="line">    <span class="keyword">const</span> end = positions[<span class="number">1</span>] ? <span class="built_in">parseInt</span>(positions[<span class="number">1</span>], <span class="number">10</span>) : total - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">const</span> chunksize = end - start + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    res.<span class="title function_">writeHead</span>(<span class="number">206</span>, &#123;</span><br><span class="line">      <span class="string">&#x27;Content-Range&#x27;</span>: <span class="string">`bytes <span class="subst">$&#123;start&#125;</span>-<span class="subst">$&#123;end&#125;</span>/<span class="subst">$&#123;total&#125;</span>`</span>,</span><br><span class="line">      <span class="string">&#x27;Accept-Ranges&#x27;</span>: <span class="string">&#x27;bytes&#x27;</span>,</span><br><span class="line">      <span class="string">&#x27;Content-Length&#x27;</span>: chunksize,</span><br><span class="line">      <span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;video/mp4&#x27;</span>,</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> stream = fs.<span class="title function_">createReadStream</span>(filePath, &#123; start, end &#125;)</span><br><span class="line">      .<span class="title function_">on</span>(<span class="string">&#x27;open&#x27;</span>, <span class="function">() =&gt;</span> stream.<span class="title function_">pipe</span>(res))</span><br><span class="line">      .<span class="title function_">on</span>(<span class="string">&#x27;error&#x27;</span>, <span class="function">(<span class="params">err</span>) =&gt;</span> res.<span class="title function_">end</span>(err));</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">listen</span>(port, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Server is running on http://localhost:<span class="subst">$&#123;port&#125;</span>`</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="完整的目录结构"><a href="#完整的目录结构" class="headerlink" title="完整的目录结构"></a>完整的目录结构</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">video-server/</span><br><span class="line">├── node_modules/</span><br><span class="line">├── public/</span><br><span class="line">│   ├── index.html</span><br><span class="line">│   └── watermark.png</span><br><span class="line">├── uploads/</span><br><span class="line">├── package.json</span><br><span class="line">├── package-lock.json</span><br><span class="line">└── server.js</span><br></pre></td></tr></table></figure>
+
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>在本篇文章中，我们详细介绍了如何使用 Node.js 和 FFmpeg 搭建一个功能强大的视频服务器。从环境搭建、项目初始化、视频处理、文件上传与存储到视频流媒体播放，我们一步步实现了一个完整的解决方案。</p>
+<p>通过学习本文，您应该对以下内容有了更深入的了解：</p>
+<ul>
+<li>Node.js 与 FFmpeg 的基本使用</li>
+<li>使用 <code>express</code> 创建 Web 服务器</li>
+<li>使用 <code>multer</code> 处理文件上传</li>
+<li>使用 <code>fluent-ffmpeg</code> 进行视频处理</li>
+<li>实现视频流媒体播放</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nestjs/" rel="tag">nestjs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nextjs/" rel="tag">nextjs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nuxtjs/" rel="tag">nuxtjs</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2024/06/20/node-ffmpeg/" data-id="cly0yww960017q5qhgjtx2kz9" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2024/06/12/rspack/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Rspack：下一代前端编译工具</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+      
+      <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/06/20/node-ffmpeg/">使用 Node.js 和 FFmpeg 构建视频服务器</a>
+          </li>
+        
+          <li>
+            <a href="/2024/06/12/rspack/">Rspack：下一代前端编译工具</a>
+          </li>
+        
+          <li>
+            <a href="/2024/06/08/nextjs-nuxtjs-nestjs/">Next.js、Nuxt.js 和 NestJS 的全面介绍</a>
+          </li>
+        
+          <li>
+            <a href="/2024/06/01/burial-point-sdk/">前端异常监控与埋点收集SDK</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/28/service-worker-detail/">Service Worker：提升Web应用性能和体验的利器</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/" rel="tag">blog</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/canvas/" rel="tag">canvas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/csrf/" rel="tag">csrf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debugging/" rel="tag">debugging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-pages/" rel="tag">github pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/homebrew/" rel="tag">homebrew</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/" rel="tag">html</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/" rel="tag">html5</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interview/" rel="tag">interview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/loader/" rel="tag">loader</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/miniprogram/" rel="tag">miniprogram</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/" rel="tag">mobile</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nestjs/" rel="tag">nestjs</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nextjs/" rel="tag">nextjs</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nuxtjs/" rel="tag">nuxtjs</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/optimize/" rel="tag">optimize</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reptile/" rel="tag">reptile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rspack/" rel="tag">rspack</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/" rel="tag">security</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/service-worker/" rel="tag">service worker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag/" rel="tag">tag</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/translate/" rel="tag">translate</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/" rel="tag">typescript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vitepress/" rel="tag">vitepress</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webrtc/" rel="tag">webrtc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webworker/" rel="tag">webworker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/weinre/" rel="tag">weinre</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xss/" rel="tag">xss</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yuv/" rel="tag">yuv</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">六月 2024</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">五月 2024</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">七月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2024 HankLiu, Inc. All rights reserved.<br>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">主页</a>
+  
+    <a href="/archives" class="mobile-nav-link">文章</a>
+  
+    <a href="/toolkit" class="mobile-nav-link">小工具</a>
+  
+    <a href="/resume" class="mobile-nav-link">小简介</a>
+  
+    <a href="/about" class="mobile-nav-link">小关于</a>
+  
+  <a href="#search" class="mobile-nav-link st-search-show-outputs">Search</a>
+</nav>
+  
+
+<!-- totop start -->
+<div id="totop">
+	<a title="To Top"></a>
+</div>
+<!-- totop end -->
+
+<!-- swiftype search start -->
+
+<!-- swiftype search end -->
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/lrsjng.jquery-qrcode/0.12.0/jquery.qrcode.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+</div>
+</body>
+</html>
