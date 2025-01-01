@@ -90,6 +90,255 @@
     <div class="outer">
       <section id="main">
   
+    <article id="post-react-fiber-struct" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2024/04/24/react-fiber-struct/" class="article-date">
+  <time datetime="2024-04-24T10:52:26.000Z" itemprop="datePublished">2024-04-24</time>
+</h3>
+    
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content fill-content-true">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/04/24/react-fiber-struct/">浅入解析 React Fiber 结构</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h3 id="浅入解析-React-Fiber-结构"><a href="#浅入解析-React-Fiber-结构" class="headerlink" title="浅入解析 React Fiber 结构"></a>浅入解析 React Fiber 结构</h3><p>React Fiber 是 React 中用于表示组件树的一种数据结构，它的设计和实现是 React 中的一项重要内容。本文将深入探讨 React Fiber 的结构，包括其所有属性及其含义，并对属性中的对象类型进行详细说明和解释。通过阅读本文，读者将更好地理解 React Fiber 的内部机制。</p>
+<h3 id="React-18-Fiber-结构概述"><a href="#React-18-Fiber-结构概述" class="headerlink" title="React@18+ Fiber 结构概述"></a>React@18+ Fiber 结构概述</h3><p>在 React 中，每个组件都对应一个 Fiber 对象，用于表示组件树中的一个节点。以下是 Fiber 对象的结构定义：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> <span class="title class_">Fiber</span> = &#123;</span><br><span class="line">  <span class="attr">tag</span>: <span class="title class_">WorkTag</span>,</span><br><span class="line">  <span class="attr">key</span>: <span class="literal">null</span> | <span class="built_in">string</span>,</span><br><span class="line">  <span class="attr">elementType</span>: <span class="built_in">string</span> | <span class="title class_">FunctionComponent</span> | <span class="title class_">ClassComponent</span> | <span class="title class_">HostComponent</span> | <span class="title class_">SuspenseComponent</span> | ...,</span><br><span class="line">  <span class="attr">type</span>: <span class="built_in">string</span> | <span class="title class_">FunctionComponent</span> | <span class="title class_">ClassComponent</span> | <span class="title class_">HostComponent</span> | <span class="title class_">SuspenseComponent</span> | ...,</span><br><span class="line">  <span class="attr">stateNode</span>: <span class="title class_">HTMLElement</span> | <span class="title class_">Component</span> | <span class="literal">null</span>,</span><br><span class="line">  <span class="attr">return</span>: <span class="title class_">Fiber</span> | <span class="literal">null</span>,</span><br><span class="line">  <span class="attr">child</span>: <span class="title class_">Fiber</span> | <span class="literal">null</span>,</span><br><span class="line">  <span class="attr">sibling</span>: <span class="title class_">Fiber</span> | <span class="literal">null</span>,</span><br><span class="line">  <span class="attr">index</span>: <span class="built_in">number</span>,</span><br><span class="line">  <span class="attr">ref</span>: <span class="title class_">RefObject</span> | <span class="literal">null</span>,</span><br><span class="line">  <span class="attr">pendingProps</span>: <span class="built_in">any</span>,</span><br><span class="line">  <span class="attr">memoizedProps</span>: <span class="built_in">any</span>,</span><br><span class="line">  <span class="attr">updateQueue</span>: <span class="title class_">UpdateQueue</span>&lt;<span class="built_in">any</span>&gt; | <span class="literal">null</span>,</span><br><span class="line">  <span class="attr">memoizedState</span>: <span class="title class_">Hook</span> | <span class="title class_">StateObject</span> | <span class="literal">null</span>,</span><br><span class="line">  <span class="attr">dependencies</span>: <span class="title class_">Dependencies</span> | <span class="literal">null</span>,</span><br><span class="line">  <span class="attr">mode</span>: <span class="title class_">TypeOfMode</span>,</span><br><span class="line">  <span class="attr">effectTag</span>: <span class="title class_">SideEffectTag</span>,</span><br><span class="line">  <span class="attr">nextEffect</span>: <span class="title class_">Fiber</span> | <span class="literal">null</span>,</span><br><span class="line">  <span class="attr">firstEffect</span>: <span class="title class_">Fiber</span> | <span class="literal">null</span>,</span><br><span class="line">  <span class="attr">lastEffect</span>: <span class="title class_">Fiber</span> | <span class="literal">null</span>,</span><br><span class="line">  <span class="attr">lanes</span>: <span class="title class_">Lanes</span>,</span><br><span class="line">  <span class="attr">childLanes</span>: <span class="title class_">Lanes</span>,</span><br><span class="line">  <span class="attr">alternate</span>: <span class="title class_">Fiber</span> | <span class="literal">null</span>,</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>根据提供的 Fiber 类型定义，下面是完整的 Fiber 节点的属性列表：</p>
+<ol>
+<li><p><strong>tag</strong>：</p>
+<ul>
+<li>标识 Fiber 节点的类型，如 <code>HostComponent</code>、<code>ClassComponent</code>、<code>FunctionComponent</code> 等。</li>
+</ul>
+</li>
+<li><p><strong>key</strong>：</p>
+<ul>
+<li>用于在DOM更新期间识别节点。可以是字符串类型或 null。</li>
+</ul>
+</li>
+<li><p><strong>elementType</strong>：</p>
+<ul>
+<li>元素类型，通常是 <code>React.createElement()</code> 中传递的类型，用于保持节点的身份。</li>
+</ul>
+</li>
+<li><p><strong>type</strong>：</p>
+<ul>
+<li>节点的具体类型，与 elementType 相似，但对于 ClassComponent 等需要再次处理。</li>
+</ul>
+</li>
+<li><p><strong>stateNode</strong>：</p>
+<ul>
+<li>与此 Fiber 节点关联的实际 DOM 节点、组件实例或其他实体。</li>
+</ul>
+</li>
+<li><p><strong>return</strong>：</p>
+<ul>
+<li>指向此节点的父节点。</li>
+</ul>
+</li>
+<li><p><strong>child</strong>：</p>
+<ul>
+<li>指向此节点的第一个子节点。</li>
+</ul>
+</li>
+<li><p><strong>sibling</strong>：</p>
+<ul>
+<li>指向此节点的下一个兄弟节点。</li>
+</ul>
+</li>
+<li><p><strong>index</strong>：</p>
+<ul>
+<li>表示节点在兄弟节点中的位置索引。</li>
+</ul>
+</li>
+<li><p><strong>ref</strong>：</p>
+<ul>
+<li>表示与此节点关联的 ref，可以是函数、字符串或 RefObject 对象。</li>
+</ul>
+</li>
+<li><p><strong>refCleanup</strong>：</p>
+<ul>
+<li>用于清理 ref 的函数。</li>
+</ul>
+</li>
+<li><p><strong>pendingProps</strong>：</p>
+<ul>
+<li>待处理的属性，即将应用于此节点的属性。</li>
+</ul>
+</li>
+<li><p><strong>memoizedProps</strong>：</p>
+<ul>
+<li>表示此节点最近一次渲染时应用的属性。</li>
+</ul>
+</li>
+<li><p><strong>updateQueue</strong>：</p>
+<ul>
+<li>包含了所有待处理的更新操作。</li>
+</ul>
+</li>
+<li><p><strong>memoizedState</strong>：</p>
+<ul>
+<li>上一次渲染时的状态。如果组件使用了 Hooks，那么 memoizedState 就应该是一个链表结构，每个节点表示一个 Hook 的状态值。如果组件是类组件，则 memoizedState 应该是该组件在上一次渲染时的状态对象。</li>
+</ul>
+</li>
+<li><p><strong>dependencies</strong>：</p>
+<ul>
+<li>表示此节点更新所依赖的上下文、Props、State等信息。</li>
+</ul>
+</li>
+<li><p><strong>mode</strong>：</p>
+<ul>
+<li>表示当前渲染模式，如并发模式。</li>
+</ul>
+</li>
+<li><p><strong>flags</strong>：</p>
+<ul>
+<li>描述 Fiber 节点和其子树的一些属性的位标志，用于标记节点需要执行的操作。</li>
+</ul>
+</li>
+<li><p><strong>subtreeFlags</strong>：</p>
+<ul>
+<li>描述 Fiber 子树的属性的位标志，用于标记节点需要执行的操作。</li>
+</ul>
+</li>
+<li><p><strong>deletions</strong>：</p>
+<ul>
+<li>用于存储要删除的 Fiber 节点。</li>
+</ul>
+</li>
+<li><p><strong>lanes</strong>：</p>
+<ul>
+<li>表示此节点的调度优先级。</li>
+</ul>
+</li>
+<li><p><strong>childLanes</strong>：</p>
+<ul>
+<li>表示此节点子树中的调度优先级。</li>
+</ul>
+</li>
+<li><p><strong>alternate</strong>：</p>
+<ul>
+<li>指向上一次渲染时与当前 Fiber 节点对应的 Fiber 节点。</li>
+</ul>
+</li>
+<li><p><strong>actualDuration</strong>：</p>
+<ul>
+<li>当前渲染阶段的实际持续时间，用于性能分析。</li>
+</ul>
+</li>
+<li><p><strong>actualStartTime</strong>：</p>
+<ul>
+<li>当前渲染阶段的开始时间，用于性能分析。</li>
+</ul>
+</li>
+<li><p><strong>selfBaseDuration</strong>：</p>
+<ul>
+<li>最近一次渲染阶段的持续时间，不包括子节点。</li>
+</ul>
+</li>
+<li><p><strong>treeBaseDuration</strong>：</p>
+<ul>
+<li>所有子节点渲染阶段持续时间的总和。</li>
+</ul>
+</li>
+<li><p><strong>_debugInfo</strong>：</p>
+<ul>
+<li>用于调试的附加信息。</li>
+</ul>
+</li>
+<li><p><strong>_debugOwner</strong>：</p>
+<ul>
+<li>指向此节点的拥有者。</li>
+</ul>
+</li>
+<li><p><strong>_debugIsCurrentlyTiming</strong>：</p>
+<ul>
+<li>标志位，指示当前是否正在记录渲染时间。</li>
+</ul>
+</li>
+<li><p><strong>_debugNeedsRemount</strong>：</p>
+<ul>
+<li>标志位，指示是否需要重新挂载组件。</li>
+</ul>
+</li>
+<li><p><strong>_debugHookTypes</strong>：</p>
+<ul>
+<li>用于调试的 hook 类型信息。</li>
+</ul>
+</li>
+</ol>
+<p>这些属性组成了 Fiber 节点的完整表示，用于 React 内部的渲染和更新过程。</p>
+<h3 id="属性详解"><a href="#属性详解" class="headerlink" title="属性详解"></a>属性详解</h3><h4 id="tag"><a href="#tag" class="headerlink" title="tag"></a>tag</h4><p>tag 属性表示 Fiber 节点的类型，其值可以是以下几种之一：</p>
+<ul>
+<li><strong>HostRoot:</strong> 表示根节点。</li>
+<li><strong>FunctionComponent:</strong> 表示函数组件。</li>
+<li><strong>ClassComponent:</strong> 表示类组件。</li>
+<li><strong>HostComponent:</strong> 表示 DOM 元素。</li>
+<li><strong>ContextProvider:</strong> 表示 Context 提供者。</li>
+<li><strong>ContextConsumer:</strong> 表示 Context 消费者。</li>
+<li><strong>SuspenseComponent:</strong> 表示 Suspense 组件。</li>
+<li><strong>DehydratedFragment:</strong> 表示脱水片段。</li>
+</ul>
+<h4 id="memoizedState"><a href="#memoizedState" class="headerlink" title="memoizedState"></a>memoizedState</h4><p>memoizedState 属性表示组件在上一次渲染时的状态，其类型根据组件的具体情况而定。如果组件使用了 Hooks，那么 memoizedState 就应该是一个链表结构，每个节点表示一个 Hook 的状态值。如果组件是类组件，则 memoizedState 应该是该组件在上一次渲染时的状态对象。memoizedState 具体的属性如下所示</p>
+<ul>
+<li><strong>memoizedState:</strong> 组件的记忆状态，即上次渲染时的状态。</li>
+<li><strong>next:</strong> 指向下一个 hook 节点的指针。</li>
+</ul>
+<h4 id="flags"><a href="#flags" class="headerlink" title="flags"></a>flags</h4><p>flags 属性用于标记节点需要执行的操作，其值是一个位掩码，描述 Fiber 节点的不同状态和行为，并在调度和渲染过程中起着重要作用，包含以下几种标记：</p>
+<p>这里有一些重要的标志位和常量的含义：</p>
+<ul>
+<li><strong>NoFlags:</strong> 用于表示没有任何状态或行为。</li>
+<li><strong>Update:</strong> 表示组件需要更新。</li>
+<li><strong>Placement:</strong> 表示组件需要被放置到 DOM 树中。</li>
+<li><strong>ChildDeletion:</strong> 表示组件的子节点被删除。</li>
+<li><strong>Callback:</strong> 表示需要执行回调函数。</li>
+<li><strong>Visibility:</strong> 表示组件的可见性发生变化。</li>
+<li><strong>Ref:</strong> 表示组件的引用发生变化。</li>
+<li><strong>Snapshot:</strong> 表示需要获取组件的快照。</li>
+<li><strong>Passive:</strong> 表示组件处于被动模式。</li>
+<li><strong>StoreConsistency:</strong> 表示需要保持状态的一致性。</li>
+</ul>
+<blockquote>
+<p>以前使用 <code>effectTag</code> 属性来表示副作用。</p>
+</blockquote>
+<h3 id="源码解析"><a href="#源码解析" class="headerlink" title="源码解析"></a>源码解析</h3><p>React Fiber 的源码位于 React 源码库中的 <code>react-reconciler</code> 模块。读者可以在该模块中找到 Fiber 结构的定义以及相关的操作和算法实现。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>本文浅入解析了 React Fiber 结构，介绍了其所有属性及其含义，并对对象类型的属性进行了进一步说明和解释。通过深入理解 Fiber 结构，可以更好地理解 React 内部的工作原理，并能够更加高效地使用 React 进行开发。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/" rel="tag">react</a></li></ul>
+
+        <a data-url="https://hankliu62.github.io/2024/04/24/react-fiber-struct/" data-id="cm5d8kvzc001hpyq48ggc9nuu" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-communication-across-browser-tabs" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <h3 href="/2024/04/20/communication-across-browser-tabs/" class="article-date">
@@ -246,7 +495,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html/" rel="tag">html</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html5/" rel="tag">html5</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/20/communication-across-browser-tabs/" data-id="cly0yww8q0008q5qh5mch7ag9" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/20/communication-across-browser-tabs/" data-id="cm5d8kvyp0008pyq40ownggna" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -616,7 +865,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webrtc/" rel="tag">webrtc</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/16/webrtc/" data-id="cly0ywwac005iq5qh361n9uw3" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/16/webrtc/" data-id="cm5d8kw0b005ipyq44qz46zys" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -750,7 +999,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/optimize/" rel="tag">optimize</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/14/fontend-optimize-indicators/" data-id="cly0yww8s000bq5qh1fp56yz4" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/14/fontend-optimize-indicators/" data-id="cm5d8kvys000dpyq4dfth4ank" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -826,7 +1075,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html5/" rel="tag">html5</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/12/abort-controller/" data-id="cly0yww8f0000q5qhhe07ckj6" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/12/abort-controller/" data-id="cm5d8kvye0000pyq45dsy8let" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -966,7 +1215,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/miniprogram/" rel="tag">miniprogram</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/optimize/" rel="tag">optimize</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/10/optimize-miniprogram/" data-id="cly0yww98001cq5qh4zc5de1s" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/10/optimize-miniprogram/" data-id="cm5d8kvzb001epyq4a0704v5i" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -1053,7 +1302,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/08/github-action-docker/" data-id="cly0yww8u000gq5qhd8ylac0r" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/08/github-action-docker/" data-id="cm5d8kvyu000ipyq4cl0zhhoa" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -1141,7 +1390,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/" rel="tag">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/06/github-action-publish-package/" data-id="cly0yww8v000iq5qh93u04hhu" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/06/github-action-publish-package/" data-id="cm5d8kvyv000jpyq4em5i9v9y" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -1256,7 +1505,7 @@
 <p>首先确保运行的<code>/bin/zsh -c &quot;$(curl -fsSL https://gitee.com/ **cunkai** /HomebrewCN/raw/master/Homebrew.sh)&quot;</code> 中间那个 <strong>cunkai</strong> 不是别的。</p>
 </blockquote>
 <p><strong>1.</strong> 如果遇到安装软件报错 <strong>404</strong> ，切换网络如果还不行：</p>
-<p>查看下官方更新记录<code>https://brew.sh/blog/</code> 如果近期有更新，可以发我邮箱<a href="mailto:&#x63;&#x75;&#110;&#107;&#x61;&#x69;&#x2e;&#119;&#97;&#110;&#x67;&#64;&#102;&#x6f;&#x78;&#109;&#x61;&#x69;&#108;&#46;&#99;&#x6f;&#x6d;">&#x63;&#x75;&#110;&#107;&#x61;&#x69;&#x2e;&#119;&#97;&#110;&#x67;&#64;&#102;&#x6f;&#x78;&#109;&#x61;&#x69;&#108;&#46;&#99;&#x6f;&#x6d;</a>。我看看是否官方修改了某些代码。</p>
+<p>查看下官方更新记录<code>https://brew.sh/blog/</code> 如果近期有更新，可以发我邮箱<a href="mailto:&#99;&#x75;&#x6e;&#x6b;&#x61;&#105;&#46;&#119;&#x61;&#x6e;&#x67;&#x40;&#102;&#x6f;&#x78;&#x6d;&#97;&#105;&#108;&#x2e;&#x63;&#x6f;&#109;">&#99;&#x75;&#x6e;&#x6b;&#x61;&#105;&#46;&#119;&#x61;&#x6e;&#x67;&#x40;&#102;&#x6f;&#x78;&#x6d;&#97;&#105;&#108;&#x2e;&#x63;&#x6f;&#109;</a>。我看看是否官方修改了某些代码。</p>
 <p><strong>2.</strong> 不小心改动了brew文件夹里面的内容，如何重置，运行：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew update-reset</span><br></pre></td></tr></table></figure>
 
@@ -1299,7 +1548,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/homebrew/" rel="tag">homebrew</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/04/homebrew/" data-id="cly0yww8y000sq5qha7wl3sv4" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/04/homebrew/" data-id="cm5d8kvz0000upyq4354j5kls" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -1386,137 +1635,7 @@
         
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li></ul>
 
-        <a data-url="https://hankliu62.github.io/2024/04/01/github-emoji/" data-id="cly0yww8v000jq5qh7ty3dorv" class="article-share-link">Share</a>
-        
-      </div>
-    </footer>
-  </div>
-  </div>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-vitepress-blog-guide" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <h3 href="/2024/03/29/vitepress-blog-guide/" class="article-date">
-  <time datetime="2024-03-29T12:20:26.000Z" itemprop="datePublished">2024-03-29</time>
-</h3>
-    
-  </div>
-  <div class="article-inner">
-  <div class="curve-down">
-  <div class="fill-content fill-content-true">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/03/29/vitepress-blog-guide/">使用VitePress搭建个人博客</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-        <h2 id="使用-VitePress-搭建个人博客"><a href="#使用-VitePress-搭建个人博客" class="headerlink" title="使用 VitePress 搭建个人博客"></a>使用 VitePress 搭建个人博客</h2><p>随着互联网的迅猛发展，内容创作与分享已成为人们日常生活的重要组成部分。博客网站作为内容分享的重要平台，其构建工具的选择对于内容创作者来说至关重要。以前构建 <code>github pages</code> 内容博客站点，我们一般使用 <code>Hexo</code> 框架，但其构建速度相对较慢，博客风格依赖于 <code>hexo-theme</code>，大多数 <code>hexo-theme</code> 的开发都使用 <code>ejs</code> 模板引擎，不熟悉而且使用起来相对麻烦。而随着 <code>VitePress</code> 的出现，其构建速度也得到了优化，而且以 <code>Vite</code> 为基础，构建速度更快，更适合于构建博客站点，支持使用 <code>Vue</code> 进行定制化开发，很方便的创建自定义风格的博客站点。</p>
-<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p><code>VitePress</code> 是由 <code>Vue.js</code> 驱动的静态网站生成器，专为技术文档和博客设计。它结合了 <code>Vite</code> 的快速冷启动和 <code>Vue.js</code> 的组件化开发优势，为用户提供了一个快速、简单且优雅的博客搭建方案。使用 <code>VitePress</code> ，您可以轻松创建、发布和管理博客内容，同时还能够享受到 <code>Vue.js</code> 带来的丰富交互体验。</p>
-<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ol>
-<li><strong>高效构建：</strong> <code>VitePress</code> 利用 <code>Vite</code> 的高速构建特性，实现了快速的页面加载和实时预览功能，大大提高了内容创作的效率。</li>
-<li><strong>Markdown支持：</strong> <code>VitePress</code> 原生支持 <code>Markdown</code> 语法，让您能够轻松编写格式化的文章内容，无需担心排版问题。</li>
-<li><strong>Vue.js集成：</strong> 作为 <code>Vue.js</code> 驱动的生成器， <code>VitePress</code> 允许您在博客中嵌入 <code>Vue</code> 组件，实现丰富的交互效果和动态内容。</li>
-<li><strong>主题定制：</strong> <code>VitePress</code> 提供了丰富的主题选项，您可以根据自己的喜好和需求定制博客的外观风格。</li>
-<li><strong>部署简便：</strong> 生成的静态网站可以方便地部署到各种平台，如 <code>GitHub Pages</code> 、 <code>Netlify</code> 等，无需额外的服务器配置。</li>
-</ol>
-<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><h4 id="安装-Homebrew"><a href="#安装-Homebrew" class="headerlink" title="安装 Homebrew"></a>安装 <code>Homebrew</code></h4><p><code>Homebrew</code> 是一种开源包管理器，主要用于 <code>macOS</code> 和 <code>Linux</code> 系统，可以理解为一个命令行版本的应用商店</p>
-<p><code>Homebrew</code> 是基于Ruby的，所以安装过程也是很简单的，把下面的代码粘贴到 <code>Terminal</code> 中执行</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/ruby -e <span class="string">&quot;<span class="subst">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>查看安装是否成功:</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew --version</span><br></pre></td></tr></table></figure>
-
-<p>如下图所示表示安装成功</p>
-<p><img src="https://user-images.githubusercontent.com/8088864/30236069-ba7e712e-9544-11e7-910a-7ec04c1d5579.png" alt="image"></p>
-<h4 id="通过-nvm-安装指定版本的-Node"><a href="#通过-nvm-安装指定版本的-Node" class="headerlink" title="通过 nvm 安装指定版本的 Node"></a>通过 <code>nvm</code> 安装指定版本的 <code>Node</code></h4><ol>
-<li>安装 <code>nvm</code></li>
-</ol>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install nvm</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>配置 <code>nvm</code></li>
-</ol>
-<p>配置 <code>nvm</code> 在 <code>shell</code> 中可以使用 <code>nvm</code> 命令，修改<code>~/.bash_profile</code>文件，如果不存在，新建<code> .bash_profile</code>文件</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~</span><br><span class="line">vim .bash_profile</span><br></pre></td></tr></table></figure>
-
-<p>在文件中添加如下命令:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export NVM_DIR=~/.nvm</span><br><span class="line">source $(brew --prefix nvm)/nvm.sh</span><br></pre></td></tr></table></figure>
-
-<p>重新 <code>source</code></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> .bash_profile</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>安装 <code>Node</code></li>
-</ol>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nvm ls-remote</span><br><span class="line"><span class="comment"># 安装node 18</span></span><br><span class="line">nvm install 18</span><br></pre></td></tr></table></figure>
-
-<p>其他的 <code>nvm</code> 命令</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">nvm ls-remote 查看 所有的node可用版本</span><br><span class="line"></span><br><span class="line">nvm install xxx 下载你想要的版本</span><br><span class="line"></span><br><span class="line">nvm use xxx 使用指定版本的node</span><br><span class="line"></span><br><span class="line">nvm <span class="built_in">alias</span> default xxx 每次启动终端都使用该版本的node</span><br></pre></td></tr></table></figure>
-
-<h4 id="通过-npm-全局安装-VitePress"><a href="#通过-npm-全局安装-VitePress" class="headerlink" title="通过 npm 全局安装 VitePress"></a>通过 <code>npm</code> 全局安装 <code>VitePress</code></h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g vitepress</span><br></pre></td></tr></table></figure>
-
-<h3 id="使用VitePress制作博客网站"><a href="#使用VitePress制作博客网站" class="headerlink" title="使用VitePress制作博客网站"></a>使用VitePress制作博客网站</h3><h4 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h4><ol>
-<li>初始化个人博客项目</li>
-</ol>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> my-blog</span><br><span class="line"><span class="built_in">cd</span> my-blog</span><br><span class="line">npm init -y</span><br><span class="line">yarn add vitepress --dev</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://github.com/hankliu62/hankliu62.github.com/assets/8088864/dc34ca12-aaf2-443b-a73e-d93f217e8be7" alt="image"></p>
-<ol start="2">
-<li>使用 <code>VitePress</code> 命令初始化配置</li>
-</ol>
-<p>设置配置文件的名称和路径，标题，描述，主题和基本配置相关信息</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vitepress init</span><br><span class="line"></span><br><span class="line">yarn add vue --dev</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://github.com/hankliu62/hankliu62.github.com/assets/8088864/d425e214-8add-4f0f-aae1-2229a47a0430" alt="image"></p>
-<h4 id="编写文章"><a href="#编写文章" class="headerlink" title="编写文章"></a>编写文章</h4><p>在项目的根目录下找到一个名为docs的文件夹，这将作为你的博客内容的根目录。然后，在docs文件夹中修改以下文件：</p>
-<ul>
-<li>index.md：作为博客的主页。</li>
-<li>_sidebar.md：定义侧边栏的导航菜单。</li>
-<li>其他以.md结尾的Markdown文件：作为博客的具体文章。</li>
-</ul>
-<p><img src="https://github.com/hankliu62/hankliu62.github.com/assets/8088864/d3be51ea-7da3-4731-9030-523173399276" alt="image"></p>
-<h4 id="配置VitePress"><a href="#配置VitePress" class="headerlink" title="配置VitePress"></a>配置VitePress</h4><p>在项目的根目录下找到一个名为docs的文件夹，里面存在 <code>.vitepress/config.mts</code> 的文件，用于配置 <code>VitePress</code> 的行为。以下是一个基本的配置示例：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// vitepress.config.js</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="attr">title</span>: <span class="string">&#x27;HankLiu的博客小屋&#x27;</span>, <span class="comment">// 博客的标题</span></span><br><span class="line">  <span class="attr">description</span>: <span class="string">&#x27;努力去听风的声音，不必在意风的方向。&#x27;</span>, <span class="comment">// 博客的描述</span></span><br><span class="line">  <span class="attr">themeConfig</span>: &#123;</span><br><span class="line">    <span class="attr">nav</span>: [ <span class="comment">// 导航栏配置</span></span><br><span class="line">      &#123; <span class="attr">text</span>: <span class="string">&#x27;主页&#x27;</span>, <span class="attr">link</span>: <span class="string">&#x27;/&#x27;</span> &#125;,</span><br><span class="line">      <span class="comment">// 其他导航项...</span></span><br><span class="line">    ],</span><br><span class="line"></span><br><span class="line">    <span class="attr">sidebar</span>: &#123; <span class="comment">// 侧边栏配置</span></span><br><span class="line">      <span class="string">&#x27;/&#x27;</span>: [ <span class="comment">// 主页侧边栏</span></span><br><span class="line">        <span class="string">&#x27;&#x27;</span>, <span class="comment">// 主页链接</span></span><br><span class="line">        <span class="comment">// 其他文章链接...</span></span><br><span class="line">      ],</span><br><span class="line">      <span class="comment">// 其他页面的侧边栏配置...</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="attr">socialLinks</span>: [ <span class="comment">// 社交链接配置</span></span><br><span class="line">      &#123; <span class="attr">icon</span>: <span class="string">&#x27;github&#x27;</span>, <span class="attr">link</span>: <span class="string">&#x27;https://github.com/xxx&#x27;</span> &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 其他配置...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h4 id="启动预览"><a href="#启动预览" class="headerlink" title="启动预览"></a>启动预览</h4><p>运行 <code>VitePress</code> 命令，本地启动博客预览。</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn docs:dev</span><br></pre></td></tr></table></figure>
-
-<p>这将启动一个本地开发服务器，你可以在浏览器中访问 <code>http://localhost:5173/</code> 来查看你的博客网站。</p>
-<h5 id="报错-getaddrinfo-ENOTFOUND-localhost"><a href="#报错-getaddrinfo-ENOTFOUND-localhost" class="headerlink" title="报错 getaddrinfo ENOTFOUND localhost"></a>报错 <code>getaddrinfo ENOTFOUND localhost</code></h5><p><img src="https://github.com/hankliu62/hankliu62.github.com/assets/8088864/c8d10f7c-0cc3-4e30-bea1-ab9e9f5770f0" alt="image"></p>
-<p><code>getaddrinfo ENOTFOUND localhost</code> 错误表明 <code>Node.js</code> 在尝试解析主机名 <code>localhost</code> 对应的 <code>IP</code> 地址时失败了。这通常意味着 <code>localhost</code> 无法被解析，可能是因为 <code>DNS</code> 解析问题或者本地 <code>DNS</code> 缓存出现问题。</p>
-<p>检查 <code>/etc/hosts</code> 文件（在 Unix-like 系统中）或 <code>C:\Windows\System32\drivers\etc\hosts</code>（在 Windows 中），确保 <code>localhost</code> 正确地指向 <code>127.0.0.1</code></p>
-<p>解决方法：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/hosts</span><br><span class="line"><span class="comment"># 添加一行：127.0.0.1 localhost</span></span><br><span class="line">sudo killall -HUP mDNSResponder</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://github.com/hankliu62/hankliu62.github.com/assets/8088864/805bf9c4-2e98-4333-9a2d-2faab5002d33" alt="image"></p>
-<h4 id="生成静态网站"><a href="#生成静态网站" class="headerlink" title="生成静态网站"></a>生成静态网站</h4><p>当你的博客网站开发完成后，可以使用以下命令来构建生产版本的网站：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn docs:build</span><br></pre></td></tr></table></figure>
-
-<p>构建完成后，<code>VitePress</code> 将在 <code>docs/.vitepress/dist</code> 文件夹中生成静态文件。你可以将这些文件部署到你选择的任何Web服务器上，或者将它们上传到诸如 <code>GitHub Pages</code> 之类的服务上。</p>
-<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p><code>VitePress</code> 作为一款专为内容创作者设计的博客构建工具，凭借其高效、便捷的特性，为内容创作者提供了一个理想的博客搭建方案。无论是个人博客还是企业技术文档， <code>VitePress</code> 都能够帮助您快速搭建起一个美观、实用的博客网站，让您的内容更好地传播和分享。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <div class="article-footer-content">
-        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/" rel="tag">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vitepress/" rel="tag">vitepress</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/" rel="tag">vue</a></li></ul>
-
-        <a data-url="https://hankliu62.github.io/2024/03/29/vitepress-blog-guide/" data-id="cly0yww9g0024q5qh7oez5xe0" class="article-share-link">Share</a>
+        <a data-url="https://hankliu62.github.io/2024/04/01/github-emoji/" data-id="cm5d8kvyw000kpyq47og75upx" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -1545,6 +1664,10 @@
       <ul>
         
           <li>
+            <a href="/2024/06/26/custom-promise/">自定义Promise类：实现与使用详解</a>
+          </li>
+        
+          <li>
             <a href="/2024/06/20/node-ffmpeg/">使用 Node.js 和 FFmpeg 构建视频服务器</a>
           </li>
         
@@ -1560,10 +1683,6 @@
             <a href="/2024/06/01/burial-point-sdk/">前端异常监控与埋点收集SDK</a>
           </li>
         
-          <li>
-            <a href="/2024/05/28/service-worker-detail/">Service Worker：提升Web应用性能和体验的利器</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -1573,7 +1692,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/" rel="tag">blog</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/canvas/" rel="tag">canvas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/csrf/" rel="tag">csrf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debugging/" rel="tag">debugging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-pages/" rel="tag">github pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/homebrew/" rel="tag">homebrew</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/" rel="tag">html</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/" rel="tag">html5</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interview/" rel="tag">interview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/loader/" rel="tag">loader</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/miniprogram/" rel="tag">miniprogram</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/" rel="tag">mobile</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nestjs/" rel="tag">nestjs</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nextjs/" rel="tag">nextjs</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nuxtjs/" rel="tag">nuxtjs</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/optimize/" rel="tag">optimize</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reptile/" rel="tag">reptile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rspack/" rel="tag">rspack</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/" rel="tag">security</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/service-worker/" rel="tag">service worker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag/" rel="tag">tag</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/translate/" rel="tag">translate</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/" rel="tag">typescript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vitepress/" rel="tag">vitepress</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webrtc/" rel="tag">webrtc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webworker/" rel="tag">webworker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/weinre/" rel="tag">weinre</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xss/" rel="tag">xss</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yuv/" rel="tag">yuv</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/" rel="tag">blog</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/canvas/" rel="tag">canvas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/csrf/" rel="tag">csrf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debugging/" rel="tag">debugging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-pages/" rel="tag">github pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/homebrew/" rel="tag">homebrew</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/" rel="tag">html</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/" rel="tag">html5</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interview/" rel="tag">interview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/loader/" rel="tag">loader</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/miniprogram/" rel="tag">miniprogram</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/" rel="tag">mobile</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nestjs/" rel="tag">nestjs</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nextjs/" rel="tag">nextjs</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nuxtjs/" rel="tag">nuxtjs</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/optimize/" rel="tag">optimize</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/promise/" rel="tag">promise</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reptile/" rel="tag">reptile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rspack/" rel="tag">rspack</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/" rel="tag">security</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/service-worker/" rel="tag">service worker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag/" rel="tag">tag</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/translate/" rel="tag">translate</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/" rel="tag">typescript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vitepress/" rel="tag">vitepress</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webrtc/" rel="tag">webrtc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webworker/" rel="tag">webworker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/weinre/" rel="tag">weinre</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xss/" rel="tag">xss</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yuv/" rel="tag">yuv</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -1582,7 +1701,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">六月 2024</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">五月 2024</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">七月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">六月 2024</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">五月 2024</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">七月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li></ul>
     </div>
   </div>
 
@@ -1594,7 +1713,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2024 HankLiu, Inc. All rights reserved.<br>
+      &copy; 2025 HankLiu, Inc. All rights reserved.<br>
     </div>
   </div>
 </footer>
