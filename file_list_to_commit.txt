@@ -1,2 +1,2 @@
-source/_posts/node-ffmpeg.md
+source/_posts/custom-promise.md
 themes/hexo-theme-paperbox
